@@ -10,7 +10,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         div{
-             /* border: 1px solid red; */
+             border: 1px solid red;
             box-sizing: border-box;
         }
         button{
@@ -98,10 +98,11 @@
             margin: 10px;
         }
         #logininfo{
-            width: 20%;
+            width: 15%;
             height: 60%;
             text-align: center;
             line-height: 3;
+            cursor: pointer;
         }
         #logininfo>p{
             float: left;
@@ -129,11 +130,11 @@
                 </button>
             </div>
             <div id="login-event">
-                <div id="logininfo">
+                <div id="logininfo" onclick="location.href='<%=contextPath%>/login_me'">
                     <button id="userimgbtn"></button>
                     <p>로그인해주세요</p>
                 </div>
-                <button id="login"><a href="#">로그인</a></button>
+                <button id="login"><a href="<%=contextPath%>/login_me">로그인</a></button>
                 <button id="event"><a href="#">이벤트</a></button>
                 
                 

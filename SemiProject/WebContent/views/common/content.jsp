@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%String con = request.getContextPath(); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -70,7 +71,7 @@
             </div>
             <div id="content2">
                 <div id="content_search">
-                    <button>매장찾기</button>
+                    <button onclick="location.href='<%=con%>/search.st'">매장찾기</button>
                 </div>
                 <div id="content_help">
                     <div id="help1">
