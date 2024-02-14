@@ -1,4 +1,4 @@
-package com.kh.semi.store_search.controller;
+package com.kh.semi.store.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -26,7 +26,7 @@ public class StoreSearch extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/store_search/storeSearch.jsp").forward(request, response);
+		request.getRequestDispatcher("views/store/storeSearch.jsp").forward(request, response);
 	}
 
 	/**
