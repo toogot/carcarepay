@@ -55,7 +55,7 @@
 	}
 	#list1,#list2,#list3{
 		width: 100%;
-		height: 30%;
+		height: 28%;
 	}
 	#list_btn{
 		width: 100%;
@@ -76,8 +76,9 @@
 		line-height: 50px;
 	}
 	#list_btn>button{
-		width: 50px;
-		height: 60px;
+		width: 60px;
+		height: 30px;
+		margin: 0px 100px;
 	}
 </style>
 </head>

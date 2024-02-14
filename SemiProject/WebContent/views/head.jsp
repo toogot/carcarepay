@@ -133,7 +133,7 @@
                     <button id="userimgbtn"></button>
                     <p>로그인해주세요</p>
                 </div>
-                <button id="login"><a href="/SemiProject/test.do">로그인</a></button>
+                <button id="login"><a href="#">로그인</a></button>
                 <button id="event"><a href="#">이벤트</a></button>
                 
                 
