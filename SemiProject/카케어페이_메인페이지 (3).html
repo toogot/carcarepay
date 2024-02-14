@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카케어페이</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <style>
+        div{
+            /* border: 1px solid red; */
+            box-sizing: border-box;
+        }
+        button{
+            cursor: pointer;
+        }
+        #wrap{
+            width: 100%;
+            height: 2000px;
+            
+        }
+        /* 헤더부분 시작 */
+        #header{
+            width: 75%;
+            height: 10%;
+            margin: auto;
+            border-bottom: 1px solid lightgrey;
+            
+        }
+        #logo{
+            width: 30%;
+            height: 100%;
+            float: left;
+        }
+        #logo_btn{
+            background-image: url("https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F803ba282-c694-4f93-afbb-a3f62f6ff4a6%2Fb7c2f076-613d-4811-ad72-b493eb25db03%2F%25EC%25B9%25B4%25EC%25BC%2580%25EC%2596%25B4%25ED%258E%2598%25EC%259D%25B4%25EB%25A1%259C%25EA%25B3%25A0.png?table=block&id=9382d4c5-4d51-444b-8d28-9e0a49738b02&spaceId=803ba282-c694-4f93-afbb-a3f62f6ff4a6&width=250&userId=2d8d1a67-148e-42e4-9e04-5f896925bb47&cache=v2");
+            background-color: white;
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 50%;
+            border: 0;
+            width: 100%;
+            height: 100%;
+        }
+        #login-event{
+            width: 70%;
+            height: 50%;
+            float: left;
+            
+        }
+        #userimgbtn{
+            border: 0;
+            background-image: url("https://cdn-icons-png.flaticon.com/128/17/17004.png");
+            width: 50px;
+            height: 100%;
+            background-size: 50px;
+            background-repeat: no-repeat;
+            display: block;
+            float: left;
+        }
+        #navigator{
+            width: 70%;
+            height: 50%;
+            float: left;
+        }
+        #logoimg{
+            width: 100%;
+            height: 100%;
+            display: block;
+            margin: auto;
+            padding: 30px;
+        }
+        #navigator>button{
+            border: 0;
+            background-color: white;
+            margin: 25px 70px;
+            line-height: 50px;
+            
+        }
+        #navigator>button>a{
+            font-size: 20px;
+            font-weight: 800;
+            text-decoration: none;
+            color: black;
+        }
+        #login-event>button{
+            border: 0px;
+            background-color: white;
+            line-height: 60px;
+        }
+        #login-event>button>a{
+            font-size: 20px;
+            text-decoration: none;
+            color: gray;
+            line-height: 3.5;
+        }
+        #login-event>*{
+            display: block;
+            float: right;
+            margin: 10px;
+        }
+        #logininfo{
+            width: 20%;
+            height: 60%;
+            text-align: center;
+            line-height: 3;
+        }
+        #logininfo>p{
+            float: left;
+            line-height: 30px;
+        }
+
+        /* 헤더부분 끝 */
+
+        /* 이미지 배너 시작 */
+
+        #imgbanner{
+            width: 100%;
+            height: 27%;
+            position: relative;
+            
+        }
+        #imgarea{
+            width: 100%;
+            height: 100%;
+        }
+        #imgarea>img{
+            width: 100%;
+            height: 100%;;
+            display: none;
+            
+        }
+        #img_before,#img_after{
+            width: 100px;
+            height: 100px;
+            background-color: transparent;
+            border: 0px;
+            position: absolute;
+            margin-top: 200px;
+            font-size: 50px;
+            font-weight: 900;
+            color: transparent;
+
+        }
+        #img_before{
+            left: 0;
+            
+        }
+        #img_after{
+            right: 0;
+            
+        }
+
+        /* 이미지배너 끝 */
+
+        /* 날씨 API 시작 */
+        #weather{
+            width: 60%;
+            height: 10%;
+            margin: auto;
+            border: 1px solid red;
+        }
+
+        /* 날씨 API 끝 */
+
+        /* 컨텐츠 부분 시작 */
+
+        #content_wrap{
+            width: 50%;
+            height: 53%;
+            margin: auto;
+            border: 1px solid lightgrey;
+        }
+        #content_wrap>*{
+            width: 100%;
+            height: 50%;
+        }
+        #content1>* ,#content2>*{
+            width: 50%;
+            height: 100%;
+            float: left;
+        }
+        #content_help>*{
+            width: 100%;
+            height: 50%;
+        }
+        #content_wrap button{
+            width: 70%;
+            height: 70%;
+            margin: 50px 70px;
+            border-radius: 10px;
+            border: 0px;
+            font-size: 25px;
+            font-weight: 800;
+            color: white;
+        }
+        #content_charge>button{
+            background-color: #87CEFA;
+        }
+        #content_mypage>button{
+            background-color: #6495ED;
+        }
+        #content_search>button{
+            background-color: #1E90FF;
+        }
+        #help1>button{
+            background-color: #0000CD;
+        }  
+        #help2>button{
+            background-color: #0000CD;
+        }
+        #content_help button{
+            margin: 25px 70px;
+        }
+
+        /* 컨텐츠 부분 끝 */
+
+        /* 푸터 시작 */
+        #footer{
+            width: 100%;
+            height: 17%;
+            background-color: gainsboro;
+            margin: auto;
+        }
+        #footer_wrap{
+            width: 70%;
+            height: 100%;
+            margin: auto;
+        }
+        #footer_logo{
+            width: 20%;
+            height: 100%;
+            float: left;
+        }
+        #footer_title{
+            width: 60%;
+            height: 100%;
+            float: left;
+        }
+        #footer_award{
+            width: 20%;
+            height: 100%;
+            float: left;
+        }
+        #footer1{
+            width: 100%;
+            height: 30%;
+        }
+        #footer2{
+            width: 100%;
+            height: 70%;
+
+        }
+        #footer li{
+            display: block;
+            float: left;
+            text-decoration: none;
+            margin: 30px 30px;
+        }
+        #footer1 a{
+            text-decoration: none;
+            color: rgb(49, 46, 46);
+        }
+        #footer_title>p{
+            margin: 30px 15px;
+            font-size: 13px;
+        }
+        #footer_award>*{
+            width: 50%;
+            float: left;
+            margin-top: 50px;
+        }
+        #footer_award p{
+            font-size: 15px;
+            color: rgb(17, 14, 14);
+        }
+        /* 푸터 끝 */
+
+        
+        
+        
+    </style>
+</head>
+<body style="margin: 0px;">
+
+    <div id="wrap">
+
+        <!-- 헤더부분 -->
+        <div id="header">
+            <div id="logo">
+                <button type="button" id="logo_btn">
+                    <!-- <img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F803ba282-c694-4f93-afbb-a3f62f6ff4a6%2Fb7c2f076-613d-4811-ad72-b493eb25db03%2F%25EC%25B9%25B4%25EC%25BC%2580%25EC%2596%25B4%25ED%258E%2598%25EC%259D%25B4%25EB%25A1%259C%25EA%25B3%25A0.png?table=block&id=9382d4c5-4d51-444b-8d28-9e0a49738b02&spaceId=803ba282-c694-4f93-afbb-a3f62f6ff4a6&width=250&userId=2d8d1a67-148e-42e4-9e04-5f896925bb47&cache=v2" id="logoimg"> -->
+                </button>
+            </div>
+            <div id="login-event">
+                <div id="logininfo">
+                    <button id="userimgbtn"></button>
+                    <p>로그인해주세요</p>
+                </div>
+                <button id="login"><a href="#">로그인</a></button>
+                <button id="event"><a href="#">이벤트</a></button>
+                
+                
+            </div>
+            <div id="navigator">
+                <button id="charge"><a href="#">충전하기</a></button>
+                <button id="search"><a href="#">매장찾기</a></button>
+                <button id="request"><a href="#">입접신청</a></button>
+                <button id="service"><a href="#">고객센터</a></button>
+            </div>
+        </div>
+        <!-- 헤더부분 끝 -->
+
+        <!-- 컨텐츠부분 -->
+            <!--이미지 배너쪽  -->
+        <div id="imgbanner">
+            <button id="img_before"><</button>
+            <button id="img_after">></button>
+            <div id="imgarea">
+                <img id="1" src="https://media.istockphoto.com/id/1476161689/ko/%EC%82%AC%EC%A7%84/%EB%8F%84%EC%8B%9C%EC%9D%98-%EA%B8%B8%EA%B0%80%EC%97%90-%ED%8F%AC%EC%8A%A4%ED%84%B0%EB%A5%BC-%EA%B1%B8%EA%B3%A0-%EA%B0%80%EB%A1%9C%EB%93%B1-%EA%B8%B0%EB%91%A5%EC%97%90-%EB%AC%B4%EC%84%B1%ED%95%9C-%EB%85%B9%EC%83%89-%EB%82%98%EB%AC%B4%EC%99%80-%EC%8B%9D%EB%AC%BC%EC%97%90-%EB%8C%80%ED%95%9C-%EB%B9%88-%EC%88%98%EC%A7%81-%EA%B4%91%EA%B3%A0-%EB%B0%B0%EB%84%88-ooh%EC%9D%98-%EA%B2%BD%EC%9A%B0-%EC%A7%91-%ED%85%9C%ED%94%8C%EB%A6%BF-%EB%AA%A8%ED%98%95.jpg?s=2048x2048&w=is&k=20&c=hJywO1MXtDuis1jSY_91mP55SikFbn6akEGS_pzRcl4=">
+                <img id="2" src="https://cdn.pixabay.com/photo/2015/12/05/08/25/fantasy-1077863_640.jpg">
+                <img id="3" src="https://cdn.pixabay.com/photo/2016/10/20/18/35/earth-1756274_640.jpg"> 
+                <img id="4" src="https://cdn.pixabay.com/photo/2018/05/18/16/41/globe-3411506_640.jpg">
+                <img id="5" src="https://cdn.pixabay.com/photo/2017/07/02/00/43/bundestag-2463236_640.jpg">
+            </div>  
+        </div>
+
+            <!-- 날씨 API 입력부분 -->
+        <div id="weather">
+            <h1 style="text-align: center; line-height: 150px;">날씨 API</h1>
+        </div>
+
+            <!-- 선택 버튼 쪽 -->
+        <div id="content_wrap">
+            <div id="content1">
+                <div id="content_charge">
+                    <button>충전하기</button>
+                </div>
+                <div id="content_mypage">
+                    <button>마이페이지</button>
+                </div>
+            </div>
+            <div id="content2">
+                <div id="content_search">
+                    <button>매장찾기</button>
+                </div>
+                <div id="content_help">
+                    <div id="help1">
+                        <button>이용방법</button>
+                    </div>
+                    <div id="help2">
+                        <button>충전방법</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- 컨텐츠부분 끝 -->
+
+        <!-- 푸터부분 -->
+        <div id="footer">
+            <div id="footer_wrap">
+                <div id="footer1">
+                    <ul>
+                        <li><a href="#">이용약관</a></li>
+                        <li>|</li>
+                        <li><a href="#">개인정보처리약관</a></li>
+                        <li>|</li>
+                        <li><a href="#">고객센터정보</a></li>
+                    </ul>
+                </div>
+                <div id="footer2">
+                    <div id="footer_logo">
+                        <img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F803ba282-c694-4f93-afbb-a3f62f6ff4a6%2Fb7c2f076-613d-4811-ad72-b493eb25db03%2F%25EC%25B9%25B4%25EC%25BC%2580%25EC%2596%25B4%25ED%258E%2598%25EC%259D%25B4%25EB%25A1%259C%25EA%25B3%25A0.png?table=block&id=9382d4c5-4d51-444b-8d28-9e0a49738b02&spaceId=803ba282-c694-4f93-afbb-a3f62f6ff4a6&width=250&userId=2d8d1a67-148e-42e4-9e04-5f896925bb47&cache=v2">
+                    </div>
+                    <div id="footer_title">
+                        <p>
+                            (주)카케어페이
+                        </p>
+                        <p>
+                            본사: 서울특별시 강남구 테헨란로 14길 6
+                        </p>
+                        <p>
+                            사업자번호 01027-843845
+                        </p>
+                        <p>
+                            고객센터 :1599-7988
+                        </p>
+                    </div>
+                    <div id="footer_award">
+                        <div>
+                            <img src="https://kh-academy.co.kr/resources/images/main/footer_emblem_d.png">
+                            <p>5년 인증 우수</p>
+                        </div>
+                        <div>
+                            <img src="https://kh-academy.co.kr/resources/images/main/main_renewal/main_bottom_emblem01.png">
+                            <p>A등급 획득</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <!-- 푸터부분 끝 -->
+
+
+    <script>
+        $(function(){
+            // 헤더부분
+            $("#navigator").children().children().hover(function(){
+                $(this).css("color","#87CEFA");
+                
+            },function(){
+                $(this).css("color","");
+            })
+            $("#login").children().hover(function(){
+                $(this).css("fontWeight","1000")
+            },function(){
+                $(this).css("fontWeight","")
+            })
+            $("#event").children().hover(function(){
+                $(this).css("fontWeight","1000")
+            },function(){
+                $(this).css("fontWeight","")
+            })
+            //헤더 끝
+
+            // 이미지배너
+
+            $("#imgbanner").children().hover(function(){
+                $(this).css("color","white")
+            },function(){
+                $(this).css("color","")
+            })
+            $("#1").show();
+            let imgarr = $("#imgarea>img");
+            // console.log(imgarr);
+            for(let i=0;i<imgarr.length;i++){
+                console.log(imgarr[i].src);
+            }
+            // transform: translate();
+            $("#img_after").click(function(){
+                
+                if($("#1").css("display")=="inline"){
+                    $("#1").css("display","none")
+                    $("#2").show();
+                }else if($("#2").css("display")=="inline"){
+                    $("#2").css("display","none")
+                    $("#3").show();
+                }else if($("#3").css("display")=="inline"){
+                    $("#3").css("display","none")
+                    $("#4").show();
+                }else if($("#4").css("display")=="inline"){
+                    $("#4").css("display","none")
+                    $("#5").show();
+                }else if($("#5").css("display")=="inline"){
+                    $("#5").css("display","none")
+                    $("#1").show();
+                }         
+             })
+             $("#img_before").click(function(){
+                if($("#1").css("display")=="inline"){
+                    $("#1").css("display","none")
+                    $("#5").show();
+                }else if($("#5").css("display")=="inline"){
+                    $("#5").css("display","none")
+                    $("#4").show();
+                }else if($("#4").css("display")=="inline"){
+                    $("#4").css("display","none")
+                    $("#3").show();
+                }else if($("#3").css("display")=="inline"){
+                    $("#3").css("display","none")
+                    $("#2").show();
+                }else if($("#2").css("display")=="inline"){
+                    $("#2").css("display","none")
+                    $("#1").show();
+                }   
+                      
+             })
+            
+           
+            
+            // 이미지배너 끝
+
+            // 컨텐츠부분
+            $("#content_charge").children().hover(function(){
+                $(this).css("backgroundColor","#00BFFF");
+            },function(){
+                $(this).css("backgroundColor","");
+            })
+            $("#content_mypage").children().hover(function(){
+                $(this).css("backgroundColor","#4169E1")
+            },function(){
+                $(this).css("backgroundColor","")
+            })
+            $("#content_search").children().hover(function(){
+                $(this).css("backgroundColor","#4169E1")
+            },function(){
+                $(this).css("backgroundColor","")
+            })
+            $("#content_help").children().children().hover(function(){
+                $(this).css("backgroundColor","#4169E1")
+            },function(){
+                $(this).css("backgroundColor","")
+            })
+            // 컨텐츠부분 끝
+
+            // 푸터부분
+            $("#footer1").find("a").hover(function(){
+                $(this).css("fontWeight","900");
+            },function(){
+                $(this).css("fontWeight","");
+            })
+            // 푸터 끝
+        })
+    </script>
+</body>
+</html>
