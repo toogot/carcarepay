@@ -1,4 +1,4 @@
-package com.kh.semi.store_search.controller;
+package com.kh.semi.store.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
