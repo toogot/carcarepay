@@ -15,7 +15,8 @@ public class JDBCTemplate {
 		Connection conn = null;
 		Properties prop = new Properties();
 		
-		String filePath = JDBCTemplate.class.getResource("db/driver/driver.properties").getPath();
+		String filePath = JDBCTemplate.class.getResource("/db/driver/driver.properties").getPath();
+		
 		
 		try {
 			prop.load(new FileInputStream(filePath));
@@ -25,9 +26,13 @@ public class JDBCTemplate {
 		}
 		
 		try {
+			Class.forName(prop.getProperty("driver"));
 			conn = DriverManager.getConnection(prop.getProperty("url"),prop.getProperty("username"),prop.getProperty("password"));
 			conn.setAutoCommit(false);
 		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
