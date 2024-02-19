@@ -130,11 +130,11 @@
                 </button>
             </div>
             <div id="login-event">
-                <div id="logininfo" onclick="location.href='<%=contextPath%>/login_me'">
-                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/login_me'"></button>
+                <div id="logininfo" onclick="location.href='<%=contextPath%>/login.me'">
+                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/login.me'"></button>
                     <p>로그인해주세요</p>
                 </div>
-                <button id="login"><a href="<%=contextPath%>/login_me">로그인</a></button>
+                <button id="login"><a href="<%=contextPath%>/login.me">로그인</a></button>
                 <button id="event"><a href="#">이벤트</a></button>
                 
                 
