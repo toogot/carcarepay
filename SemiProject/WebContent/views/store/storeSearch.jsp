@@ -5,6 +5,12 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+	<script src="../../docs/js/jquery-1.9.1.js"></script>
+    <script type="text/javascript" src="../../docs/js/examples-base.js"></script>
+    <script type="text/javascript" src="../../docs/js/highlight.min.js"></script>
+    <!-- ncpClientId는 등록 환경에 따라 일반(ncpClientId), 공공(govClientId), 금융(finClientId)으로 나뉩니다. 사용하는 환경에 따라 키 이름을 변경하여 사용하세요. 참고: clientId(네이버 개발자 센터)는 지원 종료 -->
+    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk"></script>
+    <link rel="stylesheet" type="text/css" href="../../docs/css/examples-base.css" />
 <style>
 	div{
 		/* border: 1px solid red; */
@@ -80,6 +86,13 @@
 		height: 30px;
 		margin: 0px 100px;
 	}
+	#map{
+		width: 90%;
+		height: 90%;
+		margin: auto;
+		margin-top: 40px;
+		border: 5px solid #87CEFA;
+	}
 </style>
 </head>
 <body>
@@ -94,7 +107,8 @@
 		</div>
 		<div id="map_list_wrap">
 			<div id="search_map">
-				
+				<div id="map"></div>
+   				<code id="snippet" class="snippet"></code>
 			</div>
 			<div id="store_list">
 				<div id="list1">
@@ -126,6 +140,12 @@
 		</div>
 		
 	</div>
+	<script id="code">
+		var map = new naver.maps.Map('map', {
+			center: new naver.maps.LatLng(37.3595704, 127.105399),
+			zoom: 15
+		});
+	</script>
 	
 	<%@ include file="/views/common/footer.jsp" %>
 </body>

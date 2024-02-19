@@ -12,13 +12,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class StoreSearch
  */
 @WebServlet("/search.st")
-public class StoreSearch extends HttpServlet {
+public class StoreSearchController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StoreSearch() {
+    public StoreSearchController() {
         super();
         // TODO Auto-generated constructor stub
     }
