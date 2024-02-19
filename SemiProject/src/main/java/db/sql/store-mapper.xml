@@ -1,9 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
- <entry key="selectTest">
- 	SELECT
- 		   STORE_NO
+ <entry key="selectListCount">
+ 	SELECT 
+ 		   COUNT(*) AS "COUNT"
  	  FROM STORE	  
+ </entry>
+ 
+ <entry key="selectStoreList">
+ 	SELECT *
+	  FROM (SELECT 
+	               ROWNUM, S.*
+	          FROM (SELECT
+					       STORE_NO
+					     , STORE_NAME
+					     , STORE_ADDRESS
+					     , STORE_PHONE
+			          FROM STORE
+			         WHERE STORE_STATUS = 'N'
+			         ORDER 
+			            BY STORE_NAME) S)
+	  WHERE ROWNUM BETWEEN ? AND ?
  </entry>
 </properties>

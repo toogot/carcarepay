@@ -1,5 +1,13 @@
+<%@page import="com.kh.semi.store.search.model.vo.Store"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.semi.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Store> list = (ArrayList<Store>)request.getAttribute("list");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -22,7 +30,11 @@
 	}
 	#searchBar{	
 		width: 100%;
-		height: 30%;
+		height: 30%;	
+	}
+	#searchBar input{
+		font-size: 20px;
+		
 	}
 	#map_list_wrap{
 		width: 100%;
@@ -59,13 +71,16 @@
 	#search_map>*{
 		margin: 50px 150px;
 	}
-	#list1,#list2,#list3{
+	#store_list>div{
 		width: 100%;
 		height: 28%;
 	}
 	#list_btn{
 		width: 100%;
 		height: 10%;
+	}
+	#list_btn>button{
+		display: inline block;
 	}
 	#store_list ul{
 		width: 100%;
@@ -101,7 +116,7 @@
 	<div class="search_wrap">
 		<div id="searchBar">
 			<form action="#" align="center">
-				<input type="text" name="search_keyword">
+				<input type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
 				<button type="submit">검색</button>
 			</form>
 		</div>
@@ -111,32 +126,33 @@
    				<code id="snippet" class="snippet"></code>
 			</div>
 			<div id="store_list">
-				<div id="list1">
-					<ul>
-						<li>가게이름</li>
-						<li>가게주소</li>
-						<li>가게전화번호</li>
-					</ul>
-				</div>
-				<div id="list2">
-					<ul>
-						<li>가게이름</li>
-						<li>가게주소</li>
-						<li>가게전화번호</li>
-					</ul>
-				</div>
-				<div id="list3">
-					<ul>
-						<li>가게이름</li>
-						<li>가게주소</li>
-						<li>가게전화번호</li>
-					</ul>
-				</div>
+				<%if(list==null){ %>
+					<div>
+						<p>가게정보가 없습니다.</p>
+					</div>
+				<%}else{ %>
+					<%for(Store s : list){ %>
+					<div>
+						<ul>
+							<li>상호명 : <%=s.getStoreName() %></li>
+							<li>가게 주소 : <%=s.getStoreAddress() %></li>
+							<li>전화번호 : <%=s.getStorePhone() %></li>
+						</ul>
+					</div>
+					<%} %>
+				<%} %>		
 				<div id="list_btn">
-					<button type="button">이전</button>
-					<button type="button">다음</button>
-				</div>
+				<button type="button" id >이전</button>
+				<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
+					<button type="button"><%=i %></button>
+				<%} %>
+				<button type="button">다음</button>
+			</div>		
 			</div>
+			
+			
+				
+			
 		</div>
 		
 	</div>
