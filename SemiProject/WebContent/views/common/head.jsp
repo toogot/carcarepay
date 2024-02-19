@@ -131,7 +131,7 @@
             </div>
             <div id="login-event">
                 <div id="logininfo" onclick="location.href='<%=contextPath%>/login_me'">
-                    <button id="userimgbtn"></button>
+                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/login_me'"></button>
                     <p>로그인해주세요</p>
                 </div>
                 <button id="login"><a href="<%=contextPath%>/login_me">로그인</a></button>

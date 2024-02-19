@@ -5,11 +5,55 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+    div{
+        border: 1px solid red;
+    }
+    .login-wrap{
+        width: 1800px;
+        height: 1000px;
+        margin: auto;
+    }
+    .login-wrap>form{
+        width: 1000px;
+        height: 700px;
+        margin: auto;
+        margin-top: 150px;
+        border: 1px solid red;
+    }
+</style>
 </head>
 <body>
 <%@include file="../common/head.jsp" %>
 
-<div style="height: 8000px;"></div>
+<div class="login-wrap">
+    <form action="#">
+        <div>
+            <table>
+                <tr>
+                    <th>
+                        아이디
+                    </th>
+                    <td>
+                        <input type="text" required>
+                    </td>
+                    <td rowspan="2">
+                        <button type="submit">로그인</button>
+                    </td>
+                </tr>
+                <tr>
+                    <th>비밀번호</th>
+                    <td><input type="password" required></td>
+                </tr>
+            </table>
+            <div>
+                <button>회원가입</button>
+                <button>ID찾기</button>
+                <button>PWD찾기</button>
+            </div>
+        </div>
+    </form>
+</div>
 
 
 <%@include file="../common/footer.jsp" %>
