@@ -1,5 +1,15 @@
+<%@page import="com.kh.semi.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%
+
+   
+   Member loginUser = (Member)session.getAttribute("loginUser");
+ 
+   
+   String alertMsg = (String)session.getAttribute("alertMsg");
+
+%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,10 +34,17 @@
 </style>
 </head>
 <body>
-<%@include file="../common/head.jsp" %>
-
+	<%@include file="../common/head.jsp" %>
+	 <% if(alertMsg != null){ %>
+      <script>
+         alert("<%= alertMsg %>");
+      </script>
+      <% session.removeAttribute("alertMsg"); %>
+   <%} %>
+	
 <div class="login-wrap">
-    <form action="#">
+<% if(loginUser == null){ %>
+    <form action="<%= contextPath %>/login.me" method="post">
         <div>
             <table>
                 <tr>
@@ -35,7 +52,7 @@
                         아이디
                     </th>
                     <td>
-                        <input type="text" required>
+                        <input type="text" name="userId" required>
                     </td>
                     <td rowspan="2">
                         <button type="submit">로그인</button>
@@ -43,7 +60,7 @@
                 </tr>
                 <tr>
                     <th>비밀번호</th>
-                    <td><input type="password" required></td>
+                    <td><input type="password" name="userPwd" required></td>
                 </tr>
             </table>
             <div>
@@ -53,6 +70,7 @@
             </div>
         </div>
     </form>
+    <% }%>
 </div>
 
 
