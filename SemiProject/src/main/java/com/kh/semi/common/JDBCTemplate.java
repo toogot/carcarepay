@@ -11,7 +11,7 @@ import java.util.Properties;
 
 public class JDBCTemplate {
 	
-	private static Connection getConnection() {
+	public static Connection getConnection() {
 		Connection conn = null;
 		Properties prop = new Properties();
 		
