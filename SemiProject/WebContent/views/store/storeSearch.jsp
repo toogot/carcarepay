@@ -71,17 +71,14 @@
 	#search_map>*{
 		margin: 50px 150px;
 	}
-	#store_list>div{
+	.list_wrap{
 		width: 100%;
-		height: 28%;
+		height: 30%;
+		border: 1px solid #87CEFA;
+		box-sizing: border-box;
+		position: relative;
 	}
-	#list_btn{
-		width: 100%;
-		height: 10%;
-	}
-	#list_btn>button{
-		display: inline block;
-	}
+	
 	#store_list ul{
 		width: 100%;
 		height: 100%;
@@ -96,10 +93,28 @@
 		box-sizing: border-box;
 		line-height: 50px;
 	}
+	#list_btn{
+		width: 100%;
+		height: 10%;
+		
+		border: 1px solid red;
+	}
 	#list_btn>button{
 		width: 60px;
-		height: 30px;
-		margin: 0px 100px;
+		height: 50px;
+		margin: 5px 20px;
+		display: block;
+		float: left;
+		background-color: #87CEFA;
+		color: white;
+		font-weight: 800;
+		border: 0px;
+		border-radius: 20px;
+		font-size: 20px;
+		box-sizing: border-box;
+	}
+	#list_btn>button:hover{
+		background-color: #4aa9e4;
 	}
 	#map{
 		width: 90%;
@@ -127,12 +142,12 @@
 			</div>
 			<div id="store_list">
 				<%if(list==null){ %>
-					<div>
+					<div class="list_wrap">
 						<p>가게정보가 없습니다.</p>
 					</div>
 				<%}else{ %>
 					<%for(Store s : list){ %>
-					<div>
+					<div class="list_wrap">
 						<ul>
 							<li>상호명 : <%=s.getStoreName() %></li>
 							<li>가게 주소 : <%=s.getStoreAddress() %></li>
@@ -142,14 +157,15 @@
 					<%} %>
 				<%} %>		
 				<div id="list_btn">
-				<button type="button" id >이전</button>
-				<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
-					<button type="button"><%=i %></button>
-				<%} %>
-				<button type="button">다음</button>
-			</div>		
-			</div>
+					<button type="button" id >이전</button>
+					<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
+						
+						<button type="button" onclick="location.href='search.st?page=<%=i%>'"><%=i %></button>
+					<%} %>
+					<button type="button">다음</button>
+				</div>		
 			
+			</div>
 			
 				
 			
