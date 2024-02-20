@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인화면2</title>
 <style>
  /* 컨텐츠 부분 시작 */
 
