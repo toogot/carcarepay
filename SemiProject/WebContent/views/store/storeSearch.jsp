@@ -73,25 +73,18 @@
 	}
 	.list_wrap{
 		width: 100%;
-		height: 30%;
+		height: 90%;
 		border: 1px solid #87CEFA;
+		display: block;
 		box-sizing: border-box;
 		position: relative;
 	}
-	
-	#store_list ul{
-		width: 100%;
-		height: 100%;
-		display: block;
-		box-sizing: border-box;
-	}
-	#store_list li{
+	.list_wrap tr{
 		width: 100%;
 		height: 30%;
-		list-style-type: none;
+		margin-top: 30px;
 		display: block;
-		box-sizing: border-box;
-		line-height: 50px;
+		border: 1px solid #87CEFA;
 	}
 	#list_btn{
 		width: 100%;
@@ -141,21 +134,30 @@
    				<code id="snippet" class="snippet"></code>
 			</div>
 			<div id="store_list">
-				<%if(list==null){ %>
-					<div class="list_wrap">
-						<p>가게정보가 없습니다.</p>
-					</div>
-				<%}else{ %>
-					<%for(Store s : list){ %>
-					<div class="list_wrap">
-						<ul>
-							<li>상호명 : <%=s.getStoreName() %></li>
-							<li>가게 주소 : <%=s.getStoreAddress() %></li>
-							<li>전화번호 : <%=s.getStorePhone() %></li>
-						</ul>
-					</div>
-					<%} %>
-				<%} %>		
+				<table class="list_wrap">
+					
+					<%if(list==null){ %>
+						
+							<p>가게정보가 없습니다.</p>
+						
+					<%}else{ %>
+						<%for(Store s : list){ %>
+							<tr>
+								<th>상호명</th>
+								<td><%=s.getStoreName()%></td>
+							</tr>
+							<tr>
+								<th>가게주소</th>
+								<td><%=s.getStoreAddress()%></td>
+							</tr>
+							<tr>
+								<th>가게전화번호</th>
+								<td><%=s.getStorePhone()%></td>
+							</tr>
+						<%} %>
+					<%} %>		
+				</table>
+				
 				<div id="list_btn">
 					<button type="button" id >이전</button>
 					<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
