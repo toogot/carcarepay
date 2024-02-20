@@ -39,7 +39,7 @@
 <%@include file="../common/head.jsp" %>
 
 <div class="login-wrap">
-    <form action="<%= contextPath%>/login.me" method="post">
+    <form action="<%= contextPath%>/enrollForm.me" method="post">
         <div>
             <table>
                 <tr>
@@ -47,7 +47,7 @@
                         아이디
                     </th>
                     <td>
-                        <input type="text" name="userId" required>
+                        <input type="text" name="userId" >
                     </td>
                     <td rowspan="2">
                         <button type="submit">로그인</button>
@@ -55,18 +55,21 @@
                 </tr>
                 <tr>
                     <th>비밀번호</th>
-                    <td><input type="password" name="userPwd" required></td>
+                    <td><input type="password" name="userPwd"></td>
                 </tr>
             </table>
             <div>
-                <button>회원가입</button>
-                <button>ID찾기</button>
-                <button>PWD찾기</button>
+                <button onclick="location.href = '<%= contextPath %>/enrollForm.me'">회원가입</button>
+                <button onclick="findIdPage">ID찾기</button>
+                <button onclick="findPwdPage">PWD찾기</button>
             </div>
         </div>
     </form>
 </div>
 
+<script>
+
+</script>
 
 <%@include file="../common/footer.jsp" %>
 </body>

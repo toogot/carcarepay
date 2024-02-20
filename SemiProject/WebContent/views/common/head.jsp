@@ -134,7 +134,7 @@
             <%if(loginUser == null){ %>
             <div id="login-event">
                 <div id="logininfo" onclick="location.href='<%=contextPath%>/loginForm.me'">
-                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/loginFrom.me'"></button>
+                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/loginForm.me'"></button>
                     <p>로그인해주세요</p>
                 </div>
                 <button id="login"><a href="<%=contextPath%>/loginForm.me">로그인</a></button>
