@@ -156,7 +156,7 @@
             </div>
             <div id="navigator">
                 <button id="charge" type="button"><a href="#">충전하기</a></button>
-                <button id="search" type="button"><a href="<%=contextPath%>/search.st">매장찾기</a></button>
+                <button id="search" type="button"><a href="<%=contextPath%>/search.st?page=1">매장찾기</a></button>
                 <button id="request" type="button"><a href="#">입접신청</a></button>
                 <button id="service" type="button"><a href="#">고객센터</a></button>
                 <button id="event" type="button"><a href="#">이벤트</a></button>

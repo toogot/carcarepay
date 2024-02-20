@@ -1,10 +1,18 @@
+<%@page import="com.kh.semi.store.search.model.vo.Store"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.semi.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	PageInfo pi = (PageInfo)request.getAttribute("pi");
+	ArrayList<Store> list = (ArrayList<Store>)request.getAttribute("list");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Insert title here2</title>
 	<script src="../../docs/js/jquery-1.9.1.js"></script>
     <script type="text/javascript" src="../../docs/js/examples-base.js"></script>
     <script type="text/javascript" src="../../docs/js/highlight.min.js"></script>
@@ -22,7 +30,11 @@
 	}
 	#searchBar{	
 		width: 100%;
-		height: 30%;
+		height: 30%;	
+	}
+	#searchBar input{
+		font-size: 20px;
+		
 	}
 	#map_list_wrap{
 		width: 100%;
@@ -59,14 +71,14 @@
 	#search_map>*{
 		margin: 50px 150px;
 	}
-	#list1,#list2,#list3{
+	.list_wrap{
 		width: 100%;
-		height: 28%;
+		height: 30%;
+		border: 1px solid #87CEFA;
+		box-sizing: border-box;
+		position: relative;
 	}
-	#list_btn{
-		width: 100%;
-		height: 10%;
-	}
+	
 	#store_list ul{
 		width: 100%;
 		height: 100%;
@@ -81,10 +93,28 @@
 		box-sizing: border-box;
 		line-height: 50px;
 	}
+	#list_btn{
+		width: 100%;
+		height: 10%;
+		
+		border: 1px solid red;
+	}
 	#list_btn>button{
 		width: 60px;
-		height: 30px;
-		margin: 0px 100px;
+		height: 50px;
+		margin: 5px 20px;
+		display: block;
+		float: left;
+		background-color: #87CEFA;
+		color: white;
+		font-weight: 800;
+		border: 0px;
+		border-radius: 20px;
+		font-size: 20px;
+		box-sizing: border-box;
+	}
+	#list_btn>button:hover{
+		background-color: #4aa9e4;
 	}
 	#map{
 		width: 90%;
@@ -101,7 +131,7 @@
 	<div class="search_wrap">
 		<div id="searchBar">
 			<form action="#" align="center">
-				<input type="text" name="search_keyword">
+				<input type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
 				<button type="submit">검색</button>
 			</form>
 		</div>
@@ -111,32 +141,34 @@
    				<code id="snippet" class="snippet"></code>
 			</div>
 			<div id="store_list">
-				<div id="list1">
-					<ul>
-						<li>가게이름</li>
-						<li>가게주소</li>
-						<li>가게전화번호</li>
-					</ul>
-				</div>
-				<div id="list2">
-					<ul>
-						<li>가게이름</li>
-						<li>가게주소</li>
-						<li>가게전화번호</li>
-					</ul>
-				</div>
-				<div id="list3">
-					<ul>
-						<li>가게이름</li>
-						<li>가게주소</li>
-						<li>가게전화번호</li>
-					</ul>
-				</div>
+				<%if(list==null){ %>
+					<div class="list_wrap">
+						<p>가게정보가 없습니다.</p>
+					</div>
+				<%}else{ %>
+					<%for(Store s : list){ %>
+					<div class="list_wrap">
+						<ul>
+							<li>상호명 : <%=s.getStoreName() %></li>
+							<li>가게 주소 : <%=s.getStoreAddress() %></li>
+							<li>전화번호 : <%=s.getStorePhone() %></li>
+						</ul>
+					</div>
+					<%} %>
+				<%} %>		
 				<div id="list_btn">
-					<button type="button">이전</button>
+					<button type="button" id >이전</button>
+					<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
+						
+						<button type="button" onclick="location.href='search.st?page=<%=i%>'"><%=i %></button>
+					<%} %>
 					<button type="button">다음</button>
-				</div>
+				</div>		
+			
 			</div>
+			
+				
+			
 		</div>
 		
 	</div>

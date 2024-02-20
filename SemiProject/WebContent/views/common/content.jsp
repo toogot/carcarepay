@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>메인화면2</title>
 <style>
  /* 컨텐츠 부분 시작 */
 
@@ -71,7 +71,7 @@
             </div>
             <div id="content2">
                 <div id="content_search">
-                    <button onclick="location.href='<%=con%>/search.st'">매장찾기</button>
+                    <button onclick="location.href='<%=con%>/search.st?page=1'">매장찾기</button>
                 </div>
                 <div id="content_help">
                     <div id="help1">
