@@ -34,7 +34,7 @@ public MemberDao() {
 		ResultSet rset = null;
 		Member m = null;
 		
-		String sql = prop.getProperty("loginService");
+		String sql = prop.getProperty("loginMember");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);

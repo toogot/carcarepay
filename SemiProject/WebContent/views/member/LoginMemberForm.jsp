@@ -1,15 +1,5 @@
-<%@page import="com.kh.semi.member.model.vo.Member"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  <%
-
-   
-   Member loginUser = (Member)session.getAttribute("loginUser");
- 
-   
-   String alertMsg = (String)session.getAttribute("alertMsg");
-
-%>    
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,17 +24,10 @@
 </style>
 </head>
 <body>
-	<%@include file="../common/head.jsp" %>
-	 <% if(alertMsg != null){ %>
-      <script>
-         alert("<%= alertMsg %>");
-      </script>
-      <% session.removeAttribute("alertMsg"); %>
-   <%} %>
-	
+<%@include file="../common/head.jsp" %>
+
 <div class="login-wrap">
-<% if(loginUser == null){ %>
-    <form action="<%= contextPath %>/login.me" method="post">
+    <form action="<%= contextPath%>/login.me" method="post">
         <div>
             <table>
                 <tr>
@@ -70,7 +53,6 @@
             </div>
         </div>
     </form>
-    <% }%>
 </div>
 
 

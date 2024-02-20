@@ -1,29 +1,23 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginMemberController
+ * Servlet implementation class LoginFormController
  */
-@WebServlet("/login.me")
-public class LoginMemberController extends HttpServlet {
+@WebServlet("/loginForm.me")
+public class LoginFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginMemberController() {
+    public LoginFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,22 +27,8 @@ public class LoginMemberController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
+		request.getRequestDispatcher("views/member/LoginMemberForm.jsp").forward(request, response);
 		
-			Member loginUser = new MemberService().loginMember(userId, userPwd);
-			
-			if(loginUser == null) {
-				
-		      }else {
-		        
-		    	 HttpSession session = request.getSession();
-		    	  session.setAttribute("loginUser",loginUser);
-		    	  
-		 
-		    	  response.sendRedirect(request.getContextPath());
-		      }
-			
 	}
 
 	/**

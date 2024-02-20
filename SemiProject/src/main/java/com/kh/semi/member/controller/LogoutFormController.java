@@ -1,8 +1,6 @@
 package com.kh.semi.member.controller;
 
 import java.io.IOException;
-
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,20 +8,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import com.kh.semi.member.model.service.MemberService;
-import com.kh.semi.member.model.vo.Member;
-
 /**
- * Servlet implementation class LoginMemberController
+ * Servlet implementation class LogoutFormController
  */
-@WebServlet("/login.me")
-public class LoginMemberController extends HttpServlet {
+@WebServlet("/logoutForm.me")
+public class LogoutFormController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginMemberController() {
+    public LogoutFormController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,23 +27,10 @@ public class LoginMemberController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		HttpSession session = request.getSession();
+		session.invalidate();
 		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		
-			Member loginUser = new MemberService().loginMember(userId, userPwd);
-			
-			if(loginUser == null) {
-				
-		      }else {
-		        
-		    	 HttpSession session = request.getSession();
-		    	  session.setAttribute("loginUser",loginUser);
-		    	  
-		 
-		    	  response.sendRedirect(request.getContextPath());
-		      }
-			
+		response.sendRedirect(request.getContextPath());
 	}
 
 	/**
