@@ -6,6 +6,13 @@
  		   COUNT(*) AS "COUNT"
  	  FROM STORE	  
  </entry>
+ <entry key="selectKeywordListCount">
+ 	SELECT 
+ 		   COUNT(*) AS "COUNT"
+ 	  FROM STORE
+ 	 WHERE STORE_NAME LIKE ?
+        OR STORE_ADDRESS LIKE ? 	  
+ </entry>
  
  <entry key="selectStoreList">
  	SELECT *

@@ -34,14 +34,25 @@ public class StoreSearchDao {
 		
 	}
 
-	public int selectListCount(Connection conn) {
+	public int selectListCount(Connection conn, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
+		
 		String sql = prop.getProperty("selectListCount");
+		if(keyword==null) {
+			sql = prop.getProperty("selectListCount");
+		}else {
+			sql = prop.getProperty("selectKeywordListCount");
+		}
+		
 		int count = 0;
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			if(keyword != null) {
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+			}
 			rset = pstmt.executeQuery();
 			if(rset.next()) {
 				count = Integer.parseInt(rset.getString("count"));

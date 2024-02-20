@@ -12,10 +12,10 @@ import com.kh.semi.store.search.model.vo.Store;
 public class StoreSearchService {
 
 
-	public int selectListCount() {
+	public int selectListCount(String keyword) {
 		Connection conn = getConnection();
 		
-		int count = new StoreSearchDao().selectListCount(conn);
+		int count = new StoreSearchDao().selectListCount(conn,keyword);
 		
 		close(conn);
 		return count;

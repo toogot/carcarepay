@@ -49,7 +49,7 @@ public class StoreSearchController extends HttpServlet {
 		int endPage; // 페이징바의 끝 수
 		
 		// *listCount : 총 게시글 개수
-		listCount = new StoreSearchService().selectListCount();
+		listCount = new StoreSearchService().selectListCount(keyword);
 		
 		// currentPage : 현재 페이지 (즉 사용자가 요청한 페이지)
 		if(request.getParameter("page") == null) {
