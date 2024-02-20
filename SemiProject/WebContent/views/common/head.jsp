@@ -140,8 +140,8 @@
                 <button id="login"><a href="<%=contextPath%>/loginForm.me">로그인</a></button>
                 <%}else{ %>
                 <div id="login-event">
-                <div id="logininfo" onclick="location.href='<%=contextPath%>/loginForm.me'">
-                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/loginFrom.me'"></button>
+                <div id="logininfo" onclick="location.href='<%=contextPath%>/myPage.me'">
+                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>
                     <p><%=loginUser.getUserName() %></p>
                 </div>
                 <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>

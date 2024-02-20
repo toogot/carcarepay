@@ -9,24 +9,12 @@
     div{
         border: 1px solid red;
     }
-    .login-wrap{
+    .mypage-wrap{
         width: 1800px;
         height: 1000px;
         margin: auto;
     }
-    .login-wrap>form{
-        width: 1000px;
-        height: 700px;
-        margin: auto;
-        margin-top: 150px;
-        border: 1px solid red;
-    }
-     .logout-wrap{
-        width: 1800px;
-        height: 1000px;
-        margin: auto;
-    }
-    .logout-wrap>form{
+    .mypage-wrap>form{
         width: 1000px;
         height: 700px;
         margin: auto;
@@ -38,30 +26,30 @@
 <body>
 <%@include file="../common/head.jsp" %>
 
-<div class="login-wrap">
-    <form action="<%= contextPath%>/login.me" method="post">
+<div class="mypage-wrap">
+    <form action="<%= contextPath%>/myPage.me" method="post">
         <div>
             <table>
                 <tr>
                     <th>
-                        아이디
+                       마이페이지;
                     </th>
                     <td>
-                        <input type="text" name="userId" required>
+                        
                     </td>
-                    <td rowspan="2">
-                        <button type="submit">로그인</button>
+                  
+                        
                     </td>
                 </tr>
                 <tr>
-                    <th>비밀번호</th>
+                    <th></th>
                     <td><input type="password" name="userPwd" required></td>
                 </tr>
             </table>
             <div>
-                <button>회원가입</button>
-                <button>ID찾기</button>
-                <button>PWD찾기</button>
+                <button></button>
+                <button></button>
+                <button></button>
             </div>
         </div>
     </form>
