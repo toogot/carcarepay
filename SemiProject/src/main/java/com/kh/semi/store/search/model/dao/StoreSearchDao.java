@@ -62,16 +62,32 @@ public class StoreSearchDao {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Store> list = new ArrayList<Store>();
-		String sql = prop.getProperty("selectStoreList");
-		System.out.println(keyword);
+		
+		String sql = "";
+		if(keyword == null) {
+			 sql = prop.getProperty("selectStoreList");
+		}else {
+			sql = prop.getProperty("selectKeywordStoreList");
+		}
+		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit()+1;
 			int endRow = startRow+pi.getBoardLimit()-1;
 			
-			pstmt.setInt(1, startRow);
-			pstmt.setInt(2, endRow);
+			if(keyword != null) {
+				pstmt.setString(1, "%"+keyword+"%");
+				pstmt.setString(2, "%"+keyword+"%");
+				pstmt.setInt(3, startRow);
+				pstmt.setInt(4, endRow);
+			}else {
+				pstmt.setInt(1, startRow);
+				pstmt.setInt(2, endRow);
+			}
+			
+			
 			
 			rset = pstmt.executeQuery();
 			

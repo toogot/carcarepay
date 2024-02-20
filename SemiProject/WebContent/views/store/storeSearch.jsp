@@ -6,7 +6,10 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Store> list = (ArrayList<Store>)request.getAttribute("list");
-	
+	String keyword = (String)request.getAttribute("keyword");
+	if(keyword==null){
+		keyword="";
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -147,8 +150,9 @@
 
 	<div class="search_wrap">
 		<div id="searchBar">
-			<form action="<%=contextPath %>/search.st?" align="center">
+			<form action="<%=contextPath %>/search.st?" align="center" value="<%=keyword%>">
 				<input type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
+				<input type="hidden" name="page" value="1">
 				<button type="submit">검색</button>
 			</form>
 		</div>

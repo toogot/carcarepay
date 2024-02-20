@@ -59,6 +59,8 @@ public class StoreSearchController extends HttpServlet {
 		}
 		
 		
+		
+		
 		// * pageLimit : 페이징 바의 페이지 최대 개수 (단위 => 페이징바를 몇개 배치할껀지)
 		pageLimit = 5;
 		
@@ -77,12 +79,12 @@ public class StoreSearchController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Store> list = new StoreSearchService().selectStoreList(pi);
+		ArrayList<Store> list = new StoreSearchService().selectStoreList(pi,keyword);
 		
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
-		
+		request.setAttribute("keyword", keyword);
 		request.getRequestDispatcher("views/store/storeSearch.jsp").forward(request, response);
 	}
 
