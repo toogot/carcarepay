@@ -58,12 +58,12 @@ public class StoreSearchDao {
 		return count;
 	}
 
-	public ArrayList<Store> selectStoreList(Connection conn, PageInfo pi) {
+	public ArrayList<Store> selectStoreList(Connection conn, PageInfo pi, String keyword) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		ArrayList<Store> list = new ArrayList<Store>();
 		String sql = prop.getProperty("selectStoreList");
-		
+		System.out.println(keyword);
 		try {
 			pstmt = conn.prepareStatement(sql);
 			

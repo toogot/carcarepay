@@ -35,7 +35,7 @@ public class StoreSearchController extends HttpServlet {
 		//new StoreSearchService().searchStore();
 		
 		
-		
+		String keyword = request.getParameter("search_keyword");
 		
 		int listCount; // 총 게시글 개수
 		int currentPage; // 현재 페이지(즉, 사용자가 요청한 페이지)
@@ -52,7 +52,12 @@ public class StoreSearchController extends HttpServlet {
 		listCount = new StoreSearchService().selectListCount();
 		
 		// currentPage : 현재 페이지 (즉 사용자가 요청한 페이지)
-		currentPage = Integer.parseInt(request.getParameter("page"));
+		if(request.getParameter("page") == null) {
+			currentPage = 1;
+		}else {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		
 		
 		// * pageLimit : 페이징 바의 페이지 최대 개수 (단위 => 페이징바를 몇개 배치할껀지)
 		pageLimit = 5;

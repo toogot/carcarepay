@@ -147,7 +147,7 @@
 
 	<div class="search_wrap">
 		<div id="searchBar">
-			<form action="#" align="center">
+			<form action="<%=contextPath %>/search.st?" align="center">
 				<input type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
 				<button type="submit">검색</button>
 			</form>
