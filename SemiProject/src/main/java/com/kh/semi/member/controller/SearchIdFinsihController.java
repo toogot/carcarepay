@@ -1,0 +1,53 @@
+package com.kh.semi.member.controller;
+
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kh.semi.member.model.service.MemberService;
+
+/**
+ * Servlet implementation class SearchIdFinsihController
+ */
+@WebServlet("/searchIdFinish.me")
+public class SearchIdFinsihController extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SearchIdFinsihController() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		String userName = request.getParameter("userName");
+		String email = request.getParameter("email");
+		
+		String userId = new MemberService().searchMemberId(userName, email);
+		System.out.println(userId);
+		if(userId != null) {
+			request.setAttribute("userId", userId);
+			
+	    	  
+	}
+		request.getRequestDispatcher("views/member/memberSearchIdFinishForm.jsp").forward(request, response);
+	}
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		doGet(request, response);
+	}
+
+}

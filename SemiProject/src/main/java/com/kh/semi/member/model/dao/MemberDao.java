@@ -70,7 +70,33 @@ public MemberDao() {
 		return m;
 		
 	}
+	public String searchMemberId(Connection conn, String userName, String email) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String userId = null;
+		String sql = prop.getProperty("searchMemberId");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, email);
 
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				userId = rset.getString("user_id");
+				
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userId;
+	}
 
 
 	

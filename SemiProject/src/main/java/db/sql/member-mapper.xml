@@ -21,4 +21,11 @@
 	  AND STATUS = 'Y'
 
 </entry>
+<entry key="searchMemberId">
+SELECT SUBSTR(USER_ID,1,LENGTH(USER_ID)-3)||lpad('*',3,'*') "USER_ID"
+FROM MEMBER
+WHERE USER_NAME = ?
+  AND EMAIL = ?
+  AND STATUS = 'Y'  
+</entry>
 </properties>

@@ -18,4 +18,12 @@ public class MemberService {
 		close(conn);
 		return m;
 	}
+	public String searchMemberId(String userName, String email) {
+		Connection conn = getConnection();
+		
+		String userId = new MemberDao().searchMemberId(conn, userName, email);
+		
+		close(conn);
+		return userId;
+	}
 }
