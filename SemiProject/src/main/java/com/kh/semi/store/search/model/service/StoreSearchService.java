@@ -12,18 +12,18 @@ import com.kh.semi.store.search.model.vo.Store;
 public class StoreSearchService {
 
 
-	public int selectListCount() {
+	public int selectListCount(String keyword) {
 		Connection conn = getConnection();
 		
-		int count = new StoreSearchDao().selectListCount(conn);
+		int count = new StoreSearchDao().selectListCount(conn,keyword);
 		
 		close(conn);
 		return count;
 	}
 
-	public ArrayList<Store> selectStoreList(PageInfo pi) {
+	public ArrayList<Store> selectStoreList(PageInfo pi, String keyword) {
 		Connection conn = getConnection();
-		ArrayList<Store> list = new StoreSearchDao().selectStoreList(conn,pi);
+		ArrayList<Store> list = new StoreSearchDao().selectStoreList(conn,pi,keyword);
 		close(conn);
 		return list;
 	}

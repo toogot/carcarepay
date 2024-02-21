@@ -6,19 +6,22 @@
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
 	ArrayList<Store> list = (ArrayList<Store>)request.getAttribute("list");
-	
+	String keyword = (String)request.getAttribute("keyword");
+	if(keyword==null){
+		keyword="";
+	}
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-	<script src="../../docs/js/jquery-1.9.1.js"></script>
-    <script type="text/javascript" src="../../docs/js/examples-base.js"></script>
-    <script type="text/javascript" src="../../docs/js/highlight.min.js"></script>
-    <!-- ncpClientId는 등록 환경에 따라 일반(ncpClientId), 공공(govClientId), 금융(finClientId)으로 나뉩니다. 사용하는 환경에 따라 키 이름을 변경하여 사용하세요. 참고: clientId(네이버 개발자 센터)는 지원 종료 -->
-    <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk"></script>
-    <link rel="stylesheet" type="text/css" href="../../docs/css/examples-base.css" />
+<script src="../../docs/js/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="../../docs/js/examples-base.js"></script>
+<script type="text/javascript" src="../../docs/js/highlight.min.js"></script>
+<!-- ncpClientId는 등록 환경에 따라 일반(ncpClientId), 공공(govClientId), 금융(finClientId)으로 나뉩니다. 사용하는 환경에 따라 키 이름을 변경하여 사용하세요. 참고: clientId(네이버 개발자 센터)는 지원 종료 -->
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk&submodules=geocoder"></script>
+<link rel="stylesheet" type="text/css" href="../../docs/css/examples-base.css" />
 <style>
 	div{
 		/* border: 1px solid red; */
@@ -82,9 +85,14 @@
 	}
 	#list_wrap ul{
 		width: 100%;
-		height: 30%;
+		height: 33.3%;
+		margin: 0;
 		border: 1px solid #87CEFA;
 		box-sizing: border-box;
+		cursor: pointer;
+	}
+	#list_wrap ul:hover{
+		background-color: #87CEFA;
 	}
 	#list_wrap li{
 		list-style-type: none;
@@ -147,8 +155,9 @@
 
 	<div class="search_wrap">
 		<div id="searchBar">
-			<form action="#" align="center">
+			<form action="<%=contextPath %>/search.st?" align="center" value="<%=keyword%>">
 				<input type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
+				<input type="hidden" name="page" value="1">
 				<button type="submit">검색</button>
 			</form>
 		</div>
@@ -167,7 +176,8 @@
 					<%}else{ %>
 						<%for(Store s : list){ %>
 							
-								<ul>
+								<ul onclick="searchxy('<%=s.getStoreAddress()%>');">
+
 									<li>
 										<span class="first_list">상호명</span><span class="sec_list"><%=s.getStoreName() %></span><br>
 									</li>
@@ -188,16 +198,29 @@
 				</div>
 				<div id="list_btn">
 					<%if(pi.getCurrentPage()>1){ %>
-					<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>'" >이전</button>
+						<%if(!keyword.equals("")){ %>
+							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>&search_keyword=<%=keyword %>'" >이전</button>
+						<%}else{ %>
+							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>'" >이전</button>
+						<%} %>
 					<%} %>
 					<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
 						
-						<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=i%>'"><%=i %></button>
+						<button type="button" onclick="location.href=
+						<%if(!keyword.equals("")){ %>
+							'<%=contextPath%>/search.st?page=<%=i%>&search_keyword=<%=keyword %>'"
+						<%} %>
+						'<%=contextPath%>/search.st?page=<%=i%>'"
+						><%=i %></button>
 					<%} %>
 					<%if(pi.getCurrentPage()<pi.getEndPage()){ %>
-					<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>'">다음</button>
+						<%if(!keyword.equals("")){ %>
+							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>&search_keyword=<%=keyword %>'">다음</button>
+						<%}else{ %>
+							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>'">다음</button>	
+						<%} %>
 					<%} %>
-				</div>		
+				</div>
 			
 			</div>
 			
@@ -208,10 +231,41 @@
 	</div>
 	<script id="code">
 		var map = new naver.maps.Map('map', {
-			center: new naver.maps.LatLng(37.3595704, 127.105399),
-			zoom: 15
+			center: new naver.maps.LatLng(37.498981, 127.032915),
+			zoom: 18
 		});
 	</script>
+	<script>
+		function searchxy(address){
+			naver.maps.Service.geocode({
+        	query: address
+    		}, function(status, response) {
+        	if (status !== naver.maps.Service.Status.OK) {
+         	   return alert('Something wrong!');
+       		}
+
+			var result = response.v2, // 검색 결과의 컨테이너
+				items = result.addresses; // 검색 결과의 배열
+			// 성공 시의 response 처리
+			// do Something
+			var map = new naver.maps.Map('map', {
+			center: new naver.maps.LatLng(items[0].y, items[0].x),
+			zoom: 20
+		});
+			var marker = new naver.maps.Marker({
+    		position: new naver.maps.LatLng(items[0].y, items[0].x),
+    		map: map
+
+			});
+			});
+
+			
+	}
+		
+	
+
+	</script>
+	
 	
 	<%@ include file="/views/common/footer.jsp" %>
 </body>
