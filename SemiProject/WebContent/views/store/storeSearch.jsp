@@ -196,7 +196,12 @@
 					<%} %>
 					<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
 						
-						<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=i%>'"><%=i %></button>
+						<button type="button" onclick="location.href=
+						<%if(!keyword.equals("")){ %>
+							'<%=contextPath%>/search.st?page=<%=i%>&search_keyword=<%=keyword %>'"
+						<%} %>
+						'<%=contextPath%>/search.st?page=<%=i%>'"
+						><%=i %></button>
 					<%} %>
 					<%if(pi.getCurrentPage()<pi.getEndPage()){ %>
 					<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>'">다음</button>
