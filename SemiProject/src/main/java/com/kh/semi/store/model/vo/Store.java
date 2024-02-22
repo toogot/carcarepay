@@ -1,4 +1,4 @@
-package com.kh.semi.store.search.model.vo;
+package com.kh.semi.store.model.vo;
 
 public class Store {
 	

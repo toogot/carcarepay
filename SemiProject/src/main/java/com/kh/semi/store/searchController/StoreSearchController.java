@@ -1,4 +1,4 @@
-package com.kh.semi.store.search.controller;
+package com.kh.semi.store.searchController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.common.model.vo.PageInfo;
-import com.kh.semi.store.search.model.service.StoreSearchService;
-import com.kh.semi.store.search.model.vo.Store;
+import com.kh.semi.store.model.service.StoreSearchService;
+import com.kh.semi.store.model.vo.Store;
 
 /**
  * Servlet implementation class StoreSearch
@@ -35,7 +35,7 @@ public class StoreSearchController extends HttpServlet {
 		//new StoreSearchService().searchStore();
 		
 		
-		
+		String keyword = request.getParameter("search_keyword");
 		
 		int listCount; // 총 게시글 개수
 		int currentPage; // 현재 페이지(즉, 사용자가 요청한 페이지)
@@ -49,10 +49,17 @@ public class StoreSearchController extends HttpServlet {
 		int endPage; // 페이징바의 끝 수
 		
 		// *listCount : 총 게시글 개수
-		listCount = new StoreSearchService().selectListCount();
+		listCount = new StoreSearchService().selectListCount(keyword);
 		
 		// currentPage : 현재 페이지 (즉 사용자가 요청한 페이지)
-		currentPage = Integer.parseInt(request.getParameter("page"));
+		if(request.getParameter("page") == null) {
+			currentPage = 1;
+		}else {
+			currentPage = Integer.parseInt(request.getParameter("page"));
+		}
+		
+		
+		
 		
 		// * pageLimit : 페이징 바의 페이지 최대 개수 (단위 => 페이징바를 몇개 배치할껀지)
 		pageLimit = 5;
@@ -72,12 +79,12 @@ public class StoreSearchController extends HttpServlet {
 		
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
-		ArrayList<Store> list = new StoreSearchService().selectStoreList(pi);
+		ArrayList<Store> list = new StoreSearchService().selectStoreList(pi,keyword);
 		
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
-		
+		request.setAttribute("keyword", keyword);
 		request.getRequestDispatcher("views/store/storeSearch.jsp").forward(request, response);
 	}
 
