@@ -6,18 +6,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class LoginFormController
+ * Servlet implementation class SearchIdController
  */
-@WebServlet("/loginForm.me")
-public class LoginFormController extends HttpServlet {
+@WebServlet("/searchId.me")
+public class SearchIdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginFormController() {
+    public SearchIdController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,11 +31,12 @@ public class LoginFormController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		request.getRequestDispatcher("views/member/memberLoginForm.jsp").forward(request, response);
+		
+		 request.getRequestDispatcher("views/member/memberSearchIdForm.jsp").forward(request, response);
 		
 	}
 
-	/**
+/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
