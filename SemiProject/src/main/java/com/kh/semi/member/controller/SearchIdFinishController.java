@@ -29,12 +29,12 @@ public class SearchIdFinsihController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
+		request.setCharacterEncoding("UTF-8");
 		String userName = request.getParameter("userName");
 		String email = request.getParameter("email");
 		
+		
 		String userId = new MemberService().searchMemberId(userName, email);
-		System.out.println(userId);
 		if(userId != null) {
 			request.setAttribute("userId", userId);
 			

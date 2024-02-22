@@ -28,4 +28,6 @@ WHERE USER_NAME = ?
   AND EMAIL = ?
   AND STATUS = 'Y'  
 </entry>
+
+
 </properties>

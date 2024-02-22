@@ -66,7 +66,7 @@ div {
 		
 	<button onclick="location.href = '<%=contextPath%>/enrollForm.me'">회원가입</button>
 					<button onclick="location.href = '<%=contextPath%>/searchId.me'">ID찾기</button>
-					<button onclick="findPwdPage">PWD찾기</button>
+					<button onclick="location.href = '<%=contextPath%>/searchPwd.me'">PWD찾기</button>
 	</div>
 
 	<script>
