@@ -7,6 +7,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.store.model.service.StoreSearchService;
+import com.kh.semi.store.model.vo.Store;
+
 /**
  * Servlet implementation class StoreDetailController
  */
@@ -27,7 +30,11 @@ public class StoreDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
+		Store st = new StoreSearchService().selectStoreDetail(storeNo);
 		
+		
+//		 request.getRequestDispatcher("views/store/storeDetail.jsp").forward(request, response);
 		
 		
 		

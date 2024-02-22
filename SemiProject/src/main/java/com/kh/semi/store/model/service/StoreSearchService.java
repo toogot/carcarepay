@@ -28,4 +28,20 @@ public class StoreSearchService {
 		return list;
 	}
 
+	public Store selectStoreDetail(Store st) {
+		Connection conn = getConnection();
+		= new StoreSearchDao(conn, st);
+		
+		
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
