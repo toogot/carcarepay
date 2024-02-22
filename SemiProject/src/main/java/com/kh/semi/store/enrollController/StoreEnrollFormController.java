@@ -1,4 +1,4 @@
-package com.kh.semi.store.enroll.controller;
+package com.kh.semi.store.enrollController;
 
 import java.io.IOException;
 import javax.servlet.ServletException;

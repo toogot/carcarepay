@@ -1,4 +1,4 @@
-package com.kh.semi.store.search.model.dao;
+package com.kh.semi.store.model.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
-import com.kh.semi.store.search.model.vo.Store;
+import com.kh.semi.store.model.vo.Store;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 

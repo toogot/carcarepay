@@ -1,4 +1,4 @@
-package com.kh.semi.store.search.model.service;
+package com.kh.semi.store.model.service;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -6,8 +6,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.common.model.vo.PageInfo;
-import com.kh.semi.store.search.model.dao.StoreSearchDao;
-import com.kh.semi.store.search.model.vo.Store;
+import com.kh.semi.store.model.dao.StoreSearchDao;
+import com.kh.semi.store.model.vo.Store;
 
 public class StoreSearchService {
 

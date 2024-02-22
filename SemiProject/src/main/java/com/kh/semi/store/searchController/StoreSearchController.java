@@ -1,4 +1,4 @@
-package com.kh.semi.store.search.controller;
+package com.kh.semi.store.searchController;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.common.model.vo.PageInfo;
-import com.kh.semi.store.search.model.service.StoreSearchService;
-import com.kh.semi.store.search.model.vo.Store;
+import com.kh.semi.store.model.service.StoreSearchService;
+import com.kh.semi.store.model.vo.Store;
 
 /**
  * Servlet implementation class StoreSearch
