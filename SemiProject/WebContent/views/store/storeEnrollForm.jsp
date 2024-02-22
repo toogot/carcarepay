@@ -86,23 +86,23 @@
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="storeAddress" onclick="searchAddress();"><button type="button" onclick="searchAddress();">주소검색</button></td>
+					<td><input type="text" name="storeAddress" onclick="searchAddress();" required><button type="button" onclick="searchAddress();">주소검색</button></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" name="storePhone"></td>
+					<td><input type="text" name="storePhone" required></td>
 				</tr>
 				<tr>
 					<th>영업시간</th>
-					<td><input type="text" name="storeTime"></td>
+					<td><input type="text" name="storeTime" required></td>
 				</tr>
 				<tr>
 					<th>사업자번호</th>
-					<td><input type="text" name="businessNo"></td>
+					<td><input type="text" name="businessNo" required></td>
 				</tr>
 				<tr>
 					<th>가격정보</th>
-					<td><textarea name="storePrice" cols="50" rows="10" style="resize: none;"></textarea></td>
+					<td><textarea name="storePrice" cols="50" rows="10" style="resize: none;" required></textarea></td>
 				</tr>
 			</table>
 			<div id="btn-wrap">
@@ -126,6 +126,7 @@
 	
 	<%}else{%>
 		<script>
+			alert("로그인이 필요한 서비스 입니다.");
 			location.href = "<%=contextPath%>/loginForm.me"
 		</script>
 	<%} %>
