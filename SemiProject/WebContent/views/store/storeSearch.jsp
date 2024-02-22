@@ -1,4 +1,4 @@
-<%@page import="com.kh.semi.store.search.model.vo.Store"%>
+<%@page import="com.kh.semi.store.model.vo.Store"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.semi.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
