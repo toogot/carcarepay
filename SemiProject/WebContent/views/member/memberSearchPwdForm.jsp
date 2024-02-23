@@ -25,7 +25,7 @@
 </head>
 <body>s
 <%@ include file="../common/head.jsp" %>
-<form action="<%=contextPath %>/searchIdFinish.me" method="post" >
+<form action="<%=contextPath %>/search.me" method="post" >
 <div>아이디 찾기<br>
      이름 : <input type="text" name="userName">
     이메일 : <input type="text" name="email"><button>확인</button>
