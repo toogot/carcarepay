@@ -28,12 +28,13 @@ public class StoreSearchService {
 		return list;
 	}
 
-	public Store selectStoreDetail(Store st) {
+	public Store selectStoreDetail(int storeNo) {
 		Connection conn = getConnection();
-		= new StoreSearchDao(conn, st);
+		Store st = new StoreSearchDao().selectStoreDetail(conn, storeNo);
 		
+		close(conn);
 		
-		
+		return st;
 	}
 	
 	
