@@ -66,6 +66,7 @@
 	<div class="enroll-wrap">
 		
 		<form action="<%=contextPath %>/enroll.st" method="post">
+			<input type="hidden" value="<%=loginUser.getUserNo()%>" name="userNo">
 			<br><br><br>
 			<h1 align="center">입접신청</h1>
 			<br><br>

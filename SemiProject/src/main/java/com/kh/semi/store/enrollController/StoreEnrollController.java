@@ -6,6 +6,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.kh.semi.store.enrollController.model.service.ApplicationService;
 import com.kh.semi.store.enrollController.model.vo.Application;
@@ -31,6 +32,7 @@ public class StoreEnrollController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		int userNo = Integer.parseInt(request.getParameter("userNo"));
 		String storeName = request.getParameter("storeName");
 		String storeType = request.getParameter("storeType");
 		String storeAddress = request.getParameter("storeAddress");
@@ -39,9 +41,16 @@ public class StoreEnrollController extends HttpServlet {
 		String businessNo = request.getParameter("businessNo");
 		String storePrice = request.getParameter("storePrice");
 		
-		Application st = new Application(storeType,storeName,storeAddress,storePhone,storeTime,businessNo,storePrice);
+		Application st = new Application(userNo,storeType,storeName,storeAddress,storePhone,storeTime,businessNo,storePrice);
 		
 		int result = new ApplicationService().enrollStore(st);
+		
+		if(result>0) {
+			HttpSession session = request.getSession();
+			response.sendRedirect(request.getContextPath());
+		}else {
+			System.out.println("실패");
+		}
 				
 	}
 

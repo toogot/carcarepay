@@ -38,9 +38,10 @@ public class Application {
 	}
 	
 	
-	public Application(String storeType, String storeName, String storeAddress, String storePhone, String storeTime,
+	public Application(int userNo, String storeType, String storeName, String storeAddress, String storePhone, String storeTime,
 			String businessNo, String storePrice) {
 		super();
+		this.userNo = userNo;
 		this.storeType = storeType;
 		this.storeName = storeName;
 		this.storeAddress = storeAddress;

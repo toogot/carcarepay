@@ -1,5 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
+	<entry key="enrollStore">
+		INSERT
+		  INTO APPLICATION
+		  (
+		    APP_NO
+		  , USER_NO
+		  , STORE_TYPE
+		  , STORE_NAME
+		  , STORE_ADDRESS
+		  , STORE_PHONE
+		  , STORE_TIME
+		  , BUSINESS_NO
+		  , STORE_PRICE
+		  )
+		  VALUES
+		  (
+		    APP_SEQ.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
 </properties>
