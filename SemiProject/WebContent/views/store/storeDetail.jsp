@@ -1,5 +1,11 @@
+<%@page import="com.kh.semi.store.model.vo.Store"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+	Store st = (Store)request.getAttribute("st");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -97,35 +103,24 @@
 		position: sticky;
 		top: 0;
 	}
+	/* 지도 두개 들어가는 것 까지의 div */
 	.store_info_2_1{
 		height: 30%;
 		text-align: center;
-		padding-top: 65px;
-		font-size: 22px;
+		padding-top: 20px;
+		/* font-size: 22px; */
 		font-weight: bold;
 	}
+	/* sticky 위한 여백 div */
 	.store_info_2_2{height: 70%;}
-	#maptest{
-		width: 500px;
-		height: 350px;
-	}
 
-	/* 유가정보 지도 */
-	.store_info_2_1_3{
-		height: 10%;
+	/* 매장 상세주소 지도, 유가정보 지도 쪽 텍스트들 */
+	.store_info_2_1_1, .store_info_2_1_3{
+		height: 7%;
 		font-size: 22px;
 		font-weight: bold;
 		text-align: center;
-		padding-top: 60px;
-	}
-	.store_info_2_1_4{
-		height: 90%;
-		text-align: center;
-		align-items: center;
-	}
-	#maptest2{
-		width: 500px;
-		height: 350px;
+		padding-top: 30px;
 	}
 
 
@@ -167,7 +162,7 @@
 		font-size: 21px;
 		font-weight: bold;
 	}
-	.store_info_1_3_3{height: 35%; font-size: 20px;}
+	.store_info_1_3_3{height: 15%; font-size: 20px;}
 	.store_info_1_3_4{
 		height: 10%;
 		font-size: 21px;
@@ -193,7 +188,7 @@
 		height: 95%;
 	}
 
-	/* a태그 스타일 */
+	/* 모든리뷰 a태그 스타일 */
 	#scrollRev{
 		background-color: rgb(135, 206, 250);
 		border: 1px solid black;
@@ -208,7 +203,7 @@
 	
 
 	/* map div 스타일 */
-	#map1, #map2{
+	#map, #map2{
 		border: 1px solid rgb(135, 206, 250);
 		border-radius: 20px;
 	}
@@ -230,15 +225,15 @@
 		<div class="store_info">
 			<div class="store_info_1">
 				<div class="store_info_1_1">
-					<table border="1" class="tb_store_name">
+					<table border="0" class="tb_store_name">
 						<tr style="height: 80px;">
-							<th style="font-size: 30px; font-weight: bold;"> 한기네 세차장</th>
+							<th style="font-size: 25px; font-weight: bold;"> <%= st.getStoreName() %></th>
 							<td colspan="3">
 								<button type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px;">즐겨찾기</button> 
 							</td>
 						</tr>
 						<tr style="height: 40px;">
-							<th style="font-size: 25px; font-weight: bold;">★ 10.0 156명 평가</th>
+							<th style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
 							<td></td>
 							<td colspan="2" style="text-align: right; margin-right: 10px;"><a id="scrollRev" style="text-decoration: none;">모든 리뷰보기</a></td>
 						</tr>
@@ -277,24 +272,16 @@
 				</div>
 				<div class="store_info_1_3"> 
 						<div class="store_info_1_3_1">매장 이용정보</div> 
-						<div class="store_info_1_3_2">상세가격</div> 
+						<div class="store_info_1_3_2">매장 상세주소</div> 
 						<div class="store_info_1_3_3"> 
 							<ul>
-								<li>상세가격 ~~~~~</li>
-								<li>상세가격 ~~~~~</li>
-								<li>상세가격 ~~~~~</li>
-								<li>상세가격 ~~~~~</li>
-								<li>상세가격 ~~~~~</li>
+								<li><%= st.getStoreAddress() %></li>
 							</ul>
 						</div>
-						<div class="store_info_1_3_4">매장 이용시 주의사항</div> 
+						<div class="store_info_1_3_4">매장 상세가격</div> 
 						<div class="store_info_1_3_5"> 
 							<ul>
-								<li>매장이용시 주의사항~~~~~</li>
-								<li>매장이용시 주의사항~~~~~</li>
-								<li>매장이용시 주의사항~~~~~</li>
-								<li>매장이용시 주의사항~~~~~</li>
-								<li>매장이용시 주의사항~~~~~</li>
+								<li><%= st.getStorePrice() %></li>
 							</ul>
 						</div>
 					
@@ -316,23 +303,16 @@
 			</div>
 			<div class="store_info_2">
 				<div class="store_info_2_1"> 
-						<div class="store_info_2_1_1"> 
-							상세주소
-						</div>
-						<div id="map1" style="width:100%; height:400px;"></div>
-						<!-- <div class="store_info_2_1_2">  -->
-							<!-- <img id="maptest" src="../../resources/maptest.png"> -->
-						<!-- </div> -->
-						<div class="store_info_2_1_3"> 
-							주변 유가정보 확인
-						</div>
+						<div class="store_info_2_1_1">상세주소</div>
+
+						<div id="map" style="width:100%; height:400px;"></div>
+							<%= st.getStoreAddress() %>
+						<div class="store_info_2_1_3"> 주변 유가정보 확인</div>
 						<div id="map2" style="width:100%; height:300px;"></div>
-						<!-- <div class="store_info_2_1_4">  -->
-							<!-- <img id="maptest2" src="../../resources/maptest2.png"> -->
-						<!-- </div> -->
+						
 				</div>
 				<div class="store_info_2_2">
-
+						<!-- sticky 하기 위한 여백 -->
 				</div>
 			</div>
 		</div>
@@ -381,27 +361,52 @@
 		////////// MAP API //////////
 		/////////////////////////////
 
-		// 잠실 롯데월드를 중심으로 하는 지도
-		var map1 = new naver.maps.Map('map1', {
-        	center: new naver.maps.LatLng(37.5112, 127.0981), 
-            zoom: 15
-        });
+		
+			naver.maps.Service.geocode({
+        	query: "<%= st.getStoreAddress() %>"
+    		}, function(status, response) {
+        	if (status !== naver.maps.Service.Status.OK) {
+         	   return alert('Something wrong!');
+       		}
 
-		var marker1 = new naver.maps.Marker({
-            position: new naver.maps.LatLng(37.5112, 127.0981),
-            map: map1
-        });
+			var result = response.v2, // 검색 결과의 컨테이너
+				items = result.addresses; // 검색 결과의 배열
+			// 성공 시의 response 처리
+			// do Something
+			var map = new naver.maps.Map('map', {
+			center: new naver.maps.LatLng(items[0].y, items[0].x),
+			zoom: 16
+		});
+			var marker = new naver.maps.Marker({
+    		position: new naver.maps.LatLng(items[0].y, items[0].x),
+    		map: map
+
+			});
+			});
+
+			
+	
+		// 잠실 롯데월드를 중심으로 하는 지도
+		//var map1 = new naver.maps.Map('map1', {
+        //	center: new naver.maps.LatLng(37.5112, 127.0981), 
+        //    zoom: 15
+        //});
+
+		//var marker1 = new naver.maps.Marker({
+        //    position: new naver.maps.LatLng(37.5112, 127.0981),
+        //    map: map1
+        //});
 
 		// 주변 유류정보를 보여주는 지도
-		var map2 = new naver.maps.Map('map2', {
-        	center: new naver.maps.LatLng(37.5112, 127.0981), 
-            zoom: 15
-        });
-
-		var marker2 = new naver.maps.Marker({
-            position: new naver.maps.LatLng(37.5112, 127.0981),
-            map: map2
-        });
+		//var map2 = new naver.maps.Map('map2', {
+        //	center: new naver.maps.LatLng(37.5112, 127.0981), 
+         //   zoom: 15
+        //});
+//
+		//var marker2 = new naver.maps.Marker({
+        //    position: new naver.maps.LatLng(37.5112, 127.0981),
+        //    map: map2
+       //});
 
 	</script>
 

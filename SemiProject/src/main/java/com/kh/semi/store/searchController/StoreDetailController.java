@@ -33,10 +33,20 @@ public class StoreDetailController extends HttpServlet {
 		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
 		Store st = new StoreSearchService().selectStoreDetail(storeNo);
 		
+		if(st != null) {
+			request.setAttribute("st", st);
+			request.getRequestDispatcher("views/store/storeDetail.jsp").forward(request, response);
+
+		} else {
+			request.setAttribute("errorMsg", "매장 조회에 실패했습니다.");
+			request.getRequestDispatcher("views/common/errorpage.jsp").forward(request, response);
+		}
 		
-//		 request.getRequestDispatcher("views/store/storeDetail.jsp").forward(request, response);
 		
 		
+		
+		
+	
 		
 		
 	}

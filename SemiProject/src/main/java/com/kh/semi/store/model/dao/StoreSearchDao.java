@@ -123,6 +123,7 @@ public class StoreSearchDao {
 	public Store selectStoreDetail(Connection conn, int storeNo) {
 		// select문 => ResultSet => 1행
 		
+		Store st = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectStoreDetail");
@@ -133,23 +134,16 @@ public class StoreSearchDao {
 			
 			rset = pstmt.executeQuery();
 			
-			/*STORE_NO
-		     , STORE_NAME
-		     , TYPE_NAME
-		     , STORE_ADDRESS
-		     , STORE_PHONE
-		     , STORE_TIME
-		     , BUSINESS_NO
-		     , STORE_PRICE*/
-			
 			if(rset.next()) {
 				
-				Store st = new Store(rset.getInt("store_no"),
-						             rset.getString("store_name"),
-						             rset.getString("store_type"),
-						             rset.) 
-				
-				
+				  st = new Store(rset.getInt("store_no"),
+					             rset.getString("store_name"),
+					             rset.getString("type_name"),
+					             rset.getString("store_address"),
+					             rset.getString("store_phone"),
+					             rset.getString("store_time"),
+					             rset.getString("business_no"),
+					             rset.getString("store_price"));
 			}
 			
 		} catch (SQLException e) {
