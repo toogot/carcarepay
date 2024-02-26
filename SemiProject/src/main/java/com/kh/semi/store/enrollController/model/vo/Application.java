@@ -1,4 +1,4 @@
-package com.kh.semi.store.enroll.model.vo;
+package com.kh.semi.store.enrollController.model.vo;
 
 import java.sql.Date;
 
@@ -35,6 +35,20 @@ public class Application {
 		this.appDate = appDate;
 		this.appYN = appYN;
 		this.refuse = refuse;
+	}
+	
+	
+	public Application(int userNo, String storeType, String storeName, String storeAddress, String storePhone, String storeTime,
+			String businessNo, String storePrice) {
+		super();
+		this.userNo = userNo;
+		this.storeType = storeType;
+		this.storeName = storeName;
+		this.storeAddress = storeAddress;
+		this.storePhone = storePhone;
+		this.storeTime = storeTime;
+		this.businessNo = businessNo;
+		this.storePrice = storePrice;
 	}
 	public int getAppNo() {
 		return appNo;
