@@ -75,7 +75,7 @@
             <div id="footer_wrap">
                 <div id="footer1">
                     <ul>
-                        <li><a href="#">이용약관</a></li>
+                        <li><a href="<%=request.getContextPath()%>/list.tu">이용약관</a></li>
                         <li>|</li>
                         <li><a href="#">개인정보처리약관</a></li>
                         <li>|</li>
