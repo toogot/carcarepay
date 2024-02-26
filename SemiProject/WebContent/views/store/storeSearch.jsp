@@ -188,7 +188,7 @@
 										<span class="first_list">전화번호</span><span class="sec_list"><%=s.getStorePhone() %></span><br>
 									</li>
 									<li>
-										<button id="store_detail">상세보기</button>
+										<button id="store_detail" type="button" onclick="location.href='<%= contextPath %>/detail.st?storeNo=<%= s.getStoreNo() %>'">상세보기</button>
 									</li>
 								</ul>
 							

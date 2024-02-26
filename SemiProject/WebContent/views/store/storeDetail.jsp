@@ -1,41 +1,56 @@
+<%@page import="com.kh.semi.store.model.vo.Store"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
+<%
+	Store st = (Store)request.getAttribute("st");
+	
+%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>매장상세페이지</title>
+
+<!-- map api, 지코딩 관련 스크립트 -->
+<script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nfs99ero2h&submodules=geocoder"></script>
+
+
 <style>
 	/* .outer div{border: 1px solid red;} */
 	.outer{
 		/* border: 1px solid red; */
-		width: 1800px;
+		width: 1900px;
 		height: 4000px;
 		box-sizing: border-box;
 		margin: auto;
 		margin-top: 10px;
 	}
 	.outer>div{
-		width: 100%;
 		/* border: 1px solid blue; */
+		display: flex;
+		justify-content: center;
 	}
 
 	/* 기본틀 나누기 */
-	.content_1{height: 20%; border-bottom: 1px solid rgb(135, 206, 250);}
-	.content_2{height: 80%;}
+	
+	.store_img{height: 20%; width: 1900px; border-bottom: 2px solid rgb(135, 206, 250);}
+	.store_info{
+		height: 80%;
 
-	.content_2>div{height: 100%; float: left;}
-	.content_2_1{width: 65%;}
-	.content_2_2{width: 35%;}
+	}
 
-	.content_2_1>div{width: 100%;}
-	.content_2_1_1{height: 18%;}
-	.content_2_1_2{height: 16%; border-top: 1px solid rgb(135, 206, 250);}
-	.content_2_1_3{height: 22%; border-top: 1px solid rgb(135, 206, 250);}
-	.content_2_1_4{height: 44%; border-top: 1px solid rgb(135, 206, 250);}
+	.store_info>div{height: 100%; float: left;}
+	.store_info_1{width: 1000px; margin-right: 100px;}
+	.store_info_2{width: 500px;}
 
-	/* content_2 나누기 --------------------------------------------------------------------------------------*/
-	.store_name{
+	.store_info_1>div{width: 100%;}
+	.store_info_1_1{height: 18%;}
+	.store_info_1_2{height: 16%; border-top: 2px solid rgb(135, 206, 250);}
+	.store_info_1_3{height: 22%; border-top: 2px solid rgb(135, 206, 250);}
+	.store_allRev{height: 44%; border-top: 2px solid rgb(135, 206, 250);}
+
+	.tb_store_name{
 		margin-left: 50px;
 		margin-top: 50px;
 	}
@@ -43,7 +58,7 @@
 	/* 최신리뷰 스타일 */
 	.review_recent{
 		background-color: rgb(135, 206, 250);
-		width: 790px; 
+		width: 650px; 
 		height: 300px;
 		border-radius: 50px;
 		margin: auto;
@@ -83,130 +98,144 @@
 
 	/* 상세주소 및 매장지도 */
 	
-	.content_2_2>div{
+	.store_info_2>div{
 		width: 100%;
 		position: sticky;
 		top: 0;
 	}
-	.content_2_2_1{
+	/* 지도 두개 들어가는 것 까지의 div */
+	.store_info_2_1{
 		height: 30%;
 		text-align: center;
-		padding-top: 65px;
-		font-size: 25px;
+		padding-top: 20px;
+		/* font-size: 22px; */
 		font-weight: bold;
 	}
-	/* .content_2_2_2{
-		height: 15%;
-		text-align: center;
-		align-items: center;
-		padding-top: 20px;
-	} */
-	.content_2_2_2{height: 70%;}
-	#maptest{
-		width: 500px;
-		height: 350px;
-	}
+	/* sticky 위한 여백 div */
+	.store_info_2_2{height: 70%;}
 
-	/* 유가정보 지도 */
-	.content_2_2_1_3{
-		height: 10%;
+	/* 매장 상세주소 지도, 유가정보 지도 쪽 텍스트들 */
+	.store_info_2_1_1, .store_info_2_1_3{
+		height: 7%;
 		font-size: 22px;
 		font-weight: bold;
 		text-align: center;
-		padding-top: 50px;
-	}
-	.content_2_2_1_4{
-		height: 90%;
-		text-align: center;
-		align-items: center;
-	}
-	#maptest2{
-		width: 500px;
-		height: 350px;
+		padding-top: 30px;
 	}
 
-	/* content_3 나누기 --------------------------------------------------------------------------------------*/
+
 	/* 매장소개 */
-	.content_2_1_2>div{
+	.store_info_1_2>div{
 		width: 92%;
 		margin: auto;
 		padding-left: 30px;
 	}
-	.content_2_1_2_1{
+	.store_info_1_2_1{
 		height: 25%;
 		font-size: 30px;
 		font-weight: bold;
 		padding-top: 10px;
 		line-height: 90px;
 	}
-	.content_2_1_2_2{
+	.store_info_1_2_2{
 		height: 75%;
 		font-size: 21px;
-		line-height: 30px;
+		line-height: 50px;
 	}
-
-	
 
 
 	/* 매장이용 정보 */
 
-	.content_2_1_3>div{
+	.store_info_1_3>div{
 		width: 92%;
 		margin: auto;
 		padding-left: 30px;
 	}
-	.content_2_1_3_1{
+	.store_info_1_3_1{
 		height: 15%;
 		font-size: 30px; 
 		font-weight: bold;
-		padding-top: 20px;
+		padding-top: 30px;
 	}
-	.content_2_1_3_2{
+	.store_info_1_3_2{
 		height: 10%;
 		font-size: 21px;
 		font-weight: bold;
 	}
-	.content_2_1_3_3{height: 35%; font-size: 20px;}
-	.content_2_1_3_4{
+	.store_info_1_3_3{height: 15%; font-size: 20px;}
+	.store_info_1_3_4{
 		height: 10%;
 		font-size: 21px;
 		font-weight: bold;
 	}
-	.content_2_1_3_5{height: 30%; font-size: 20px;}
+	.store_info_1_3_5{height: 30%; font-size: 20px;}
 
 
 	/* 모든리뷰 */
-	.content_2_1_4>div{
-		width: 100%;
+	
+	.store_allRev>div{
+		width : 92%;
+		margin: auto;
+	}
+	.store_allRev_title{
+		height: 5%;
+		padding-left: 30px;
+		padding-top: 30px;
+		font-size: 30px;
+		font-weight: bold;
+	}
+	.store_allRev_content{
+		height: 95%;
+	}
+
+	/* 모든리뷰 a태그 스타일 */
+	#scrollRev{
+		background-color: rgb(135, 206, 250);
+		border: 1px solid black;
+		border-radius: 20px;
+	}
+
+	#scrollRev:hover{
+		cursor: pointer;
+		background-color: darkblue;
+		color: white;
 	}
 	
 
-
+	/* map div 스타일 */
+	#map, #map2{
+		border: 1px solid rgb(135, 206, 250);
+		border-radius: 20px;
+	}
 
 </style>
+
+	
+
+
 </head>
 <body>
 	<%@ include file="/views/common/head.jsp" %>
 	
 	<div class="outer">
-		<div class="content_1">
-		
+		<div class="store_img">
+			 <h1>매장사진이 들어갈 자리</h1>
 		</div>
-		
-		<div class="content_2">
-			<div class="content_2_1">
-				<div class="content_2_1_1">
-					<table border="0" class="store_name">
+
+		<div class="store_info">
+			<div class="store_info_1">
+				<div class="store_info_1_1">
+					<table border="0" class="tb_store_name">
 						<tr style="height: 80px;">
-							<th style="font-size: 30px; font-weight: bold;"> 한기네 세차장</th>
+							<th style="font-size: 25px; font-weight: bold;"> <%= st.getStoreName() %></th>
 							<td colspan="3">
-								<button type="button" class="" style="margin-left: 50px;">즐겨찾기</button> 
+								<button type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px;">즐겨찾기</button> 
 							</td>
 						</tr>
 						<tr style="height: 40px;">
-							<th style="font-size: 25px; font-weight: bold;">★ 10.0 156명 평가</th>
+							<th style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
 							<td></td>
-							<td colspan="2" style="text-align: right; margin-right: 10px;"><a href="#">모든 리뷰보기</a></td>
+							<td colspan="2" style="text-align: right; margin-right: 10px;"><a id="scrollRev" style="text-decoration: none;">모든 리뷰보기</a></td>
 						</tr>
 						<tr style="height: 350px;">
 							<th></th>
@@ -229,76 +258,157 @@
 						</tr>
 					</table>
 				</div>
-				<div class="content_2_1_2">
-					<div class="content_2_1_2_1">
+				<div class="store_info_1_2">
+					<div class="store_info_1_2_1"> 
 						매장소개
 					</div>
-					<div class="content_2_1_2_2">
-						동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세
-						동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세
-						동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세
+					<div class="store_info_1_2_2">
+						우리 세차장은 최상의 서비스와 전문 기술로 고객 여러분의 자동차를 깨끗하게 만들어드리는 곳입니다.
+						깔끔하고 넓은 공간과 최신식 설비, 전문가로 구성된 팀을 갖추고 있어 정확하고 신속한 서비스를 제공합니다.
+						다양한 세차 프로그램과 친환경적인 세차용품을 제공하여 고객의 다양한 요구에 부응합니다.
+						예약 시스템을 운영하여 편리한 예약이 가능하며 경제적인 가격 정책을 적용하고 있습니다.
+						고객님의 소중한 자동차를 맡기실 때, 우리 세차장을 선택하시면 최상의 결과물과 만족을 얻으실 수 있습니다.
 					</div>
 				</div>
-				<div class="content_2_1_3">
-						<div class="content_2_1_3_1">매장 이용정보</div>
-						<div class="content_2_1_3_2">상세가격</div>
-						<div class="content_2_1_3_3">
+				<div class="store_info_1_3"> 
+						<div class="store_info_1_3_1">매장 이용정보</div> 
+						<div class="store_info_1_3_2">매장 상세주소</div> 
+						<div class="store_info_1_3_3"> 
 							<ul>
-								<li>상세가격 ~~~~~</li>
-								<li>상세가격 ~~~~~</li>
-								<li>상세가격 ~~~~~</li>
-								<li>상세가격 ~~~~~</li>
-								<li>상세가격 ~~~~~</li>
+								<li><%= st.getStoreAddress() %></li>
 							</ul>
 						</div>
-						<div class="content_2_1_3_4">매장 이용시 주의사항</div>
-						<div class="content_2_1_3_5">
+						<div class="store_info_1_3_4">매장 상세가격</div> 
+						<div class="store_info_1_3_5"> 
 							<ul>
-								<li>매장이용시 주의사항~~~~~</li>
-								<li>매장이용시 주의사항~~~~~</li>
-								<li>매장이용시 주의사항~~~~~</li>
-								<li>매장이용시 주의사항~~~~~</li>
-								<li>매장이용시 주의사항~~~~~</li>
+								<li><%= st.getStorePrice() %></li>
 							</ul>
 						</div>
 					
 
 				</div>
-				<div class="content_2_1_4">
 
+				<div class="store_allRev">
+					<div class="store_allRev_title">모든 리뷰</div>
+					<div class="store_allRev_content">
+						
 
+						
+					</div>
+				
 				</div>
+			
+				<!-- =========================================== 화면 오른쪽 ========================================== -->
+
 			</div>
-			<div class="content_2_2">
-				<div class="content_2_2_1">
-						<div class="content_2_2_1_1">
-							상세주소
-						</div>
-						<div class="content_2_2_1_2">
-							<img id="maptest" src="../../resources/maptest.png">
-						</div>
-						<div class="content_2_2_1_3">
-							주변 유가정보 확인
-						</div>
-						<div class="content_2_2_1_4">
-							<img id="maptest2" src="../../resources/maptest2.png">
-						</div>
-				</div>
-				<div class="content_2_2_2">
+			<div class="store_info_2">
+				<div class="store_info_2_1"> 
+						<div class="store_info_2_1_1">상세주소</div>
 
+						<div id="map" style="width:100%; height:400px;"></div>
+							<%= st.getStoreAddress() %>
+						<div class="store_info_2_1_3"> 주변 유가정보 확인</div>
+						<div id="map2" style="width:100%; height:300px;"></div>
+						
+				</div>
+				<div class="store_info_2_2">
+						<!-- sticky 하기 위한 여백 -->
 				</div>
 			</div>
 		</div>
-
 	</div>
-	
-	
-	
-	
 	
 	<%@ include file="/views/common/footer.jsp" %>
 	
+
+
+
+
+	<script>
+		/////////////////////////////////////////
+		////////// 모든리뷰 보기 스크롤 //////////
+		////////////////////////////////////////
+		document.querySelector('td a').addEventListener('click', function(event) {
+			event.preventDefault(); // 기본 동작 방지
+		
+			// 이동할 대상 div 요소 선택자
+			var targetDiv = document.querySelector('.store_allRev');
+		
+			// 대상 div 요소로 스크롤 이동
+			targetDiv.scrollIntoView({ behavior: 'smooth' });
+	  	});
+
+		//////////////////////////////////
+		////////// 즐겨찾기 버튼 //////////
+		//////////////////////////////////
+	  	var bookmarkButton = document.getElementById('bookmarkButton');
+		var isBookmarked = false; // 초기 상태: 즐겨찾기 되어있지 않음
+
+		bookmarkButton.addEventListener('click', function() {
+			if (isBookmarked) {
+				bookmarkButton.textContent = '즐겨찾기'; // 버튼 내용 변경: 즐겨찾기
+				// 즐겨찾기 해제 로직 추가
+			} else {
+				bookmarkButton.textContent = '즐겨찾기 해제'; // 버튼 내용 변경: 즐겨찾기 해제
+				// 즐겨찾기 추가 로직 추가
+			}
+		
+		isBookmarked = !isBookmarked; // 상태 변경 (토글)
+	  	});
+
+
+		/////////////////////////////
+		////////// MAP API //////////
+		/////////////////////////////
+
+		
+			naver.maps.Service.geocode({
+        	query: "<%= st.getStoreAddress() %>"
+    		}, function(status, response) {
+        	if (status !== naver.maps.Service.Status.OK) {
+         	   return alert('Something wrong!');
+       		}
+
+			var result = response.v2, // 검색 결과의 컨테이너
+				items = result.addresses; // 검색 결과의 배열
+			// 성공 시의 response 처리
+			// do Something
+			var map = new naver.maps.Map('map', {
+			center: new naver.maps.LatLng(items[0].y, items[0].x),
+			zoom: 16
+		});
+			var marker = new naver.maps.Marker({
+    		position: new naver.maps.LatLng(items[0].y, items[0].x),
+    		map: map
+
+			});
+			});
+
+			
 	
+		// 잠실 롯데월드를 중심으로 하는 지도
+		//var map1 = new naver.maps.Map('map1', {
+        //	center: new naver.maps.LatLng(37.5112, 127.0981), 
+        //    zoom: 15
+        //});
+
+		//var marker1 = new naver.maps.Marker({
+        //    position: new naver.maps.LatLng(37.5112, 127.0981),
+        //    map: map1
+        //});
+
+		// 주변 유류정보를 보여주는 지도
+		//var map2 = new naver.maps.Map('map2', {
+        //	center: new naver.maps.LatLng(37.5112, 127.0981), 
+         //   zoom: 15
+        //});
+//
+		//var marker2 = new naver.maps.Marker({
+        //    position: new naver.maps.LatLng(37.5112, 127.0981),
+        //    map: map2
+       //});
+
+	</script>
 
 
 

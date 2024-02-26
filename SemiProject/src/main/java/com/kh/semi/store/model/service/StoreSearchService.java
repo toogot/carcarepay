@@ -28,4 +28,21 @@ public class StoreSearchService {
 		return list;
 	}
 
+	public Store selectStoreDetail(int storeNo) {
+		Connection conn = getConnection();
+		Store st = new StoreSearchDao().selectStoreDetail(conn, storeNo);
+		
+		close(conn);
+		
+		return st;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
