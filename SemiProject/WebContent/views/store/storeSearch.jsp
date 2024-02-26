@@ -255,7 +255,7 @@
     		map: map
 			
 			});
-			
+			markers.push(marke);
 			}
 			
 		})
