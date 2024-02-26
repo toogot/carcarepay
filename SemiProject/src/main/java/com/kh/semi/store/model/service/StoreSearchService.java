@@ -20,7 +20,7 @@ public class StoreSearchService {
 		close(conn);
 		return count;
 	}
-
+	
 	public ArrayList<Store> selectStoreList(PageInfo pi, String keyword) {
 		Connection conn = getConnection();
 		ArrayList<Store> list = new StoreSearchDao().selectStoreList(conn,pi,keyword);

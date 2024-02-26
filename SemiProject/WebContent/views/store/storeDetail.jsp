@@ -17,7 +17,7 @@
 
 
 <style>
-	/* .outer div{border: 1px solid red;} */
+	.outer div{border: 1px solid red;}
 	.outer{
 		/* border: 1px solid red; */
 		width: 1900px;
@@ -187,6 +187,67 @@
 	.store_allRev_content{
 		height: 95%;
 	}
+	
+	/* 리뷰 작성 */
+	.rev-write{
+		height: 230px;
+		border: 1px solid black;
+		/* border-radius: 20px; */
+	}
+	.rev-write-id{
+		height: 40px;
+		padding-left: 15px;
+		padding-top: 15px;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.rev-write-content{
+		height: 130px;
+		padding-left: 15px;
+		padding-top: 25px;
+	}
+	.rev-write-btn-area{
+		height: 60px;
+		padding-left: 15px;
+	}
+	.rev-write-btn-area>button{
+		height: 80%;
+		width: 80px;
+		float: right;
+		background-color: rgb(135, 206, 250);
+		color: black;
+		border-radius: 20px;
+	}
+
+	/* 리뷰 리스트 */
+	.rev-list{
+		height: 250px;
+		border: 1px solid rgb(135, 206, 250);
+		border-radius: 20px;
+	}
+	.rev-list-id{
+		height: 40px;
+		padding-left: 15px;
+		padding-top: 15px;
+		font-size: 18px;
+		font-weight: bold;
+	}
+	.rev-list-content{
+		height: 130px;
+		padding-left: 15px;
+		padding-top: 25px;
+	}
+	.rev-list-date{
+		height: 40px;
+		padding-left: 15px;
+	}
+	.rev-list-grade{
+		height: 40px;
+		float: right;
+		padding-right: 15px;
+	}
+
+	
 
 	/* 모든리뷰 a태그 스타일 */
 	#scrollRev{
@@ -290,10 +351,65 @@
 
 				<div class="store_allRev">
 					<div class="store_allRev_title">모든 리뷰</div>
+					<br><br>
 					<div class="store_allRev_content">
+						<% if(loginUser != null){%>
+						<form action="#">
+						<div style="border: 0px; padding-left: 15px;">
+							<span>작성하기</span>   <span>100</span>
+						</div>
+						<br>
+						<div class="rev-write">
+							<div class="rev-write-id">
+								크루이프
+							</div>
+							<div class="rev-write-content">
+								<textarea name="content" cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px; color: gray;">주의: 작성자는 자신의 의견을 표현함에 있어서 다른 사람의 권리와 편견을 존중해야 합니다. 공격적이거나 혐오적인 언어, 인신공격, 비방, 혹은 불법적인 내용을 작성하지 않도록 주의해야 합니다. </textarea>
+							</div>
+							<div class="rev-write-btn-area"> 
+								평점 ★
+								<select name="grade">
+									<option value="5.0">5.0</option>
+									<option value="4.5">4.5</option>
+									<option value="4.0">4.0</option>
+									<option value="3.5">3.5</option>
+									<option value="3.0">3.0</option>
+									<option value="2.5">2.5</option>
+									<option value="2.0">2.0</option>
+									<option value="1.5">1.5</option>
+									<option value="1.0">1.0</option>
+									<option value="0.5">0.5</option>
+									<option value="0">0</option>
+								</select>
+								<button type="submit">등록</button>
+							</div>
+						</form>
+				
+						</div>
+						<%} else {%>
+						<div style="border: 0px; padding-left: 15px;">
+							<span>로그인 후 작성해주세요</span>
+						</div>
+						<br>
+						<div class="rev-write" style="height: 100px;">
+							<div class="rev-write-content">댓글을 작성하려면 <a href="">로그인</a> 해주세요.</div>
+						</div>
+						<% } %>
 						
+						<br>
+						<hr>
+						<br><br>
+						<div class="rev-list">
+							<div class="rev-list-id">작성자 아이디</div>
+							<div class="rev-list-content">
+								<textarea cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px;">작성내용</textarea>
+							</div>
+							<div class="rev-list-date">2024-02-26</div>
+							<div class="rev-list-grade">★ 5.0</div>
+				
+						</div>
 
-						
+
 					</div>
 				
 				</div>
