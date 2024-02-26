@@ -255,8 +255,9 @@
 			var marker = new naver.maps.Marker({
     		position: new naver.maps.LatLng(items[0].y, items[0].x),
     		map: map
-
+			
 			});
+			
 			});
 
 			
