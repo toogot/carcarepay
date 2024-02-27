@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
+
+import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.enrollController.model.vo.Application;
 
 public class ApplicationDao {
@@ -53,6 +56,14 @@ public class ApplicationDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public int enrollStoreImg(Connection conn, ArrayList<AppStoreImage> list) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		
+		
+		return 0;
 	}
 
 }

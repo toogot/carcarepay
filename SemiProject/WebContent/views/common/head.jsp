@@ -12,13 +12,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         @font-face {
-                font-family: 'KCC-Ganpan';
-                src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCC-Ganpan.woff2') format('woff2');
-                font-weight: normal;
-                font-style: normal;
-            }
+    font-family: 'TTHakgyoansimYeohaengR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimYeohaengR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
         body *{
-            font-family: 'KCC-Ganpan';
+            font-family: 'TTHakgyoansimYeohaengR';
         }
             
         div{

@@ -36,7 +36,7 @@
 		height: 30px;
 		font-size: 15px;
 	}
-	.enroll-wrap button{
+	#searchAdd{
 		height: 40px;
 		margin-left: 10px;
 		border: 0;
@@ -65,7 +65,7 @@
 	<% if(loginUser != null){%>
 	<div class="enroll-wrap">
 		
-		<form action="<%=contextPath %>/enroll.st" method="post">
+		<form action="<%=contextPath %>/enroll.st" method="post" enctype="multipart/form-data">
 			<input type="hidden" value="<%=loginUser.getUserNo()%>" name="userNo">
 			<br><br><br>
 			<h1 align="center">입접신청</h1>
@@ -87,7 +87,7 @@
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="storeAddress" onclick="searchAddress();" required><button type="button" onclick="searchAddress();">주소검색</button></td>
+					<td><input type="text" name="storeAddress" onclick="searchAddress();" required><button id="searchAdd" type="button" onclick="searchAddress();">주소검색</button></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
@@ -105,10 +105,38 @@
 					<th>가격정보</th>
 					<td><textarea name="storePrice" cols="50" rows="10" style="resize: none;" required></textarea></td>
 				</tr>
+				<tr>
+					<th>사진등록</th>
+					<td>
+						<label for="storeImg0" style="background-color: rgb(168, 165, 165); width: 180px; height: 25px; display: block; text-align: center; border-radius: 5px; line-height: 25px; cursor: pointer;">내 PC에서 가져오기</label>
+						<input type="file" id="storeImg0" name="storeImg0" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg1" name="storeImg1" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg2" name="storeImg2" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg3" name="storeImg3" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg4" name="storeImg4" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg5" name="storeImg5" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg6" name="storeImg6" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg7" name="storeImg7" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg8" name="storeImg8" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg9" name="storeImg9" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg10" name="storeImg10" style="display: none;" onchange="imgUpload(this);">
+						<input type="file" id="storeImg11" name="storeImg11" style="display: none;" onchange="imgUpload(this);">
+					
+					
+					</td>
+				</tr>
+				<tr>
+					
+					<td colspan="2">
+						<div style="width: 500px; height: 150px; background-color: white; margin: auto; overflow: scroll;" id="imgUpload">
+							
+						</div>
+					</td>
+				</tr>
 			</table>
 			<div id="btn-wrap">
 				<button type="submit">신청하기</button>
-				<button type="reset">취소하기</button>
+				<button type="reset" onclick="allexit();">취소하기</button>
 			</div>			
 		</form>
 	</div>
@@ -116,8 +144,7 @@
 		function searchAddress(){
 			new daum.Postcode({
 			oncomplete: function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-				// 예제를 참고하여 다양한 활용법을 확인해 보세요.\
+				
 				$("input[name=storeAddress]").val(data.address);
 			}
 		}).open();
@@ -131,6 +158,44 @@
 			location.href = "<%=contextPath%>/loginForm.me"
 		</script>
 	<%} %>
+
+		<script>
+			let img= []
+			let count=1;
+			let input = [];
+			function imgUpload(inputFile){			
+				if(inputFile.files.length >= 1){
+					let file = new FileReader();
+
+				file.readAsDataURL(inputFile.files[0])
+
+				file.onload=function(e){
+					$("#storeImg").attr("name","storeImg"+(count++))
+					input.push($("#storeImg"));
+					console.log(input);
+					img.push("<img name='storeImg0' src="+e.target.result+" style='width:25px; height:25px;'>"
+					   					 +"<span>"+inputFile.files[0].name+"</span><br><hr>")
+					
+					$('#imgUpload').html(img);
+					
+					
+				}
+				
+				}
+				
+				
+			}
+
+
+			function allexit(){
+				$('#imgUpload').html('');
+				img = [];
+				$("#storeImg").attr("name","storeImg0");
+				count = 1;
+			}
+		</script>
+
+
 	<%@include file="../common/footer.jsp" %>
 	
 </body>
