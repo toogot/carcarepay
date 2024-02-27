@@ -262,7 +262,7 @@
 		}
 		
 		
-		//console.log(markers)
+		
 		function searchxy(address){
 			naver.maps.Service.geocode({
         	query: address
