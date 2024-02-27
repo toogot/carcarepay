@@ -28,6 +28,31 @@ WHERE USER_NAME = ?
   AND EMAIL = ?
   AND STATUS = 'Y'  
 </entry>
-
-
+<entry key="insertMember">
+INSERT 
+  INTO MEMBER
+	 (
+	   USER_NO
+	 , USER_ID
+	 , USER_PWD
+	 , USER_NAME
+	 , EMAIL
+	 , PHONE
+	 , ADDRESS)
+VALUES
+	 (
+	   SEQ_MEM.NEXTVAL
+	 , ?
+	 , ?
+	 , ?
+	 , ?
+	 , ?
+	 , ?)
+</entry>
+<entry key="idCheck">
+SELECT
+        COUNT(*)  "COUNT"
+ FROM MEMBER
+ WHERE USER_ID = ?
+</entry>
 </properties>
