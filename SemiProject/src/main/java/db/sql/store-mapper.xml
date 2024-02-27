@@ -47,6 +47,20 @@
 	  WHERE RNUM BETWEEN ? AND ?
  </entry>
  
+ <entry key="selectStoreDetail">
+ 	SELECT
+	       STORE_NO
+	     , STORE_NAME
+	     , TYPE_NAME
+	     , STORE_ADDRESS
+	     , STORE_PHONE
+	     , STORE_TIME
+	     , BUSINESS_NO
+	     , STORE_PRICE
+	  FROM STORE
+	  JOIN TYPE USING(STORE_TYPE)
+	 WHERE STORE_NO = ?
+ </entry>
  
  
  

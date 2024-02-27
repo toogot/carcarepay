@@ -16,6 +16,8 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 public class StoreSearchDao {
 	
+	private Properties prop = new Properties();
+	
 	public StoreSearchDao() {
 		String filePath = StoreSearchDao.class.getResource("/db/sql/store-mapper.xml").getPath();
 		
@@ -26,11 +28,8 @@ public class StoreSearchDao {
 		}
 	}
 	
-	private Properties prop = new Properties();
 
 	public void searchStore(Connection conn) {
-		
-		
 		
 	}
 
@@ -120,4 +119,57 @@ public class StoreSearchDao {
 		return list;
 	}
 
+	
+	public Store selectStoreDetail(Connection conn, int storeNo) {
+		// select문 => ResultSet => 1행
+		
+		Store st = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectStoreDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, storeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				  st = new Store(rset.getInt("store_no"),
+					             rset.getString("store_name"),
+					             rset.getString("type_name"),
+					             rset.getString("store_address"),
+					             rset.getString("store_phone"),
+					             rset.getString("store_time"),
+					             rset.getString("business_no"),
+					             rset.getString("store_price"));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return st;
+		
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }

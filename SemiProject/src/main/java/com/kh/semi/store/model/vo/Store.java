@@ -9,7 +9,7 @@ public class Store {
 	private String storePhone;
 	private String storeTime;
 	private String businessNo;
-	private int storePrice;
+	private String storePrice;
 	private String storeStatus;
 	
 	public Store() {
@@ -17,7 +17,7 @@ public class Store {
 	}
 
 	public Store(int storeNo, String storeName, String storeType, String storeAddress, String storePhone,
-			String storeTime, String businessNo, int storePrice, String storeStatus) {
+			String storeTime, String businessNo, String storePrice, String storeStatus) {
 		super();
 		this.storeNo = storeNo;
 		this.storeName = storeName;
@@ -38,6 +38,20 @@ public class Store {
 		this.storeName = storeName;
 		this.storeAddress = storeAddress;
 		this.storePhone = storePhone;
+	}
+	
+	// 마장상세화면 만들때 
+	public Store(int storeNo, String storeName, String storeType, String storeAddress, String storePhone,
+			String storeTime, String businessNo, String storePrice) {
+		super();
+		this.storeNo = storeNo;
+		this.storeName = storeName;
+		this.storeType = storeType;
+		this.storeAddress = storeAddress;
+		this.storePhone = storePhone;
+		this.storeTime = storeTime;
+		this.businessNo = businessNo;
+		this.storePrice = storePrice;
 	}
 
 	public int getStoreNo() {
@@ -96,11 +110,11 @@ public class Store {
 		this.businessNo = businessNo;
 	}
 
-	public int getStorePrice() {
+	public String getStorePrice() {
 		return storePrice;
 	}
 
-	public void setStorePrice(int storePrice) {
+	public void setStorePrice(String storePrice) {
 		this.storePrice = storePrice;
 	}
 
