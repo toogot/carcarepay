@@ -230,37 +230,60 @@
 		
 	</div>
 	<script id="code">
-		var map = new naver.maps.Map('map', {
+		let map;
+		map = new naver.maps.Map('map', {
 			center: new naver.maps.LatLng(37.498981, 127.032915),
-			zoom: 18
+			zoom: 12
 		});
-	</script>
-	<script>
+		let allAddress = [];
+		<%for(int i=0;i<list.size();i++){%>
+			allAddress.push('<%=list.get(i).getStoreAddress()%>');
+		<%}%>;
+		
+		let markers = [];
+		let marke;
+		for(let i=0;i<allAddress.length;i++){
+			naver.maps.Service.geocode({
+			query:allAddress[i]
+		}, function(status, response){
+			var result = response.v2,
+			items = result.addresses;
+
+			for(let i=0;i<allAddress.length;i++){
+			marke = new naver.maps.Marker({
+    		position: new naver.maps.LatLng(items[i].y, items[i].x),
+    		map: map
+			
+			});
+			markers.push(marke);
+			}
+			
+		})
+		}
+		
+		
+		//console.log(markers)
 		function searchxy(address){
 			naver.maps.Service.geocode({
         	query: address
     		}, function(status, response) {
-        	if (status !== naver.maps.Service.Status.OK) {
-         	   return alert('Something wrong!');
-       		}
 
 			var result = response.v2, // 검색 결과의 컨테이너
 				items = result.addresses; // 검색 결과의 배열
 			// 성공 시의 response 처리
 			// do Something
+			
 			var map = new naver.maps.Map('map', {
 			center: new naver.maps.LatLng(items[0].y, items[0].x),
 			zoom: 20
 		});
-			var marker = new naver.maps.Marker({
+			markers[markers.length+1] = new naver.maps.Marker({
     		position: new naver.maps.LatLng(items[0].y, items[0].x),
     		map: map
 			
 			});
 			
-			});
-
-			
+			});		
 	}
 		
 	
