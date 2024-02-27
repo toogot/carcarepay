@@ -6,97 +6,172 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    .outer{
-        background-color: black;
-        color: white;
-        width: 1000px;
-        margin: auto;
-        margin-top: 50px;
-    }
-    #enroll-form table{margin: auto;}
-    #enroll-form input{margin:5px;}
+	h1{
+		color: white;
+		
+	}
+	.enroll-wrap{
+		background-color: #87CEFA;
+		width: 1000px;
+		height: 1200px;
+		margin: auto;
+		margin-top: 20px;
+	}
+	.enroll-wrap table{
+		border: 1px solid rgba(13, 203, 236, 0.959);
+		width: 700px;
+		height: 800px;
+		
+	}
+	.enroll-wrap th{
+		font-size: 20px;
+		color: white;
+	}
+	.enroll-wrap input{
+		width: 300px;
+		height: 30px;
+	}
+	.enroll-wrap select{
+		width: 100px;
+		height: 30px;
+		font-size: 15px;
+	}
+	.enroll-wrap button{
+		height: 40px;
+		margin-left: 10px;
+		border: 0;
+		background-color: rgb(23, 20, 226);
+		border-radius: 10px;
+		color: white;
+	}
+	#btn-wrap{
+		margin: auto;
+		width: 300px;
+		margin-top: 50px;
+	}
+	#btn-wrap>button{
+		width: 100px;
+		height: 50px;
+		background-color: rgb(110, 228, 14);
+		font-size: 20px;
+		font-weight: 800;
+	}
 </style>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
 <body>
-	<%@ include file="../common/head.jsp" %>
-    <div class="outer">
+	
+	<%@include file="../common/head.jsp" %>
+	
+	<div class="enroll-wrap">
+		
+		<form action="" method="post">
+			
+			<br><br><br>
+			<h1 align="center">회원가입</h1>
+			<br><br>
+			<table align="center">
+				<tr>
+					<th>이름</th>
+					<td><input type="text" name="userName" id="userName"></td>
+				</tr>
+				<tr>
+					<th>아이디</th>
+					<td>
+						<input type="text" name="userId" id="userId">
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td>
+						<input type="password" name="userPwd" id="userPwd">
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호 확인</th>
+					<td>
+						<input type="password" name="userPwd2" id="userPwd2">
+					</td>
+				</tr>
+				<tr>
+					<th>이메일</th>
+					<td>
+						<input type="text" name="email" id="email">
+					</td>
+				</tr>
+				<tr>
+					<th>주소</th>
+					<td><input type="text" name="address" onclick="searchAddress();" required><button type="button" onclick="searchAddress();">주소검색</button></td>
+				</tr>
+				<tr>
+					<th>전화번호</th>
+					<td><input type="text" name="phone" id="phone" required></td>
+				</tr>
+				<tr>
+					
+				
+			</table>
+			<div id="btn-wrap">
+				<button type="submit" onclick="return validate();">회원가입</button>
+				<button type="reset">취소하기</button>
+			</div>			
+		</form>
+	</div>
+	<script>
+		function searchAddress(){
+			new daum.Postcode({
+			oncomplete: function(data) {
+				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
+				// 예제를 참고하여 다양한 활용법을 확인해 보세요.\
+				$("input[name=storeAddress]").val(data.address);
+			}
+		}).open();
+		}
+		
+		function validate(){
+			const idInput = document.getElementById("userId");
+			const pwdInput = document.getElementById("userPwd");
+			const pwdInput2 = document.getElementById("userPwd2");
+			const nameInput = document.getElementById("userName");
 
-        <br>
-        <h2 align="center">회원가입</h2>
-        <form id="enroll-form" action="<%= contextPath %>/insert.me" method="post">
+			let regExp = /^[a-z][a-z\d]{3,11}$/i;
+        if(!regExp.test(idInput.value)){
+            alert("유효한 아이디를 입력해주세요!");
+            idInput.select();
+            return false;
+        }
 
-            <table>
-                <tr>
-                    <td>* 아이디</td>
-                    <td><input type="text" name="userId" maxlength="12" required></td>
-                    <td><button type="button">중복확인</button></td>
-                </tr>
-                <tr>
-                    <td>* 비밀번호</td>
-                    <td><input type="password" name="userPwd" maxlength="15" required></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>* 비밀번호 확인</td>
-                    <td><input type="password" maxlength="15" required></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>* 이름</td>
-                    <td><input type="text" name="userName" maxlength="6" required></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;&nbsp;전화번호</td>
-                    <td><input type="text" name="phone" placeholder="- 포함해서 입력"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;&nbsp;이메일</td>
-                    <td><input type="email" name="email"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;&nbsp;주소</td>
-                    <td><input type="text" name="address"></td>
-                    <td></td>
-                </tr>
-                <tr>
-                    <td>&nbsp;&nbsp;관심분야</td>
-                    <td colspan="2">
-                        <input type="checkbox" name="interest" id="sports" value="운동">
-                        <label for="sports">운동</label>
+        
+        regExp = /^[a-z\d!@#$%^&*]{8,15}$/i;
+        if(!regExp.test(pwdInput1.value)){
+            alert("유효한 비밀번호를 입력해주세요!");
+            pwdInput1.value = "";
+            pwdInput1.focus();
+            return false;
+        }
 
-                        <input type="checkbox" name="interest" id="hiking" value="등산">
-                        <label for="hiking">등산</label>
+        // 3) 비밀번호 일치여부
+        if(pwdInput1.value != pwdInput2.value){
+            alert("동일한 비밀번호를 입력해주세요!")
+            pwdInput2.value = "";
+            pwdInput2.focus();
+            return false;
+        }
+        
+        // 4) 이름
+        //    한글(결합형태)로만 2글자 이상
+        regExp = /^[가-힣]{2,}$/;
+        if(!regExp.test(nameInput.value)){
+            alert("유효한 이름을 입력해주세요!")
+            nameInput.select();
+            return false;
+        }
+		}
 
-                        <input type="checkbox" name="interest" id="fishing" value="낚시">
-                        <label for="fishing">낚시</label>
-                        <br>
-                        <input type="checkbox" name="interest" id="cooking" value="요리">
-                        <label for="cooking">요리</label>
-
-                        <input type="checkbox" name="interest" id="game" value="게임">
-                        <label for="game">게임</label>
-
-                        <input type="checkbox" name="interest" id="movie" value="영화">
-                        <label for="movie">영화</label>
-                    </td>
-                </tr>
-            </table>
-
-            <br><br>
-
-            <div align="center">
-                <button type="submit">회원가입</button>
-                <button type="reset">초기화</button>
-            </div>
-
-            <br>
-
-        </form>
-    </div>
-<%@include file="../common/footer.jsp" %>
+	</script>
+	
+	
+	<%@include file="../common/footer.jsp" %>
+	
 </body>
-
 </html>
