@@ -28,4 +28,25 @@
 		  , ?
 		  )
 	</entry>
+	<entry key="enrollStoreImg">
+		INSERT
+		  INTO APP_STORE_IMAGE
+		  (
+		    IMG_NO
+		  , APP_NO
+		  , IMG_ROOT
+		  , ORIGIN_NAME
+		  , CHANGE_NAME
+		  , IMG_LEVEL
+		  )
+		  VALUES
+		  (
+		    ASI_SEQ.NEXTVAL
+		  , APP_SEQ.CURRVAL
+		  , ?
+		  , ?
+		  , ?
+		  , 1
+		  )
+  </entry>
 </properties>

@@ -17,15 +17,15 @@ public class ApplicationService {
 		int result1 = new ApplicationDao().enrollStore(conn,st);
 		
 		int result2 = new ApplicationDao().enrollStoreImg(conn,list);
-		result1=0;
-		if(result1>0) {
+		
+		if(result1>0 && result2>0) {
 			commit(conn);
 		}else {
 			rollback(conn);
 		}
 		
 		close(conn);
-		return result1;
+		return result1*result2;
 	}
 
 }

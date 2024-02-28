@@ -74,7 +74,7 @@ public class StoreEnrollController extends HttpServlet {
 			}
 			
 			
-			System.out.println(list);
+			
 			int result = new ApplicationService().enrollStore(st,list);
 			
 			if(result>0) {

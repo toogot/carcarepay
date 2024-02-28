@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	int num = 0;
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,7 +55,9 @@
 	#btn-wrap>button{
 		width: 100px;
 		height: 50px;
+		border-radius: 15px;
 		background-color: rgb(110, 228, 14);
+		margin: 0px 20px;
 		font-size: 20px;
 		font-weight: 800;
 	}
@@ -108,7 +113,7 @@
 				<tr>
 					<th>사진등록</th>
 					<td>
-						<label for="storeImg0" style="background-color: rgb(168, 165, 165); width: 180px; height: 25px; display: block; text-align: center; border-radius: 5px; line-height: 25px; cursor: pointer;">내 PC에서 가져오기</label>
+						<button type="button" onclick="upload();">내 pc에서 가져오기</button>
 						<input type="file" id="storeImg0" name="storeImg0" style="display: none;" onchange="imgUpload(this);">
 						<input type="file" id="storeImg1" name="storeImg1" style="display: none;" onchange="imgUpload(this);">
 						<input type="file" id="storeImg2" name="storeImg2" style="display: none;" onchange="imgUpload(this);">
@@ -121,7 +126,6 @@
 						<input type="file" id="storeImg9" name="storeImg9" style="display: none;" onchange="imgUpload(this);">
 						<input type="file" id="storeImg10" name="storeImg10" style="display: none;" onchange="imgUpload(this);">
 						<input type="file" id="storeImg11" name="storeImg11" style="display: none;" onchange="imgUpload(this);">
-					
 					
 					</td>
 				</tr>
@@ -141,6 +145,19 @@
 		</form>
 	</div>
 	<script>
+		let num=0;
+		function upload(){
+			if(num <= 12){
+				$("#storeImg"+num).click();
+				num++;
+			}else{
+				alert("최대 등록 개수는 12개입니다.")
+			}
+			
+			
+		}
+
+
 		function searchAddress(){
 			new daum.Postcode({
 			oncomplete: function(data) {
@@ -160,38 +177,29 @@
 	<%} %>
 
 		<script>
-			let img= []
-			let count=1;
-			let input = [];
-			function imgUpload(inputFile){			
+			let img = "";
+			function imgUpload(inputFile,num){			
 				if(inputFile.files.length >= 1){
 					let file = new FileReader();
 
-				file.readAsDataURL(inputFile.files[0])
+					file.readAsDataURL(inputFile.files[0])
 
-				file.onload=function(e){
-					$("#storeImg").attr("name","storeImg"+(count++))
-					input.push($("#storeImg"));
-					console.log(input);
-					img.push("<img name='storeImg0' src="+e.target.result+" style='width:25px; height:25px;'>"
-					   					 +"<span>"+inputFile.files[0].name+"</span><br><hr>")
-					
-					$('#imgUpload').html(img);
-					
-					
-				}
+					file.onload=function(e){
+
+						img += "<img src="+e.target.result+" style='width:25px;height:25px'> <span>"+inputFile.files[0].name+"</span> <br><hr>"
+						$("#imgUpload").html(img);
+						
+					}
 				
 				}
-				
-				
+		
 			}
 
 
 			function allexit(){
-				$('#imgUpload').html('');
+				$("#imgUpload").html("");
 				img = [];
-				$("#storeImg").attr("name","storeImg0");
-				count = 1;
+				num = 0;
 			}
 		</script>
 

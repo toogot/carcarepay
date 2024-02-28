@@ -3,6 +3,7 @@ package com.kh.semi.store.enrollController.model.vo;
 public class AppStoreImage {
 	
 	private int imgNo;
+	private int appNo;
 	private String imgRoot;
 	private String originName;
 	private String changeName;
@@ -13,9 +14,10 @@ public class AppStoreImage {
 		// TODO Auto-generated constructor stub
 	}
 
-	public AppStoreImage(int imgNo, String imgRoot, String originName, String changeName, int imgLevel, String status) {
+	public AppStoreImage(int imgNo, int appNo, String imgRoot, String originName, String changeName, int imgLevel, String status) {
 		super();
 		this.imgNo = imgNo;
+		this.appNo = appNo;
 		this.imgRoot = imgRoot;
 		this.originName = originName;
 		this.changeName = changeName;
@@ -73,8 +75,16 @@ public class AppStoreImage {
 
 	@Override
 	public String toString() {
-		return "AppStoreImage [imgNo=" + imgNo + ", imgRoot=" + imgRoot + ", originName=" + originName + ", changeName="
-				+ changeName + ", imgLevel=" + imgLevel + ", status=" + status + "]";
+		return "AppStoreImage [imgNo=" + imgNo + ", appNo=" + appNo + ", imgRoot=" + imgRoot + ", originName="
+				+ originName + ", changeName=" + changeName + ", imgLevel=" + imgLevel + ", status=" + status + "]";
+	}
+
+	public int getAppNo() {
+		return appNo;
+	}
+
+	public void setAppNo(int appNo) {
+		this.appNo = appNo;
 	}
 	
 	

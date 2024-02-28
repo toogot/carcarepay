@@ -61,9 +61,28 @@ public class ApplicationDao {
 	public int enrollStoreImg(Connection conn, ArrayList<AppStoreImage> list) {
 		PreparedStatement pstmt = null;
 		int result = 0;
+		String sql = prop.getProperty("enrollStoreImg");
+		
+		try {
+			for(AppStoreImage asi :list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, asi.getImgRoot());
+				pstmt.setString(2, asi.getOriginName());
+				pstmt.setString(3, asi.getChangeName());
+				
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 		
 		
-		return 0;
+		
+		return result;
 	}
 
 }
