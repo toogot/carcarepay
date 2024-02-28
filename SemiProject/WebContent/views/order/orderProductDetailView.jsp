@@ -1,3 +1,4 @@
+<%@page import="com.kh.semi.order.model.vo.Order"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
     <title>Document</title>
     <style>
         div{
-            border: 1px solid red;
+            <!--border: 1px solid red;-->
             box-sizing: border-box;
         }
         .outer{
@@ -185,6 +186,18 @@
     </style>
 </head>
 <body>
+
+<%@ include file="/views/common/head.jsp" %>
+
+<%
+    	String userId = loginUser.getUserId();
+    	String userName = loginUser.getUserName();
+    	String phone = loginUser.getPhone(); 
+    	String email = loginUser.getEmail();
+    	int userNo = loginUser.getUserNo();
+%>
+
+
     <div class="outer">
         
         <div class="titleArea">
@@ -208,15 +221,15 @@
                 <table>
                     <tr>
                         <th>이름</th>
-                        <td class="product_info_bottom">조연정</td>
+                        <td class="product_info_bottom"><%= userName %></td>
                     </tr>
                     <tr>
                         <th>연락처</th>
-                        <td class="product_info_bottom">010-1111-1111</td>
+                        <td class="product_info_bottom"><%=phone %></td>
                     </tr>
                     <tr>
                         <th>이메일</th>
-                        <td>ddd@ddd.ddd</td>
+                        <td><%= email %></td>
                     </tr>
                 </table>
             </div>
@@ -273,5 +286,7 @@
 
 
     </div>
+    
+    <%@ include file="/views/common/footer.jsp" %>
 </body>
 </html>

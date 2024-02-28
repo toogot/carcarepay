@@ -329,37 +329,37 @@
 <body>
 <%@ include file="/views/common/head.jsp" %>
     <div class="wrap">
-            <form action="">
-                
+            
+
                 <div class="productOrder">
                     <div class="thumbnail">
-                        <img id="thumbnail_img" src="https://images.ctfassets.net/g69xg0qy1hq0/cVE5QhwfVJX0wqEMdywXU/5c4ae273d45183e85744923b619fd849/Credit_Card_Mockup_by_Anthony_Boyd_Graphics__2_.jpg?w=1100&h=825&q=80&fm=avif">
+                        <img id="thumbnail_img" src="https://img.freepik.com/premium-vector/realistic-smartphone-mockup_573652-780.jpg?w=740">
                     </div>
                     <div class="priceCheckTb">
                         <h3>금액선택</h3>
                         <div class="productPriceCheck">
                             <div class="productRadioBtn">
                                 <div class="radioBtn">
-                                    <input type="radio" id="radio01" name="radioPrice" value="50000" >
+                                    <input type="radio" id="radio01" name="radioPrice" class="radioPrice" value="50000" >
                                     <label for="radio01" style="border: 1px solid">50,000</label>
                                 </div>
                                 <div class="radioBtn">
-                                    <input type="radio" id="radio02" name="radioPrice" value="30000">
+                                    <input type="radio" id="radio02" name="radioPrice" class="radioPrice" value="30000">
                                     <label for="radio02" style="border: 1px solid">30,000</label>
                                 </div>
                                 <div class="radioBtn">
-                                    <input type="radio" id="radio03" name="radioPrice" value="10000">
+                                    <input type="radio" id="radio03" name="radioPrice" class="radioPrice" value="10000">
                                     <label for="radio03" style="border: 1px solid">10,000</label>
                                 </div>
                             
                                 <div class="radioBtn">
-                                    <input type="radio" id="radio04" name="radioPrice" value="5000">
+                                    <input type="radio" id="radio04" name="radioPrice" class="radioPrice" value="5000">
                                     <label for="radio04" style="border: 1px solid">5,000</label>
                                 </div>
                             </div>
                             <div class="productRadioBtn2">
                                 <!-- <div class="radio05div"> -->
-                                <input type="radio" id="radio05" name="radioPrice" class="radioPriceBtn">
+                                <input type="radio" id="radio05" name="radioPrice" class="radioPrice" class="radioPriceBtn">
                                 <label for="radio05" class="radio05text">직접 입력</label>
                                 <!-- </div> -->
                                 <label for="radio05"><input type="text" id="radio05-1" placeholder="구매(선물)금액 입력해주세요" maxlength="5" ></label>
@@ -372,7 +372,7 @@
                         <div class="checkAmountQty" >
                             <div class="checkAmountQty-inputNum" >
                                 <input type="button" class="minusBtn" value="-" type="button">
-                                <input type="number" class ="checkAmountQty-num" min="1" max="5" value="1" maxlength="1">
+                                <input type="number" class ="checkAmountQty-num" name="checkAmountQty-num" min="1" max="5" value="1" maxlength="1">
                                 <input type="button" class="plusBtn" value="+" type="button">
                             </div>
                             <!-- style="border: 1px solid red;" -->
@@ -384,16 +384,33 @@
                         
                         <div class="totalPrice">
                             총 결제금액
-                            <span id="totalPriceSpan">0</span>
+                            <span id="totalPriceSpan" name="totalPriceSpan">0</span>
+                            <input type="hidden" name="hiddenTotalPrice" id="hiddenTotalPrice">
+                            <input type="hidden" name="hiddenRadioCheckPrice" id="hiddenRadioCheckPrice">
                             원
                         </div>
                         <div class="buyGiftBtn">
-                            <button id="giftBtn" type="submit">선물하기</button>
-                            <button onclick = "location.href = '/SemiProject/orderdetail.bo' " id="buyBtn" type="submit">충전하기</button>
+                            <!-- 로그인이 되어있을 경우 -->
+                            <% if(loginUser != null) {%> 
+                            <button onclick = "giftBtn()" id="giftBtn" type="submit">선물하기</button>
+                            <% }else{%> 
+
+                            <!-- 만약 로그인을 하지 않고 선물버튼 클릭시 -->
+                            <button onclick = "buyGiftNotLogin()" id="buyBtn" type="submit">선물하기</button>
+                            <% } %>
+
+
+                            <!-- 로그인이 되어있을 경우 -->
+                            <% if(loginUser != null) {%> 
+                            <button onclick = "buyBtn()" id="buyBtn" type="submit">충전하기</button>
+                            
+                            <!-- 만약 로그인을 하지 않고 충전버튼 클릭시 -->
+                            <% }else{%> 
+                            <button onclick = "buyGiftNotLogin()" id="buyBtn" type="submit">충전하기</button>
+                        	<% } %>
                         </div>
                     </div>
                 </div>
-            </form>
         
 
 
@@ -490,23 +507,6 @@
                 
             })
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         });
         //-----------------------------------------------------------------------------
 
@@ -514,10 +514,10 @@
         //------------------------수량증감버튼--------------------------------//
         $(function(){
 
-                        //직접입력칸 클릭시 직접입력 라디오버튼 체크되는 함수
-                        $("#radio05-1").click(function() {
-                $("#radio05").prop("checked", true);
-                // $(".checkAmountQty-num").val("1");
+            //직접입력칸 클릭시 직접입력 라디오버튼 체크되는 함수
+            $("#radio05-1").click(function() {
+            $("#radio05").prop("checked", true);
+            $(".checkAmountQty-num").val(1);
                 
             });
         
@@ -525,11 +525,25 @@
             //5000,10000,30000,50000원 클릭시 직접입력칸에 들어가있던 숫자 비워주는 함수
             $(".productRadioBtn label").click(function(){
                 $("#radio05-1").val("");
+                $(".checkAmountQty-num").val(1); //상품수량 1로 바꿔줌
             })
+
+            // 선택된 라디오 버튼의 값을 가져와서 콘솔에 출력
+            $('input[type="radio"]').change(function(){
+            var selectedValue = $('input[type="radio"]:checked').val();
+            $('#hiddenRadioCheckPrice').val(selectedValue);
+            $('#hiddenTotalPrice').val(selectedValue);
+            console.log("hidden토탈프라이스콘솔ㄱ"+($('#hiddenRadioCheckPrice').val()));
+            });
 
             //직접입력칸에 숫자입력시 얼마인지 나오게하는 함수
             $("#radio05-1").keyup(function(){
                 $('#totalPriceSpan').text(Number($('#radio05-1').val()));
+                $('#hiddenTotalPrice').val(Number($('#radio05-1').val()));
+                $('#radio05').val($('#radio05-1').val());
+                $("#hiddenRadioCheckPrice").val($('#radio05').val());
+                console.log("잘되고잇냐고ㅜㅜ"+($("#radio05").val()));
+                console.log("hidden토탈프라이스콘솔ㅅ"+($('#hiddenTotalPrice').val()));
                 
             })
 
@@ -550,6 +564,8 @@
                         checkAmountQty += 1; //수량을 추가해준다
                         $(".checkAmountQty-num").val(checkAmountQty); //class가 checkAmountQty-num요소에 추가된 수량을 입력해준다
                         $('#totalPriceSpan').text(totalPrice * checkAmountQty); // 아이디가 #totalPriceSpan인 요소에 라디오버튼 val값과 수량의 값을 곱해서 대입시켜준다 // span의 값이 변경되는 코드 // 수량과 금액을 곱해서 총금액을 알려주는 코드
+                        $('#hiddenTotalPrice').val(totalPrice * checkAmountQty);
+                        console.log("hidden토탈프라이스콘솔ㄴ"+($('#hiddenTotalPrice').val()));
                     }
                 }
             }else { //직접입력했을때
@@ -558,6 +574,9 @@
                     checkAmountQty += 1; //수량을 추가해준다
                     $(".checkAmountQty-num").val(checkAmountQty); //class가 checkAmountQty-num요소에 추가된 수량을 입력해준다
                     $('#totalPriceSpan').text(inputNum * checkAmountQty); // 아이디가 #totalPriceSpan인 요소에 라디오버튼 val값과 수량의 값을 곱해서 대입시켜준다 // span의 값이 변경되는 코드 // 수량과 금액을 곱해서 총금액을 알려주는 코드
+                    $('#hiddenTotalPrice').val(inputNum * checkAmountQty);
+                    console.log("hidden토탈프라이스콘솔ㄷ"+($('#hiddenTotalPrice').val()));
+                
                 }
             }
             })
@@ -573,6 +592,8 @@
                             checkAmountQty -=1;
                             $(".checkAmountQty-num").val(checkAmountQty);
                             $('#totalPriceSpan').text(totalPrice * checkAmountQty);
+                            $('#hiddenTotalPrice').val(totalPrice * checkAmountQty);
+                            console.log("hidden토탈프라이스콘솔ㄹ"+$('#hiddenTotalPrice').val());
                         }
                     }
                 }else{ //직접입력했을때
@@ -581,6 +602,8 @@
                         checkAmountQty -=1;
                         $(".checkAmountQty-num").val(checkAmountQty);
                         $('#totalPriceSpan').text(inputNum * checkAmountQty);
+                        $('#hiddenTotalPrice').val(inputNum * checkAmountQty);
+                        console.log("hidden토탈프라이스콘솔ㅁ"+$('#hiddenTotalPrice').val());
                     }
                 }
             })
@@ -599,8 +622,56 @@
 
         });
 
+	function buyGiftNotLogin(){ //로그인되어있지 않고 충전&선물버튼 클릭시
+		alert("로그인이 필요한 서비스 입니다.");
+		location.href = "<%=contextPath%>/loginForm.me"
+	}
+	
 
+    
+	
+	function buyBtn(){ //로그인되어있고 충전버튼 클릭시
+		if($('input[name="radioPrice"]:checked').val() !=null){ //금액설정시
+            
+            console.log($(".checkAmountQty-num").val());
+            $.ajax({
+            	url:"orderdetail.bo",
+            	data:{
+            		price:$("#hiddenRadioCheckPrice").val(),
+            		totalprice:$('#hiddenTotalPrice').val(),
+            		qty:$(".checkAmountQty-num").val()
+            		
+            	},
+            	type:"post",
+            	success:function(result){
+            		if(result>0){
+            			moveOrderDetail();
+            		}
+            	},error:function(){
+            		console.log("ajax 실패 ㅜㅜ")
+            	}
+            	
+            })
 
+            
+        }else{ //금액미설정시
+            alert("금액을 선택해주세요.");
+        }
+	}
+
+    function giftBtn(){ //로그인 되어있고 선물버튼 클릭시
+        if($('input[name="radioPrice"]:checked').val() !=null){ //금액설정시
+             
+             location.href = "<%=contextPath%>/ordergiftdetail.bo"
+
+        }else{ //금액미설정시
+            alert("금액을 선택해주세요.");
+        }
+    }
+    
+   function moveOrderDetail(){
+ 		location.href = "<%=contextPath%>/orderdetail2.bo"
+   }
 
     </script>
 </body>
