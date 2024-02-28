@@ -178,7 +178,7 @@
 
 		<script>
 			let img = "";
-			function imgUpload(inputFile,num){			
+			function imgUpload(inputFile){			
 				if(inputFile.files.length >= 1){
 					let file = new FileReader();
 
