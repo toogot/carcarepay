@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="insertReview">
+		INSERT 
+		  INTO REVIEW
+		  (
+		    REVIEW_NO
+		  , USER_NO
+		  , STORE_NO
+		  , CONTENT
+		  , GRADE
+		  )
+		  VALUES
+		  (
+		    SEQ_REVNO.NEXTVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="selectReview">
+		SELECT
+		       USER_ID
+		     , CONTENT
+		     , ISSUE_DATE
+		     , GRADE
+		  FROM REVIEW
+		  JOIN MEMBER USING (USER_NO)
+		 WHERE STORE_NO = ?
+		 ORDER
+    		BY REVIEW_NO DESC
+	</entry>
+	
+	
+	<entry key=""></entry>
+	
+
+
+</properties>

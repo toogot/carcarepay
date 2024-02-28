@@ -9,15 +9,21 @@
 <!DOCTYPE html>
 <html>
 <head>
+
 <meta charset="UTF-8">
 <title>매장상세페이지</title>
 
 <!-- map api, 지코딩 관련 스크립트 -->
 <script type="text/javascript" src="https://oapi.map.naver.com/openapi/v3/maps.js?ncpClientId=nfs99ero2h&submodules=geocoder"></script>
+<!-- ajax -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script src="http://www.opinet.co.kr/api/aroundAll.do?code=XXXXXX&x=314681.8&y=544837&radius=5000&sort=1&prodcd=B027&out=json"></script>
+
 
 
 <style>
-	.outer div{border: 1px solid red;}
+    /*.outer div{border: 1px solid red;}*/
 	.outer{
 		/* border: 1px solid red; */
 		width: 1900px;
@@ -48,7 +54,7 @@
 	.store_info_1_1{height: 18%;}
 	.store_info_1_2{height: 16%; border-top: 2px solid rgb(135, 206, 250);}
 	.store_info_1_3{height: 22%; border-top: 2px solid rgb(135, 206, 250);}
-	.store_allRev{height: 44%; border-top: 2px solid rgb(135, 206, 250);}
+	.store_allRev{height: 42%; border-top: 2px solid rgb(135, 206, 250);}
 
 	.tb_store_name{
 		margin-left: 50px;
@@ -190,7 +196,7 @@
 	
 	/* 리뷰 작성 */
 	.rev-write{
-		height: 230px;
+		height: 300px;
 		border: 1px solid black;
 		/* border-radius: 20px; */
 	}
@@ -202,13 +208,24 @@
 		font-weight: bold;
 	}
 	.rev-write-content{
-		height: 130px;
+		height: 180px;
 		padding-left: 15px;
-		padding-top: 25px;
+		padding-top: 20px;
+	}
+	.rev-write-content>div{
+		height: 100%;
+		float: left;
+	}
+	.rev-title-img{
+		width: 150px;
+		margin: 10px;
+	}
+	.rev-write-textarea{
+		width: 700px;
+		padding-left: 15px;
 	}
 	.rev-write-btn-area{
 		height: 60px;
-		padding-left: 15px;
 	}
 	.rev-write-btn-area>button{
 		height: 80%;
@@ -354,21 +371,23 @@
 					<br><br>
 					<div class="store_allRev_content">
 						<% if(loginUser != null){%>
-						<form action="#">
-						<div style="border: 0px; padding-left: 15px;">
-							<span>작성하기</span>   <span>100</span>
-						</div>
+							<div style="border: 0px; padding-left: 15px;">
+								<span>작성하기</span>   <span>100</span>
+							</div>
 						<br>
 						<div class="rev-write">
 							<div class="rev-write-id">
-								크루이프
+								<%= loginUser.getUserId() %>
 							</div>
 							<div class="rev-write-content">
-								<textarea name="content" cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px; color: gray;">주의: 작성자는 자신의 의견을 표현함에 있어서 다른 사람의 권리와 편견을 존중해야 합니다. 공격적이거나 혐오적인 언어, 인신공격, 비방, 혹은 불법적인 내용을 작성하지 않도록 주의해야 합니다. </textarea>
+								<div class="rev_title_img"><img id="titleImg" src="" width="100px" height="100px"></div>
+								<div class="rev-write-textarea">
+								<textarea name="content" cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px;" placeholder="주의: 작성자는 자신의 의견을 표현함에 있어서 다른 사람의 권리와 편견을 존중해야 합니다. 공격적이거나 혐오적인 언어, 인신공격, 비방, 혹은 불법적인 내용을 작성하지 않도록 주의해야 합니다."></textarea>
+								</div>
 							</div>
 							<div class="rev-write-btn-area"> 
-								평점 ★
-								<select name="grade">
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;평점 ★
+								<select class="grade">
 									<option value="5.0">5.0</option>
 									<option value="4.5">4.5</option>
 									<option value="4.0">4.0</option>
@@ -381,9 +400,12 @@
 									<option value="0.5">0.5</option>
 									<option value="0">0</option>
 								</select>
-								<button type="submit">등록</button>
+								&nbsp;<input type="file" id="file1" onchange="loadImg(this);">
+									  <input type="file" id="file2">
+									  <input type="file" id="file3">
+								<button onclick="insertReview();">등록</button>
+				
 							</div>
-						</form>
 				
 						</div>
 						<%} else {%>
@@ -392,22 +414,26 @@
 						</div>
 						<br>
 						<div class="rev-write" style="height: 100px;">
-							<div class="rev-write-content">댓글을 작성하려면 <a href="">로그인</a> 해주세요.</div>
+							<div class="rev-write-content">댓글을 작성하려면 <a href="<%= contextPath %>/loginForm.me">로그인</a> 해주세요.</div>
 						</div>
 						<% } %>
 						
 						<br>
 						<hr>
 						<br><br>
-						<div class="rev-list">
-							<div class="rev-list-id">작성자 아이디</div>
-							<div class="rev-list-content">
-								<textarea cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px;">작성내용</textarea>
-							</div>
-							<div class="rev-list-date">2024-02-26</div>
-							<div class="rev-list-grade">★ 5.0</div>
-				
+						<%%>
+						<div id="rev-list">
+							
+								<!-- <div class="rev-list-id">작성자 아이디</div>
+								<div class="rev-list-content">
+									<textarea cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px;">작성내용</textarea>
+								</div>
+								<div class="rev-list-date">2024-02-26</div>
+								<div class="rev-list-grade">★ 5.0</div> -->
+					
+							
 						</div>
+						<%%>
 
 
 					</div>
@@ -463,10 +489,10 @@
 		bookmarkButton.addEventListener('click', function() {
 			if (isBookmarked) {
 				bookmarkButton.textContent = '즐겨찾기'; // 버튼 내용 변경: 즐겨찾기
-				// 즐겨찾기 해제 로직 추가
+				// 즐겨찾기 해제 로직
 			} else {
 				bookmarkButton.textContent = '즐겨찾기 해제'; // 버튼 내용 변경: 즐겨찾기 해제
-				// 즐겨찾기 추가 로직 추가
+				// 즐겨찾기 추가 로직
 			}
 		
 		isBookmarked = !isBookmarked; // 상태 변경 (토글)
@@ -476,31 +502,123 @@
 		/////////////////////////////
 		////////// MAP API //////////
 		/////////////////////////////
-
-		
-			naver.maps.Service.geocode({
-        	query: "<%= st.getStoreAddress() %>"
-    		}, function(status, response) {
-        	if (status !== naver.maps.Service.Status.OK) {
-         	   return alert('Something wrong!');
-       		}
+		naver.maps.Service.geocode({
+       	query: "<%= st.getStoreAddress() %>"
+   		}, function(status, response) {
+	       	if (status !== naver.maps.Service.Status.OK) {
+	        	   return alert('Something wrong!');
+	      		}
 
 			var result = response.v2, // 검색 결과의 컨테이너
 				items = result.addresses; // 검색 결과의 배열
-			// 성공 시의 response 처리
-			// do Something
+		// 성공 시의 response 처리
+		// do Something
 			var map = new naver.maps.Map('map', {
 			center: new naver.maps.LatLng(items[0].y, items[0].x),
 			zoom: 16
-		});
+			});
 			var marker = new naver.maps.Marker({
-    		position: new naver.maps.LatLng(items[0].y, items[0].x),
-    		map: map
-
+	   		position: new naver.maps.LatLng(items[0].y, items[0].x),
+	   		map: map
 			});
-			});
+		
+		});
 
+		//////////////////////////////////////////
+		//////////// ajax 리뷰 insert ////////////	
+		/////////////////////////////////////////
+		$(function(){
+				selectReview();
+				
+		});	
+		
+		function insertReview(){
+		$.ajax({
+			url:"insert.rv",
+			method:"post",
+			data:{
+				content: $(".rev-write textarea").val(),
+				storeNo: <%= st.getStoreNo() %>,
+				grade: $(".grade").val()},
+				success:function(result){
+					if(result > 0){
+						$(".rev-write textarea").val("");
+						selectReview();
+						
+					}
+				},
+				error:function(){
+					alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
+				}
+		
+			})
+		}
+		
+		/////////////////////////////////////
+		/////////// ajax 리뷰 select /////////
+		/////////////////////////////////////
+		function selectReview(){
+		$.ajax({
+			url:"select.rv",
+			method:"post",
+			data:{storeNo: <%= st.getStoreNo() %>},
+			success:function(rlist){
+					let value = "";
+				if(rlist.length < 1){
+					value += "<div>조회된 리뷰가 없습니다.</div>"
+				} else{
+					for(let i = 0; i < rlist.length; i++){
+						value += "<div class='rev-list'>"
+							   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
+						       + "<div class='rev-list-content'>"
+						       + "<textarea cols='90' rows='5' style='border: 1px; resize: none; font-size: 15px;' disabled>" + rlist[i].content + "</textarea>"
+						       + "</div>"
+						       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
+						       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
+						       + "</div>"
+						       + "<br><br>";
+						       
+					}
+				}
+						       $("#rev-list").html(value);
+					
+			},
+			error:function(){
+				
+			}
+
+		})
+		}
+		
+		
+		function loadImg(inputFile){
 			
+			if(inputFile.files.length == 1){ // 파일이 선택된 경우
+				const reader = new FileReader();
+			
+				reader.readAsDataURL(inputFile.files[0]);
+				
+				reader.onload = function(e){
+					
+					$("#titleImg").attr("src",e.target.result);
+					
+				}
+			} else { // 파일이 취소된 경우
+				$("#titleImg").attr("src", null);			
+			}
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
 	
 		// 잠실 롯데월드를 중심으로 하는 지도
 		//var map1 = new naver.maps.Map('map1', {
