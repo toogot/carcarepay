@@ -109,6 +109,11 @@
     
         <script>
        	$(function(){
+            weather();
+            setInterval(weather,1000*60);
+       	})
+        
+       	function weather(){
             let apiUrl = 'https://api.openweathermap.org/data/2.5/weather?q=Seoul&APPID=6a5ffef757194f752a3bf9ecfa203d6b';
             $.ajax({
                 url:apiUrl,
@@ -130,10 +135,7 @@
                     $("#weather-icon>img").attr("src", imgURL);
                 }
             })
-
-            
-       	})
-       		
+        }
        	
         	
         
