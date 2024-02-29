@@ -12,13 +12,31 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
         @font-face {
-    font-family: 'TTHakgyoansimYeohaengR';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimYeohaengR.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
+		    font-family: 'TTHakgyoansimYeohaengR';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimYeohaengR.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		@font-face {
+		    font-family: 'KCCMurukmuruk';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCCMurukmuruk.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		@font-face {
+		    font-family: 'ONE-Mobile-POP';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		@font-face {
+		    font-family: 'Katuri';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
         body *{
-            font-family: 'TTHakgyoansimYeohaengR';
+            font-family: 'ONE-Mobile-POP';
         }
             
         div{
