@@ -33,6 +33,8 @@ public class ReviewInsertController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		
+		
+		// review 테이블 insert할 값 뽑기
 		HttpSession session = request.getSession();
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		String content = request.getParameter("content");
