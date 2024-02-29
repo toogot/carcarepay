@@ -224,8 +224,7 @@
 			
 			</div>
 			
-				
-			
+	
 		</div>
 		
 	</div>
@@ -250,15 +249,18 @@
 			items = result.addresses;
 
 			for(let i=0;i<allAddress.length;i++){
-			marke = new naver.maps.Marker({
-    		position: new naver.maps.LatLng(items[i].y, items[i].x),
-    		map: map
-			
+				marke = new naver.maps.Marker({
+				position: new naver.maps.LatLng(items[i].y, items[i].x),
+				map: map		
 			});
 			markers.push(marke);
 			}
 			
 		})
+
+
+
+
 		}
 		
 		
