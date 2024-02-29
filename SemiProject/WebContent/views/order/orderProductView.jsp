@@ -328,9 +328,10 @@
 </head>
 <body>
 <%@ include file="/views/common/head.jsp" %>
+
     <div class="wrap">
             
-
+				
                 <div class="productOrder">
                     <div class="thumbnail">
                         <img id="thumbnail_img" src="https://img.freepik.com/premium-vector/realistic-smartphone-mockup_573652-780.jpg?w=740">
@@ -402,7 +403,7 @@
 
                             <!-- 로그인이 되어있을 경우 -->
                             <% if(loginUser != null) {%> 
-                            <button onclick = "buyBtn()" id="buyBtn" type="submit">충전하기</button>
+                            <button onclick = "buyBtn()" id="buyBtn" type="button">충전하기</button>
                             
                             <!-- 만약 로그인을 하지 않고 충전버튼 클릭시 -->
                             <% }else{%> 
@@ -668,10 +669,15 @@
             alert("금액을 선택해주세요.");
         }
     }
+
     
-   function moveOrderDetail(){
- 		location.href = "<%=contextPath%>/orderdetail2.bo"
+    function moveOrderDetail(){    	
+    	location.href = "<%=contextPath%>/orderdetail2.bo"
+
    }
+
+
+   
 
     </script>
 </body>

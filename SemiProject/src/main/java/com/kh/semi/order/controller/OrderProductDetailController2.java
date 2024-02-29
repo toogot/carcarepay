@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.order.model.vo.Order;
+
 /**
- * Servlet implementation class OrderProductControllerReal
+ * Servlet implementation class OrderProductDetailController3
  */
 @WebServlet("/orderdetail2.bo")
-public class OrderProductDetailControllerReal extends HttpServlet {
+public class OrderProductDetailController2 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderProductDetailControllerReal() {
+    public OrderProductDetailController2() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,7 +28,9 @@ public class OrderProductDetailControllerReal extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("views/order/orderProductDetailView.jsp").forward(request, response);
+	
+	request.getRequestDispatcher("views/order/orderProductDetailView.jsp").forward(request, response);
+
 	}
 
 	/**

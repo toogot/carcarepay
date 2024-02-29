@@ -41,10 +41,6 @@ public class OrderProductDetailController extends HttpServlet {
 		int totalPrice = (Integer.parseInt(request.getParameter("totalprice")));
 		
 		
-		System.out.println("총가격 : " + totalPrice);
-		System.out.println("라디오버튼 : " + price);
-		System.out.println("상품수량 : " + qty);
-		System.out.println("회원번호 : " + userNo);
 		
 		//request.getRequestDispatcher("views/order/orderProductDetailView.jsp").forward(request, response);
 		
@@ -54,6 +50,10 @@ public class OrderProductDetailController extends HttpServlet {
 		o.setUserNo(userNo);
 		o.setTotalPrice(totalPrice);
 		
+		System.out.println("총가격 : " + totalPrice);
+		System.out.println("라디오버튼 : " + price);
+		System.out.println("상품수량 : " + qty);
+		System.out.println("회원번호 : " + userNo);
 		int result = new OrderService().orderInsert(o);
 		
 		System.out.println(o);

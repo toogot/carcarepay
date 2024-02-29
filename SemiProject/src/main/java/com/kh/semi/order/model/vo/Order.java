@@ -10,11 +10,15 @@ public class Order {
 	private int qty;	 	// 갯수
 	private int totalPrice; // 총가격
 	private String giftNy;  // 선물여부
-	private Date orderDate; // 주문날짜
+	private String orderDate; // 주문날짜
+	
+	private String email;   // 주문한사람 이메일
+	private String phone; 	//주문한사람 폰번호
+	
 	
 	public Order() {}
 
-	public Order(int userNo, int orderNo, int price, int qty, int totalPrice, String giftNy, Date orderDate) {
+	public Order(int userNo, int orderNo, int price, int qty, int totalPrice, String giftNy, String orderDate) {
 		super();
 		this.userNo = userNo;
 		this.orderNo = orderNo;
@@ -24,6 +28,24 @@ public class Order {
 		this.giftNy = giftNy;
 		this.orderDate = orderDate;
 	}
+
+
+
+
+	public Order(int userNo, int orderNo, int totalPrice,String orderDate,  String giftNy,int qty, int price, String email, String phone) {
+		super();
+		this.userNo = userNo;
+		this.orderNo = orderNo;
+		this.totalPrice = totalPrice;
+		this.orderDate = orderDate;
+		this.giftNy = giftNy;
+		this.qty = qty;
+		this.price = price;
+		this.email = email;
+		this.phone = phone;
+	}
+
+
 
 	public int getUserNo() {
 		return userNo;
@@ -73,19 +95,41 @@ public class Order {
 		this.giftNy = giftNy;
 	}
 
-	public Date getOrderDate() {
+	public String getOrderDate() {
 		return orderDate;
 	}
 
-	public void setOrderDate(Date orderDate) {
+	public void setOrderDate(String orderDate) {
 		this.orderDate = orderDate;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
 	}
 
 	@Override
 	public String toString() {
 		return "Order [userNo=" + userNo + ", orderNo=" + orderNo + ", price=" + price + ", qty=" + qty
-				+ ", totalPrice=" + totalPrice + ", giftNy=" + giftNy + ", orderDate=" + orderDate + "]";
+				+ ", totalPrice=" + totalPrice + ", giftNy=" + giftNy + ", orderDate=" + orderDate + ", email=" + email
+				+ ", phone=" + phone + "]";
 	}
+
+
+
+
 	
 	
 

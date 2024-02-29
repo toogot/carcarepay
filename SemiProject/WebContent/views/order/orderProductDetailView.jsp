@@ -129,7 +129,7 @@
             color: white;
         }
 
-        #totalPrice{
+        #totalPriceSpan{
             font-size: 45px;
             font-weight: 500;
             color: white;
@@ -243,9 +243,9 @@
                         <th class="product_info_bottom">총 충전금액</th>
                     </tr>
                     <tr>
-                        <th class="product_info_tb_th">10000</th>
-                        <th class="product_info_tb_th">1</th>
-                        <th>10000</th>
+                        <th id="price" class="product_info_tb_th"></th>
+                        <th id="qty" class="product_info_tb_th"></th>
+                        <th id="totalPrice"></th>
                     </tr>
                 </table>
             </div>
@@ -269,7 +269,7 @@
                     <h2 class="h2class" style="color: white;">총 결제금액</h2>
                 </div>
                 <div class="totlaPrice_div2" style="border: 1px solid purple;">
-                    <span id="totalPrice" >10000</span>
+                    <span id="totalPriceSpan" ></span>
                     <span>원</span>
                 </div>
             </div>
@@ -288,5 +288,45 @@
     </div>
     
     <%@ include file="/views/common/footer.jsp" %>
+    
+    
+    <script>
+    let o;
+    
+        $(function(){
+		
+            $.ajax({
+            	url:"orderdetail3.bo",
+            	type:"post",
+            	success:function(o){
+            		console.log(o);
+					 let price = o.price;
+					 let qty = o.qty;
+					 let totalPrice = o.totalPrice;
+					 $("#price").html(price);
+                     $("#totalPrice").html(totalPrice);
+                     $("#qty").html(qty);
+                     $("#totalPriceSpan").html(totalPrice);
+
+                     // 다른 함수에서도 o를 사용할 수 있음
+                     updatePageWithData(o);
+            	},error:function(){
+            		console.log("ajax 실패 ㅜㅜ")
+            	}
+            	
+            })
+
+        })
+    
+        // 전역 변수 o를 활용하여 페이지 업데이트
+        function updatePageWithData(o) {
+            console.log("전역변수 성공?? : " + o);
+            console.log(o);
+        }
+        
+    
+    
+    
+    </script>
 </body>
 </html>

@@ -4,7 +4,9 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.order.model.vo.Order;
@@ -48,6 +50,49 @@ public class OrderDao {
 			close(pstmt);
 		}
 		return result;
+	}
+	
+	public Order orderDetailSelect(Connection conn, int userNo){
+		// select문 => ResultSet(한행) => Order 객체에 담겠다!!!
+		
+		
+		Order o = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("orderDetailSelect");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				o = new Order(rset.getInt("user_no"),
+							rset.getInt("order_no"),
+							rset.getInt("total_price"),
+							rset.getString("order_enroll"),
+							rset.getString("gift_yn"),
+							rset.getInt("order_qty"),
+							rset.getInt("order_price"),
+							rset.getString("email"),
+							rset.getString("phone")
+							);
+			}
+			
+			System.out.println("dao : " + o);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return o;
+		
 	}
 
 }
