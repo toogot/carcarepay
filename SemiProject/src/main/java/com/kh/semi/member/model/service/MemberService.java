@@ -46,4 +46,18 @@ public class MemberService {
 		close(conn);
 		return count;
 	}
+	
+	public int kakaoInsertMember(Member m) {
+		Connection conn = getConnection();
+		int result = new MemberDao().kakaoInsertMember(conn, m);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
 }

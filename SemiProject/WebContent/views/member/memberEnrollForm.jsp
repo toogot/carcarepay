@@ -70,6 +70,44 @@
 			<h1 align="center">회원가입</h1>
 			<br><br>
 			<table align="center">
+				<a id="kakao-login-btn" onclick="kakaoLogin();">
+					<img src="resources/images/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼" />
+				  </a>
+		
+			<script type="text/javascript">
+				Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
+				function kakaoLogin() {
+					Kakao.Auth.login({
+						success: function (response1) {
+							Kakao.API.request({
+								url: '/v2/user/me',
+								
+								success: function (response) {
+									
+									alert(JSON.stringify(response));
+									$.ajax({
+										url:'<%= contextPath%>/kakaoLogin.me',
+										data:{
+											id:response.id,
+											nickname:response.properties.nickname,
+											email:response.kakao_account.email
+										}
+									})
+									
+									
+	
+								},
+								fail: function (error) {
+									alert(JSON.stringify(error))
+								},
+							})
+						},
+						fail: function (error) {
+							alert(JSON.stringify(error))
+						},
+					})
+				}
+			</script>
 				<tr>
 					<th>이름</th>
 					<td><input type="text" name="userName" id="userName" ></td>

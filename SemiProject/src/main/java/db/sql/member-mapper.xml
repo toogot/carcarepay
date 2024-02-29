@@ -38,7 +38,8 @@ INSERT
 	 , USER_NAME
 	 , EMAIL
 	 , PHONE
-	 , ADDRESS)
+	 , ADDRESS
+	 , USER_LEVEL)
 VALUES
 	 (
 	   SEQ_MEM.NEXTVAL
@@ -47,7 +48,8 @@ VALUES
 	 , ?
 	 , ?
 	 , ?
-	 , ?)
+	 , ?
+	 , '브론즈')
 </entry>
 <entry key="idCheck">
 SELECT
@@ -55,4 +57,6 @@ SELECT
  FROM MEMBER
  WHERE USER_ID = ?
 </entry>
+
 </properties>
+

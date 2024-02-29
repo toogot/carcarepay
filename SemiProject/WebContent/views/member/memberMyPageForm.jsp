@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
     div{
         border: 1px solid red;
