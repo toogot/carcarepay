@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.review.model.vo.Review;
+import com.kh.semi.review.model.vo.ReviewImage;
 import com.kh.semi.store.model.dao.StoreSearchDao;
 
 public class ReviewDao {
@@ -44,7 +45,6 @@ public class ReviewDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -52,6 +52,39 @@ public class ReviewDao {
 		
 		return result;
 	}
+	
+	// 리뷰등록 할 때 첨부사진이 있다면, 사진 insert 
+	public int insertReviewImg(Connection conn, ArrayList<ReviewImage> list) {
+		// insert문
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReviewImg");
+		
+		try {
+			
+			for(ReviewImage ri : list) {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, ri.getImgRoot());
+				pstmt.setString(2, ri.getOriginName());
+				pstmt.setString(3, ri.getChangeName());
+				pstmt.setInt(4, ri.getImgLevel());
+				
+				result = pstmt.executeUpdate();
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
 	
 	public ArrayList<Review> selectReview(Connection conn, int storeNo){
 		// select문 => ResultSet 여러행 => ArrayList

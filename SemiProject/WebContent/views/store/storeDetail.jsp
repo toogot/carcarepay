@@ -80,7 +80,8 @@
 		height: 30%;
 		font-size: 25px;
 		font-weight: bold;
-		margin-top: 5px;
+		margin-top: 20px;
+		padding-left: 40px;
 	}
 	.review_recent_2{
 		height: 50%;
@@ -299,7 +300,7 @@
 		<div class="store_img">
 			 <h1>매장사진이 들어갈 자리</h1>
 		</div>
-
+		
 		<div class="store_info">
 			<div class="store_info_1">
 				<div class="store_info_1_1">
@@ -382,11 +383,11 @@
 							<div class="rev-write-content">
 								<div class="rev_title_img"><img id="titleImg" src="" width="100px" height="100px"></div>
 								<div class="rev-write-textarea">
-								<textarea name="content" cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px;" placeholder="주의: 작성자는 자신의 의견을 표현함에 있어서 다른 사람의 권리와 편견을 존중해야 합니다. 공격적이거나 혐오적인 언어, 인신공격, 비방, 혹은 불법적인 내용을 작성하지 않도록 주의해야 합니다."></textarea>
+								<textarea name="content" cols="70" rows="5" style="border: 1px; resize: none; font-size: 15px;" placeholder="주의: 작성자는 자신의 의견을 표현함에 있어서 다른 사람의 권리와 편견을 존중해야 합니다. 공격적이거나 혐오적인 언어, 인신공격, 비방, 혹은 불법적인 내용을 작성하지 않도록 주의해야 합니다."></textarea>
 								</div>
 							</div>
 							<div class="rev-write-btn-area"> 
-								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;평점 ★
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;평점 ★ 
 								<select class="grade">
 									<option value="5.0">5.0</option>
 									<option value="4.5">4.5</option>
@@ -400,10 +401,12 @@
 									<option value="0.5">0.5</option>
 									<option value="0">0</option>
 								</select>
-								&nbsp;<input type="file" id="file1" onchange="loadImg(this);">
-									  <input type="file" id="file2">
-									  <input type="file" id="file3">
-								<button onclick="insertReview();">등록</button>
+								&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 대표이미지 :
+								<input type="file" id="file1" onchange="loadImg(this);" required> <br>
+								<div style="display: flex; flex-direction: row;">
+								<input type="file" id="file2" style="margin: 10px; margin-left: 25px;"><input type="file" id="file3" style="margin: 10px; margin-left: -180px;">
+								</div>
+							<button onclick="insertReview();">등록</button>
 				
 							</div>
 				
@@ -418,7 +421,7 @@
 						</div>
 						<% } %>
 						
-						<br>
+						<br><br>
 						<hr>
 						<br><br>
 						<%%>
@@ -533,23 +536,31 @@
 		});	
 		
 		function insertReview(){
+		var formData = new FormData();
+		  formData.append('content', $(".rev-write textarea").val());
+		  formData.append('storeNo', <%= st.getStoreNo() %>);
+		  formData.append('grade', $(".grade").val());
+		  formData.append('file1', $("#file1")[0].files[0]);
+		  formData.append('file2', $("#file2")[0].files[0]);
+		  formData.append('file3', $("#file3")[0].files[0]);	
+			
 		$.ajax({
 			url:"insert.rv",
 			method:"post",
-			data:{
-				content: $(".rev-write textarea").val(),
-				storeNo: <%= st.getStoreNo() %>,
-				grade: $(".grade").val()},
-				success:function(result){
-					if(result > 0){
-						$(".rev-write textarea").val("");
-						selectReview();
-						
-					}
-				},
-				error:function(){
-					alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
+			data: formData,
+			processData: false,
+    		contentType: false,
+			success:function(result){
+				if(result > 0){
+					$(".rev-write textarea").val("");
+					$("#titleImg").attr("src", null);
+					$("#file1").val("");
+					selectReview();
 				}
+			},
+			error:function(){
+				alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
+			}
 		
 			})
 		}
@@ -571,7 +582,7 @@
 						value += "<div class='rev-list'>"
 							   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
 						       + "<div class='rev-list-content'>"
-						       + "<textarea cols='90' rows='5' style='border: 1px; resize: none; font-size: 15px;' disabled>" + rlist[i].content + "</textarea>"
+						       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
 						       + "</div>"
 						       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
 						       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"

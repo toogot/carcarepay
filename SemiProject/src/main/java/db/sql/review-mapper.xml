@@ -35,8 +35,28 @@
     		BY REVIEW_NO DESC
 	</entry>
 	
-	
-	<entry key=""></entry>
+	<!-- 리뷰등록 할 때 첨부한 사진이 있다면 이미지 INSERT -->
+	<entry key="insertReviewImg">
+		INSERT
+		  INTO REVIEW_IMAGE
+		  (
+		    IMG_NO
+		  , REVIEW_NO
+		  , IMG_ROOT
+		  , ORIGIN_NAME
+		  , CHANGE_NAME
+		  , IMG_LEVEL
+		  )
+		  VALUES
+		  (
+		    SEQ_REV_IMG_NO.NEXTVAL
+		  , SEQ_REVNO.CURRVAL
+		  , ?
+		  , ?
+		  , ?
+		  , ?
+		  )
+	</entry>
 	
 
 

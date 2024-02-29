@@ -7,21 +7,25 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 import com.kh.semi.review.model.dao.ReviewDao;
 import com.kh.semi.review.model.vo.Review;
+import com.kh.semi.review.model.vo.ReviewImage;
 
 public class ReviewService {
 
-	public int insertReview(Review r) {
+	public int insertReview(Review r, ArrayList<ReviewImage> list) {
 		Connection conn = getConnection();
-		int result = new ReviewDao().insertReview(conn, r);
 		
-		if(result > 0) {
+		int result1 = new ReviewDao().insertReview(conn, r);
+		int result2 = new ReviewDao().insertReviewImg(conn, list);
+		
+		if(result1 > 0 && result2 > 0) {
 			commit(conn);
 		} else {
 			rollback(conn);
 		}
 		
 		close(conn);
-		return result;
+		
+		return result1 * result2;
 	}
 	
 	public ArrayList<Review> selectReview(int storeNo){
