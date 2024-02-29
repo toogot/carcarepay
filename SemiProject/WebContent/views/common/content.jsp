@@ -14,6 +14,7 @@
             height: 1000px;
             margin: auto;
             border: 1px solid lightgrey;
+            margin-top: 10px;
         }
         #content_wrap>*{
             width: 100%;
