@@ -175,7 +175,7 @@
                 <button id="search" type="button"><a href="<%=contextPath%>/search.st?page=1">매장찾기</a></button>
                 <button id="request" type="button"><a href="<%=contextPath%>/enrollForm.st">입접신청</a></button>
                 <button id="service" type="button"><a href="#">고객센터</a></button>
-                <button id="event" type="button"><a href="#">이벤트</a></button>
+                <button id="event" type="button"><a href="<%=contextPath%>/event">이벤트</a></button>
             </div>
         </div>
         <!-- 헤더부분 끝 -->
