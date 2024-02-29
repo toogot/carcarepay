@@ -13,13 +13,31 @@
     <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <style>
         @font-face {
-    font-family: 'TTHakgyoansimYeohaengR';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimYeohaengR.woff2') format('woff2');
-    font-weight: normal;
-    font-style: normal;
-}
+		    font-family: 'TTHakgyoansimYeohaengR';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimYeohaengR.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		@font-face {
+		    font-family: 'KCCMurukmuruk';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2302@1.0/KCCMurukmuruk.woff2') format('woff2');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		@font-face {
+		    font-family: 'ONE-Mobile-POP';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/ONE-Mobile-POP.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
+		@font-face {
+		    font-family: 'Katuri';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_13@1.0/Katuri.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+		}
         body *{
-            font-family: 'TTHakgyoansimYeohaengR';
+            font-family: 'ONE-Mobile-POP';
         }
             
         div{
@@ -59,16 +77,33 @@
             float: left;
             
         }
-        #userimgbtn{
+        /*<%if(loginUser == null){ %>
+            #userimgbtn{
+                border: 0;
+                background-image: url("resources/common/로그인전.png");
+                width: 55px;
+                height: 100%;
+                background-size: 55px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-color:transparent;
+                display: block;
+                float: left;
+            }
+        <%}else{%>
+            #userimgbtn{
             border: 0;
-            background-image: url("https://cdn-icons-png.flaticon.com/128/17/17004.png");
-            width: 50px;
+            background-image: url("resources/common/로그인후.png");
+            width: 55px;
             height: 100%;
-            background-size: 50px;
+            background-size: 55px;
+            background-position: center;
             background-repeat: no-repeat;
+            background-color:transparent;
             display: block;
             float: left;
         }
+        <%}%>*/
         #navigator{
             width: 70%;
             height: 50%;
@@ -119,7 +154,8 @@
         }
         #logininfo>p{
             float: left;
-            line-height: 30px;
+            line-height: 60px;
+            margin-left: 10px;
         }
 
         /* 헤더부분 끝 */
@@ -158,25 +194,22 @@
                 <%}else{ %>
                 <div id="login-event">
                 <div id="logininfo" onclick="location.href='<%=contextPath%>/myPage.me'">
-                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>
+                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>             
                     <p><%=loginUser.getUserName() %></p>
                 </div>
-                <button id="logout" onclick="kakaoLogout();"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
+                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
+                <button id="event"><a href="#">잔액 <%=loginUser.getBalance()%>원</a></button>
                 <%} %>
+            
                 
-                
-                
-                
-                
-                <button id="event"><a href="#">이벤트</a></button>
                 
             </div>
             <div id="navigator">
-                <button id="charge" type="button"><a href="#">충전하기</a></button>
+                <button id="charge" type="button"><a href="<%= contextPath %>/product.bo">충전하기</a></button>
                 <button id="search" type="button"><a href="<%=contextPath%>/search.st?page=1">매장찾기</a></button>
                 <button id="request" type="button"><a href="<%=contextPath%>/enrollForm.st">입접신청</a></button>
                 <button id="service" type="button"><a href="#">고객센터</a></button>
-                <button id="event" type="button"><a href="#">이벤트</a></button>
+                <button id="event" type="button"><a href="<%=contextPath%>/event">이벤트</a></button>
             </div>
         </div>
         <!-- 헤더부분 끝 -->

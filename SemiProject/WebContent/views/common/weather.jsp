@@ -42,6 +42,9 @@
         line-height: 160px;
         float: left;
     }
+    #temp>span{
+    	font-size: 70px;
+    }
     #tempMinMax{
         width: 50%;
         height: 50%;
@@ -125,20 +128,17 @@
                 url:apiUrl,
                 dataType:"json",
                 success:function(result){
-                    console.log(result)
-                    console.log(result.main.temp-273.15);
-                    $("#temp").html(Math.round(result.main.temp-273.15)+'℃');
-                    $("#tempMax").html("<span>최고</span>" + Math.round(result.main.temp_max-273.18)+'℃');
-                    $("#tempMin").html("<span>최저</span>" + Math.round(result.main.temp_min-273.18)+'℃');
+                    
+                    $("#temp").html("<span>"+Math.round(result.main.temp-273.15)+"</span>"+' ℃');
+                    $("#tempMax").html("<span>최고</span>" + Math.round(result.main.temp_max-273.18)+' ℃');
+                    $("#tempMin").html("<span>최저</span>" + Math.round(result.main.temp_min-273.18)+' ℃');
                     $("#country").html(result.name+", "+result.sys.country);
                     $("#wind").html("<span>풍속</span>"+result.wind.speed);
                     let risetime = new Date(result.sys.sunrise*1000);
                     let settime = new Date(result.sys.sunset*1000);
                     $("#sunrise").html("<span>일출</span>"+ String(risetime.getHours()).padStart(2,"0")+":"+String(risetime.getMinutes()).padStart(2,"0"));
                     $("#sunset").html("<span>일몰</span>"+ String(settime.getHours()).padStart(2,"0")+":"+String(settime.getMinutes()).padStart(2,"0"));
-                    
-                    console.log(result.weather[0]);
-                    
+  
                     var imgURL = "http://openweathermap.org/img/w/" + result.weather[0].icon + ".png";
                     
                     $("#weather-icon>img").attr("src", imgURL);

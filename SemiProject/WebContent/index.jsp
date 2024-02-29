@@ -22,6 +22,5 @@
 		<%@include file="views/common/content.jsp" %>
 		<%@include file="views/common/footer.jsp" %>
 	</div>
-	
 </body>
 </html>
