@@ -1,16 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="resources/css/weather-icons.min.css">
 <style>
     #weather{
                 width: 700px;
                 height: 200px;
                 margin: auto;
                 border: 2px solid #87CEFA;
+                margin-top: 10px;
+                background-color: #87CEFA;
             }
     #weather-icon{
         width: 30%;
@@ -26,6 +31,7 @@
         width: 70%;
         height: 100%;
         float: left;
+        color: white;
     }
     #temp{
         width: 50%;
@@ -130,6 +136,9 @@
                     let settime = new Date(result.sys.sunset*1000);
                     $("#sunrise").html("<span>일출</span>"+ String(risetime.getHours()).padStart(2,"0")+":"+String(risetime.getMinutes()).padStart(2,"0"));
                     $("#sunset").html("<span>일몰</span>"+ String(settime.getHours()).padStart(2,"0")+":"+String(settime.getMinutes()).padStart(2,"0"));
+                    
+                    console.log(result.weather[0]);
+                    
                     var imgURL = "http://openweathermap.org/img/w/" + result.weather[0].icon + ".png";
                     
                     $("#weather-icon>img").attr("src", imgURL);

@@ -143,6 +143,7 @@
 				<button type="reset" onclick="allexit();">취소하기</button>
 			</div>			
 		</form>
+
 	</div>
 	<script>
 		let num=0;
