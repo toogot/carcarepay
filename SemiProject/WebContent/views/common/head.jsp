@@ -11,6 +11,16 @@
     <title>카케어페이</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
+        @font-face {
+    font-family: 'TTHakgyoansimYeohaengR';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2402_keris@1.0/TTHakgyoansimYeohaengR.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+        body *{
+            font-family: 'TTHakgyoansimYeohaengR';
+        }
+            
         div{
              /* border: 1px solid red; */
             box-sizing: border-box;
@@ -113,12 +123,18 @@
 
         /* 헤더부분 끝 */
 
-     
-
-        
-        
-        
     </style>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body style="margin: 0px;">
 

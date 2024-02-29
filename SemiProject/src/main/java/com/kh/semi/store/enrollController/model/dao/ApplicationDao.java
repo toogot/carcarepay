@@ -5,9 +5,12 @@ import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
+
+import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.enrollController.model.vo.Application;
 
 public class ApplicationDao {
@@ -52,6 +55,33 @@ public class ApplicationDao {
 		}finally {
 			close(pstmt);
 		}
+		return result;
+	}
+
+	public int enrollStoreImg(Connection conn, ArrayList<AppStoreImage> list) {
+		PreparedStatement pstmt = null;
+		int result = 0;
+		String sql = prop.getProperty("enrollStoreImg");
+		
+		try {
+			for(AppStoreImage asi :list) {
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, asi.getImgRoot());
+				pstmt.setString(2, asi.getOriginName());
+				pstmt.setString(3, asi.getChangeName());
+				
+				result = pstmt.executeUpdate();
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		
+		
+		
 		return result;
 	}
 
