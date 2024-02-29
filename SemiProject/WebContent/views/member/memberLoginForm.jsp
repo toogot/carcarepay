@@ -5,6 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+
 <style>
 div {
 	border: 1px solid red;
@@ -63,15 +65,52 @@ div {
 				</div>
 			</div>
 		</form>
+			<a id="kakao-login-btn" onclick="kakaoLogin();">
+				<img src="resources/images/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼" />
+		  	</a>
+	
+		<script type="text/javascript">
+		    Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
+		    function kakaoLogin() {
+		        Kakao.Auth.login({
+		            success: function (response1) {
+		                Kakao.API.request({
+		                    url: '/v2/user/me',
+							
+		                    success: function (response) {
+								
+		                        alert(JSON.stringify(response));
+								$.ajax({
+									url:'<%= contextPath%>/kakaoLogin.me',
+									data:{
+										id:response.id,
+										nickname:response.properties.nickname,
+										email:response.kakao_account.email
+									}
+								})
+								
+								
+
+		                    },
+		                    fail: function (error) {
+		                        alert(JSON.stringify(error))
+		                    },
+		                })
+		            },
+		            fail: function (error) {
+		                alert(JSON.stringify(error))
+		            },
+		        })
+		    }
+		</script>
+		 
 		
 	<button onclick="location.href = '<%=contextPath%>/enrollForm.me'">회원가입</button>
 					<button onclick="location.href = '<%=contextPath%>/searchId.me'">ID찾기</button>
 					<button onclick="location.href = '<%=contextPath%>/searchPwd.me'">PWD찾기</button>
 	</div>
 
-	<script>
-		
-	</script>
+	
 
 	<%@include file="../common/footer.jsp"%>
 </body>
