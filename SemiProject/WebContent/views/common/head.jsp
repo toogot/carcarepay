@@ -76,16 +76,33 @@
             float: left;
             
         }
-        #userimgbtn{
+        <%if(loginUser == null){ %>
+            #userimgbtn{
+                border: 0;
+                background-image: url("resources/common/로그인전.png");
+                width: 55px;
+                height: 100%;
+                background-size: 55px;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-color:transparent;
+                display: block;
+                float: left;
+            }
+        <%}else{%>
+            #userimgbtn{
             border: 0;
-            background-image: url("https://cdn-icons-png.flaticon.com/128/17/17004.png");
-            width: 50px;
+            background-image: url("resources/common/로그인후.png");
+            width: 55px;
             height: 100%;
-            background-size: 50px;
+            background-size: 55px;
+            background-position: center;
             background-repeat: no-repeat;
+            background-color:transparent;
             display: block;
             float: left;
         }
+        <%}%>
         #navigator{
             width: 70%;
             height: 50%;
@@ -136,7 +153,8 @@
         }
         #logininfo>p{
             float: left;
-            line-height: 30px;
+            line-height: 60px;
+            margin-left: 10px;
         }
 
         /* 헤더부분 끝 */
@@ -175,17 +193,14 @@
                 <%}else{ %>
                 <div id="login-event">
                 <div id="logininfo" onclick="location.href='<%=contextPath%>/myPage.me'">
-                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>
+                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>             
                     <p><%=loginUser.getUserName() %></p>
                 </div>
                 <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
+                <button id="event"><a href="#">잔액 <%=loginUser.getBalance()%>원</a></button>
                 <%} %>
+            
                 
-                
-                
-                
-                
-                <button id="event"><a href="#">이벤트</a></button>
                 
             </div>
             <div id="navigator">
