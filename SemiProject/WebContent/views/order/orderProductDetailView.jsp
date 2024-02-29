@@ -18,13 +18,13 @@
             margin: auto;
         }
         .info_section{
-            margin: 120px 0;
+            margin: 60px 0;
             width: 1000px;
         }
 
         .titleArea{
             width: 1330px ;
-            padding: 20px;
+            padding: 50px;
         }
         .orderTitle{
             display: inline-block;
@@ -50,7 +50,8 @@
         }
 
         .orderStepUl{
-            line-height: 40px;
+            /* line-height: 40px;  기존 */
+            line-height: 50px;
             border: 1px solid #b2b8bd;
             border-radius: 40px;
         }
@@ -70,16 +71,21 @@
             border-top: 2px #959da6 solid;
             width: 100%;
             border-bottom: 1px #dfe2e6 solid;
-            font-size: 13px;
+            /* font-size: 13px; 기존*/
+            font-size: 16px
+
             
         }
         table td{
-            height: 50px;
+            /* height: 50px; 기존 */
+            height: 65px;
+            
 
         }
         table th{
             width: 15%;
-            height: 50px;
+            /* height: 50px; 기존 */
+            height: 70px;
             
         }
         h3{
@@ -117,6 +123,7 @@
             color: white;
             text-align : center;
             margin-top: 20px;
+            height: 60px;
             
         }
 
@@ -148,18 +155,28 @@
             
         }
         .payment_ul>li{
-            border: 2px solid #87CEFA;
+            /* border: 2px solid #87CEFA; */
             border-radius: 10px;
-            width: 100px;
-            height: 50px;
+            width: 120px;
+            height: 55px;
             text-align: center;
-            line-height: 50px;
-            cursor: pointer;
-
-            
+            line-height: 55px;
+            cursor: pointer;  
         }
+
+        label{
+
+            /* border: 2px solid #87CEFA; */
+            border-radius: 10px;
+            width: 120px;
+            height: 55px;
+            line-height: 55px;
+            cursor: pointer;  
+            position: relative;
+        }
+
         #payment_h2{
-            float: left;
+            /* float: left; */
             /* padding-top: 50px; */
             
         }
@@ -169,7 +186,9 @@
         #payment_div{
             width: 1000px;
             height: 100px;
-            border: 5px solid seagreen;
+            /* border: 5px solid seagreen; */
+            float: left;
+            box-sizing: border-box;            
         }
 
         button {
@@ -181,6 +200,36 @@
         background: transparent;
         cursor: pointer;
         outline: none;
+        }
+        th{
+            text-align: center !important;
+
+        }
+        .order_btn_red{
+            line-height: 60px;
+        }
+        label{
+            cursor: pointer;
+        }
+        
+        /* input[type=radio]{
+            position: relative;
+
+        } */
+        #payment_div2{
+            float: left;
+            /* display: flex; */
+        }
+
+       
+        @font-face {
+        font-family: 'NanumSquareNeo-Variable';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        }
+        body {
+        font-family: 'NewFont',NanumSquareNeo-Variable !important;
         }
 
     </style>
@@ -251,15 +300,53 @@
             </div>
 
             <div class="info_section" id="payment_div">
+
                 <h2 class="h2class" id="payment_h2">결제방법</h2>
 
-                    <ul class="payment_ul">
-                        <li><button>카카오페이</button></li>
-                        <li><button>토스</button></li>
-                        <li><button>네이버페이</button></li>
-                        <li><button>신용카드</button></li>
-                    </ul>
+                    <div id="payment_div2" > 
+                    <!-- <ul class="payment_ul"> -->
+                        <!-- <li> -->
+                        <table>
+                            <tr>
+                                <th>
+                                    <div >
+                                        <input type="radio" class="payment_radioGR" name="payment_type" id="payment_kakaopay">
+                                        <label for="payment_kakaopay"><img src="resources/order/ico_kakaopay.png" alt="카카오페이"></label>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <input type="radio" class="payment_radioGR" name="payment_type" id="payment_toss">
+                                        <label for="payment_toss"><img src="resources/order/ico_tosspay.png" alt="토스"></label>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <input type="radio" class="payment_radioGR" name="payment_type" id="payment_naverpay">
+                                        <label for="payment_naverpay"><img src="resources/order/ico_naverpay.png" alt="네이버페이"></label>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div>
+                                        <input type="radio" class="payment_radioGR" name="payment_type" id="payment_credit_card">
+                                        <label for="payment_credit_card">신용카드</label>
+                                    </div>
+                                </th>
+                            </tr>
+                            
+                            <!-- </li> -->
+                            <!-- <li> -->
 
+                            <!-- </li> -->
+                            <!-- <li> -->
+
+                            <!-- </li> -->
+                            <!-- <li> -->
+
+                            <!-- </li> -->
+                        <!-- </ul> -->
+                        </table>
+                    </div>       
             </div>
         </div>
 
@@ -275,7 +362,7 @@
             </div>
             
             <div class="order_btn">
-                <h2>결제하기</h2>
+                <h2 class="order_btn_red" style="border: 1px solid white;">결제하기</h2>
             </div>
             <p class="fixedpr_text">하기 필수약관을 확인하였으며 결제에 동의합니다.</p>
 
