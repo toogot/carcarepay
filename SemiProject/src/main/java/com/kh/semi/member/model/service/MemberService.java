@@ -60,4 +60,11 @@ public class MemberService {
 		return result;
 		
 	}
+	public Member kakaoLoginMember(String userId, String userPwd) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().kakaoLoginMember(conn, userId, userPwd);
+
+		close(conn);
+		return m;
+	}
 }

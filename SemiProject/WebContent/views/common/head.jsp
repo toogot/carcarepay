@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>카케어페이</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <style>
         @font-face {
     font-family: 'TTHakgyoansimYeohaengR';
@@ -160,7 +161,7 @@
                     <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>
                     <p><%=loginUser.getUserName() %></p>
                 </div>
-                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
+                <button id="logout" onclick="kakaoLogout();"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
                 <%} %>
                 
                 
@@ -207,6 +208,22 @@
             //헤더 끝
 
         })
+
+        Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
+        function kakaoLogout() {
+    Kakao.Auth.logout()
+        .then(function(response){
+            console.log(Kakao.Auth.getAccessToken());
+            Kakao.Auth.getAccessToken() = null;
+            <%=loginUser%> = null; 
+        })
+        .catch(function(error){
+            console.log('Not logged in.');
+        })
+  }
+
+       
+
     </script>
 </body>
 </html>
