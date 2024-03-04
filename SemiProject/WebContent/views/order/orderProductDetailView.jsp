@@ -7,6 +7,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    
+<!-- 포트원 결제 -->
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
+<!-- jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script>
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<!-- 포트원 결제 -->
+    
     <style>
         div{
             <!--border: 1px solid red;-->
@@ -124,6 +133,7 @@
             text-align : center;
             margin-top: 20px;
             height: 60px;
+            cursor: pointer;
             
         }
 
@@ -207,6 +217,8 @@
         }
         .order_btn_red{
             line-height: 60px;
+            /* cursor: pointer; */
+            
         }
         label{
             cursor: pointer;
@@ -229,7 +241,7 @@
         font-style: normal;
         }
         body {
-        font-family: 'NewFont',NanumSquareNeo-Variable !important;
+        font-family: 'NewFont',NanumSquareNeo-Variable;
         }
 
     </style>
@@ -304,8 +316,6 @@
                 <h2 class="h2class" id="payment_h2">결제방법</h2>
 
                     <div id="payment_div2" > 
-                    <!-- <ul class="payment_ul"> -->
-                        <!-- <li> -->
                         <table>
                             <tr>
                                 <th>
@@ -333,18 +343,7 @@
                                     </div>
                                 </th>
                             </tr>
-                            
-                            <!-- </li> -->
-                            <!-- <li> -->
-
-                            <!-- </li> -->
-                            <!-- <li> -->
-
-                            <!-- </li> -->
-                            <!-- <li> -->
-
-                            <!-- </li> -->
-                        <!-- </ul> -->
+                        
                         </table>
                     </div>       
             </div>
@@ -362,7 +361,7 @@
             </div>
             
             <div class="order_btn">
-                <h2 class="order_btn_red" style="border: 1px solid white;">결제하기</h2>
+                <h2 class="order_btn_red"  style="border: 1px solid white;">결제하기</h2>
             </div>
             <p class="fixedpr_text">하기 필수약관을 확인하였으며 결제에 동의합니다.</p>
 
@@ -378,42 +377,137 @@
     
     
     <script>
-    let o;
-    
-        $(function(){
-		
-            $.ajax({
-            	url:"orderdetail3.bo",
-            	type:"post",
-            	success:function(o){
-            		console.log(o);
-					 let price = o.price;
-					 let qty = o.qty;
-					 let totalPrice = o.totalPrice;
-					 $("#price").html(price);
-                     $("#totalPrice").html(totalPrice);
-                     $("#qty").html(qty);
-                     $("#totalPriceSpan").html(totalPrice);
+        let o;
 
-                     // 다른 함수에서도 o를 사용할 수 있음
-                     updatePageWithData(o);
-            	},error:function(){
-            		console.log("ajax 실패 ㅜㅜ")
-            	}
-            	
-            })
-
-        })
-    
-        // 전역 변수 o를 활용하여 페이지 업데이트
-        function updatePageWithData(o) {
-            console.log("전역변수 성공?? : " + o);
-            console.log(o);
-        }
         
-    
-    
-    
+            $(function(){
+            
+                $.ajax({
+                    url:"orderdetail3.bo",
+                    type:"post",
+                    success:function(o){
+                        console.log(o);
+                        let price = o.price;
+                        let qty = o.qty;
+                        let totalPrice = o.totalPrice;
+                        let email = o.email;
+                        let phone = o.phone;
+                        let orderNo = o.orderNo;
+                        $("#price").html(price);
+                        $("#totalPrice").html(totalPrice);
+                        $("#qty").html(qty);
+                        $("#totalPriceSpan").html(totalPrice);
+
+                        $(".order_btn_red").click(function(){//결제하기 버튼 클릭시
+
+                            var radioval = document.querySelector("input[type=radio]:checked") //체크된 라디오버튼의 값을 넣어줌
+
+                            if(!radioval){ // 아무것도 선택하지 않았을 시
+                            alert("결제방식을 선택해주세요");
+
+                            }else if(radioval.id == "payment_kakaopay"){ //카카오페이 선택
+                                payment_kakaopay(o);
+
+                            }else if(radioval.id == "payment_toss"){ // 토스페이 선택
+                                payment_toss(o);
+
+                            }else if(radioval.id == "payment_naverpay"){ //네이버페이 선택
+                                payment_naverpay(o);
+
+                            }else if(radioval.id == "payment_credit_card"){ //신용카드 선택
+                                payment_credit_card(o);
+                            }
+
+                            })
+                        
+                    },error:function(){
+                        console.log("ajax 실패 ㅜㅜ")
+                    }
+                    
+                })
+
+            })
+        
+            // 전역 변수 o를 활용하여 페이지 업데이트
+            function updatePageWithData(o) {
+                console.log("전역변수 성공?? : " + o);
+                console.log(o);
+            }
+
+
+
+        var IMP = window.IMP; 
+        IMP.init("imp21168814"); 
+      
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        
+
+
+
+            // ======카카오페이결제======
+            function payment_kakaopay(o){
+                let totalPrice = o.totalPrice;
+                let email = o.email;
+                let phone = o.phone;
+                let userName = o.userName;
+                let orderNo = o.orderNo;
+                
+                IMP.request_pay({
+                    pg : 'kakaopay',
+                    merchant_uid: "IMP"+makeMerchantUid, 
+                    name : '세차 상품권',
+                    amount : totalPrice,
+                    buyer_email : email,
+                    buyer_name : userName,
+                    buyer_tel : phone,
+                    //buyer_addr : '서울특별시 강남구 삼성동',
+                    //buyer_postcode : '123-456'
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+                        	console.log(rsp);
+                        	
+                        	$.ajax({
+                                url: 'kakaopay_successInsert',
+                                data: {
+                                    buyer_email:email,
+                                    buyer_name:userName,
+                                    buyer_tel:phone,
+                                    amount: totalPrice,
+                                    imp_uid: rsp.imp_uid, // imp_281108801427 이런식으로 출력됨 //포트원 거래고유번호
+                                    merchant_uid: rsp.merchant_uid, // IMP1023 이런식으로 출력됨 //가맹점 주문번호
+                                    pg_provider : rsp.pg_provider,   // "kakaopay" 출력됨
+                                	orderNo:orderNo
+                                },
+                                type: "POST",
+                                success:function(result){
+                                    console.log("성공!!!!카카오페이결제성공")
+                                    kakaopay_successUpdate();
+                                    
+                                },error:function(){
+                                    console.log("ajax 실패 ㅜㅜ")
+                                }
+                        	});
+                    }else{
+                        console.log(rsp);
+                    }
+                });
+            }
+			
+            
+            function kakaopay_successUpdate(){
+                location.href = "<%=contextPath%>/ordercomplete"
+            }
+
+            
+       
+        
+        
+        
     </script>
 </body>
 </html>

@@ -35,9 +35,19 @@
 		    font-weight: normal;
 		    font-style: normal;
 		}
-        body *{
-            font-family: 'ONE-Mobile-POP';
+		
+		@font-face {
+        font-family: 'NanumSquareNeo-Variable';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
         }
+        
+        body *{
+        font-family: 'NewFont',NanumSquareNeo-Variable;
+        }
+        
+
             
         div{
              /* border: 1px solid red; */
@@ -197,7 +207,8 @@
                     <p><%=loginUser.getUserName() %></p>
                 </div>
                 <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
-                <button id="event"><a href="#">잔액 <%=loginUser.getBalance()%>원</a></button>
+                <button id="event"><a href="#">잔액<span id="membercash"></span>원</a></button>
+                <!-- <button id="event"><a href="#">잔액 <%=loginUser.getBalance()%>원</a></button> -->
                 <%} %>
             
                 
@@ -240,6 +251,20 @@
             //헤더 끝
 
         })
+        <%if(loginUser != null){ %>
+        $(function(){
+        	$.ajax({
+        		url:"memberCash",
+        		data:{userNo:<%=loginUser.getUserNo()%>},
+        		type:"post",
+        		success:function(memberCash){
+        			$("#membercash").html(memberCash);
+        		},error:function(){
+        			console.log("ajax통신실패")
+        		}
+        	})
+        })
+        <%}%>
     </script>
 </body>
 </html>

@@ -14,7 +14,12 @@ public class Order {
 	
 	private String email;   // 주문한사람 이메일
 	private String phone; 	//주문한사람 폰번호
+	private String userName; //주문한사람이름
 	
+	private String impUid; //포트원 거래고유번호
+	private String merchantUid; //가맹점 주문번호
+	private String pgProvider; //"kakaopay" 출력됨
+	private int payNo; //결제번호
 	
 	public Order() {}
 
@@ -32,7 +37,7 @@ public class Order {
 
 
 
-	public Order(int userNo, int orderNo, int totalPrice,String orderDate,  String giftNy,int qty, int price, String email, String phone) {
+	public Order(int userNo, int orderNo, int totalPrice,String orderDate,  String giftNy,int qty, int price, String email, String phone, String userName) {
 		super();
 		this.userNo = userNo;
 		this.orderNo = orderNo;
@@ -43,6 +48,7 @@ public class Order {
 		this.price = price;
 		this.email = email;
 		this.phone = phone;
+		this.userName = userName;
 	}
 
 
@@ -103,7 +109,6 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 
-
 	public String getEmail() {
 		return email;
 	}
@@ -120,12 +125,59 @@ public class Order {
 		this.phone = phone;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
+	public String getImpUid() {
+		return impUid;
+	}
+
+	public void setImpUid(String impUid) {
+		this.impUid = impUid;
+	}
+
+	public String getMerchantUid() {
+		return merchantUid;
+	}
+
+	public void setMerchantUid(String merchantUid) {
+		this.merchantUid = merchantUid;
+	}
+
+	public String getPgProvider() {
+		return pgProvider;
+	}
+
+	public void setPgProvider(String pgProvider) {
+		this.pgProvider = pgProvider;
+	}
+
+	public int getPayNo() {
+		return payNo;
+	}
+
+	public void setPayNo(int payNo) {
+		this.payNo = payNo;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [userNo=" + userNo + ", orderNo=" + orderNo + ", price=" + price + ", qty=" + qty
 				+ ", totalPrice=" + totalPrice + ", giftNy=" + giftNy + ", orderDate=" + orderDate + ", email=" + email
-				+ ", phone=" + phone + "]";
+				+ ", phone=" + phone + ", userName=" + userName + ", impUid=" + impUid + ", merchantUid=" + merchantUid
+				+ ", pgProvider=" + pgProvider + ", payNo=" + payNo + "]";
 	}
+
+
+
+
+
+
 
 
 
