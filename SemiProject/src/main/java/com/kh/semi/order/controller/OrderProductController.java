@@ -1,4 +1,4 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.order.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class EnrollFormController
+ * Servlet implementation class OrderProductController
  */
-@WebServlet("/enrollForm.me")
-public class EnrollFormController extends HttpServlet {
+@WebServlet("/product.bo")
+public class OrderProductController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public EnrollFormController() {
+    public OrderProductController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,9 @@ public class EnrollFormController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.getRequestDispatcher("views/order/orderProductView.jsp").forward(request, response);
 		
-		request.getRequestDispatcher("views/member/memberEnrollForm.jsp").forward(request, response);
 	}
 
 	/**

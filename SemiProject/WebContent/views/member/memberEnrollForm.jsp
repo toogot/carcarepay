@@ -1,10 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+	<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.security.SecureRandom" %>
+<%@ page import="java.math.BigInteger" %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <style>
 	h1{
 		color: white;
@@ -63,51 +68,57 @@
 	<%@include file="../common/head.jsp" %>
 	
 	<div class="enroll-wrap">
+		<a id="kakao-login-btn" onclick="kakaoLogin();">
+			<img src="resources/images/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼" />
+		  </a>
+
+	<script type="text/javascript">
+		Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
+		function kakaoLogin() {
+			Kakao.Auth.login({
+				success: function (response1) {
+					Kakao.API.request({
+						url: '/v2/user/me',
+						
+						success: function (response) {
+							
+							alert(JSON.stringify(response));
+							$.ajax({
+								url:'<%= contextPath%>/kakaoInsert.me',
+								data:{
+									id:response.id,
+									nickname:response.properties.nickname,
+									email:response.kakao_account.email
+
+								},
+								success:function(){
+									location.href = '<%=contextPath %>';
+								}
+							})
+							
+							
+
+						},
+						fail: function (error) {
+							alert(JSON.stringify(error))
+						},
+					})
+				},
+				fail: function (error) {
+					alert(JSON.stringify(error))
+				},
+			})
+		}
 		
+	</script>
+	
 		<form action="<%=contextPath %>/insert.me" method="post">
 			
 			<br><br><br>
 			<h1 align="center">회원가입</h1>
 			<br><br>
 			<table align="center">
-				<a id="kakao-login-btn" onclick="kakaoLogin();">
-					<img src="resources/images/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼" />
-				  </a>
-		
-			<script type="text/javascript">
-				Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
-				function kakaoLogin() {
-					Kakao.Auth.login({
-						success: function (response1) {
-							Kakao.API.request({
-								url: '/v2/user/me',
-								
-								success: function (response) {
-									
-									alert(JSON.stringify(response));
-									$.ajax({
-										url:'<%= contextPath%>/kakaoLogin.me',
-										data:{
-											id:response.id,
-											nickname:response.properties.nickname,
-											email:response.kakao_account.email
-										}
-									})
-									
-									
-	
-								},
-								fail: function (error) {
-									alert(JSON.stringify(error))
-								},
-							})
-						},
-						fail: function (error) {
-							alert(JSON.stringify(error))
-						},
-					})
-				}
-			</script>
+				
 				<tr>
 					<th>이름</th>
 					<td><input type="text" name="userName" id="userName" ></td>

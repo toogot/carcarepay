@@ -174,4 +174,45 @@ public MemberDao() {
 		return result;
 	}
 	
+	public Member kakaoLoginMember(Connection conn, String userId, String userPwd) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Member m = null;
+		
+		String sql = prop.getProperty("loginMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userId);
+			pstmt.setString(2, userPwd);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(rset.getInt("user_no")
+							 , rset.getString("user_id")
+							 , rset.getString("user_pwd")
+							 , rset.getString("user_name")
+							 , rset.getString("email")
+							 , rset.getString("phone")
+							 , rset.getString("address")
+							 , rset.getString("user_level")
+							 , rset.getDate("enroll_date")
+							 , rset.getInt("balance")
+							 , rset.getString("blacklist")
+							 , rset.getString("status"));
+				
+				
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return m;
+		
+	}
 }

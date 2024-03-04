@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="insertOrder">
+	
+		INSERT 
+		  INTO PRODUCT_ODR
+		     (
+		       ORDER_NO
+		     , ORDER_QTY
+		     , ORDER_PRICE
+		     , USER_NO
+		     , TOTAL_PRICE
+		     , ORDER_ENROLL
+		     , GIFT_YN
+		     )
+		VALUES
+		    (
+		       SEQ_ODR_NO.NEXTVAL
+		     , ?
+		     , ?
+		     , ?
+		     , ?
+		     , DEFAULT
+		     , 'N'
+		     )
+		
+	</entry>
+	
+
+	
+	<entry key="orderDetailSelect">
+	SELECT O.*
+	FROM
+		(SELECT 
+		       USER_NO
+		     , ORDER_NO
+		     , TOTAL_PRICE
+		     , ORDER_ENROLL
+		     , GIFT_YN
+		     , ORDER_QTY
+		     , ORDER_PRICE
+		     , EMAIL
+		     , PHONE
+		  FROM PRODUCT_ODR
+		  JOIN MEMBER USING(USER_NO)
+		WHERE USER_NO = ?
+		ORDER BY ORDER_NO DESC)O
+	WHERE ROWNUM=1
+	</entry>
+
+</properties>

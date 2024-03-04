@@ -10,6 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>카케어페이</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
     <style>
         @font-face {
 		    font-family: 'TTHakgyoansimYeohaengR';
@@ -76,7 +77,7 @@
             float: left;
             
         }
-        <%if(loginUser == null){ %>
+        /*<%if(loginUser == null){ %>
             #userimgbtn{
                 border: 0;
                 background-image: url("resources/common/로그인전.png");
@@ -102,7 +103,7 @@
             display: block;
             float: left;
         }
-        <%}%>
+        <%}%>*/
         #navigator{
             width: 70%;
             height: 50%;
@@ -204,7 +205,7 @@
                 
             </div>
             <div id="navigator">
-                <button id="charge" type="button"><a href="#">충전하기</a></button>
+                <button id="charge" type="button"><a href="<%= contextPath %>/product.bo">충전하기</a></button>
                 <button id="search" type="button"><a href="<%=contextPath%>/search.st?page=1">매장찾기</a></button>
                 <button id="request" type="button"><a href="<%=contextPath%>/enrollForm.st">입접신청</a></button>
                 <button id="service" type="button"><a href="#">고객센터</a></button>
@@ -240,6 +241,22 @@
             //헤더 끝
 
         })
+
+        Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
+        function kakaoLogout() {
+    Kakao.Auth.logout()
+        .then(function(response){
+            console.log(Kakao.Auth.getAccessToken());
+            Kakao.Auth.getAccessToken() = null;
+            <%=loginUser%> = null; 
+        })
+        .catch(function(error){
+            console.log('Not logged in.');
+        })
+  }
+
+       
+
     </script>
 </body>
 </html>

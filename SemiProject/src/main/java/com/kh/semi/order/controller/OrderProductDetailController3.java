@@ -1,27 +1,30 @@
-package com.kh.semi.member.controller;
+package com.kh.semi.order.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.kh.semi.member.model.service.MemberService;
+import com.google.gson.Gson;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.order.model.service.OrderService;
+import com.kh.semi.order.model.vo.Order;
 
 /**
- * Servlet implementation class KakaoLoginController
+ * Servlet implementation class OrderProductControllerReal
  */
-@WebServlet("/kakaoLogin.me")
-public class KakaoLoginController extends HttpServlet {
+@WebServlet("/orderdetail3.bo")
+public class OrderProductDetailController3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public KakaoLoginController() {
+    public OrderProductDetailController3() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,26 +34,16 @@ public class KakaoLoginController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-request.setCharacterEncoding("UTF-8");
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();//세션영역에있는 로그인유저를 가져옴0
 		
+		Order o = new OrderService().orderDetailSelect(userNo);
 		
-		String userId = request.getParameter("id"); 
-		String userPwd = request.getParameter("id");
-		String userName = request.getParameter("nickname"); 
-		String email = request.getParameter("email"); 
-		String phone = "카카오";
-		String address = "카카오";
+		System.out.println("controller : " + o);
+		//response.getWriter().print(o);	
 		
-		Member m = new Member(userId, userPwd, userName, email, phone, address);
-		
-		int result = new MemberService().kakaoInsertMember(m);
-		
+		response.setContentType("application/json; charset=utf-8");//내가 지금 보내려고하는건 ..?!0
+		new Gson().toJson(o, response.getWriter()); //(내가보내려고하는객체,통로를 만들어주는 출력스트림 출력용스트림) response.getWriter가 출력용스트림인거임?그냥 그자체?0
 
-		if(result > 0) {
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
-		}
-		request.getRequestDispatcher("views/member/").forward(request, response);
 		
 	}
 
