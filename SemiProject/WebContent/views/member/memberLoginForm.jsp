@@ -12,66 +12,126 @@
 
 
 <style>
-div {
+/* div {
 	border: 1px solid red;
-}
+} */
 
 .login-wrap {
 	width: 1800px;
 	height: 1000px;
 	margin: auto;
 }
-
-.login-wrap>form {
-	width: 1000px;
-	height: 700px;
+#loginForm{
+	width: 1200px;
+	height: 800px;
 	margin: auto;
-	margin-top: 150px;
-	border: 1px solid red;
+	margin-top: 80px;
+	border-radius: 50px;
+	background-color: #87CEFA;
+
+}
+#board{
+	width: 800px;
+	height: 800px;
+	margin: auto;
+	margin-top: 100px;
+	border-left: 1px solid rgb(135, 135, 236);
+	border-right: 1px solid rgb(135, 135, 236);
+}
+#input-wrap{
+	width: 500px;
+	height: 400px;
+	margin: auto;
+	
+}
+#input-wrap th{
+	font-size: 30px;
+	text-align: center;
+}
+#input-wrap input{
+	width: 250px;
+	height: 30px;
+	margin: 0px 10px;
+
+}
+#input-wrap h1{
+	margin: 0px;
+	line-height: 300px;
+	color: white;
+	font-size: 100px;
+}
+#input-wrap tbody{
+	display: inline-block;
+	margin-left: 20px;
+}
+#input-wrap button{
+	width: 60px;
+	height: 78px;
+	text-align: center;
+	padding: 0px;
 }
 
-.logout-wrap {
-	width: 1800px;
-	height: 1000px;
+#loginForm a {
+	display: block;
+	cursor: pointer;
+	margin-left: 300px;
+	margin-top: 20px;
+}
+#loginForm-btn{
+	width: 300px;
 	margin: auto;
+	margin-top: 50px;
 }
 
-.logout-wrap>form {
-	width: 1000px;
-	height: 700px;
-	margin: auto;
-	margin-top: 150px;
-	border: 1px solid red;
-}
 </style>
 </head>
 <body>
 	<%@include file="../common/head.jsp"%>
 
 	<div class="login-wrap">
-		<form action="<%=contextPath%>/login.me" method="post">
+		<div id="loginForm">
+			<div id="board">
+			<div id="input-wrap" class="form-group">
+				<form action="<%=contextPath%>/login.me" method="post">
+					<table>
+						<tbody>
+							<h1 align="center">LOGIN</h1>
+							<tr>
+								<th>아이디</th>
+								<td><input type="text" name="userId" class="form-control"></td>
+								<td rowspan="2">
+									<button type="submit" class="btn btn-primary">Login</button>
+								</td>
+							</tr>
+							
+							<tr>
+								<th>비밀번호</th>
+								<td><input type="password" name="userPwd" class="form-control"></td>
+							
+							</tr>
+						</tbody>
+						
+					</table>
+				</form>					
+			</div>
 			<div>
-				<table>
-					<tr>
-						<th>아이디</th>
-						<td><input type="text" name="userId"></td>
-						<td rowspan="2">
-							<button type="submit">로그인</button>
-						</td>
-					</tr>
-					<tr>
-						<th>비밀번호</th>
-						<td><input type="password" name="userPwd"></td>
-					</tr>
-				</table>
-				<div>
-					
+				<a id="kakao-login-btn" onclick="kakaoLogin();">
+					<img src="resources/images/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼" />
+				</a>
+				
+				<div id="naver_id_login"></div>
+
+				<div id="loginForm-btn">
+					<button class="btn btn-primary" onclick="location.href = '<%=contextPath%>/enrollForm.me'">회원가입</button>
+					<button class="btn btn-primary" onclick="location.href = '<%=contextPath%>/searchId.me'">ID찾기</button>
+					<button class="btn btn-primary" onclick="location.href = '<%=contextPath%>/searchPwd.me'">PWD찾기</button>
 				</div>
 			</div>
-		</form>
-			<a id="kakao-login-btn" onclick="kakaoLogin();">
-				<img src="resources/images/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼" />
-		  	</a>
+			</div>
+		</div>
+		
+	</div>
+			
 	
 		<script type="text/javascript">
 		    Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
@@ -142,14 +202,6 @@ div {
 	  alert(naver_id_login.getProfileData('age'));
 	}
   </script>
-  
-  
-
-
-	<button onclick="location.href = '<%=contextPath%>/enrollForm.me'">회원가입</button>
-					<button onclick="location.href = '<%=contextPath%>/searchId.me'">ID찾기</button>
-					<button onclick="location.href = '<%=contextPath%>/searchPwd.me'">PWD찾기</button>
-	</div>
 
 	
 
