@@ -166,6 +166,10 @@
             line-height: 60px;
             margin-left: 10px;
         }
+        
+        #adminPageBtn:hover{
+        	font-weight: bold;
+        }
 
         /* 헤더부분 끝 */
 
@@ -193,26 +197,33 @@
                     <!-- <img src="https://www.notion.so/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F803ba282-c694-4f93-afbb-a3f62f6ff4a6%2Fb7c2f076-613d-4811-ad72-b493eb25db03%2F%25EC%25B9%25B4%25EC%25BC%2580%25EC%2596%25B4%25ED%258E%2598%25EC%259D%25B4%25EB%25A1%259C%25EA%25B3%25A0.png?table=block&id=9382d4c5-4d51-444b-8d28-9e0a49738b02&spaceId=803ba282-c694-4f93-afbb-a3f62f6ff4a6&width=250&userId=2d8d1a67-148e-42e4-9e04-5f896925bb47&cache=v2" id="logoimg"> -->
                 </button>
             </div>
-            <%if(loginUser == null){ %>
-            <div id="login-event">
-                <div id="logininfo" onclick="location.href='<%=contextPath%>/loginForm.me'">
-                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/loginForm.me'"></button>
-                    <p>로그인해주세요</p>
-                </div>
-                <button id="login"><a href="<%=contextPath%>/loginForm.me">로그인</a></button>
+            	<%if(loginUser == null){ %>
+	            	<div id="login-event">
+	                <div id="logininfo" onclick="location.href='<%=contextPath%>/loginForm.me'">
+	                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/loginForm.me'"></button>
+	                    <p>로그인해주세요</p>
+	                </div>
+	                <button id="login"><a href="<%=contextPath%>/loginForm.me">로그인</a></button>
+	                
+	            <%}else if(loginUser.getUserId().equals("admin")) { %>
+	            	<div id="login-event">
+	                <div id="logininfo" onclick="location.href='<%=contextPath%>/myPage.me'">
+	                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>             
+	                    <p><%=loginUser.getUserName() %></p>
+	                </div>
+	                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
+	                <button id="event"><a href="#">잔액<span id="membercash"></span>원</a></button>
+	                <button id="adminPageBtn"><a href="<%=contextPath%>/admin">관리자페이지</a></button>
+	                
                 <%}else{ %>
-                <div id="login-event">
-                <div id="logininfo" onclick="location.href='<%=contextPath%>/myPage.me'">
-                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>             
-                    <p><%=loginUser.getUserName() %></p>
-                </div>
-                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
-                <button id="event"><a href="#">잔액<span id="membercash"></span>원</a></button>
-                <!-- <button id="event"><a href="#">잔액 <%=loginUser.getBalance()%>원</a></button> -->
+	                <div id="login-event">
+	                <div id="logininfo" onclick="location.href='<%=contextPath%>/myPage.me'">
+	                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>             
+	                    <p><%=loginUser.getUserName() %></p>
+	                </div>
+	                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
+	                <button id="event"><a href="#">잔액<span id="membercash"></span>원</a></button>
                 <%} %>
-            
-                
-                
             </div>
             <div id="navigator">
                 <button id="charge" type="button"><a href="<%= contextPath %>/product.bo">충전하기</a></button>
