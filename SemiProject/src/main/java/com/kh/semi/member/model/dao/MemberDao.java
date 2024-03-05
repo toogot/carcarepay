@@ -173,8 +173,36 @@ public MemberDao() {
 		}
 		return result;
 	}
+	public int memberCashSelect(Connection conn, int userNo) {
+		int memberCash = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("memberCashSelect");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				memberCash = rset.getInt("balance");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}return memberCash;
+		
 	
-	public Member kakaoLoginMember(Connection conn, String userId, String userPwd) {
+	}
+
+		public Member kakaoLoginMember(Connection conn, String userId, String userPwd) {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member m = null;

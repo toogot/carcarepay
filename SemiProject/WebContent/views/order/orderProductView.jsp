@@ -62,6 +62,7 @@
     .productDetailImg{
         width: 1330px;
         height: 1500px;
+        text-align: center;
     }
     
     .productfooter{
@@ -77,6 +78,7 @@
     .thumbnail{
         width: 50%;
         height: 100%;
+        text-align: center;
     }
     
     .priceCheckTb{
@@ -313,7 +315,7 @@
     }
     
     #thumbnail_img{
-        width: 100%;
+        width: 80%;
         height: 100%;
     }
 
@@ -334,7 +336,7 @@
 				
                 <div class="productOrder">
                     <div class="thumbnail">
-                        <img id="thumbnail_img" src="https://img.freepik.com/premium-vector/realistic-smartphone-mockup_573652-780.jpg?w=740">
+                        <img id="thumbnail_img" src="resources/order/thum_payimg.png">
                     </div>
                     <div class="priceCheckTb">
                         <h3>금액선택</h3>
@@ -418,13 +420,13 @@
         <div class="productMenuBar">
             <ul>
                 <li class="liClass" id="productMenubar1" onclick="location.href = '#productMenubar1'">상세보기</li>
-                <li class="liClass" id="productMenubar2" onclick="location.href = '#productfooter'">유의사항</li>
+                <li class="liClass" id="productMenubar2" onclick="location.href = '#productMenubar4'">유의사항</li>
             </ul>
         </div>
 
 
         <div id="detailImg"class="productDetailImg">
-
+            <img src="resources/order/img_howtouse.png" alt="">
         </div>
 
 
@@ -432,7 +434,7 @@
         <div class="productMenuBar">
             <ul>
                 <li class="liClass" id="productMenubar3" onclick="location.href = '#productMenubar1'">상세보기</li>
-                <li class="liClass" id="productMenubar4" onclick="location.href = '#productfooter'" >유의사항</li>
+                <li class="liClass" id="productMenubar4" onclick="location.href = '#productMenubar4'" >유의사항</li>
             </ul>
         </div>
         <div id="productfooter" class="productfooter">
@@ -451,7 +453,7 @@
                 <tr>
                     <th>
                         사용 가능 매장<br>
-                        <a href="#">사용가능 매장조회>></a>
+                        <a href="<%=contextPath%>/search.st?page=1">사용가능 매장조회>></a>
                     </th>
                     <td>
                         <li>제휴 맺은 매장 전국에서 사용가능</li>

@@ -80,7 +80,8 @@ public class OrderDao {
 							rset.getInt("order_qty"),
 							rset.getInt("order_price"),
 							rset.getString("email"),
-							rset.getString("phone")
+							rset.getString("phone"),
+							rset.getString("user_name")
 							);
 			}
 			
@@ -92,6 +93,55 @@ public class OrderDao {
 			close(pstmt);
 		}
 		return o;
+		
+	}
+	
+	public int kakaopayOrderInsert(Connection conn, Order k) {
+		//우리가 돌리려고 하는 쿼리는 insert문 => 처리된 행수 => 트랜젝션 처리
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("kakaopayOrderInsert");
+		System.out.println("dao까지오나? : " + k);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, k.getOrderNo());
+			pstmt.setString(2, k.getPgProvider());
+			pstmt.setInt(3, k.getTotalPrice());
+			pstmt.setString(4, k.getImpUid());
+			pstmt.setString(5, k.getMerchantUid());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int orderMemberCashUpdate(Connection conn, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("memberCashUpdate");
+		System.out.println("멤버업데이트 dao까지 오고잇나?");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
 		
 	}
 

@@ -35,5 +35,40 @@ public class OrderService {
 		return o;
 		
 	}
+	
+	public int kakaopayOrderInsert(Order k) {
+		Connection conn = getConnection();
+		
+		System.out.println("service까지오나? : " + k);
+		
+		int result = new OrderDao().kakaopayOrderInsert(conn,k);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		 close(conn);
+		 
+		 return result;
+ 	
+	}
+	
+	
+	public int orderMemberCashUpdate(int userNo) {
+		Connection conn = getConnection();
+		
+		System.out.println("order캐시업데이트 서비스까지 오고있나?");
+		int result = new OrderDao().orderMemberCashUpdate(conn,userNo);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		 close(conn);
+		 
+		 return result;
+	}
 
 }
