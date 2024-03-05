@@ -513,23 +513,31 @@
         });
         //-----------------------------------------------------------------------------
 
+        // function checkAmountQtynum1(){
+        //     $("#radio05").prop("checked", true);
+        //     $(".checkAmountQty-num").val(1);
+        // }
+
+
 
         //------------------------수량증감버튼--------------------------------//
         $(function(){
 
             //직접입력칸 클릭시 직접입력 라디오버튼 체크되는 함수
             $("#radio05-1").click(function() {
-            $("#radio05").prop("checked", true);
-            $(".checkAmountQty-num").val(1);
+                $("#radio05").prop("checked", true);
+                // $(".checkAmountQty-num").val(1);
+                $('#totalPriceSpan').text(0);
                 
             });
         
-
             //5000,10000,30000,50000원 클릭시 직접입력칸에 들어가있던 숫자 비워주는 함수
             $(".productRadioBtn label").click(function(){
                 $("#radio05-1").val("");
+                $("#radio05").val("");
                 $(".checkAmountQty-num").val(1); //상품수량 1로 바꿔줌
             })
+
 
             // 선택된 라디오 버튼의 값을 가져와서 콘솔에 출력
             $('input[type="radio"]').change(function(){
@@ -545,7 +553,6 @@
                 $('#hiddenTotalPrice').val(Number($('#radio05-1').val()));
                 $('#radio05').val($('#radio05-1').val());
                 $("#hiddenRadioCheckPrice").val($('#radio05').val());
-                console.log("잘되고잇냐고ㅜㅜ"+($("#radio05").val()));
                 console.log("hidden토탈프라이스콘솔ㅅ"+($('#hiddenTotalPrice').val()));
                 
             })
