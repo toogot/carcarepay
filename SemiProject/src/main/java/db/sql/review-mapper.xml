@@ -24,15 +24,20 @@
 	
 	<entry key="selectReview">
 		SELECT
-		       USER_ID
-		     , CONTENT
-		     , ISSUE_DATE
-		     , GRADE
-		  FROM REVIEW
-		  JOIN MEMBER USING (USER_NO)
-		 WHERE STORE_NO = ?
-		 ORDER
-    		BY REVIEW_NO DESC
+			  REVIEW_NO,
+			  USER_ID,
+			  CONTENT,
+			  ISSUE_DATE,
+			  GRADE,
+			  (
+			    SELECT LISTAGG(IMG_ROOT || CHANGE_NAME, ',') WITHIN GROUP (ORDER BY IMG_NO)
+			    FROM REVIEW_IMAGE
+			    WHERE REVIEW_IMAGE.REVIEW_NO = REVIEW.REVIEW_NO
+			  ) AS IMAGES
+			FROM REVIEW
+			JOIN MEMBER USING (USER_NO)
+			WHERE STORE_NO = ?
+			ORDER BY REVIEW_NO DESC
 	</entry>
 	
 	<!-- 리뷰등록 할 때 첨부한 사진이 있다면 이미지 INSERT -->

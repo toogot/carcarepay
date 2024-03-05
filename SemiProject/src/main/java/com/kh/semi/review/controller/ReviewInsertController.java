@@ -49,16 +49,16 @@ public class ReviewInsertController extends HttpServlet {
 			String savePath = request.getSession().getServletContext().getRealPath("resources/review_upfiles/");
 			// 전달된 파일 업로드
 			MultipartRequest multiRequest = new MultipartRequest(request, savePath, maxSize, "UTF-8", new MyFileRenamePolcy());
-			System.out.println("컨트롤러1");
+			
 			// review 테이블 insert할 값 뽑기
 			HttpSession session = request.getSession();
 			int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
-			System.out.println(userNo);
-			String content = request.getParameter("content");
-			System.out.println(content);
-			int storeNo = Integer.parseInt(request.getParameter("storeNo"));
-			double grade = Double.parseDouble(request.getParameter("grade"));
-			System.out.println("컨트롤러2");
+			
+			String content = multiRequest.getParameter("content");
+			
+			int storeNo = Integer.parseInt(multiRequest.getParameter("storeNo"));
+			double grade = Double.parseDouble(multiRequest.getParameter("grade"));
+			
 			Review r = new Review();
 			r.setUserNo(userNo);
 			r.setContent(content);

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.kh.semi.review.model.service.ReviewService;
 import com.kh.semi.review.model.vo.Review;
+import com.kh.semi.review.model.vo.ReviewAll;
 
 /**
  * Servlet implementation class ReviewSelectController
@@ -34,7 +35,7 @@ public class ReviewSelectController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
-		ArrayList<Review> rlist = new ReviewService().selectReview(storeNo);
+		ArrayList<ReviewAll> rlist = new ReviewService().selectReview(storeNo);
 		
 		if(!rlist.isEmpty()) {
 			response.setContentType("application/json; charset=utf-8");

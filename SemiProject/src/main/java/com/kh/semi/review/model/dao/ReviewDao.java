@@ -11,6 +11,7 @@ import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.review.model.vo.Review;
+import com.kh.semi.review.model.vo.ReviewAll;
 import com.kh.semi.review.model.vo.ReviewImage;
 import com.kh.semi.store.model.dao.StoreSearchDao;
 
@@ -86,9 +87,9 @@ public class ReviewDao {
 	
 	
 	
-	public ArrayList<Review> selectReview(Connection conn, int storeNo){
+	public ArrayList<ReviewAll> selectReview(Connection conn, int storeNo){
 		// select문 => ResultSet 여러행 => ArrayList
-		ArrayList<Review> rlist = new ArrayList<Review>();
+		ArrayList<ReviewAll> rlist = new ArrayList<ReviewAll>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectReview");
@@ -98,12 +99,14 @@ public class ReviewDao {
 			pstmt.setInt(1, storeNo);
 			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
-				rlist.add(new Review(rset.getString("user_id"),
-									 rset.getString("content"),
-									 rset.getDouble("grade"),
-									 rset.getString("issue_date")
-									 ));
+			while(rset.next()) {					
+				rlist.add(new ReviewAll(rset.getInt("review_no"),
+										rset.getString("user_id"),
+									 	rset.getString("content"),
+									 	rset.getString("issue_date"),
+									 	rset.getDouble("grade"),
+									 	rset.getString("images")
+									 	));
 			}
 			
 		} catch (SQLException e) {

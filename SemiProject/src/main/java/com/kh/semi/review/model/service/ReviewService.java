@@ -7,6 +7,7 @@ import static com.kh.semi.common.JDBCTemplate.*;
 
 import com.kh.semi.review.model.dao.ReviewDao;
 import com.kh.semi.review.model.vo.Review;
+import com.kh.semi.review.model.vo.ReviewAll;
 import com.kh.semi.review.model.vo.ReviewImage;
 
 public class ReviewService {
@@ -28,18 +29,18 @@ public class ReviewService {
 		return result1 * result2;
 	}
 	
-	public ArrayList<Review> selectReview(int storeNo){
+	public ArrayList<ReviewAll> selectReview(int storeNo){
 		Connection conn = getConnection();
-		ArrayList<Review> rlist = new ReviewDao().selectReview(conn, storeNo);
+		ArrayList<ReviewAll> rlist = new ReviewDao().selectReview(conn, storeNo);
 		
 		close(conn);
 		
 		return rlist;
 	}
-	
-	
-	
-	
-	
-	
+									
+									
+									
+									
+									
+									
 }
