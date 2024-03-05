@@ -536,6 +536,7 @@
 		});	
 		
 		function insertReview(){
+			<% System.out.println(st.getStoreNo()); %>
 		var formData = new FormData();
 		  formData.append('content', $(".rev-write textarea").val());
 		  formData.append('storeNo', <%= st.getStoreNo() %>);
@@ -544,6 +545,7 @@
 		  formData.append('file2', $("#file2")[0].files[0]);
 		  formData.append('file3', $("#file3")[0].files[0]);	
 			
+		  console.log(formData);
 		$.ajax({
 			url:"insert.rv",
 			method:"post",
