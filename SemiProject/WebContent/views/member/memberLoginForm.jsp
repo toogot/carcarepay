@@ -182,7 +182,7 @@
 		var naver_id_login = new naver_id_login(clientId, callbackUrl);
 		var state = naver_id_login.getUniqState();
 		naver_id_login.setButton("white", 3, 40);
-		naver_id_login.setDomain("localhost:8003/SemiProject");
+		naver_id_login.setDomain("http://localhost:8003/SemiProject");
 		naver_id_login.setState(state);
 		naver_id_login.setPopup();
 		naver_id_login.init_naver_id_login();
@@ -199,7 +199,7 @@
 	function naverSignInCallback() {
 	  alert(naver_id_login.getProfileData('email'));
 	  alert(naver_id_login.getProfileData('nickname'));
-	  alert(naver_id_login.getProfileData('age'));
+	  
 	}
   </script>
 

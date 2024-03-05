@@ -47,31 +47,32 @@ public class MemberService {
 		return count;
 	}
 	
-	public int kakaoInsertMember(Member m) {
+	public int deleteMember(String userId, String userPwd) {
 		Connection conn = getConnection();
-		int result = new MemberDao().kakaoInsertMember(conn, m);
+		int result = new MemberDao().deleteMember(conn, userId, userPwd);
 		
 		if(result > 0) {
-			commit(conn);
+			commit(conn);			
 		}else {
 			rollback(conn);
 		}
 		close(conn);
 		return result;
 		
+		
 	}
-	public Member kakaoLoginMember(String userId, String userPwd) {
+	public Member updatePwdMember(String userId, String userPwd, String updatePwd) {
 		Connection conn = getConnection();
-		Member m = new MemberDao().kakaoLoginMember(conn, userId, userPwd);
-
+		int result = new MemberDao().updatePwdMember(conn,userId, userPwd, updatePwd);
+		
+		Member updateMem = null;
+		if(result > 0) {
+			commit(conn);
+			updateMem = new MemberDao().selectMember(conn, userId);
+		}else {
+			rollback(conn);
+		}
 		close(conn);
-		return m;
-	}
-	
-	public int memberCashSelect(int userNo) {
-		Connection conn = getConnection();
-		int memberCash = new MemberDao().memberCashSelect(conn,userNo);
-		close(conn);
-		return memberCash;
+		return updateMem;
 	}
 }

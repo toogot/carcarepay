@@ -48,6 +48,7 @@ public class Member {
 		this.address = address;
 	}
 
+
 	public int getUserNo() {
 		return userNo;
 	}
