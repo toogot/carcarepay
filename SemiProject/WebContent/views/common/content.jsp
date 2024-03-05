@@ -67,7 +67,7 @@
                     <button>충전하기</button>
                 </div>
                 <div id="content_mypage">
-                    <button>마이페이지</button>
+                    <button onclick="location.href='<%=con%>/myPage.me'">마이페이지</button>
                 </div>
             </div>
             <div id="content2">

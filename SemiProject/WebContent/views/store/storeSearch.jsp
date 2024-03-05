@@ -33,7 +33,7 @@
 	}
 	#searchBar{	
 		width: 100%;
-		height: 20%;	
+		height: 15%;	
 	}
 	#searchBar input{
 		font-size: 20px;
@@ -57,20 +57,39 @@
 	}
 	#searchBar>form{
 		/* line-height: 300px; */
-		margin-top: 150px;
+		margin-top: 100px;
 	}
-	#searchBar input{
-		width: 500px;
+	#searchBar-wrap{
+		border: 1px solid #87CEFA;
+		width: 600px;
 		height: 50px;
-		border-radius: 10px;
-		border: 1px solid lightblue;
+		margin: auto;
+		border-radius: 30px;
 	}
-	#searchBar button{
+	#searchBar-wrap>input{
+		width: 85%;
+		height: 100%;
+		display: block;
+		border-radius: 10px;
+		border: none;
+		float: left;
+		margin-left: 15px;
+	}
+	#searchBar-wrap>input:focus{
+		outline: none;
+	}
+	#searchBar-wrap>button{
 		width: 70px;
 		height: 50px;
-		background-color: #87CEFA;
-		/* border: 1px solid #4aa9e4; */
-		border-radius: 10px;
+		background-color: transparent;
+		display: block;
+		float: left;
+		background: url("resources/store/돋보기.png");
+		background-position: center;
+		background-repeat: no-repeat;
+		background-size: 50px 40px;
+		border: none;
+		
 	}
 	#search_map>*{
 		margin: 50px 150px;
@@ -78,7 +97,7 @@
 	#list_wrap{
 		width: 100%;
 		height: 90%;
-		border: 1px solid #87CEFA;
+		border-top: 1px solid #87CEFA;
 		display: block;
 		box-sizing: border-box;
 		position: relative;
@@ -88,7 +107,7 @@
 		width: 100%;
 		height: 33.3%;
 		margin: 0;
-		border: 1px solid #87CEFA;
+		border-top: 1px solid #87CEFA;
 		box-sizing: border-box;
 		cursor: pointer;
 	}
@@ -113,6 +132,7 @@
 	#list_btn{
 		width: 100%;
 		height: 10%;
+		border-top: 1px solid #87CEFA;
 	}
 	#list_btn>button{
 		width: 60px;
@@ -134,20 +154,20 @@
 	}
 	#store_detail{
 		border: 0;
-		background-color: #87CEFA;
+		/* background-color: #87CEFA; */
 		border-radius: 20px;
 		width: 100px;
 		height: 30px;
 	}
-	#store_detail:hover{
+	/* #store_detail:hover{
 		background-color: #4aa9e4;
-	}
+	} */
 	#map{
-		width: 90%;
-		height: 90%;
+		width: 95%;
+		height: 95%;
 		margin: auto;
-		margin-top: 40px;
-		border: 5px solid #87CEFA;
+		margin-top: 20px;
+		border: 2px solid #87CEFA;
 	}
 </style>
 </head>
@@ -157,9 +177,12 @@
 	<div class="search_wrap">
 		<div id="searchBar">
 			<form action="<%=contextPath %>/search.st?" align="center" value="<%=keyword%>">
-				<input type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
-				<input type="hidden" name="page" value="1">
-				<button type="submit">검색</button>
+				<div id="searchBar-wrap">
+					<input type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
+					<input type="hidden" name="page" value="1">
+					<button type="submit"></button>
+				</div>
+				
 			</form>
 		</div>
 		<div id="map_list_wrap">
@@ -189,7 +212,7 @@
 										<span class="first_list">전화번호</span><span class="sec_list"><%=s.getStorePhone() %></span><br>
 									</li>
 									<li>
-										<button id="store_detail" type="button" onclick="location.href='<%= contextPath %>/detail.st?storeNo=<%= s.getStoreNo() %>'">상세보기</button>
+										<button id="store_detail" type="button" class="btn btn-info" onclick="location.href='<%= contextPath %>/detail.st?storeNo=<%= s.getStoreNo() %>'">상세보기</button>
 									</li>
 								</ul>
 							
@@ -200,9 +223,9 @@
 				<div id="list_btn">
 					<%if(pi.getCurrentPage()>1){ %>
 						<%if(!keyword.equals("")){ %>
-							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>&search_keyword=<%=keyword %>'" >이전</button>
+							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>&search_keyword=<%=keyword %>'" class="btn btn-primary" >이전</button>
 						<%}else{ %>
-							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>'" >이전</button>
+							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>'" class="btn btn-primary">이전</button>
 						<%} %>
 					<%} %>
 					<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
@@ -216,9 +239,9 @@
 					<%} %>
 					<%if(pi.getCurrentPage()<pi.getEndPage()){ %>
 						<%if(!keyword.equals("")){ %>
-							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>&search_keyword=<%=keyword %>'">다음</button>
+							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>&search_keyword=<%=keyword %>'" >다음</button>
 						<%}else{ %>
-							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>'">다음</button>	
+							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>'" class="btn btn-primary">다음</button>	
 						<%} %>
 					<%} %>
 				</div>
