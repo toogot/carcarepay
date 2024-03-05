@@ -66,6 +66,7 @@ public class MemberService {
 
 		close(conn);
 		return m;
+	}
 	
 	public int memberCashSelect(int userNo) {
 		Connection conn = getConnection();
