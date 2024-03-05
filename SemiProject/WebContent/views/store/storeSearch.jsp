@@ -78,9 +78,12 @@
 	#searchBar-wrap>input:focus{
 		outline: none;
 	}
+	#searchBar-wrap:hover{
+		border: 3px solid #87CEFA;
+	}
 	#searchBar-wrap>button{
-		width: 70px;
-		height: 50px;
+		width: 60px;
+		height: 45px;
 		background-color: transparent;
 		display: block;
 		float: left;
@@ -135,23 +138,23 @@
 		border-top: 1px solid #87CEFA;
 	}
 	#list_btn>button{
-		width: 60px;
+		width: 70px;
 		height: 50px;
 		margin: 5px 20px;
 		display: block;
 		float: left;
-		background-color: #87CEFA;
-		color: white;
+		/* background-color: #87CEFA;
+		color: white; */
 		font-weight: 800;
-		border: 0px;
+		/* border: 0px; */
 		border-radius: 20px;
 		font-size: 20px;
 		box-sizing: border-box;
 		margin-top: 10px;
 	}
-	#list_btn>button:hover{
+	/* #list_btn>button:hover{
 		background-color: #4aa9e4;
-	}
+	} */
 	#store_detail{
 		border: 0;
 		/* background-color: #87CEFA; */
@@ -178,7 +181,7 @@
 		<div id="searchBar">
 			<form action="<%=contextPath %>/search.st?" align="center" value="<%=keyword%>">
 				<div id="searchBar-wrap">
-					<input type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
+					<input id="search" type="text" name="search_keyword" placeholder="검색할 지역명, 상호명을 입력해주세요">
 					<input type="hidden" name="page" value="1">
 					<button type="submit"></button>
 				</div>
@@ -223,14 +226,14 @@
 				<div id="list_btn">
 					<%if(pi.getCurrentPage()>1){ %>
 						<%if(!keyword.equals("")){ %>
-							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>&search_keyword=<%=keyword %>'" class="btn btn-primary" >이전</button>
+							<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>&search_keyword=<%=keyword %>'" class="btn btn-primary" >이전</button>
 						<%}else{ %>
-							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>'" class="btn btn-primary">이전</button>
+							<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()-1%>'" class="btn btn-primary">이전</button>
 						<%} %>
 					<%} %>
 					<%for(int i=pi.getStartPage();i<=pi.getEndPage();i++){ %>
 						
-						<button type="button" onclick="location.href=
+						<button class="btn btn-outline-success" type="button" onclick="location.href=
 						<%if(!keyword.equals("")){ %>
 							'<%=contextPath%>/search.st?page=<%=i%>&search_keyword=<%=keyword %>'"
 						<%} %>
@@ -239,9 +242,9 @@
 					<%} %>
 					<%if(pi.getCurrentPage()<pi.getEndPage()){ %>
 						<%if(!keyword.equals("")){ %>
-							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>&search_keyword=<%=keyword %>'" >다음</button>
+							<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>&search_keyword=<%=keyword %>'" >다음</button>
 						<%}else{ %>
-							<button type="button" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>'" class="btn btn-primary">다음</button>	
+							<button type="button" class="btn btn-outline-primary" onclick="location.href='<%=contextPath%>/search.st?page=<%=pi.getCurrentPage()+1%>'" class="btn btn-primary">다음</button>	
 						<%} %>
 					<%} %>
 				</div>

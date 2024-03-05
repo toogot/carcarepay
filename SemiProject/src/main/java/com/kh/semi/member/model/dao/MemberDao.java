@@ -191,7 +191,7 @@ public MemberDao() {
 			if(rset.next()) {
 				memberCash = rset.getInt("balance");
 			}
-			
+		 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

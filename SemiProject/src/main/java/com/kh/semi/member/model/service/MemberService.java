@@ -71,7 +71,6 @@ public class MemberService {
 	public int memberCashSelect(int userNo) {
 		Connection conn = getConnection();
 		int memberCash = new MemberDao().memberCashSelect(conn,userNo);
-		
 		close(conn);
 		return memberCash;
 	}

@@ -274,25 +274,15 @@
 
         })
 
-        Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
-        function kakaoLogout() {
-    Kakao.Auth.logout()
-        .then(function(response){
-            console.log(Kakao.Auth.getAccessToken());
-            Kakao.Auth.getAccessToken() = null;
-            <%=loginUser%> = null; 
-        })
-        .catch(function(error){
-            console.log('Not logged in.');
-        })
-  }
-
        
 
+       
+		
         <%if(loginUser != null){ %>
+        
         $(function(){
         	$.ajax({
-        		url:"memberCash",
+        		url:"<%=contextPath%>/memberCash",
         		data:{userNo:<%=loginUser.getUserNo()%>},
         		type:"post",
         		success:function(memberCash){
@@ -303,6 +293,21 @@
         	})
         })
         <%}%>
+    </script>
+    
+    <script>
+		    Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
+		    function kakaoLogout() {
+		Kakao.Auth.logout()
+		    .then(function(response){
+		        console.log(Kakao.Auth.getAccessToken());
+		        Kakao.Auth.getAccessToken() = null;
+		        <%=loginUser%> = null; 
+		    })
+		    .catch(function(error){
+		        console.log('Not logged in.');
+		    })
+		}
     </script>
 </body>
 </html>
