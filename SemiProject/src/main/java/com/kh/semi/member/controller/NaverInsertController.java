@@ -12,16 +12,16 @@ import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class NaverLoginMemberController
+ * Servlet implementation class NaverInsertController
  */
-@WebServlet("/naverLogin.me")
-public class NaverLoginMemberController extends HttpServlet {
+@WebServlet("/naverInsert.me")
+public class NaverInsertController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NaverLoginMemberController() {
+    public NaverInsertController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,25 +30,24 @@ public class NaverLoginMemberController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("id");
+	
+		System.out.println(request.getParameter("email"));
 		
 		
-			Member loginUser = new MemberService().loginMember(userId, userPwd);
-			System.out.println(request.getParameter("nickname"));
-			if(loginUser == null) {
-				
-		      }else {
-		        
-		    	 HttpSession session = request.getSession();
-		    	  session.setAttribute("loginUser",loginUser);
-		    	  
-		    	  response.sendRedirect(request.getContextPath());
-		    	 
-		      }
+		String userId = request.getParameter("email");
+		String userPwd = request.getParameter("email");
+		String userName = request.getParameter("nickname");
+		String email = request.getParameter("email");
+		String phone = "네이버";
+		String address = "로그인";
+		
+		Member m = new Member(userId, userPwd, userName, email, phone, address);
 		
 		
-	}
+		}
+
+		
+	
 	
 
 	/**

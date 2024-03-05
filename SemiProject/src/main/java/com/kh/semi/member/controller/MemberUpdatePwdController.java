@@ -12,16 +12,16 @@ import com.kh.semi.member.model.service.MemberService;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class NaverLoginMemberController
+ * Servlet implementation class MemberUpdatePwdController
  */
-@WebServlet("/naverLogin.me")
-public class NaverLoginMemberController extends HttpServlet {
+@WebServlet("/updatePwd.me")
+public class MemberUpdatePwdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NaverLoginMemberController() {
+    public MemberUpdatePwdController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,26 +30,21 @@ public class NaverLoginMemberController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String userId = request.getParameter("id");
-		String userPwd = request.getParameter("id");
+		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
+		String updatePwd = request.getParameter("updatePwd");
 		
+		Member updateMem = new MemberService().updatePwdMember(userId, userPwd, updatePwd);
 		
-			Member loginUser = new MemberService().loginMember(userId, userPwd);
-			System.out.println(request.getParameter("nickname"));
-			if(loginUser == null) {
-				
-		      }else {
-		        
-		    	 HttpSession session = request.getSession();
-		    	  session.setAttribute("loginUser",loginUser);
-		    	  
-		    	  response.sendRedirect(request.getContextPath());
-		    	 
-		      }
-		
-		
+		HttpSession session = request.getSession();
+		if(updateMem == null) { // 실패
+			session.setAttribute("alertMsg", "비밀번호 변경에 실패했습니다!");
+		}else { // 성공
+			session.setAttribute("alertMsg", "성공적으로 비밀번호 변경됐습니다");
+			session.setAttribute("loginUser", updateMem);
+		}
+		response.sendRedirect(request.getContextPath() + "/myPage.me");
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
