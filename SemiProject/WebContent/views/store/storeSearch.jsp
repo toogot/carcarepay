@@ -33,7 +33,7 @@
 	}
 	#searchBar{	
 		width: 100%;
-		height: 30%;	
+		height: 20%;	
 	}
 	#searchBar input{
 		font-size: 20px;
@@ -56,7 +56,8 @@
 		border: 1px solid #87CEFA;
 	}
 	#searchBar>form{
-		line-height: 300px;
+		/* line-height: 300px; */
+		margin-top: 150px;
 	}
 	#searchBar input{
 		width: 500px;
@@ -68,7 +69,7 @@
 		width: 70px;
 		height: 50px;
 		background-color: #87CEFA;
-		border: 1px solid #4aa9e4;
+		/* border: 1px solid #4aa9e4; */
 		border-radius: 10px;
 	}
 	#search_map>*{

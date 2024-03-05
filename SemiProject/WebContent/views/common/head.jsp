@@ -3,6 +3,7 @@
     pageEncoding="UTF-8"%>
 <%String contextPath = request.getContextPath(); %>
 <%Member loginUser = (Member)session.getAttribute("loginUser"); %>
+<%String alert = (String)session.getAttribute("alertMsg"); %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -77,7 +78,7 @@
             float: left;
             
         }
-        /*<%if(loginUser == null){ %>
+        <%if(loginUser == null){ %>
             #userimgbtn{
                 border: 0;
                 background-image: url("resources/common/로그인전.png");
@@ -103,7 +104,7 @@
             display: block;
             float: left;
         }
-        <%}%>*/
+        <%}%>
         #navigator{
             width: 70%;
             height: 50%;
@@ -215,7 +216,12 @@
         <!-- 헤더부분 끝 -->
 
 
-  
+  	<%if(alert != null){ %>
+  		<script>
+  			alert('<%=alert%>');
+  		</script>
+  			<%session.removeAttribute("alertMsg"); %>
+  	<%} %>
     
 
 
