@@ -23,7 +23,7 @@
 
 
 <style>
-    /*.outer div{border: 1px solid red;}*/
+    .outer div{border: 1px solid red;}
 	.outer{
 		/* border: 1px solid red; */
 		width: 1900px;
@@ -287,6 +287,22 @@
 		border-radius: 20px;
 	}
 
+	/* 사진보기 a태그 */
+	#rev-look{
+		margin-left: 400px;
+		color: rgb(135, 206, 250);
+	}
+
+	.rev-look-div{
+		width: 100%;
+		height: 150px;
+	}
+
+	.rev-look-div img{
+		width: 130px;
+		height: 130px;
+	}
+
 </style>
 
 	
@@ -424,10 +440,9 @@
 						<br><br>
 						<hr>
 						<br><br>
-						<%%>
 						<div id="rev-list">
 							
-								<!-- <div class="rev-list-id">작성자 아이디</div>
+								<!--  <div class="rev-list-id">작성자 아이디</div>
 								<div class="rev-list-content">
 									<textarea cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px;">작성내용</textarea>
 								</div>
@@ -436,8 +451,6 @@
 					
 							
 						</div>
-						<%%>
-
 
 					</div>
 				
@@ -465,10 +478,8 @@
 	
 	<%@ include file="/views/common/footer.jsp" %>
 	
-
-
-
-
+	
+	
 	<script>
 		/////////////////////////////////////////
 		////////// 모든리뷰 보기 스크롤 //////////
@@ -545,18 +556,19 @@
 		  formData.append('file2', $("#file2")[0].files[0]);
 		  formData.append('file3', $("#file3")[0].files[0]);	
 			
-		  console.log(formData);
 		$.ajax({
 			url:"insert.rv",
 			method:"post",
 			data: formData,
-			processData: false,
+		    processData: false,
     		contentType: false,
 			success:function(result){
 				if(result > 0){
 					$(".rev-write textarea").val("");
 					$("#titleImg").attr("src", null);
 					$("#file1").val("");
+					$("#file2").val("");
+					$("#file3").val("");
 					selectReview();
 				}
 			},
@@ -576,34 +588,68 @@
 			method:"post",
 			data:{storeNo: <%= st.getStoreNo() %>},
 			success:function(rlist){
+					
 					let value = "";
 				if(rlist.length < 1){
 					value += "<div>조회된 리뷰가 없습니다.</div>"
 				} else{
 					for(let i = 0; i < rlist.length; i++){
+						if(rlist[i].getImages != null){
+						let images = rlist[i].getImages.split(",");
+						}
+						console.log(rlist);
+						
 						value += "<div class='rev-list'>"
+
 							   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
+
 						       + "<div class='rev-list-content'>"
 						       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
 						       + "</div>"
+
 						       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
+
+						       + "<a type='button' id='rev-look' onclick='revlook();'>사진보기↓</a>"
+
 						       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
-						       + "</div>"
-						       + "<br><br>";
+							   + "</div>";
+							   if(images.length>0){
+								   for(let i = 0; i < images.length; i++){
+							       value += "<div class='rev-look-div' style='display:none'>"
+							       		  + "<img class='rev-look-img1' src='" <%= contextPath %> + "/" + images[0] + "'>"
+							       		  + "<img class='rev-look-img2' src=''>"
+							       		  + "<img class='rev-look-img3' src=''>"
+							       		  + "</div>";
+								   }
+							   }
 						       
 					}
 				}
 						       $("#rev-list").html(value);
-					
 			},
 			error:function(){
-				
 			}
-
 		})
 		}
 		
+		function revlook() {
+			$(".rev-look-div").each(function() {
+				if ($(this).css("display") === "block") {
+				$(this).slideUp();
+				$(this).css("display", "none");
+				$("#rev-look").text("사진보기↓");
+				} else {
+				$(this).slideDown();
+				$(this).css("display", "block");
+				$("#rev-look").text("사진접기↑");
+				}
+			});
+		}
+
+
+
 		
+		////////// 대표사진 첨부시 이미지 띄우기 ///////////
 		function loadImg(inputFile){
 			
 			if(inputFile.files.length == 1){ // 파일이 선택된 경우
@@ -619,11 +665,6 @@
 			} else { // 파일이 취소된 경우
 				$("#titleImg").attr("src", null);			
 			}
-			
-			
-			
-			
-			
 			
 		}
 		
