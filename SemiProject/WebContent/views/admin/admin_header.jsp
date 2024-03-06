@@ -23,10 +23,17 @@
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 
+    <style>
+    </style>
+
 </head>
 
 <body id="page-top">
-
+<% if(loginUser == null){%>
+    <script>
+    	location.href ="views/admin/admin_NotAdminConnection.jsp"
+    </script>
+<%}else if(loginUser.getUserId().equals("admin")){ %>
     <!-- Page Wrapper -->
     <div id="wrapper">
 
@@ -69,7 +76,7 @@
                 <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">매장목록</a>
+                        <a class="collapse-item" href="<%=contextPath %>/storeList">매장목록</a>
                         <a class="collapse-item" href="cards.html">입점신청</a>
                     </div>
                 </div>
@@ -85,7 +92,7 @@
                 <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="utilities-color.html">회원목록</a>
+                        <a class="collapse-item" href="<%=contextPath%>/memberlist.bo">회원목록</a>
                         <a class="collapse-item" href="utilities-border.html">블랙리스트</a>
                     </div>
                 </div>
@@ -123,6 +130,29 @@
                 </div>
             </li>
 
+            <hr class="sidebar-divider">
+            <div class="sidebar-heading">
+                관리자정보
+            </div>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo4"
+                    aria-expanded="true" aria-controls="collapseTwo4">
+                    <!-- <i class="fas fa-fw fa-cog"></i> -->
+                    <img class="img-profile rounded-circle"
+                    src="resources/admin_img/bird_profile3.png">
+                    <span><%=loginUser.getUserName() %></span>
+                </a>
+                <div id="collapseTwo4" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header">Custom Components:</h6>
+                        <a class="collapse-item" href="<%=contextPath%>">메인으로 이동</a>
+                        <a class="collapse-item" href="<%=contextPath%>/logoutForm.me">Logout</a>
+                    </div>
+                </div>
+            </li>
+
+
             <!-- Divider -->
             <hr class="sidebar-divider">
 
@@ -130,7 +160,7 @@
             <div class="sidebar-heading">
                 Addons
             </div>
-
+            
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
@@ -174,149 +204,10 @@
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
 
-
-
         </ul>
         <!-- End of Sidebar -->
 
-        <!-- Content Wrapper -->
-        <div id="content-wrapper" class="d-flex flex-column">
-
-            <!-- Main Content -->
-            <div id="content">
-
-                <!-- Topbar -->
-                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                    <!-- Sidebar Toggle (Topbar) -->
-                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-                        <i class="fa fa-bars"></i>
-                    </button>
-
-                    <!-- Topbar Search -->
-                    <!-- <form
-                        class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
-                        <div class="input-group">
-                            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..."
-                                aria-label="Search" aria-describedby="basic-addon2">
-                            <div class="input-group-append">
-                                <button class="btn btn-primary" type="button">
-                                    <i class="fas fa-search fa-sm"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </form> -->
-
-                    <!-- Topbar Navbar -->
-                    <ul class="navbar-nav ml-auto">
-
-                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                        <li class="nav-item dropdown no-arrow d-sm-none">
-                            <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-search fa-fw"></i>
-                            </a>
-                            <!-- Dropdown - Messages -->
-                            <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-                                aria-labelledby="searchDropdown">
-                                <form class="form-inline mr-auto w-100 navbar-search">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control bg-light border-0 small"
-                                            placeholder="Search for..." aria-label="Search"
-                                            aria-describedby="basic-addon2">
-                                        <div class="input-group-append">
-                                            <button class="btn btn-primary" type="button">
-                                                <i class="fas fa-search fa-sm"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </li>
-
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Alerts Center
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
-                        <!-- Nav Item - User Information -->
-                        <li class="nav-item dropdown no-arrow">
-                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=loginUser.getUserName() %></span>
-                                <img class="img-profile rounded-circle"
-                                    src="resources/admin_img/undraw_profile.svg">
-                            </a>
-                            <!-- Dropdown - User Information -->
-                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="<%=contextPath%>">
-                                    <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    메인페이지로 이동
-                                </a>
-                                <a class="dropdown-item" href="<%=contextPath%>/logoutForm.me" >
-                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
-                                    Logout
-                                </a>
-
-
-                            </div>
-                        </li>
-
-                    </ul>
-
-                </nav>
-                <!-- End of Topbar -->
-                </div>
-                </div>
-                </div>
-
-                
+            
 
 
 
@@ -336,7 +227,16 @@
     <!-- Page level custom scripts -->
     <script src="resources/js/demo/chart-area-demo.js"></script>
     <script src="resources/js/demo/chart-pie-demo.js"></script>
+<%}else if(!(loginUser.getUserId().equals("admin"))){ %>
+    <script>
+    	location.href ="views/admin/admin_NotAdminConnection.jsp"
+    </script>
+<%} %>
 
-</body>
 
-</html>
+
+
+
+
+
+

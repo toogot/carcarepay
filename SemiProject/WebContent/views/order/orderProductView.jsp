@@ -545,6 +545,7 @@
             $('#hiddenRadioCheckPrice').val(selectedValue);
             $('#hiddenTotalPrice').val(selectedValue);
             console.log("hidden토탈프라이스콘솔ㄱ"+($('#hiddenRadioCheckPrice').val()));
+            
             });
 
             //직접입력칸에 숫자입력시 얼마인지 나오게하는 함수
