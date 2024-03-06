@@ -23,11 +23,11 @@
 
 
 <style>
-    .outer div{border: 1px solid red;}
+    /* .outer div{border: 1px solid red;} */
 	.outer{
 		/* border: 1px solid red; */
 		width: 1900px;
-		height: 4000px;
+		height: 4100px;
 		box-sizing: border-box;
 		margin: auto;
 		margin-top: 10px;
@@ -192,7 +192,8 @@
 		font-weight: bold;
 	}
 	.store_allRev_content{
-		height: 95%;
+		height: 1100px;
+		overflow: auto;
 	}
 	
 	/* 리뷰 작성 */
@@ -272,11 +273,12 @@
 		background-color: rgb(135, 206, 250);
 		border: 1px solid black;
 		border-radius: 20px;
+		height: 35px;
 	}
 
 	#scrollRev:hover{
 		cursor: pointer;
-		background-color: darkblue;
+		background-color: blue;
 		color: white;
 	}
 	
@@ -320,7 +322,7 @@
 		<div class="store_info">
 			<div class="store_info_1">
 				<div class="store_info_1_1">
-					<table border="0" class="tb_store_name">
+					<table border="1" class="tb_store_name">
 						<tr style="height: 80px;">
 							<th style="font-size: 25px; font-weight: bold;"> <%= st.getStoreName() %></th>
 							<td colspan="3">
@@ -330,16 +332,18 @@
 						<tr style="height: 40px;">
 							<th style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
 							<td></td>
-							<td colspan="2" style="text-align: right; margin-right: 10px;"><a id="scrollRev" style="text-decoration: none;">모든 리뷰보기</a></td>
+							<td colspan="2" style="text-align: right; margin-right: 10px;"><button id="scrollRev" style="text-decoration: none;">모든 리뷰보기</button></td>
 						</tr>
 						<tr style="height: 350px;">
-							<th></th>
+							<th id="review_recent_image">
+								
+							</th>
 							<th colspan="3">
 								<div class="review_recent">
-									<div class="review_recent_1">최신리뷰</div>
+									<div class="review_recent_1">가장 최신리뷰</div>
 									<div class="review_recent_2" style="width: 90%; margin-left: 40px;">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
 									<div class="review_recent_3">
-										<div class="review_recent_3_1">세차왕 이한기</div>
+										<div class="review_recent_3_1" style="padding-right: 20px;">세차왕 이한기</div>
 										<div class="review_recent_3_2">2024-02-19</div>
 									</div>
 								</div>
@@ -448,9 +452,12 @@
 								</div>
 								<div class="rev-list-date">2024-02-26</div>
 								<div class="rev-list-grade">★ 5.0</div> -->
-					
+								
 							
 						</div>
+								<!--  <div class="rev-look-div"></div> -->    <!-- style="display:none" -->
+					       			
+					            
 
 					</div>
 				
@@ -459,7 +466,7 @@
 				<!-- =========================================== 화면 오른쪽 ========================================== -->
 
 			</div>
-			<div class="store_info_2">
+			<div class="store_info_2" style="height: auto;">
 				<div class="store_info_2_1"> 
 						<div class="store_info_2_1_1">상세주소</div>
 
@@ -484,7 +491,7 @@
 		/////////////////////////////////////////
 		////////// 모든리뷰 보기 스크롤 //////////
 		////////////////////////////////////////
-		document.querySelector('td a').addEventListener('click', function(event) {
+		document.getElementById("scrollRev").addEventListener('click', function(event) {
 			event.preventDefault(); // 기본 동작 방지
 		
 			// 이동할 대상 div 요소 선택자
@@ -579,77 +586,109 @@
 			})
 		}
 		
+		/////////// 매장 평점 총 갯수 및 평균 /////////
+		function selectCountGrade(){
+			$.ajax({
+				url:"countgrade.rv",
+				method:"post",
+				data:{storeNo: <%= st.getStoreNo() %>},
+				success:function(){
+					
+				},
+				error:function(){
+					
+				}
+				
+			})
+		}
+		
+		
+		
 		/////////////////////////////////////
 		/////////// ajax 리뷰 select /////////
+		/////// 최근 리뷰 데이터 가져오기 /////
 		/////////////////////////////////////
+		
 		function selectReview(){
-		$.ajax({
-			url:"select.rv",
-			method:"post",
-			data:{storeNo: <%= st.getStoreNo() %>},
-			success:function(rlist){
-					
-					let value = "";
-				if(rlist.length < 1){
-					value += "<div>조회된 리뷰가 없습니다.</div>"
-				} else{
-					for(let i = 0; i < rlist.length; i++){
-						if(rlist[i].getImages != null){
-						let images = rlist[i].getImages.split(",");
-						}
-						console.log(rlist);
+			$.ajax({
+				url:"select.rv",
+				method:"post",
+				data:{storeNo: <%= st.getStoreNo() %>},
+				success:function(rlist){
 						
-						value += "<div class='rev-list'>"
-
-							   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
-
-						       + "<div class='rev-list-content'>"
-						       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
-						       + "</div>"
-
-						       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
-
-						       + "<a type='button' id='rev-look' onclick='revlook();'>사진보기↓</a>"
-
-						       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
-							   + "</div>";
-							   if(images.length>0){
-								   for(let i = 0; i < images.length; i++){
-							       value += "<div class='rev-look-div' style='display:none'>"
-							       		  + "<img class='rev-look-img1' src='" <%= contextPath %> + "/" + images[0] + "'>"
-							       		  + "<img class='rev-look-img2' src=''>"
-							       		  + "<img class='rev-look-img3' src=''>"
-							       		  + "</div>";
-								   }
-							   }
-						       
-					}
+						let value = "";
+						let recentUserId = "";
+						let recentContent = "";
+						let recentIssueDate = "";
+					if(rlist.length < 1){
+						value += "<div>조회된 리뷰가 없습니다.</div>"
+						recentContent += "조회된 리뷰가 없습니다."
+					} else{
+							recentUserId = rlist[0].userId;
+							recentContent = rlist[0].content;
+							recentIssueDate = rlist[0].issueDate;
+							for(let i=0; i<rlist.length; i++){
+							
+							value += "<div class='rev-list'>"
+	
+								   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
+	
+							       + "<div class='rev-list-content'>"
+							       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
+							       + "</div>"
+	
+							       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
+	
+							       + "<a type='button' id='rev-look'>↓리뷰사진↓</a>"
+	
+							       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
+								   + "</div>";
+								   
+							let images = "";
+							let recentImage = "";
+							
+							if(rlist[i].imgRoot != null){
+								images = rlist[i].imgRoot;
+								imageArray = images.split(",");
+								
+								recentImage = rlist[0].imgRoot;
+								recentImageArray = recentImage.split(",");
+	
+								let value2 = "";
+								
+								for(let j=0; j<imageArray.length; j++){
+						    	value2 += "<img class='rev-look-img' src='" + imageArray[j] + "'>";												
+								
+								}
+								
+								value += "<div class='rev-look-div'>" + value2 + "</div>";
+								
+						              
+						    	console.log($(".rev-look-div").html());
+						    	
+							}
+							
+							
+							}  
+						}
+							       $("#rev-list").html(value);
+								   $(".review_recent_2").text(recentContent);
+								   $(".review_recent_3_1").text(recentUserId);
+								   $(".review_recent_3_2").text(recentIssueDate);
+								   $("#review_recent_image").html("<img src='" + recentImageArray[0] +"' width='100%' height='220px'>");
+					},
+				
+				error:function(){
 				}
-						       $("#rev-list").html(value);
-			},
-			error:function(){
-			}
-		})
+			})
 		}
 		
-		function revlook() {
-			$(".rev-look-div").each(function() {
-				if ($(this).css("display") === "block") {
-				$(this).slideUp();
-				$(this).css("display", "none");
-				$("#rev-look").text("사진보기↓");
-				} else {
-				$(this).slideDown();
-				$(this).css("display", "block");
-				$("#rev-look").text("사진접기↑");
-				}
-			});
-		}
+		
 
 
 
 		
-		////////// 대표사진 첨부시 이미지 띄우기 ///////////
+		////////// 리뷰등록시 대표사진 첨부시 이미지 띄우기 ///////////
 		function loadImg(inputFile){
 			
 			if(inputFile.files.length == 1){ // 파일이 선택된 경우

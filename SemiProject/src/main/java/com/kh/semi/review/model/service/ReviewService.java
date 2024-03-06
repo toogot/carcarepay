@@ -38,7 +38,15 @@ public class ReviewService {
 		return rlist;
 	}
 									
-									
+	public Review selectCountGrade(int storeNo) {
+		
+		Connection conn = getConnection();
+		Review rv = new ReviewDao().selectCountGrade(conn, storeNo);
+
+		close(conn);
+		
+		return rv;
+	}
 									
 									
 									

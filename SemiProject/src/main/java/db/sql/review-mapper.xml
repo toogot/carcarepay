@@ -63,6 +63,12 @@
 		  )
 	</entry>
 	
+	<entry key="selectCountGrade">
+	SELECT COUNT(*) "COUNT", AVG(GRADE) "AVG"
+	  FROM REVIEW
+	 WHERE STORE_NO = ?
+	</entry>
+	
 
 
 </properties>

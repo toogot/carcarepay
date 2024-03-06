@@ -12,6 +12,7 @@ public class Review {
 	private int reportCount;
 	private String reviewStatus;
 	private String userId;
+	private int reviewCount; 
 	
 	public Review() {}
 
@@ -116,6 +117,14 @@ public class Review {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
 	}
 
 	@Override

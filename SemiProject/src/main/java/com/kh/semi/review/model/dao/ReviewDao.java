@@ -120,7 +120,34 @@ public class ReviewDao {
 	}
 	
 	
-	
+	public Review selectCountGrade(Connection conn, int storeNo) {
+		// select문 -> 1행이라서 Review 객체에 담아주면 될듯
+		Review rv = new Review();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCountGrade");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, storeNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				rv.setReviewCount(rset.getInt("count"));
+				rv.setGrade(rset.getDouble("avg"));
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rv;
+	}
 	
 	
 	
