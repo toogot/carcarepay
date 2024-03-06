@@ -96,8 +96,7 @@
 				<tr>
 					<th>아이디</th>
 					<td>
-						<input type="text" name="userId" id="userId"  placeholder="5~11글자 영어,숫자" onkeyup="ikd();" required>
-						<button type="button" onclick="idCheck();">중복확인</button>
+						<input type="text" name="userId" id="userId"  placeholder="6~11글자 영어,숫자" onkeyup="ikd();" required>
 						<div id="ikd"></div>
 					</td>
 
@@ -205,7 +204,7 @@
 				}
 			  </script>
 			<br>
-				<button type="submit"  onclick="location.href='<%=contextPath%>/login.me'">회원가입</button>
+				<button type="submit"  onclick="location.href='<%=contextPath%>/login.me'" >회원가입</button>
 				<button type="reset">초기화</button>
 			</div>			
 		</form>
@@ -220,44 +219,81 @@
 			}
 		}).open();
 		}
+		function nkd(){
+			let regExp = /^[가-힣]{2,}$/i;
+        if(!regExp.test($("#userName").val())){
+            $("#nkd").text("한글 2글자 이상 입력해주세요.").css("color","red");          
+        }else{
+			$("#nkd").text("이름 확인완료.").css("color","green"); 
+			
+		}
+	}
+
+
 		
-        
+		function ikd(){
+			regExp = /^[a-z][a-z\d]{5,11}$/;
+        if(!regExp.test($("#userId").val())){
+            $("#ikd").text("영문,숫자 6글자 이상 11글자 이하 입력해주세요").css("color","red");               
+        }else{
+			$("#ikd").text("굿").css("color","green");
+			$.ajax({
+				url:"idCheck.me",
+				data:{checkId:$("#userId").val()},
+			success:function(result){
+				console.log(result);
+				
+				if(result == "NNNNN"){
+					$("#ikd").text("중복된 아이디 입니다.").css("color","red");
+					
+				}else{
+					$("#ikd").text("사용가능한 아이디입니다.").css("color","green");
+					}			
+			},
+			error:function(){
+				alert("실패")
+			}
+			});
+			}
+		}
+	
 
-		let regExp = /^[가-힣]{2,}$/;
-        if(!regExp.test(nameInput.value)){
-            alert("유효한 이름을 입력해주세요!")
-            nameInput.select();
-            return false;
-        }
-        
-        regExp = /^[a-z][a-z\d]{5,11}$/;
-        if(!regExp.test(idInput.value)){
-            alert("유효한 아이디를 입력해주세요!");
-            idInput.select();
-            return false;
-        }
+		function pkd(){
+			regExp = /^[a-z\d!@#$%^&*]{8,15}$/i;
+        if(!regExp.test($("#userPwd").val())){
+            $("#pkd").text("영문,숫자,특수기호를 사용해서 8~15글자 입력해주세요").css("color","red");    
+           
+        }else{
+			
+			$("#pkd").text("굿").css("color","green"); 
+		}
+		}
 
-    
-        regExp = /^[a-z\d!@#$%^&*]{8,15}$/i;
-        if(!regExp.test(pwdInput1.value)){
-            alert("유효한 비밀번호를 입력해주세요!");
-            pwdInput1.value = "";
-            pwdInput1.focus();
-            return false;
-        }
+		console.log($("#userPwd").focus())
 
-      
-        if(pwdInput1.value != pwdInput2.value){
-            alert("동일한 비밀번호를 입력해주세요!")
-            pwdInput2.value = "";
-            pwdInput2.focus();
-            return false;
-        }
-        
-        
-      
-    }
-	function idCheck(){
+		function rpkd(){
+			if($("#userPwd").val() != $("#userPwd2").val()){
+				$("#rpkd").text("위 비밀번호와 일치하게 입력해주세요.").css("color","red");    
+			}else{
+				
+				if($("#userPwd").focus()){
+					if($("#userPwd").val() != $("#userPwd2").val()){
+						$("#rpkd").text("위 비밀번호와 일치하게 입력해주세요.").css("color","red");   
+						
+				}else{
+					$("#rpkd").text("굿").css("color","green"); 
+				}
+			}
+				
+			}
+		}
+		function epkd(){
+			regExp = /^\d{3}-\d{4}-\d{4}$/;
+			if(!regExp.test($("email").val())){}
+		}
+		
+		
+	/*function idCheck(){
 			// 중복확인 버튼 클릭시 사용자가 입력한 아이디값을 넘겨서 조회요청(존재하는지 안하는지) => 응답데이터 돌려받기
 			// 1) 사용불가능일 경우 => alert로 메세지출력, 다시 입력할 수 있도록 유도
 			// 2) 사용 가능일 경우 => 진짜 사용할건지 의사를 물어볼꺼임
@@ -285,21 +321,27 @@
 						$idInput.focus();
 					}
 						
-					}
-					
-				
-				
-				
+					}			
 			},
 			error:function(){
-				console.log("아이디 중복체크용 ajax 통신 실패")
+				alert("실패")
 			}
 			});
-		}
+		}*/
 		
 		
 
 	</script>
+        
+
+		
+        
+	
+     
+	
+		
+		
+
 	
 	
 	<%@include file="../common/footer.jsp" %>
