@@ -6,23 +6,23 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
 import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.order.model.service.OrderService;
 import com.kh.semi.order.model.vo.Order;
 
 /**
- * Servlet implementation class OrderProductDetailController
+ * Servlet implementation class OrderGiftController3
  */
-@WebServlet("/orderdetail.bo")
-public class OrderProductDetailController extends HttpServlet {
+@WebServlet("/ordergiftdetail3.bo")
+public class OrderGiftController3 extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderProductDetailController() {
+    public OrderGiftController3() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,32 +32,16 @@ public class OrderProductDetailController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int price = (Integer.parseInt(request.getParameter("price")));
-		int qty = (Integer.parseInt(request.getParameter("qty")));
+		int userNo = ((Member)request.getSession().getAttribute("loginUser")).getUserNo();//세션영역에있는 로그인유저를 가져옴0
 		
-		HttpSession session = request.getSession(); //세션 객체 얻어옴
-		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
+		Order o = new OrderService().orderGiftDetailSelect(userNo);
 		
-		int totalPrice = (Integer.parseInt(request.getParameter("totalprice")));
+		System.out.println("g controller : " + o);
+		//response.getWriter().print(o);	
 		
+		response.setContentType("application/json; charset=utf-8");//내가 지금 보내려고하는건 ..?!0
+		new Gson().toJson(o, response.getWriter()); //(내가보내려고하는객체,통로를 만들어주는 출력스트림 출력용스트림) response.getWriter가 출력용스트림인거임?그냥 그자체?0
 		
-		Order o = new Order();
-		o.setPrice(price);
-		o.setQty(qty);
-		o.setUserNo(userNo);
-		o.setTotalPrice(totalPrice);
-		
-		System.out.println("총가격 : " + totalPrice);
-		System.out.println("라디오버튼 : " + price);
-		System.out.println("상품수량 : " + qty);
-		System.out.println("회원번호 : " + userNo);
-		int result = new OrderService().orderInsert(o);
-		
-		System.out.println(o);
-		
-		
-		response.getWriter().print(result);		
-
 	}
 
 	/**

@@ -673,7 +673,27 @@
     function giftBtn(){ //로그인 되어있고 선물버튼 클릭시
         if($('input[name="radioPrice"]:checked').val() !=null){ //금액설정시
              
-             location.href = "<%=contextPath%>/ordergiftdetail.bo"
+
+            console.log($(".checkAmountQty-num").val());
+            $.ajax({
+            	url:"ordergiftdetail.bo",
+            	data:{
+            		price:$("#hiddenRadioCheckPrice").val(),
+            		totalprice:$('#hiddenTotalPrice').val(),
+            		qty:$(".checkAmountQty-num").val()
+            		
+            	},
+            	type:"post",
+            	success:function(result){
+            		if(result>0){
+            			moveGiftOrderDetail();
+            		}
+            	},error:function(){
+            		console.log("ajax 실패 ㅜㅜ")
+            	}
+            	
+            })
+             
 
         }else{ //금액미설정시
             alert("금액을 선택해주세요.");
@@ -685,6 +705,10 @@
     	location.href = "<%=contextPath%>/orderdetail2.bo"
 
    }
+   
+    function moveGiftOrderDetail(){
+        location.href = "<%=contextPath%>/ordergiftdetail2.bo"
+    }
 
 
    

@@ -96,6 +96,52 @@ public class OrderDao {
 		
 	}
 	
+	
+	public Order orderGiftDetailSelect(Connection conn, int userNo){
+		// select문 => ResultSet(한행) => Order 객체에 담겠다!!!
+		
+		
+		Order o = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("orderGiftDetailSelect");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				o = new Order(rset.getInt("user_no"),
+							rset.getInt("order_no"),
+							rset.getInt("total_price"),
+							rset.getString("order_enroll"),
+							rset.getString("gift_yn"),
+							rset.getInt("order_qty"),
+							rset.getInt("order_price"),
+							rset.getString("email"),
+							rset.getString("phone"),
+							rset.getString("user_name")
+							);
+			}
+			
+			System.out.println("g dao : " + o);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return o;
+		
+	}
+	
+	
 	public int kakaopayOrderInsert(Connection conn, Order k) {
 		//우리가 돌리려고 하는 쿼리는 insert문 => 처리된 행수 => 트랜젝션 처리
 		int result = 0;
@@ -144,5 +190,34 @@ public class OrderDao {
 		return result;
 		
 	}
+	
+	public int orderGiftInsert(Connection conn, Order o) {
+		
+		//우리가 돌리려고 하는 쿼리는 insert문 => 처리된 행수 => 트랜젝션 처리
+		int result =0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertGiftOrder");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, o.getQty());
+			pstmt.setInt(2, o.getPrice());
+			pstmt.setInt(3, o.getUserNo());
+			pstmt.setInt(4, o.getTotalPrice());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+		
+	
 
 }

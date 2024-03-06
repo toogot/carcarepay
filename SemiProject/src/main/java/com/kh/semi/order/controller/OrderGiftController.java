@@ -13,16 +13,16 @@ import com.kh.semi.order.model.service.OrderService;
 import com.kh.semi.order.model.vo.Order;
 
 /**
- * Servlet implementation class OrderProductDetailController
+ * Servlet implementation class OrderGiftController
  */
-@WebServlet("/orderdetail.bo")
-public class OrderProductDetailController extends HttpServlet {
+@WebServlet("/ordergiftdetail.bo")
+public class OrderGiftController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public OrderProductDetailController() {
+    public OrderGiftController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,7 +31,6 @@ public class OrderProductDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int price = (Integer.parseInt(request.getParameter("price")));
 		int qty = (Integer.parseInt(request.getParameter("qty")));
 		
@@ -47,18 +46,18 @@ public class OrderProductDetailController extends HttpServlet {
 		o.setUserNo(userNo);
 		o.setTotalPrice(totalPrice);
 		
-		System.out.println("총가격 : " + totalPrice);
-		System.out.println("라디오버튼 : " + price);
-		System.out.println("상품수량 : " + qty);
-		System.out.println("회원번호 : " + userNo);
-		int result = new OrderService().orderInsert(o);
+		System.out.println("g총가격 : " + totalPrice);
+		System.out.println("g라디오버튼 : " + price);
+		System.out.println("g상품수량 : " + qty);
+		System.out.println("g회원번호 : " + userNo);
 		
-		System.out.println(o);
+		int result = new OrderService().orderGiftInsert(o);
+		
+		System.out.println("giftController : " + o);
 		
 		
 		response.getWriter().print(result);		
-
-	}
+		}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
