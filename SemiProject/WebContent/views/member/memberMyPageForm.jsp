@@ -15,28 +15,32 @@
         height: 1000px;
         margin: auto;
     }
-    .mypage-wrap>form{
+    #myInfo{
         width: 1000px;
-        height: 700px;
+        height: 900px;
         margin: auto;
-        margin-top: 150px;        
+        margin-top: 100px;        
         border-radius: 30px;
         background-color: rgb(164, 207, 248);
     }
     #title>h1{
         line-height: 150px;
     }
+    #title{
+        width: 1200px;
+        margin: auto;
+    }
     #myBtn{
+        width: 100%;
         height: 50px;
-        padding-left: 200px;
-        border-bottom: 1px solid rgb(241, 112, 6);
+        padding: 0px 10px;
     }
     #myBtn>button{
         display: inline-block;
-        width: 200px;
-        height: 40px;
+        font-size: 20px;
+        width: 500px;
+        height: 50px;
         border: none;
-           
     }
     #myInfo>table{
         margin: 50px 200px;
@@ -93,50 +97,59 @@
 <%@include file="../common/head.jsp" %>
 <%if(loginUser != null){ %>
 <div class="mypage-wrap">
-    <form action="<%= contextPath%>/myPage.me" method="post">
+    
         <div id="mypage">
+            
             <div id="title">
                 <h1 align="center">마이페이지</h1>
-            </div>
-            <div id="myBtn" class="btn-group">
-                <button type="button" class="btn btn-primary">회원정보</button>
-                <button type="button" class="btn btn-primary">사용내역</button>
-                <button type="button" class="btn btn-primary">즐겨찾기</button>  
-            </div>
-            <div id="myInfo">
-                <table>
-                    <tr>
-                        <th>아이디</th>
-                        <td colspan="2"><%=loginUser.getUserId() %></td>
-                    </tr>
-                    <tr>
-                        <th>포인트</th>
-                        <td><%=loginUser.getBalance() %>원 <br></td>
-                        <td> <button type="button" class="btn btn-sm btn-danger" onclick="location.href='<%=contextPath%>/product.bo'">충전</button></td>
-                    </tr>
-                    <tr>
-                        <th>회원등급</th>
-                        <td colspan="2"><%=loginUser.getUserLevel() %></td>
-                    </tr>
-                    <tr>
-                        <th>이메일</th>
-                        <td colspan="2"><%=loginUser.getEmail() %></td>
-                    </tr>
-                    <tr>
-                        <th>주소</th>
-                        <td colspan="2"><%=loginUser.getAddress() %></td>
-                    </tr>
-                </table>
-            </div>
-            
-            <div id="footerBtn">
-                <div id="btn-wrap">
-                    <button class="btn btn-primary">수정</button>
-                    <button class="btn btn-primary">탈퇴</button>
+                <div id="myBtn" class="btn-group">
+                    <button type="button" class="btn btn-primary" onclick="page('myPage.me');">회원정보</button>
+                    <button type="button" class="btn btn-primary" onclick="page('myHistory.me');">사용내역</button>
+                    <button type="button" class="btn btn-primary" onclick="page('myBookmark.me');">즐겨찾기</button>
+                    <button type="button" class="btn btn-primary" onclick="page('myAppStore.me');">입점신청내역</button>
                 </div>
             </div>
+
+            <br>
+            <hr style="background-color: aqua;">
+
+            <div id="myInfo">
+                <form action="<%= contextPath%>/myPage.me" method="post"></form>
+                    <table>
+                        <tr>
+                            <th>아이디</th>
+                            <td colspan="2"><%=loginUser.getUserId() %></td>
+                        </tr>
+                        <tr>
+                            <th>포인트</th>
+                            <td><%=loginUser.getBalance() %>원 <br></td>
+                            <td> <button type="button" class="btn btn-sm btn-danger" onclick="location.href='<%=contextPath%>/product.bo'">충전</button></td>
+                        </tr>
+                        <tr>
+                            <th>회원등급</th>
+                            <td colspan="2"><%=loginUser.getUserLevel() %></td>
+                        </tr>
+                        <tr>
+                            <th>이메일</th>
+                            <td colspan="2"><%=loginUser.getEmail() %></td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td colspan="2"><%=loginUser.getAddress() %></td>
+                        </tr>
+                    </table>
+                </form>
+                <div id="footerBtn">
+                    <div id="btn-wrap">
+                        <button class="btn btn-primary">수정</button>
+                        <button class="btn btn-primary">탈퇴</button>
+                    </div>
+                </div>
+
+            </div>
+  
         </div>
-    </form>
+    
 </div>
 <%}else{%>
 	<script>
@@ -145,6 +158,24 @@
 	</script>
 <%} %>
 
+
+    <script>
+        
+        
+        function page(no){
+            $.ajax({
+                url:'<%=contextPath%>/'+no,
+                success:function(){
+                    
+                    
+                }
+            });
+            
+        }
+
+
+        
+    </script>
 <%@include file="../common/footer.jsp" %>
 </body>
 </html>
