@@ -95,7 +95,7 @@
         <%if(loginUser == null){ %>
             #userimgbtn{
                 border: 0;
-                background-image: url("resources/common/로그인전.png");
+                background-image: url("https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824147_640.png");
                 width: 55px;
                 height: 100%;
                 background-size: 55px;
@@ -108,7 +108,7 @@
         <%}else{%>
             #userimgbtn{
             border: 0;
-            background-image: url("resources/common/로그인후.png");
+            background-image: url("https://cdn.pixabay.com/photo/2016/03/03/16/21/man-head-1234492_640.png");
             width: 55px;
             height: 100%;
             background-size: 55px;

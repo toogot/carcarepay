@@ -230,7 +230,7 @@
             idInput.select();
             return false;
         }
-
+			
     
         regExp = /^[a-z\d!@#$%^&*]{8,15}$/i;
         if(!regExp.test(pwdInput1.value)){
