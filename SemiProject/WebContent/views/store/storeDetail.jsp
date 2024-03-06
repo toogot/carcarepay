@@ -330,7 +330,7 @@
 							</td>
 						</tr>
 						<tr style="height: 40px;">
-							<th style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
+							<th id="countGrade" style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
 							<td></td>
 							<td colspan="2" style="text-align: right; margin-right: 10px;"><button id="scrollRev" style="text-decoration: none;">모든 리뷰보기</button></td>
 						</tr>
@@ -588,12 +588,15 @@
 		
 		/////////// 매장 평점 총 갯수 및 평균 /////////
 		function selectCountGrade(){
+			let countGrade = "";
 			$.ajax({
 				url:"countgrade.rv",
 				method:"post",
 				data:{storeNo: <%= st.getStoreNo() %>},
-				success:function(){
-					
+				success:function(rv){
+					countGrade = "★" + rv.grade + rv.reviewCount + "명 평가";
+					$("#countGrade").text(countGrade);
+					console.log(countGrade);
 				},
 				error:function(){
 					
