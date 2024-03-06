@@ -95,7 +95,7 @@
         <%if(loginUser == null){ %>
             #userimgbtn{
                 border: 0;
-                background-image: url("resources/common/로그인전.png");
+                background-image: url("https://cdn.pixabay.com/photo/2016/11/14/17/39/person-1824147_640.png");
                 width: 55px;
                 height: 100%;
                 background-size: 55px;
@@ -108,7 +108,7 @@
         <%}else{%>
             #userimgbtn{
             border: 0;
-            background-image: url("resources/common/로그인후.png");
+            background-image: url("https://cdn.pixabay.com/photo/2016/03/03/16/21/man-head-1234492_640.png");
             width: 55px;
             height: 100%;
             background-size: 55px;
@@ -230,12 +230,19 @@
 	                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
 	                <button id="event"><a href="#">잔액<span id="membercash"></span>원</a></button>
                 <%} %>
+                
+                
+                
+                
+                
+                <button id="event"><a href="#">이벤트</a></button>
+                
             </div>
             <div id="navigator">
                 <button id="charge" type="button"><a href="<%= contextPath %>/product.bo">충전하기</a></button>
                 <button id="search" type="button"><a href="<%=contextPath%>/search.st?page=1">매장찾기</a></button>
                 <button id="request" type="button"><a href="<%=contextPath%>/enrollForm.st">입접신청</a></button>
-                <button id="service" type="button"><a href="#">고객센터</a></button>
+                <button id="service" type="button"><a href="<%=contextPath%>/customerService">고객센터</a></button>
                 <button id="event" type="button"><a href="<%=contextPath%>/event">이벤트</a></button>
             </div>
         </div>

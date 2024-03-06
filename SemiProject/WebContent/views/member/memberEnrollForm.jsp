@@ -220,45 +220,43 @@
 			}
 		}).open();
 		}
-		function nkd(){
-			let regExp = /^[가-힣]{2,}$/i;
-        if(!regExp.test($("#userName").val())){
-            $("#nkd").text("한글 2글자 이상 입력해주세요.").css("color","red");          
-        }else{
-			$("#nkd").text("이름 확인완료."); 
-		}
-		}
-		function ikd(){
-			regExp = /^[a-z][a-z\d]{5,11}$/;
-        if(!regExp.test($("#userId").val())){
-            $("#ikd").text("영문,숫자 5글자 이상 11글자 이하 입력해주세요")           
-        }else{
-		}
-		}
-		function pkd(){
-			regExp = /^[a-z\d!@#$%^&*]{8,15}$/i;
-        if(!regExp.test($("#userPwd").val())){
-            $("#pkd").text("영문,숫자,특수기호 포함 8~15글자 입력해주세요")
-           
-        }else{
-			$("#pkd").text("굿")
-		}
-		}
-		function rpkd(){
-			if($("#userPwd").val() != $("#userPwd2").val()){
-				$("#rpkd").text("위 비밀번호와 일치하게 입력해주세요.")
-			}else{
-				$("#rpkd").text("굿")
-			}
-		}
-		function epkd(){
-			regExp = /^\d{3}-\d{4}-\d{4}$/;
-			if(!regExp.test($("email").val())){
-				
-			}
-		}
 		
-		
+        
+
+		let regExp = /^[가-힣]{2,}$/;
+        if(!regExp.test(nameInput.value)){
+            alert("유효한 이름을 입력해주세요!")
+            nameInput.select();
+            return false;
+        }
+        
+        regExp = /^[a-z][a-z\d]{5,11}$/;
+        if(!regExp.test(idInput.value)){
+            alert("유효한 아이디를 입력해주세요!");
+            idInput.select();
+            return false;
+        }
+
+    
+        regExp = /^[a-z\d!@#$%^&*]{8,15}$/i;
+        if(!regExp.test(pwdInput1.value)){
+            alert("유효한 비밀번호를 입력해주세요!");
+            pwdInput1.value = "";
+            pwdInput1.focus();
+            return false;
+        }
+
+      
+        if(pwdInput1.value != pwdInput2.value){
+            alert("동일한 비밀번호를 입력해주세요!")
+            pwdInput2.value = "";
+            pwdInput2.focus();
+            return false;
+        }
+        
+        
+      
+    }
 	function idCheck(){
 			// 중복확인 버튼 클릭시 사용자가 입력한 아이디값을 넘겨서 조회요청(존재하는지 안하는지) => 응답데이터 돌려받기
 			// 1) 사용불가능일 경우 => alert로 메세지출력, 다시 입력할 수 있도록 유도

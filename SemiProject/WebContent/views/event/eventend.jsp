@@ -9,8 +9,7 @@
 
       
   .outer{
-    background-color:
-    color: white;
+    background-color:white;
     width: 1000px;
     height: 800px;
     margin: auto;
@@ -43,10 +42,11 @@
         }
 
 
-    </style>
+</style>
 </head>
+
 <body>
-<div class="outer">
+    <div class="outer">
         <br>
        
         <div class="main-content">
@@ -57,22 +57,24 @@
         <h2 align="center">카케어이벤트</h2>
         
         <h5 align="center">카케어의 다양한 이벤트를 만나보세요</h5>
-        <div class="btn">
+         <div class="btn">
           <a href="">진행중이벤트 | </a>
           <a href="">종료된이벤트</a>
-      </div>
-      <div class="btn">
-        <a href="">최신순 | </a>
-        <a href="">조회순</a>
+         </div>
+           <div class="btn">
+             <a href="">최신순 | </a>
+             <a href="">조회순</a>
+           </div>
+       </div>
     </div>
-        <br>
+        <br><br>
     
   <div class="list-area">
     
          
     <div class="thumbnail" align="center">
-      <img src="<%= contextPath %>/resources/thumbnail_upfiles/대표이미지파일명" width="200" height="150">
-
+     <img src="<%= request.getContextPath() %>/resources/images/eventImage.jpg" alt="이벤트 대표 이미지" style="width: 700px; height: 200px; display: block; margin: auto; margin-bottom: 20px;">
+     
       <p>
         2024/01/01~2024/01/10 <br>
         세차 쿠폰증정 이벤트
@@ -125,10 +127,34 @@
     세차 쿠폰증정 이벤트5
   </p>
 </div>
+<div class="thumbnail" align="center">
+  <img src="대표이미지경로" width="200" height="150">
+
+  <p>
+    2024/07/01~2024/06/10 <br>
+    세차 쿠폰증정 이벤트6
+  </p>
+</div>
+<div class="thumbnail" align="center">
+  <img src="대표이미지경로" width="200" height="150">
+
+  <p>
+    2024/07/01~2024/06/10 <br>
+    세차 쿠폰증정 이벤트7
+  </p>
+</div>
+<div class="thumbnail" align="center">
+  <img src="대표이미지경로" width="200" height="150">
+
+  <p>
+    2024/07/01~2024/06/10 <br>
+    세차 쿠폰증정 이벤트8
+  </p>
+</div>
            
  </div>
         
     
-</div>
+
 </body>
 </html>

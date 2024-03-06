@@ -11,6 +11,8 @@ import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.review.model.vo.Review;
+import com.kh.semi.review.model.vo.ReviewAll;
+import com.kh.semi.review.model.vo.ReviewImage;
 import com.kh.semi.store.model.dao.StoreSearchDao;
 
 public class ReviewDao {
@@ -44,7 +46,6 @@ public class ReviewDao {
 			result = pstmt.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally {
 			close(pstmt);
@@ -53,9 +54,42 @@ public class ReviewDao {
 		return result;
 	}
 	
-	public ArrayList<Review> selectReview(Connection conn, int storeNo){
+	// 리뷰등록 할 때 첨부사진이 있다면, 사진 insert 
+	public int insertReviewImg(Connection conn, ArrayList<ReviewImage> list) {
+		// insert문
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertReviewImg");
+		
+		try {
+			
+			for(ReviewImage ri : list) {
+				pstmt = conn.prepareStatement(sql);
+				
+				pstmt.setString(1, ri.getImgRoot());
+				pstmt.setString(2, ri.getOriginName());
+				pstmt.setString(3, ri.getChangeName());
+				pstmt.setInt(4, ri.getImgLevel());
+				
+				result = pstmt.executeUpdate();
+				
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	
+	
+	
+	
+	public ArrayList<ReviewAll> selectReview(Connection conn, int storeNo){
 		// select문 => ResultSet 여러행 => ArrayList
-		ArrayList<Review> rlist = new ArrayList<Review>();
+		ArrayList<ReviewAll> rlist = new ArrayList<ReviewAll>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectReview");
@@ -65,12 +99,14 @@ public class ReviewDao {
 			pstmt.setInt(1, storeNo);
 			rset = pstmt.executeQuery();
 			
-			while(rset.next()) {
-				rlist.add(new Review(rset.getString("user_id"),
-									 rset.getString("content"),
-									 rset.getDouble("grade"),
-									 rset.getString("issue_date")
-									 ));
+			while(rset.next()) {					
+				rlist.add(new ReviewAll(rset.getInt("review_no"),
+										rset.getString("user_id"),
+									 	rset.getString("content"),
+									 	rset.getString("issue_date"),
+									 	rset.getDouble("grade"),
+									 	rset.getString("images")
+									 	));
 			}
 			
 		} catch (SQLException e) {
@@ -84,7 +120,34 @@ public class ReviewDao {
 	}
 	
 	
-	
+	public Review selectCountGrade(Connection conn, int storeNo) {
+		// select문 -> 1행이라서 Review 객체에 담아주면 될듯
+		Review rv = new Review();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectCountGrade");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, storeNo);
+			
+			rset = pstmt.executeQuery();
+			if(rset.next()) {
+				rv.setReviewCount(rset.getInt("count"));
+				rv.setGrade(rset.getDouble("avg"));
+			}
+			
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return rv;
+	}
 	
 	
 	
