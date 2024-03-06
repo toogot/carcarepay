@@ -51,7 +51,7 @@ public class EventPageController extends HttpServlet {
 		}
 		
 		pageLimit = 5;
-		boardLimit = 3;
+		boardLimit = 9;
 		maxPage = (int)(Math.ceil((double)listCount/boardLimit));
 	  
 		startPage = (currentPage-1)/pageLimit*pageLimit+1;
@@ -85,7 +85,7 @@ public class EventPageController extends HttpServlet {
 		}
 		
 		pageLimitFin = 5;
-		boardLimitFin = 3;
+		boardLimitFin = 9;
 		maxPageFin = (int)(Math.ceil((double)listCountFin/boardLimitFin));
 	  
 		startPageFin = (currentPageFin - 1) / pageLimitFin * pageLimitFin + 1;
