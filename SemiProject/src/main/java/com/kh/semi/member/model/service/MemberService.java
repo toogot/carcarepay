@@ -57,6 +57,7 @@ public class MemberService {
 			rollback(conn);
 		}
 		close(conn);
+		System.out.println(result);
 		return result;
 		
 		

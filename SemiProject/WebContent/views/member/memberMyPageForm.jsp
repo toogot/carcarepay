@@ -135,7 +135,7 @@
             <div id="footerBtn">
                 <div id="btn-wrap">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">주소변경</button>
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#">이메일변경</button>
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="updateEmailModal">이메일변경</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePwdModal">비밀번호 변경</button>
                     <button type="button" class="btn btn-primary" data-toggle="modal"  data-target="#deleteModal">탈퇴</button>
                 </div>

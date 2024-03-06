@@ -127,7 +127,7 @@ public MemberDao() {
 		int count = 0;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
-		String sql = prop.getProperty("checkId");
+		String sql = prop.getProperty("idCheck");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
@@ -146,6 +146,7 @@ public MemberDao() {
 			close(pstmt);
 			
 		}
+		System.out.println(count);
 		return count;
 	}
 	public int kakaoInsertMember(Connection conn, Member m) {
