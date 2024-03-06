@@ -28,6 +28,78 @@ WHERE USER_NAME = ?
   AND EMAIL = ?
   AND STATUS = 'Y'  
 </entry>
+<entry key="insertMember">
+INSERT 
+  INTO MEMBER
+	 (
+	   USER_NO
+	 , USER_ID
+	 , USER_PWD
+	 , USER_NAME
+	 , EMAIL
+	 , PHONE
+	 , ADDRESS
+	 , USER_LEVEL)
+VALUES
+	 (
+	   SEQ_MEM.NEXTVAL
+	 , ?
+	 , ?
+	 , ?
+	 , ?
+	 , ?
+	 , ?
+	 , '브론즈')
+</entry>
+<entry key="idCheck">
+SELECT
+        COUNT(*)  "COUNT"
+ FROM MEMBER
+ WHERE USER_ID = ?
+</entry>
 
 
+<entry key="memberCashSelect">
+SELECT 
+	   BALANCE
+  FROM MEMBER
+ WHERE USER_NO = ?
+</entry>
+
+
+
+
+<entry key="deleteMember">
+UPDATE MEMBER
+   SET STATUS = 'N'    
+ WHERE USER_ID = ?
+   AND USER_PWD = ?
+
+</entry>
+<entry key="selectMember">
+SELECT
+        USER_NO
+      , USER_ID
+      , USER_PWD
+      , USER_NAME
+      , EMAIL
+      , PHONE	
+      , ADDRESS
+      , USER_LEVEL
+      , ENROLL_DATE
+      , BALANCE
+      , BLACKLIST
+      , STATUS
+FROM MEMBER
+WHERE USER_ID = ?
+  AND STATUS = 'Y'
+</entry>
+<entry key="updatePwdMember">
+UPDATE MEMBER
+   SET USER_PWD = ?    
+ WHERE USER_ID = ?
+   AND USER_PWD = ?
+</entry>
 </properties>
+
+

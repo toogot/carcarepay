@@ -1,16 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<link type="text/css" rel="stylesheet" href="resources/css/weather-icons.min.css">
+
 <style>
     #weather{
                 width: 700px;
                 height: 200px;
                 margin: auto;
                 border: 2px solid #87CEFA;
+                margin-top: 10px;
+                background-color: #87CEFA;
             }
     #weather-icon{
         width: 30%;
@@ -26,6 +32,7 @@
         width: 70%;
         height: 100%;
         float: left;
+        color: white;
     }
     #temp{
         width: 50%;
@@ -35,6 +42,9 @@
         text-align: center;
         line-height: 160px;
         float: left;
+    }
+    #temp>span{
+    	font-size: 70px;
     }
     #tempMinMax{
         width: 50%;
@@ -119,20 +129,31 @@
                 url:apiUrl,
                 dataType:"json",
                 success:function(result){
-                    console.log(result)
-                    console.log(result.main.temp-273.15);
-                    $("#temp").html(Math.round(result.main.temp-273.15)+'℃');
-                    $("#tempMax").html("<span>최고</span>" + Math.round(result.main.temp_max-273.18)+'℃');
-                    $("#tempMin").html("<span>최저</span>" + Math.round(result.main.temp_min-273.18)+'℃');
+                    
+                    $("#temp").html("<span>"+Math.round(result.main.temp-273.15)+"</span>"+' ℃');
+                    $("#tempMax").html("<span>최고</span>" + Math.round(result.main.temp_max-273.18)+' ℃');
+                    $("#tempMin").html("<span>최저</span>" + Math.round(result.main.temp_min-273.18)+' ℃');
                     $("#country").html(result.name+", "+result.sys.country);
                     $("#wind").html("<span>풍속</span>"+result.wind.speed);
                     let risetime = new Date(result.sys.sunrise*1000);
                     let settime = new Date(result.sys.sunset*1000);
                     $("#sunrise").html("<span>일출</span>"+ String(risetime.getHours()).padStart(2,"0")+":"+String(risetime.getMinutes()).padStart(2,"0"));
                     $("#sunset").html("<span>일몰</span>"+ String(settime.getHours()).padStart(2,"0")+":"+String(settime.getMinutes()).padStart(2,"0"));
+                    var weatherNo = result.weather[0].icon.substr(0,2);
+
+                    let weatherIcon={
+                        '01':'https://cdn.pixabay.com/photo/2013/07/13/12/12/sun-159392_1280.png',
+                        '02':'https://cdn.pixabay.com/photo/2012/04/18/13/21/clouds-37009_1280.png',
+                        '03':'https://cdn.pixabay.com/photo/2012/04/18/13/22/cloud-37010_1280.png',
+                        '04':'https://cdn.pixabay.com/photo/2012/04/18/13/22/cloud-37010_1280.png',
+                        '09':'https://cdn.pixabay.com/photo/2016/01/27/04/42/umbrella-1163700_1280.png',
+                        '10':'https://cdn.pixabay.com/photo/2016/01/27/04/42/umbrella-1163700_1280.png',
+                        '11':'https://cdn.pixabay.com/photo/2013/04/01/09/22/thunderstorm-98541_1280.png',
+                        '13':'https://cdn.pixabay.com/photo/2012/04/18/13/23/cloudy-37012_1280.png',
+                        '50':'https://cdn.pixabay.com/photo/2016/03/18/15/06/fog-1265203_1280.png'
+                    }
                     var imgURL = "http://openweathermap.org/img/w/" + result.weather[0].icon + ".png";
-                    
-                    $("#weather-icon>img").attr("src", imgURL);
+                    $("#weather-icon>img").attr("src", weatherIcon[weatherNo]);
                 }
             })
         }

@@ -61,6 +61,9 @@
 		font-size: 20px;
 		font-weight: 800;
 	}
+	#imgUpload>img{
+		margin-left: 15px;
+	}
 </style>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 </head>
@@ -132,7 +135,7 @@
 				<tr>
 					
 					<td colspan="2">
-						<div style="width: 500px; height: 150px; background-color: white; margin: auto; overflow: scroll;" id="imgUpload">
+						<div style="width: 500px; height: 150px; background-color: white; margin: auto; overflow: auto;" id="imgUpload">
 							
 						</div>
 					</td>
@@ -143,6 +146,7 @@
 				<button type="reset" onclick="allexit();">취소하기</button>
 			</div>			
 		</form>
+
 	</div>
 	<script>
 		let num=0;

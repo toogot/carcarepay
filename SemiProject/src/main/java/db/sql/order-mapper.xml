@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="insertOrder">
+	
+		INSERT 
+		  INTO PRODUCT_ODR
+		     (
+		       ORDER_NO
+		     , ORDER_QTY
+		     , ORDER_PRICE
+		     , USER_NO
+		     , TOTAL_PRICE
+		     , ORDER_ENROLL
+		     , GIFT_YN
+		     )
+		VALUES
+		    (
+		       SEQ_ODR_NO.NEXTVAL
+		     , ?
+		     , ?
+		     , ?
+		     , ?
+		     , DEFAULT
+		     , 'N'
+		     )
+		
+	</entry>
+	
+
+	
+	<entry key="orderDetailSelect">
+	SELECT O.*
+	FROM
+		(SELECT 
+		       USER_NO
+		     , ORDER_NO
+		     , TOTAL_PRICE
+		     , ORDER_ENROLL
+		     , GIFT_YN
+		     , ORDER_QTY
+		     , ORDER_PRICE
+		     , EMAIL
+		     , PHONE
+		     , USER_NAME
+		  FROM PRODUCT_ODR
+		  JOIN MEMBER USING(USER_NO)
+		WHERE USER_NO = ?
+		ORDER BY ORDER_NO DESC)O
+	WHERE ROWNUM=1
+	</entry>
+	
+	
+	
+	<entry key="kakaopayOrderInsert">
+	
+	INSERT 
+	  INTO KAKAO_PAYMENT
+	     (
+	       PAY_NO_K
+		 , ORDER_NO_K
+		 , PAY_DATE_K
+		 , PAY_COMPANY_K
+		 , PAY_PRICE_K
+		 , PAY_IMP_UID
+		 , PAY_MERCHANT_UID
+	      )
+	VALUES 
+		 (
+		   SEQ_KAKAOPAY_NO.NEXTVAL
+		 , ? <!-- 주문번호 -->
+		 , DEFAULT
+		 , ? <!-- 결제회사  -->
+		 , ? <!-- 결제금액  -->
+		 , ? <!-- IMP_UID  -->
+		 , ? <!-- MERCHANT_UID  -->
+		 )
+	</entry>
+	
+	<entry key="memberCashUpdate">	
+	UPDATE 
+		   MEMBER
+	   SET BALANCE = BALANCE + 
+					          (SELECT PAY_PRICE_K
+					             FROM 
+					             	 (SELECT 
+					             	 		 PAY_PRICE_K
+					             	 	   , PAY_NO_K
+					               	    FROM PRODUCT_ODR
+					              	    JOIN MEMBER USING(USER_NO)
+					               		JOIN KAKAO_PAYMENT ON (ORDER_NO_K = ORDER_NO)
+					               	   WHERE USER_NO = ?
+					               	   ORDER 
+					               	   	  BY PAY_NO_K DESC) 
+					           WHERE ROWNUM = 1)
+	 WHERE USER_NO = ?
+	</entry>
+	
+	
+
+</properties>

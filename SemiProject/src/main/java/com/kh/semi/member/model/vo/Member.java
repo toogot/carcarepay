@@ -36,6 +36,19 @@ public class Member {
 		this.status = status;
 	}
 	 
+	
+
+	public Member(String userId, String userPwd, String userName, String email, String phone, String address) {
+		super();
+		this.userId = userId;
+		this.userPwd = userPwd;
+		this.userName = userName;
+		this.email = email;
+		this.phone = phone;
+		this.address = address;
+	}
+
+
 	public int getUserNo() {
 		return userNo;
 	}

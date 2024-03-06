@@ -14,6 +14,7 @@
             height: 1000px;
             margin: auto;
             border: 1px solid lightgrey;
+            margin-top: 10px;
         }
         #content_wrap>*{
             width: 100%;
@@ -66,7 +67,7 @@
                     <button>충전하기</button>
                 </div>
                 <div id="content_mypage">
-                    <button>마이페이지</button>
+                    <button onclick="location.href='<%=con%>/myPage.me'">마이페이지</button>
                 </div>
             </div>
             <div id="content2">
