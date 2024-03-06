@@ -235,7 +235,7 @@
                 
                 
                 
-                <button id="event"><a href="#">이벤트</a></button>
+               
                 
             </div>
             <div id="navigator">
