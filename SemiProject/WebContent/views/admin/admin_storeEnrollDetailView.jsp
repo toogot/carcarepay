@@ -68,6 +68,7 @@
 			<h2 id="store_name_h2" ></h2>
 		</div>
 
+	<form>
 		<div id="table_wrap_div">
 			<table border="1" class="tableWrap">
 				<tr>
@@ -90,7 +91,7 @@
 				</tr>
 				<tr>
 					<th>세차장유형</th>
-					<td><%=ap.getStoreType()%></td>
+					<td><%=ap.getTypeName()%></td>
 					<th>영업시간</th>
 					<td><%=ap.getStoreTime() %></td>
 				</tr>
@@ -112,10 +113,14 @@
 
 			</table>
 		</div>
+	</form>
+	
 		<div id="btn">
-			<a href="<%=contextPath %>/storeEnrollList?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
-			<a href="<%=contextPath %>/storeEnrollupdateform?sno=<%= ap.getAppNo() %>" class="btn btn-sm btn-warning">수정하기</a>
-			<a href="" class="btn btn-sm btn-danger" onclick="">거절하기</a>
+			
+			<a onclick="realstorego()" class="btn btn-primary">승인하기</a>
+			<a href="<%=contextPath %>/storeEnrollList?cpage=1" class="btn btn-secondary">목록가기</a>
+			<a href="<%=contextPath %>/storeEnrollupdateform?sno=<%= ap.getAppNo() %>" class="btn btn-warning">수정하기</a>
+			<a href="" class="btn btn-danger" onclick="">거절하기</a>
 		</div>
 		<div id="bottom_div">
 
@@ -126,6 +131,14 @@
 	
 
 <script>
+
+	 function realstorego(){
+	 	if(confirm('매장을 승인하시겠습니까?')){
+			document.form.submit();
+	 	}else{
+			window.history.back();
+	 	}
+	 }
 
 </script>
 
