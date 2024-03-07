@@ -1,5 +1,11 @@
+<%@page import="com.kh.semi.customerService.FAQ.model.vo.Faq"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+  <%
+	Faq faq = (Faq)request.getAttribute("faq");
+	
+%>  
+    
 <!DOCTYPE html>
   <html lang="ko">
   <head>
@@ -70,9 +76,9 @@
 <body>
  <div class="sidebar">
         
-        <a href="#">공지사항</a>
-        <a href="#">자주묻는질문</a>
-        <a href="#">1:1문의</a>
+        <a href="<%=request.getContextPath()%>/notice.if">공지사항</a>
+            <a href="<%=request.getContextPath()%>/faq.if">자주묻는질문</a>
+            <a href="<%=request.getContextPath()%>/comment.if">1:1문의</a>
         <!-- More links as needed -->
         
     </div>
