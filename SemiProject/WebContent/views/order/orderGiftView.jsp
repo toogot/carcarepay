@@ -481,74 +481,7 @@
 
 
 
-        var IMP = window.IMP; 
-        IMP.init("imp21168814"); 
-      
-        var today = new Date();   
-        var hours = today.getHours(); // 시
-        var minutes = today.getMinutes();  // 분
-        var seconds = today.getSeconds();  // 초
-        var milliseconds = today.getMilliseconds();
-        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
-        
 
-
-
-            // ======카카오페이결제======
-            function payment_kakaopay(o){
-                let totalPrice = o.totalPrice;
-                let email = o.email;
-                let phone = o.phone;
-                let userName = o.userName;
-                let orderNo = o.orderNo;
-                
-                IMP.request_pay({
-                    pg : 'kakaopay',
-                    merchant_uid: "IMP"+makeMerchantUid, 
-                    name : '세차 상품권',
-                    amount : totalPrice,
-                    buyer_email : email,
-                    buyer_name : userName,
-                    buyer_tel : phone,
-                    //buyer_addr : '서울특별시 강남구 삼성동',
-                    //buyer_postcode : '123-456'
-                }, function (rsp) { // callback
-                    if (rsp.success) {
-                        	console.log(rsp);
-                        	
-                        	$.ajax({
-                                url: 'kakaopay_successInsert',
-                                data: {
-                                    buyer_email:email,
-                                    buyer_name:userName,
-                                    buyer_tel:phone,
-                                    amount: totalPrice,
-                                    imp_uid: rsp.imp_uid, // imp_281108801427 이런식으로 출력됨 //포트원 거래고유번호
-                                    merchant_uid: rsp.merchant_uid, // IMP1023 이런식으로 출력됨 //가맹점 주문번호
-                                    pg_provider : rsp.pg_provider,   // "kakaopay" 출력됨
-                                	orderNo:orderNo
-                                },
-                                type: "POST",
-                                success:function(result){
-                                    console.log("성공!!!!카카오페이결제성공")
-                                    kakaopay_successUpdate();
-                                    
-                                },error:function(){
-                                    console.log("ajax 실패 ㅜㅜ")
-                                }
-                        	});
-                    }else{
-                        console.log(rsp);
-                    }
-                });
-            }
-			
-            
-            function kakaopay_successUpdate(){
-                location.href = "<%=contextPath%>/ordercomplete"
-            }
-
-            
        
         
         
