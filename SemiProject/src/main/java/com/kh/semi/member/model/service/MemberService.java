@@ -76,4 +76,38 @@ public class MemberService {
 		close(conn);
 		return updateMem;
 	}
+
+
+
+	public int kakaoInsertMember(Member m) {
+		Connection conn = getConnection();
+		int result = new MemberDao().kakaoInsertMember(conn, m);
+		
+		if(result > 0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+		
+	}
+	public Member kakaoLoginMember(String userId, String userPwd) {
+		Connection conn = getConnection();
+		Member m = new MemberDao().kakaoLoginMember(conn, userId, userPwd);
+
+		close(conn);
+		return m;
+	}
+	
+	
+	public int memberCashSelect(int userNo) {
+		Connection conn = getConnection();
+		int memberCash = new MemberDao().memberCashSelect(conn,userNo);
+		
+		close(conn);
+		return memberCash;
+	}
+
+	
 }
