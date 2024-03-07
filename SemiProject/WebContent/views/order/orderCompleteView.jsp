@@ -18,7 +18,7 @@
         .titleArea{
             width: 1330px ;
             padding: 50px;
-			border-bottom: 1px solid #b2b8bd;
+            border-bottom: 1px solid #b2b8bd;
         }
         .orderTitle{
             display: inline-block;
@@ -32,7 +32,7 @@
         }
         .orderStep1{
             padding-left: 15px;
-			border-right: 1px solid #b2b8bd;
+            border-right: 1px solid #b2b8bd;
         }
         .orderStep2{
 
@@ -40,11 +40,11 @@
         }
         .orderStep3{
             padding-right: 15px;
-			background-color:#87CEFA;
+            background-color:#87CEFA;
             color: white;
-			border: 1px solid #87CEFA;
-			border-top-right-radius: 40px;
-			border-bottom-right-radius: 40px;
+            border: 1px solid #87CEFA;
+            border-top-right-radius: 40px;
+            border-bottom-right-radius: 40px;
         }
 
         .orderStepUl{
@@ -113,11 +113,11 @@
 <%@ include file="/views/common/head.jsp" %>
 
 <%
-    	String userId = loginUser.getUserId();
-    	String userName = loginUser.getUserName();
-    	String phone = loginUser.getPhone(); 
-    	String email = loginUser.getEmail();
-    	int userNo = loginUser.getUserNo();
+        String userId = loginUser.getUserId();
+        String userName = loginUser.getUserName();
+        String phone = loginUser.getPhone(); 
+        String email = loginUser.getEmail();
+        int userNo = loginUser.getUserNo();
 %>
 
 
@@ -168,21 +168,21 @@
 
 
 <script>
-	$(function(){
+    $(function(){
 
         $.ajax({
             url:"memberCashUpdate",
             data:{userNo:<%=userNo%>},
             type:"post",
             success:function(result){
-            	if(result>0){
-            		console.log("멤버캐시업데이트 성공!")
-            	}else{
-            		console.log("먼가 실패함..")
-            	}
-            	
+                if(result>0){
+                    console.log("멤버캐시업데이트 성공!")
+                }else{
+                    console.log("먼가 실패함..")
+                }
+                
             },error:function(){
-            	console.log("ajax통신실패 ㅠㅠ")
+                console.log("ajax통신실패 ㅠㅠ")
             }
 
         })
