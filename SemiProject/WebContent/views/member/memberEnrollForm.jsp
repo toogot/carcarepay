@@ -13,7 +13,7 @@
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
 <script type="text/javascript" src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
-
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
 	h1{
 		color: white;
@@ -96,8 +96,7 @@
 				<tr>
 					<th>아이디</th>
 					<td>
-						<input type="text" name="userId" id="userId"  placeholder="5~11글자 영어,숫자" onkeyup="ikd();" required>
-						<button type="button" onclick="idCheck();">중복확인</button>
+						<input type="text" name="userId" id="userId"  placeholder="6~11글자 영어,숫자" onkeyup="ikd();" required>
 						<div id="ikd"></div>
 					</td>
 
@@ -119,16 +118,19 @@
 				<tr>
 					<th>이메일</th>
 					<td>
-						<input type="text" name="email" id="email" required onkeyup="epkd();">
+						<input type="text" name="email" id="email" required onkeyup="ekd();">
+						<div id="ekd"></div>
 					</td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="address" required><button type="button" onclick="searchAddress();">주소검색</button></td>
+					<td><input type="text" name="address" onclick="searchAddress();" required><button type="button" onclick="searchAddress();">주소검색</button></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
-					<td><input type="text" name="phone" id="phone" placeholder="010-xxxx-xxxx" required></td>
+					<td><input type="text" name="phone" id="phone" placeholder="010-xxxx-xxxx" required onkeyup="ppkd();">
+					<div id="ppkd"></div>
+					</td>
 				</tr>
 				<tr>
 					
@@ -205,101 +207,121 @@
 				}
 			  </script>
 			<br>
-				<button type="submit"  onclick="location.href='<%=contextPath%>/login.me'">회원가입</button>
+				<button type="submit"  onclick="location.href='<%=contextPath%>/insert.me'" >회원가입</button>
 				<button type="reset">초기화</button>
 			</div>			
 		</form>
 	</div>
 	<script> 
-		function searchAddress(){
-			new daum.Postcode({
-			oncomplete: function(data) {
-				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분입니다.
-				// 예제를 참고하여 다양한 활용법을 확인해 보세요.\
-				$("input[name=storeAddress]").val(data.address);
-			}
-		}).open();
-		}
-		
-        
-
-		let regExp = /^[가-힣]{2,}$/;
-        if(!regExp.test(nameInput.value)){
-            alert("유효한 이름을 입력해주세요!")
-            nameInput.select();
-            return false;
-        }
-        
-        regExp = /^[a-z][a-z\d]{5,11}$/;
-        if(!regExp.test(idInput.value)){
-            alert("유효한 아이디를 입력해주세요!");
-            idInput.select();
-            return false;
-        }
-
-    
-        regExp = /^[a-z\d!@#$%^&*]{8,15}$/i;
-        if(!regExp.test(pwdInput1.value)){
-            alert("유효한 비밀번호를 입력해주세요!");
-            pwdInput1.value = "";
-            pwdInput1.focus();
-            return false;
-        }
-
-      
-        if(pwdInput1.value != pwdInput2.value){
-            alert("동일한 비밀번호를 입력해주세요!")
-            pwdInput2.value = "";
-            pwdInput2.focus();
-            return false;
-        }
-        
-        
-      
-    }
-	function idCheck(){
-			// 중복확인 버튼 클릭시 사용자가 입력한 아이디값을 넘겨서 조회요청(존재하는지 안하는지) => 응답데이터 돌려받기
-			// 1) 사용불가능일 경우 => alert로 메세지출력, 다시 입력할 수 있도록 유도
-			// 2) 사용 가능일 경우 => 진짜 사용할건지 의사를 물어볼꺼임
-			//					> 사용하겠다는 경우 => 더이상 아이디 수정못하게끔, 회원가입버튼 활성화
-			//					> 사용안하겠다는 경우 => 다시 입력할 수 있도록 유도
+		function nkd(){
+			let regExp = /^[가-힣]{2,}$/i;
+        if(!regExp.test($("#userName").val())){
+            $("#nkd").text("한글 2글자 이상 입력해주세요.").css("color","red");          
+        }else{
+			$("#nkd").text("이름 확인완료.").css("color","green"); 
 			
-			//아이디 입력하는 input 요소 객체
-			const $idInput = $("#enroll-form input[name=userId]")
+		}
+	}
+
+
+		
+		function ikd(){
+			regExp = /^[a-z][a-z\d]{5,11}$/;
+        if(!regExp.test($("#userId").val())){
+            $("#ikd").text("영문,숫자 6글자 이상 11글자 이하 입력해주세요").css("color","red");               
+        }else{
 			
 			$.ajax({
 				url:"idCheck.me",
-				data:{checkId:$idInput.val()},
+				data:{checkId:$("#userId").val()},
 			success:function(result){
 				console.log(result);
 				
 				if(result == "NNNNN"){
-					alert("존재하는 아이디입니다");
-					$idInput.focus();
-				}else{
-					if(confirm("사용가능한 아이디입니다. 사용하시겠습니까?")){
-						$("#enroll-form :submit").removeAttr("disabled");
-						$idInput.attr("readonly",true);
-						
-					}else{
-						$idInput.focus();
-					}
-						
-					}
+					$("#ikd").text("중복된 아이디 입니다.").css("color","red");
 					
-				
-				
-				
+				}else{
+					$("#ikd").text("사용가능한 아이디입니다.").css("color","green");
+					}			
 			},
 			error:function(){
-				console.log("아이디 중복체크용 ajax 통신 실패")
+				alert("실패")
 			}
 			});
+			}
 		}
+	
+
+		function pkd(){
+			regExp = /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+			rpkd();
+        if(!regExp.test($("#userPwd").val())){
+            $("#pkd").text("영문,숫자,특수기호를 포함시켜 8~15글자 입력해주세요").css("color","red");    
+           
+        }else{
+			
+
+			$("#pkd").text("굿").css("color","green"); 
+		}
+		}
+		function ekd(){
+			regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+			if(!regExp.test($("email").val())){
+				$("#ekd").text("x").css("color","red");
+			}else{
+				$("#ekd").text("o").css("color","green");
+			}
+		}
+		
+
+		function rpkd(){
+			if($("#userPwd").val() != $("#userPwd2").val()){
+				$("#rpkd").text("위 비밀번호와 일치하게 입력해주세요.").css("color","red");    
+			}else{
+				$("#rpkd").text("굿").css("color","green");	
+			}
+			}
+
+
+
+			
+
+		function ppkd(){
+			regExp = /^(01[0-9]{1}-?[0-9]{4}-?[0-9]{4}|01[0-9]{8})$/;
+
+
+			if(!regExp.test($("phone").val())){
+				$("#ppkd").text("xxx-xxxx-xxxx 로 입력해주세요").css("color","red")
+			}else{
+				$("#ppkd").text("굿").css("color","green");
+			}
+		}
+		
+		function searchAddress(){
+			new daum.Postcode({
+			oncomplete: function(data) {
+				
+				$("input[name=address]").val(data.address);
+			}
+		}).open();
+		}
+		
+	</script>
+	
 		
 		
 
 	</script>
+        
+
+		
+        
+	
+     
+	
+		
+		
+
 	
 	
 	<%@include file="../common/footer.jsp" %>
