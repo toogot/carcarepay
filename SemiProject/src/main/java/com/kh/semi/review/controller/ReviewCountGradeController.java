@@ -31,8 +31,10 @@ public class ReviewCountGradeController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		System.out.println("되냐?1");
 		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
 		Review rv = new ReviewService().selectCountGrade(storeNo);
+		System.out.println("되냐?2");
 		
 		if(rv != null) {
 			response.setContentType("application/json; charset=utf-8");

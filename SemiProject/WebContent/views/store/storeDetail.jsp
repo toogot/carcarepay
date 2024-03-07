@@ -322,7 +322,7 @@
 		<div class="store_info">
 			<div class="store_info_1">
 				<div class="store_info_1_1">
-					<table border="1" class="tb_store_name">
+					<table border="0" class="tb_store_name">
 						<tr style="height: 80px;">
 							<th style="font-size: 25px; font-weight: bold;"> <%= st.getStoreName() %></th>
 							<td colspan="3">
