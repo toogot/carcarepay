@@ -36,6 +36,17 @@ public class OrderService {
 		
 	}
 	
+	
+	public Order orderGiftDetailSelect(int userNo){
+		Connection conn = getConnection();
+		
+		Order o = new OrderDao().orderGiftDetailSelect(conn,userNo);
+		
+		close(conn);
+		return o;
+		
+	}
+	
 	public int kakaopayOrderInsert(Order k) {
 		Connection conn = getConnection();
 		
@@ -70,5 +81,24 @@ public class OrderService {
 		 
 		 return result;
 	}
+	
+	public int orderGiftInsert(Order o) {
+		
+		Connection conn = getConnection();
+		
+		int result = new OrderDao().orderGiftInsert(conn,o);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+		
+	}
+	
+	
 
 }

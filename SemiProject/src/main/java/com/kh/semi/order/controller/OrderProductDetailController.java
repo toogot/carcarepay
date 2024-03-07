@@ -41,9 +41,6 @@ public class OrderProductDetailController extends HttpServlet {
 		int totalPrice = (Integer.parseInt(request.getParameter("totalprice")));
 		
 		
-		
-		//request.getRequestDispatcher("views/order/orderProductDetailView.jsp").forward(request, response);
-		
 		Order o = new Order();
 		o.setPrice(price);
 		o.setQty(qty);
@@ -60,8 +57,6 @@ public class OrderProductDetailController extends HttpServlet {
 		
 		
 		response.getWriter().print(result);		
-//		request.getRequestDispatcher("views/order/orderProductDetailView.jsp").forward(request, response);
-		
 
 	}
 

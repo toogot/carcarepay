@@ -28,6 +28,30 @@
 		
 	</entry>
 	
+	<entry key="insertGiftOrder">
+		INSERT 
+		  INTO PRODUCT_ODR
+		     (
+		       ORDER_NO
+		     , ORDER_QTY
+		     , ORDER_PRICE
+		     , USER_NO
+		     , TOTAL_PRICE
+		     , ORDER_ENROLL
+		     , GIFT_YN
+		     )
+		VALUES
+		    (
+		       SEQ_ODR_NO.NEXTVAL
+		     , ?
+		     , ?
+		     , ?
+		     , ?
+		     , DEFAULT
+		     , 'Y'
+		     )
+	</entry>
+	
 
 	
 	<entry key="orderDetailSelect">
@@ -46,9 +70,36 @@
 		     , USER_NAME
 		  FROM PRODUCT_ODR
 		  JOIN MEMBER USING(USER_NO)
-		WHERE USER_NO = ?
-		ORDER BY ORDER_NO DESC)O
+		 WHERE USER_NO = ?
+		   AND GIFT_YN = 'N'
+		 ORDER 
+		    BY ORDER_NO DESC)O
 	WHERE ROWNUM=1
+	</entry>
+	
+	<entry key="orderGiftDetailSelect">
+		SELECT O.*
+	FROM
+		(SELECT 
+		       USER_NO
+		     , ORDER_NO
+		     , TOTAL_PRICE
+		     , ORDER_ENROLL
+		     , GIFT_YN
+		     , ORDER_QTY
+		     , ORDER_PRICE
+		     , EMAIL
+		     , PHONE
+		     , USER_NAME
+		  FROM PRODUCT_ODR
+		  JOIN MEMBER USING(USER_NO)
+		 WHERE USER_NO = ?
+           AND GIFT_YN = 'Y'
+		 ORDER 
+		    BY ORDER_NO DESC)O
+	WHERE ROWNUM=1
+	
+	
 	</entry>
 	
 	
