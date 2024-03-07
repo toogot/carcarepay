@@ -66,8 +66,7 @@
                                             <th>매장타입</th>
                                             <th>신청일자</th>
                                             <th>신청자이름</th>
-                                            <th>승인여부</th>
-                                            <th>매장관리</th>
+                                            <th>상세조회</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
@@ -77,8 +76,7 @@
                                             <th>매장타입</th>
                                             <th>신청일자</th>
                                             <th>신청자이름</th>
-                                            <th>승인여부</th>
-                                            <th>매장관리</th>
+                                            <th>상세조회</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
@@ -87,12 +85,11 @@
                                         <tr>
                                             <td><%= a.getAppNo() %></td>
                                             <td><%= a.getStoreName()%></td>
-                                            <td><%= a.getStoreType()%></td>
+                                            <td><%= a.getTypeName()%></td>
                                             <td><%= a.getAppDate() %></td>
                                             <td><%= a.getUserName() %> </td>
-                                            <td><%= a.getRefuse() %></td>
-                                            <td id="store_detail_td" onclick="location.href='<%= contextPath %>/storeListDetail.bo?sno=<%=a.getAppNo()  %>'"> 
-                                            <a class="btn btn-light">매장상세보기</a></td>
+                                            <td id="store_detail_td" onclick="location.href='<%= contextPath %>/storeEnrollDetail.bo?eno=<%=a.getAppNo()  %>'"> 
+                                            <a class="btn btn-light">상세조회</a></td>
                                         </tr>
                                         <% } %>
                                         <!-- --------------------- -->
@@ -108,21 +105,21 @@
                <div class="paging-area" align="center"> <!-- 안의 디브들이 가운데 정렬될수있도록 -->
                 	<!-- 이전 < 버튼 -->
                 	<% if(currentPage != 1) { %> <!-- 1페이지면 이전 버튼이 안보임 -->
-               	<button onclick="location.href='<%=contextPath%>/storeList?cpage=<%=currentPage -1%>'"> &lt;</button>
+               	<button onclick="location.href='<%=contextPath%>/storeEnrollList?cpage=<%=currentPage -1%>'"> &lt;</button>
                 	<% } %>
                 	
                 		<% for(int p = startPage; p<=endPage; p++) {%>
                 			<%if(p == currentPage) { %>
                 				<button disabled><%= p %></button>
                 			<% } else { %>
-                				<button onclick="location.href'<%=contextPath%>/storeList?cpage=<%=p%>'"><%= p %></button>
+                				<button onclick="location.href'<%=contextPath%>/storeEnrollList?cpage=<%=p%>'"><%= p %></button>
                 			<% } %>
                 		<% } %>	
                 
                 		
                 	<!-- 다음 > 버튼 -->
                 	<% if(currentPage != maxPage) {%>
-                	<button onclick="location.href='<%=contextPath%>/storeList?cpage=<%= currentPage +1%>'"> &gt; </button>
+                	<button onclick="location.href='<%=contextPath%>/storeEnrollList?cpage=<%= currentPage +1%>'"> &gt; </button>
                 	<% } %>
                 </div>
                 

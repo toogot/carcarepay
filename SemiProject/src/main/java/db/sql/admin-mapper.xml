@@ -55,12 +55,36 @@
 		                    , APP_YN
 		                    , REFUSE
 		                    , USER_NAME
+		                    , TYPE_NAME
 		                 FROM APPLICATION
 		                 JOIN MEMBER USING(USER_NO)
+		                 JOIN TYPE USING(STORE_TYPE)
 		                ORDER 
 		                   BY APP_NO DESC)A
 		        )
 		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectEnrollStoreDetail">
+	SELECT 
+           APP_NO
+         , USER_NO
+         , STORE_TYPE
+         , STORE_NAME
+         , STORE_ADDRESS
+         , STORE_PHONE
+         , STORE_TIME
+         , BUSINESS_NO
+         , STORE_PRICE
+         , APP_DATE
+         , APP_YN
+         , REFUSE
+         , USER_NAME
+         , TYPE_NAME
+      FROM APPLICATION
+      JOIN MEMBER USING(USER_NO)
+      JOIN TYPE USING(STORE_TYPE)
+
 	</entry>
 	
 	<entry key="selectCategoryList">

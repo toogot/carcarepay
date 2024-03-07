@@ -164,7 +164,8 @@ public class AdminDao {
 								           rset.getString("app_date"),
 								           rset.getString("app_yn"),
 								           rset.getString("refuse"),
-								           rset.getString("user_name")
+								           rset.getString("user_name"),
+								           rset.getString("type_name")
 								           ));
 			}
 				
@@ -233,6 +234,50 @@ public class AdminDao {
 			close(pstmt);
 		}
 		return result;
+		
 	}
+	
+	public Application selectEnrollStoreDetail(Connection conn, int appNo) {
+		// select문 => ResultSet =>1행
+		
+		Application ap = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectEnrollStoreDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+							ap = new Application(rset.getInt("app_no"),
+											     rset.getInt("user_no"),
+											     rset.getString("store_type"),
+									             rset.getString("store_name"),
+									             rset.getString("store_address"),
+									             rset.getString("store_phone"),
+									             rset.getString("store_time"),
+									             rset.getString("business_no"),
+									             rset.getString("store_price"),
+									             rset.getString("app_date"),
+									             rset.getString("app_yn"),
+									             rset.getString("refuse"),
+									             rset.getString("user_name"),
+									             rset.getString("type_name"));
+			}
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return ap;
+	
+	}
+	
 
 }

@@ -76,5 +76,15 @@ public class AdminService {
 		
 		return result;
 	}
+	
+	public Application selectEnrollStoreDetail(int appNo) {
+		Connection conn = getConnection();
+		
+		Application ap = new AdminDao().selectEnrollStoreDetail(conn,appNo);
+		
+		close(conn);
+		
+		return ap;
+	}
 
 }
