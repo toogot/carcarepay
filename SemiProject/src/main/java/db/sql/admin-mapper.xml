@@ -5,7 +5,14 @@
 		SELECT 
 			   COUNT(*) count
 		  FROM STORE
-		 WHERE STORE_STATUS = 'N'
+	</entry>
+	
+	<entry key="selectEnrollListCount">
+	
+			SELECT 
+			   COUNT(*) count
+		  FROM APPLICATION
+	
 	</entry>
 	
 	<entry key="selectStoreList">
@@ -19,13 +26,63 @@
                     , STORE_NO
                     , STORE_PHONE
                     , TYPE_NAME AS type_name
+                    , STORE_STATUS
                  FROM STORE
                  JOIN TYPE USING(STORE_TYPE)
-                WHERE STORE_STATUS = 'N'
                 ORDER 
                    BY STORE_NO DESC)A
         )
     WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectEnrollList">
+		  SELECT *
+		    FROM
+		        (
+		        SELECT ROWNUM RNUM, A.*
+		          FROM
+		              (SELECT 
+		                      APP_NO
+		                    , USER_NO
+		                    , STORE_TYPE
+		                    , STORE_NAME
+		                    , STORE_ADDRESS
+		                    , STORE_PHONE
+		                    , STORE_TIME
+		                    , BUSINESS_NO
+		                    , STORE_PRICE
+		                    , APP_DATE
+		                    , APP_YN
+		                    , REFUSE
+		                    , USER_NAME
+		                 FROM APPLICATION
+		                 JOIN MEMBER USING(USER_NO)
+		                ORDER 
+		                   BY APP_NO DESC)A
+		        )
+		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectCategoryList">
+ 		  SELECT
+		  		 STORE_TYPE
+		  	   , TYPE_NAME
+		    FROM TYPE
+	</entry>
+	
+	<entry key="updateStore">
+	UPDATE STORE
+	   SET 
+	       STORE_NAME = ?
+	     , BUSINESS_NO = ?
+	     , STORE_PHONE = ?
+	     , STORE_ADDRESS = ?
+	     , STORE_TYPE = ?
+	     , STORE_TIME = ?
+	     , STORE_PRICE = ?
+	     , STORE_STATUS = ?
+	 WHERE STORE_NO = ?
+	
 	</entry>
 
 </properties>
