@@ -38,16 +38,19 @@ public class LoginMemberController extends HttpServlet {
 		
 			Member loginUser = new MemberService().loginMember(userId, userPwd);
 			
-			if(loginUser == null) {
+			if(loginUser != null) {
 				
+				System.out.println("로그인컨트롤러");
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("loginUser",loginUser);
+				
+				
+				response.sendRedirect(request.getContextPath());
 		      }else {
-		        
-		    	 HttpSession session = request.getSession();
-		    	  session.setAttribute("loginUser",loginUser);
 		    	  
-		 
-		    	  response.sendRedirect(request.getContextPath());
 		      }
+			
 			
 	}
 

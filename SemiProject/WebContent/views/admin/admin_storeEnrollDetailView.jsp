@@ -102,7 +102,7 @@
 					<tr>
 						<th>매장상태</th>
 						<td><%=ap.getAppYN() %></td>
-						<td colspan="2" style="color: red;">(P:승인대기 /Y:승인완료 / N:미승인)</td>
+						<td colspan="2" style="color: red;">(P:승인대기 /ㅎY:승인완료 / N:미승인)</td>
 					</tr>
 					<tr>
 						<th>가격</th>
