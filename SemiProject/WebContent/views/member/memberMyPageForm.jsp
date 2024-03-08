@@ -89,7 +89,16 @@
             border-radius: 20px;
             /* background-color: aquamarine;     */
     }
-    
+    #ebtn,#abtn{
+     display: inline-block;
+            width: 100px;
+            height: 40px;
+            margin: auto;
+            border: none;    
+            margin-left: 30px;   
+            border-radius: 20px;
+    }
+  
     
 </style>
 </head>
@@ -131,18 +140,23 @@
                         </tr>
                         <tr>
                             <th>이메일</th>
-                            <td colspan="2"><%=loginUser.getEmail() %></td>
+                            <td colspan="2"><%=loginUser.getEmail() %><button type="button" id="ebtn" class="btn btn-primary" onclick="location.href='<%= contextPath%>/updateEmail.me'" >변경</button></td>
                         </tr>
                         <tr>
                             <th>주소</th>
-                            <td colspan="2"><%=loginUser.getAddress() %></td>
+                            <td colspan="2"><%=loginUser.getAddress() %><button type="button" id="abtn" class="btn btn-primary" >변경</button></td>
                         </tr>
                     </table>
+                    
                 </form>
-                <div id="footerBtn">
+                
+                 <div id="footerBtn">
                     <div id="btn-wrap">
-                        <button class="btn btn-primary">수정</button>
-                        <button class="btn btn-primary">탈퇴</button>
+  
+                    
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#updatePwdModal">비번변경</button>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#deleteModal">탈퇴</button>
+                        
                     </div>
                 </div>
 
@@ -151,6 +165,93 @@
         </div>
     
 </div>
+
+
+
+
+
+
+<div class="modal" id="deleteModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+  
+        <!-- Modal Header -->
+        <div class="modal-header">
+          <h4 class="modal-title">회원탈퇴</h4>
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+        </div>
+  
+        <!-- Modal body -->
+        <div class="modal-body" align="center">
+         <form action="<%= contextPath %>/delete.me" method="post">
+         <input type="hidden" name="userId" value="<%= loginUser.getUserId() %>">
+             <b>탈퇴 후 복구가 불가능합니다. <br> 정말로 탈퇴하시겠습니까? </b> <br><br>
+             
+             비밀번호 : <input type="password" name="userPwd" required> <br><br>
+             <button type="submit" class="btn btn-sm btn-danger">탈퇴하기</button>
+            </form>
+	       
+            <script>
+                function validatePwd(){
+                    if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()){
+                        alert("비밀번호가 일치하지 않습니다.");
+                        return false;
+                    }
+                }
+            </script>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <div class="modal" id="updatePwdModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">비밀번호 변경</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body" align="center">
+             <form action="<%= contextPath %>/updatePwd.me" method="post">
+              <input type="hidden" name="userId" value="<%=loginUser.getUserId()  %>">
+              <table>
+                  <tr>
+                      <td>현재비밀번호</td>
+                      <td><input type="password" name="userPwd" required></td>
+                  </tr>
+                  <tr>
+                      <td>변경할 비밀번호</td>
+                      <td><input type="password" name="updatePwd" required></td>
+                  </tr>
+                  <tr>
+                      <td>변경할 비밀번호 확인</td>
+                      <td><input type="password" name="checkPwd" required></td>
+                  </tr>
+              </table>
+              <br>
+  
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return validatePwd();">비밀번호 변경</button>
+  
+             </form>
+             
+             <script>
+                 function validatePwd(){
+                     if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()){
+                         alert("비밀번호가 일치하지 않습니다.");
+                         return false;
+                     }
+                 }
+             </script>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
 <%}else{%>
 	<script>
 		alert("로그인이 필요한 서비스 입니다.");
@@ -177,5 +278,8 @@
         
     </script>
 <%@include file="../common/footer.jsp" %>
+
+           
+             
 </body>
 </html>

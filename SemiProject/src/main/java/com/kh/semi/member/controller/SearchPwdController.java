@@ -6,21 +6,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
-import com.kh.semi.member.model.service.MemberService;
 
 /**
- * Servlet implementation class DeleteMemberController
+ * Servlet implementation class SearchPwdController
  */
-@WebServlet("/delete.me")
-public class DeleteMemberController extends HttpServlet {
+@WebServlet("/searchPwd.me")
+public class SearchPwdController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteMemberController() {
+    public SearchPwdController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,26 +26,7 @@ public class DeleteMemberController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		
-		int result = new MemberService().deleteMember(userId, userPwd);
-		
-		
-		 
-		 if(result > 0) {
-			HttpSession session = request.getSession();
-			session.setAttribute("alertMsg", "성공적으로 회원탈퇴되었습니다. 그동안 이용해주셔서 감사합니다.");
-			session.removeAttribute("loginUser");
-			response.sendRedirect(request.getContextPath());
-			
-			
-		 }else {
-			 request.setAttribute("errorMsg", "회원탈퇴실패");
-			 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			 
-		 }
+		request.getRequestDispatcher("views/member/memberSearchPwdForm.jsp").forward(request, response);
 	}
 
 	/**

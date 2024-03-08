@@ -23,11 +23,12 @@
     }
 </style>
 </head>
-<body>s
+<body>
 <%@ include file="../common/head.jsp" %>
-<form action="<%=contextPath %>/search.me" method="post" >
-<div>아이디 찾기<br>
+<form action="<%=contextPath%>/searchPwdFinish.me" method="post" >
+<div>비밀번호 찾기<br>
      이름 : <input type="text" name="userName">
+     아이디 : <input type="text" name="userId">
     이메일 : <input type="text" name="email"><button>확인</button>
 </div>
 </form>
