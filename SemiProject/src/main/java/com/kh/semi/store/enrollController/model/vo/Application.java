@@ -12,16 +12,18 @@ public class Application {
 	private String storeTime;
 	private String businessNo;
 	private String storePrice;
-	private Date appDate;
+	private String appDate;
 	private String appYN;
 	private String refuse;
+	private String userName;
+	private String typeName;
 	
 	public Application() {
 		// TODO Auto-generated constructor stub
 	}
 	public Application(int appNo, int userNo, String storeType, String storeName, String storeAddress,
-			String storePhone, String storeTime, String businessNo, String storePrice, Date appDate, String appYN,
-			String refuse) {
+			String storePhone, String storeTime, String businessNo, String storePrice, String appDate, String appYN,
+			String refuse, String userName, String typeName) {
 		super();
 		this.appNo = appNo;
 		this.userNo = userNo;
@@ -35,6 +37,8 @@ public class Application {
 		this.appDate = appDate;
 		this.appYN = appYN;
 		this.refuse = refuse;
+		this.userName = userName;
+		this.typeName = typeName;
 	}
 	
 	
@@ -104,10 +108,10 @@ public class Application {
 	public void setStorePrice(String storePrice) {
 		this.storePrice = storePrice;
 	}
-	public Date getAppDate() {
+	public String getAppDate() {
 		return appDate;
 	}
-	public void setAppDate(Date appDate) {
+	public void setAppDate(String appDate) {
 		this.appDate = appDate;
 	}
 	public String getAppYN() {
@@ -122,13 +126,27 @@ public class Application {
 	public void setRefuse(String refuse) {
 		this.refuse = refuse;
 	}
+	public String getUserName() {
+		return userName;
+	}
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	
+	public String getTypeName() {
+		return typeName;
+	}
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
 	@Override
 	public String toString() {
 		return "Application [appNo=" + appNo + ", userNo=" + userNo + ", storeType=" + storeType + ", storeName="
 				+ storeName + ", storeAddress=" + storeAddress + ", storePhone=" + storePhone + ", storeTime="
 				+ storeTime + ", businessNo=" + businessNo + ", storePrice=" + storePrice + ", appDate=" + appDate
-				+ ", appYN=" + appYN + ", refuse=" + refuse + "]";
+				+ ", appYN=" + appYN + ", refuse=" + refuse + ", userName=" + userName + ", typeName=" + typeName + "]";
 	}
+
 	
 	
 }

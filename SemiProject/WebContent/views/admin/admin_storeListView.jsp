@@ -66,6 +66,7 @@
                                             <th>매출액</th>
                                             <th>매장유형</th>
                                             <th>매장번호</th>
+                                            <th>매장상태</th>
                                             <th>매장관리</th>
                                         </tr>
                                     </thead>
@@ -77,6 +78,7 @@
                                             <th>매출액</th>
                                             <th>매장유형</th>
                                             <th>매장번호</th>
+                                            <th>매장상태</th>
                                             <th>매장관리</th>
                                         </tr>
                                     </tfoot>
@@ -90,6 +92,7 @@
                                             <td> </td>
                                             <td><%= s.getTypeName() %></td>
                                             <td><%= s.getStorePhone() %></td>
+                                            <td><%= s.getStoreStatus()%></td>
                                             <td id="store_detail_td" onclick="location.href='<%= contextPath %>/storeListDetail.bo?sno=<%=s.getStoreNo()%>'"><a class="btn btn-light">매장상세보기</a></td>
                                         </tr>
                                         <% } %>

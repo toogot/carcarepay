@@ -32,7 +32,7 @@ public class adminStoreDetailController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		int storeNo = Integer.parseInt(request.getParameter("sno"));
-		//int storeNo = Integer.parseInt(request.getParameter("storeNo"));
+		
 		Store st = new StoreSearchService().selectStoreDetail(storeNo);
 		
 		if(st != null) {

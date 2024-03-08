@@ -322,15 +322,15 @@
 		<div class="store_info">
 			<div class="store_info_1">
 				<div class="store_info_1_1">
-					<table border="1" class="tb_store_name">
+					<table border="0" class="tb_store_name">
 						<tr style="height: 80px;">
 							<th style="font-size: 25px; font-weight: bold;"> <%= st.getStoreName() %></th>
 							<td colspan="3">
-								<button type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px;">즐겨찾기</button> 
+								<button type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px; background-color: rgb(135, 206, 250); color: white; border-radius: 20px;">즐겨찾기</button> 
 							</td>
 						</tr>
 						<tr style="height: 40px;">
-							<th style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
+							<th id="countGrade" style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
 							<td></td>
 							<td colspan="2" style="text-align: right; margin-right: 10px;"><button id="scrollRev" style="text-decoration: none;">모든 리뷰보기</button></td>
 						</tr>
@@ -341,10 +341,10 @@
 							<th colspan="3">
 								<div class="review_recent">
 									<div class="review_recent_1">가장 최신리뷰</div>
-									<div class="review_recent_2" style="width: 90%; margin-left: 40px;">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
+									<div class="review_recent_2" style="width: 90%; margin-left: 40px;"></div>
 									<div class="review_recent_3">
-										<div class="review_recent_3_1" style="padding-right: 20px;">세차왕 이한기</div>
-										<div class="review_recent_3_2">2024-02-19</div>
+										<div class="review_recent_3_1" style="padding-right: 20px;"></div>
+										<div class="review_recent_3_2"></div>
 									</div>
 								</div>
 							</th>
@@ -504,21 +504,91 @@
 		//////////////////////////////////
 		////////// 즐겨찾기 버튼 //////////
 		//////////////////////////////////
-	  	var bookmarkButton = document.getElementById('bookmarkButton');
-		var isBookmarked = false; // 초기 상태: 즐겨찾기 되어있지 않음
+		var bookmarkButton = document.getElementById('bookmarkButton');
+		var isBookmarked = checkIfBookmarked(); // 초기 상태: 즐겨찾기 여부 확인
+
+		updateBookmarkButton(); // 버튼 초기 상태 설정 (true / false)
 
 		bookmarkButton.addEventListener('click', function() {
 			if (isBookmarked) {
-				bookmarkButton.textContent = '즐겨찾기'; // 버튼 내용 변경: 즐겨찾기
+				
 				// 즐겨찾기 해제 로직
-			} else {
-				bookmarkButton.textContent = '즐겨찾기 해제'; // 버튼 내용 변경: 즐겨찾기 해제
-				// 즐겨찾기 추가 로직
-			}
-		
-		isBookmarked = !isBookmarked; // 상태 변경 (토글)
-	  	});
+				$.ajax({
+					url:"bookmarkDelete.bm",
+					type:"post",
+					data:{storeNo: <%= st.getStoreNo() %>},
+					success:function(result){
+						if(result > 0){
+							bookmarkButton.textContent = '즐겨찾기'; 
+							alert("즐겨찾기 목록에서 삭제되었습니다.");
+						}
+					},
+					error:function(){
+						console.log("즐겨찾기 해제 ajax 통신 실패");
+					}
+				})
 
+			} else {
+				
+				// 즐겨찾기 추가 로직
+				$.ajax({
+					url:"bookmarkInsert.bm",
+					type:"post",
+					data:{storeNo: <%= st.getStoreNo() %>},
+					success:function(result){
+						if(result > 0) {
+							bookmarkButton.textContent = '즐겨찾기 해제';
+							alert("즐겨찾기 목록에 추가되었습니다!");
+						}
+					},
+					error:function(){
+						console.log("즐겨찾기 추가 ajax 통신 실패");
+					}
+				})
+			}
+			isBookmarked = !isBookmarked; // 상태 변경 (토글)
+		});
+
+		function checkIfBookmarked() {
+			// 즐겨찾기 여부를 서버에서 확인하는 로직
+			// true or false 반환하기!
+			/////////////////////////////////////////////////
+		  return new Promise(function(resolve, reject) {
+			$.ajax({
+				url:"bookmarkSelect.bm",
+				type:"post",
+				data:{storeNo: <%= st.getStoreNo() %>},
+				success:function(result){
+					if (result === 1) {
+						console.log("즐겨찾기한 상태입니다.");
+						resolve(true);
+					} else {
+						console.log("즐겨찾기하지 않은 상태입니다.");
+						resolve(false);
+					}
+				},
+				error:function(){
+					console.log("즐겨찾기 여부 ajax 통신 실패");
+					reject(Error("즐겨찾기 여부 ajax 통신 실패"));
+				}
+			})
+		  })
+		}
+		
+		function updateBookmarkButton() {
+			checkIfBookmarked()
+			.then(function(isBookmarked){
+				if (isBookmarked) {
+					bookmarkButton.textContent = '즐겨찾기 해제';
+				} else {
+					bookmarkButton.textContent = '즐겨찾기';
+				}
+			})
+			.catch(function(error){
+				console.log(error);
+			})
+		}
+		
 
 		/////////////////////////////
 		////////// MAP API //////////
@@ -550,53 +620,61 @@
 		/////////////////////////////////////////
 		$(function(){
 				selectReview();
-				
+				selectCountGrade();
+				checkIfBookmarked();
+				updateBookmarkButton();
 		});	
 		
-		function insertReview(){
-			<% System.out.println(st.getStoreNo()); %>
-		var formData = new FormData();
-		  formData.append('content', $(".rev-write textarea").val());
-		  formData.append('storeNo', <%= st.getStoreNo() %>);
-		  formData.append('grade', $(".grade").val());
-		  formData.append('file1', $("#file1")[0].files[0]);
-		  formData.append('file2', $("#file2")[0].files[0]);
-		  formData.append('file3', $("#file3")[0].files[0]);	
-			
-		$.ajax({
-			url:"insert.rv",
-			method:"post",
-			data: formData,
-		    processData: false,
-    		contentType: false,
-			success:function(result){
-				if(result > 0){
-					$(".rev-write textarea").val("");
-					$("#titleImg").attr("src", null);
-					$("#file1").val("");
-					$("#file2").val("");
-					$("#file3").val("");
-					selectReview();
-				}
-			},
-			error:function(){
-				alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
-			}
 		
-			})
-		}
+		function insertReview(){
+			var formData = new FormData();
+			formData.append('content', $(".rev-write textarea").val());
+			formData.append('storeNo', <%= st.getStoreNo() %>);
+			formData.append('grade', $(".grade").val());
+			formData.append('file1', $("#file1")[0].files[0]);
+			formData.append('file2', $("#file2")[0].files[0]);
+			formData.append('file3', $("#file3")[0].files[0]);	
+			
+			$.ajax({
+				url:"insert.rv",
+				type:"post",
+				data: formData,
+				processData: false,
+				contentType: false,
+				success:function(result){
+					if(result > 0){
+						$(".rev-write textarea").val("");
+						$("#titleImg").attr("src", null);
+						$("#file1").val("");
+						$("#file2").val("");
+						$("#file3").val("");
+						selectReview();
+					}
+				},
+				error:function(){
+					alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
+				}
+			
+				})
+			}
 		
 		/////////// 매장 평점 총 갯수 및 평균 /////////
 		function selectCountGrade(){
 			$.ajax({
 				url:"countgrade.rv",
-				method:"post",
+				type:"post",
 				data:{storeNo: <%= st.getStoreNo() %>},
-				success:function(){
+				success:function(rv){
 					
+					let value = ""
+					if(rv != null){
+					value += "★" + rv.grade + "  " + rv.reviewCount + "명 평가";
+					}
+					
+					$("#countGrade").text(value);
 				},
 				error:function(){
-					
+					console.log("AJAX 통신 실패 ㅜㅜ");
 				}
 				
 			})
@@ -632,7 +710,7 @@
 							value += "<div class='rev-list'>"
 	
 								   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
-	
+
 							       + "<div class='rev-list-content'>"
 							       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
 							       + "</div>"
@@ -664,7 +742,7 @@
 								value += "<div class='rev-look-div'>" + value2 + "</div>";
 								
 						              
-						    	console.log($(".rev-look-div").html());
+						    	
 						    	
 							}
 							

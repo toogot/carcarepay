@@ -55,7 +55,7 @@ public class adminStoreListSelectController extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("cpage"));
 		}
 
-		System.out.println("currentPage : " + currentPage);
+		
 		
 		// * pageLimit : 페이징바 페이지 최대개수 ( 단위 => 페이징바를 몇개배치할건지)
 		pageLimit = 5;

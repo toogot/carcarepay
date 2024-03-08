@@ -58,12 +58,13 @@ public class Store {
 		this.storePhone = storePhone;
 	}
 
-	public Store(String storeName,int storeNo,  String storePhone, String typeName) {
+	public Store(String storeName,int storeNo,  String storePhone, String typeName, String storeStatus) {
 		super();
 		this.storeName = storeName;
 		this.storeNo = storeNo;
 		this.storePhone = storePhone;
 		this.typeName = typeName;
+		this.storeStatus = storeStatus;
 	}
 
 	// 마장상세화면 만들때 
