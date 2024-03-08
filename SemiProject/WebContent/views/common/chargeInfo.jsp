@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>충전방법</title>
 <style>
     #no1{
         margin-left: 50px;

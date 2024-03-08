@@ -76,7 +76,7 @@
                 </div>
                 <div id="content_help">
                     <div id="help1">
-                        <button>이용방법</button>
+                        <button onclick="location.href='<%=con%>/userInfo'">이용방법</button>
                     </div>
                     <div id="help2">
                         <button onclick="location.href='<%=con%>/chargeInfo'">충전방법</button>

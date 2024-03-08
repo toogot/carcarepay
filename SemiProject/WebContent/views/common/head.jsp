@@ -228,7 +228,8 @@
 	                    <p><%=loginUser.getUserName() %></p>
 	                </div>
 	                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
-	                <button id="event"><a href="#">잔액<span id="membercash"></span>원</a></button>
+	                <button id="event" disabled><a href="#">잔액<span id="membercash"></span>원</a></button>
+                    <button id="card"><a href="<%=contextPath%>/cardApplication">카드신청</a></button>
                 <%} %>
                 
                 
