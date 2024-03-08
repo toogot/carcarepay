@@ -41,20 +41,20 @@
 		    font-weight: normal;
 		    font-style: normal;
 		}
-		
+
 		@font-face {
         font-family: 'NanumSquareNeo-Variable';
         src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
         font-weight: normal;
         font-style: normal;
         }
-        
+
         body *{
         font-family: 'NewFont',NanumSquareNeo-Variable;
         }
-        
 
-            
+
+
         div{
              /* border: 1px solid red; */
             box-sizing: border-box;
@@ -62,14 +62,14 @@
         button{
             cursor: pointer;
         }
-        
+
         /* 헤더부분 시작 */
         #header{
             width: 1900px;
             height: 200px;
             margin: auto;
             border-bottom: 1px solid lightblue;
-            
+
         }
         #logo{
             width: 30%;
@@ -90,7 +90,7 @@
             width: 70%;
             height: 50%;
             float: left;
-            
+
         }
         <%if(loginUser == null){ %>
             #userimgbtn{
@@ -136,7 +136,7 @@
             background-color: white;
             margin: 25px 60px;
             line-height: 50px;
-            
+
         }
         #navigator>button>a{
             font-size: 20px;
@@ -172,7 +172,7 @@
             line-height: 60px;
             margin-left: 10px;
         }
-        
+
         #adminPageBtn:hover{
         	font-weight: bold;
         }
@@ -194,7 +194,7 @@
 </head>
 <body style="margin: 0px;">
 
-    
+
 
         <!-- 헤더부분 -->
         <div id="header">
@@ -210,33 +210,33 @@
 	                    <p>로그인해주세요</p>
 	                </div>
 	                <button id="login"><a href="<%=contextPath%>/loginForm.me">로그인</a></button>
-	                
+
 	            <%}else if(loginUser.getUserId().equals("admin")) { %>
 	            	<div id="login-event">
 	                <div id="logininfo" onclick="location.href='<%=contextPath%>/myPage.me'">
-	                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>             
+	                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>
 	                    <p><%=loginUser.getUserName() %></p>
 	                </div>
 	                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
 	                <button id="event"><a href="#">잔액<span id="membercash"></span>원</a></button>
 	                <button id="adminPageBtn"><a href="<%=contextPath%>/admin">관리자페이지</a></button>
-	                
+
                 <%}else{ %>
 	                <div id="login-event">
 	                <div id="logininfo" onclick="location.href='<%=contextPath%>/myPage.me'">
-	                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>             
+	                    <button id="userimgbtn" onclick="location.href='<%=contextPath%>/myPage.me'"></button>
 	                    <p><%=loginUser.getUserName() %></p>
 	                </div>
 	                <button id="logout"><a href="<%=contextPath%>/logoutForm.me">로그아웃</a></button>
 	                <button id="event"><a href="#">잔액<span id="membercash"></span>원</a></button>
                 <%} %>
-                
-                
-                
-                
-                
-               
-                
+
+
+
+
+
+
+
             </div>
             <div id="navigator">
                 <button id="charge" type="button"><a href="<%= contextPath %>/product.bo">충전하기</a></button>
@@ -255,7 +255,7 @@
   		</script>
   			<%session.removeAttribute("alertMsg"); %>
   	<%} %>
-    
+
 
 
     <script>
@@ -263,7 +263,7 @@
             // 헤더부분
             $("#navigator").children().children().hover(function(){
                 $(this).css("color","#87CEFA");
-                
+
             },function(){
                 $(this).css("color","");
             })
@@ -280,10 +280,13 @@
             //헤더 끝
 
         })
-       
-		
+
+
+
+
+
         <%if(loginUser != null){ %>
-        
+
         $(function(){
         	$.ajax({
         		url:"<%=contextPath%>/memberCash",
@@ -298,7 +301,20 @@
         })
         <%}%>
     </script>
-    
-    
+
+    <script>
+		    Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
+		    function kakaoLogout() {
+		Kakao.Auth.logout()
+		    .then(function(response){
+		        console.log(Kakao.Auth.getAccessToken());
+		        Kakao.Auth.getAccessToken() = null;
+		        <%=loginUser%> = null;
+		    })
+		    .catch(function(error){
+		        console.log('Not logged in.');
+		    })
+		}
+    </script>
 </body>
 </html>

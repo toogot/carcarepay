@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+ <entry key="insert">
+  INSERT INTO NOTICE (
+          NOTI_CODE
+				 ,NOTI_TITLE
+				 ,NOTI_CONTENT
+				 ,NOTI_DATE
+				 ,NOTI_COUNT
+				 ,USER_NO )
+  VALUES (NOT_SEQ.NEXTVAL, ?, ?, SYSDATE, 0, ?)
+ </entry>
+
+ <entry key="update">
+  UPDATE NOTICE
+     SET NOTI_TITLE = ?
+         ,NOTI_CONTENT = ?
+   WHERE NOTI_CODE = ?
+ </entry>
+
+
+ <entry key="delete">
+  DELETE FROM NOTICE
+   WHERE NOTI_CODE = ?
+ </entry>
+
+ <entry key="selectListCount">
+ 	SELECT
+ 		   COUNT(*) AS "COUNT"
+ 	  FROM NOTICE
+ </entry>
+
+ <entry key="selectList">
+ 	SELECT *
+	  FROM (SELECT
+	               ROWNUM as "RNUM", S.*
+	          FROM (SELECT
+					       NOTI_CODE
+			           ,NOTI_TITLE
+			           ,NOTI_CONTENT
+			           ,NOTI_DATE
+			           ,NOTI_COUNT
+			           ,USER_NO
+			          FROM NOTICE
+			         ORDER
+			            BY NOTI_CODE DESC) S)
+	  WHERE RNUM BETWEEN ? AND ?
+ </entry>
+
+ <entry key="selectOne">
+  SELECT
+         NOTI_CODE
+        ,NOTI_TITLE
+        ,NOTI_CONTENT
+        ,NOTI_DATE
+        ,NOTI_COUNT
+        ,USER_NO
+    FROM NOTICE
+   WHERE NOTI_CODE = ?
+ </entry>
+
+ <entry key="updateNotiCount">
+  UPDATE NOTICE
+     SET NOTI_COUNT = NOTI_COUNT + 1
+   WHERE NOTI_CODE = ?
+ </entry>
+</properties>

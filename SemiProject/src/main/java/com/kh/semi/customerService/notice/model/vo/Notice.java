@@ -1,79 +1,68 @@
 package com.kh.semi.customerService.notice.model.vo;
 
-import javax.xml.crypto.Data;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Notice {
-	
-	private int notiCode;
-	private String notiTitle;
-	private String notiContent;
-	private Data notDate;
-	private int notiCount;
-	private int userNo;
+  private Integer notiCode;
+  private String notiTitle;
+  private String notiContent;
+  private Date notiDate;
+  private Integer notiCount;
+  private Integer userNo;
 
-	public Notice() {}
+  public Integer getNotiCode() {
+    return notiCode;
+  }
 
-	public int getNotiCode() {
-		return notiCode;
-	}
+  public void setNotiCode(Integer notiCode) {
+    this.notiCode = notiCode;
+  }
 
-	public void setNotiCode(int notiCode) {
-		this.notiCode = notiCode;
-	}
+  public String getNotiTitle() {
+    return notiTitle;
+  }
 
-	public String getNotiTitle() {
-		return notiTitle;
-	}
+  public void setNotiTitle(String notiTitle) {
+    this.notiTitle = notiTitle;
+  }
 
-	public void setNotiTitle(String notiTitle) {
-		this.notiTitle = notiTitle;
-	}
+  public String getNotiContent() {
+    return notiContent;
+  }
 
-	public String getNotiContent() {
-		return notiContent;
-	}
+  public void setNotiContent(String notiContent) {
+    this.notiContent = notiContent;
+  }
 
-	public void setNotiContent(String notiContent) {
-		this.notiContent = notiContent;
-	}
+  public Date getNotiDate() {
+    return notiDate;
+  }
 
-	public Data getNotDate() {
-		return notDate;
-	}
+  public void setNotiDate(Date notiDate) {
+    this.notiDate = notiDate;
+  }
 
-	public void setNotDate(Data notDate) {
-		this.notDate = notDate;
-	}
+  public Integer getNotiCount() {
+    return notiCount;
+  }
 
-	public int getNotiCount() {
-		return notiCount;
-	}
+  public void setNotiCount(Integer notiCount) {
+    this.notiCount = notiCount;
+  }
 
-	public void setNotiCount(int notiCount) {
-		this.notiCount = notiCount;
-	}
+  public Integer getUserNo() {
+    return userNo;
+  }
 
-	public int getUserNo() {
-		return userNo;
-	}
+  public void setUserNo(Integer userNo) {
+    this.userNo = userNo;
+  }
 
-	public void setUserNo(int userNo) {
-		this.userNo = userNo;
-	}
-
-	public Notice(int notiCode, String notiTitle, String notiContent, Data notDate, int notiCount, int userNo) {
-		super();
-		this.notiCode = notiCode;
-		this.notiTitle = notiTitle;
-		this.notiContent = notiContent;
-		this.notDate = notDate;
-		this.notiCount = notiCount;
-		this.userNo = userNo;
-	}
-
-	@Override
-	public String toString() {
-		return "Notice [notiCode=" + notiCode + ", notiTitle=" + notiTitle + ", notiContent=" + notiContent
-				+ ", notDate=" + notDate + ", notiCount=" + notiCount + ", userNo=" + userNo + "]";
-	}
+  public String getNotiDateFormat() {
+    if (notiDate == null) {
+      return null;
+    }
+    return new SimpleDateFormat("yyyy-MM-dd").format(notiDate);
+  }
 }
