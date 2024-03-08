@@ -326,7 +326,7 @@
 						<tr style="height: 80px;">
 							<th style="font-size: 25px; font-weight: bold;"> <%= st.getStoreName() %></th>
 							<td colspan="3">
-								<button onclick="bookmark();" type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px; background-color: rgb(135, 206, 250); color: white; border-radius: 20px;">즐겨찾기</button> 
+								<button type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px; background-color: rgb(135, 206, 250); color: white; border-radius: 20px;">즐겨찾기</button> 
 							</td>
 						</tr>
 						<tr style="height: 40px;">
@@ -507,15 +507,44 @@
 		var bookmarkButton = document.getElementById('bookmarkButton');
 		var isBookmarked = checkIfBookmarked(); // 초기 상태: 즐겨찾기 여부 확인
 
-		updateBookmarkButton(); // 버튼 초기 상태 설정
+		updateBookmarkButton(); // 버튼 초기 상태 설정 (true / false)
 
 		bookmarkButton.addEventListener('click', function() {
 			if (isBookmarked) {
-				bookmarkButton.textContent = '즐겨찾기'; 
+				
 				// 즐겨찾기 해제 로직
+				$.ajax({
+					url:"bookmarkDelete.bm",
+					type:"post",
+					data:{storeNo: <%= st.getStoreNo() %>},
+					success:function(result){
+						if(result > 0){
+							bookmarkButton.textContent = '즐겨찾기'; 
+							alert("즐겨찾기 목록에서 삭제되었습니다.");
+						}
+					},
+					error:function(){
+						console.log("즐겨찾기 해제 ajax 통신 실패");
+					}
+				})
+
 			} else {
-				bookmarkButton.textContent = '즐겨찾기 해제';
+				
 				// 즐겨찾기 추가 로직
+				$.ajax({
+					url:"bookmarkInsert.bm",
+					type:"post",
+					data:{storeNo: <%= st.getStoreNo() %>},
+					success:function(result){
+						if(result > 0) {
+							bookmarkButton.textContent = '즐겨찾기 해제';
+							alert("즐겨찾기 목록에 추가되었습니다!");
+						}
+					},
+					error:function(){
+						console.log("즐겨찾기 추가 ajax 통신 실패");
+					}
+				})
 			}
 			isBookmarked = !isBookmarked; // 상태 변경 (토글)
 		});
@@ -523,30 +552,41 @@
 		function checkIfBookmarked() {
 			// 즐겨찾기 여부를 서버에서 확인하는 로직
 			// true or false 반환하기!
+			/////////////////////////////////////////////////
+		  return new Promise(function(resolve, reject) {
 			$.ajax({
 				url:"bookmarkSelect.bm",
 				type:"post",
 				data:{storeNo: <%= st.getStoreNo() %>},
 				success:function(result){
 					if (result === 1) {
-						return true;
-						console.log('즐겨찾기한 상태입니다.');
+						console.log("즐겨찾기한 상태입니다.");
+						resolve(true);
 					} else {
-						return false;
-						console.log('즐겨찾기하지 않은 상태입니다.');
+						console.log("즐겨찾기하지 않은 상태입니다.");
+						resolve(false);
 					}
 				},
 				error:function(){
+					console.log("즐겨찾기 여부 ajax 통신 실패");
+					reject(Error("즐겨찾기 여부 ajax 통신 실패"));
 				}
 			})
+		  })
 		}
-
+		
 		function updateBookmarkButton() {
-			if (isBookmarked) {
-				bookmarkButton.textContent = '즐겨찾기 해제';
-			} else {
-				bookmarkButton.textContent = '즐겨찾기';
-			}
+			checkIfBookmarked()
+			.then(function(isBookmarked){
+				if (isBookmarked) {
+					bookmarkButton.textContent = '즐겨찾기 해제';
+				} else {
+					bookmarkButton.textContent = '즐겨찾기';
+				}
+			})
+			.catch(function(error){
+				console.log(error);
+			})
 		}
 		
 
@@ -581,6 +621,8 @@
 		$(function(){
 				selectReview();
 				selectCountGrade();
+				checkIfBookmarked();
+				updateBookmarkButton();
 		});	
 		
 		

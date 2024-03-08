@@ -13,34 +13,31 @@ import com.kh.semi.bookmark.model.service.BookmarkService;
 import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class BookmarkSelectController
+ * Servlet implementation class BookmarkDeleteController
  */
-@WebServlet("/bookmarkSelect.bm")
-public class BookmarkSelectController extends HttpServlet {
+@WebServlet("/bookmarkDelete.bm")
+public class BookmarkDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BookmarkSelectController() {
+    public BookmarkDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
-    
+
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		// 상세페이지 진입시, 로그인한 유저가 해당 매장을 즐겨찾기 하고 있는지 select하는 컨트롤러
-		
 		HttpSession session = request.getSession();
 		int userNo = ((Member)session.getAttribute("loginUser")).getUserNo();
 		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
 		
-		int result = new BookmarkService().bookmarkSelect(userNo, storeNo);
+		int result = new BookmarkService().bookmarkDelete(userNo, storeNo);
 		
-		System.out.println(result);
 		response.setContentType("application/json; charset=utf-8");
 		new Gson().toJson(result, response.getWriter());
 		
@@ -50,6 +47,7 @@ public class BookmarkSelectController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

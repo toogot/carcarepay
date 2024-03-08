@@ -8,8 +8,22 @@
 		 WHERE USER_NO = ?
 		   AND STORE_NO = ?
 	</entry>
-
-
+	
+	<entry key="bookmarkInsert">
+		INSERT
+		  INTO BOOKMARK VALUES
+		  (
+		    ?
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="bookmarkDelete">
+		DELETE 
+		  FROM BOOKMARK
+		 WHERE USER_NO = ?
+		   AND STORE_NO = ?
+	</entry>
 
 
 
