@@ -143,7 +143,8 @@ public class StoreSearchDao {
 					             rset.getString("store_phone"),
 					             rset.getString("store_time"),
 					             rset.getString("business_no"),
-					             rset.getString("store_price"));
+					             rset.getString("store_price"),
+					             rset.getString("store_status"));
 			}
 			
 		} catch (SQLException e) {

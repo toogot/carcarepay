@@ -22,8 +22,22 @@
 
     <!-- Custom styles for this template-->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <style>
+
+        @font-face {
+        font-family: 'NanumSquareNeo-Variable';
+        src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/NanumSquareNeo-Variable.woff2') format('woff2');
+        font-weight: normal;
+        font-style: normal;
+        }
+        
+        body *{
+        font-family: 'NewFont',NanumSquareNeo-Variable;
+        }
+
     </style>
 
 </head>
@@ -77,7 +91,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
                         <a class="collapse-item" href="<%=contextPath %>/storeList">매장목록</a>
-                        <a class="collapse-item" href="cards.html">입점신청</a>
+                        <a class="collapse-item" href="<%=contextPath %>/storeEnrollList">입점신청</a>
                     </div>
                 </div>
             </li>

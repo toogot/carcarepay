@@ -1,10 +1,11 @@
+<%@page import="com.kh.semi.store.enrollController.model.vo.Application"%>
 <%@page import="com.kh.semi.store.model.vo.Store"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
 <%
 	Store st = (Store)request.getAttribute("st");
-	
+	Application ap = (Application)request.getAttribute("ap");
 %>
 <!DOCTYPE html>
 <html>
@@ -60,47 +61,48 @@
 
 	<div id="wrap">
 		<div>
-			<h1>매장 상세 조회 페이지</h1>
+			<h1>입점 신청 상세 조회 페이지</h1>
 		</div>
 
 		<div>
-			<h2 id="store_name_h2" ><%=st.getStoreName()%></h2>
+			<h2 id="store_name_h2" ></h2>
 		</div>
 
+	<form>
 		<div id="table_wrap_div">
 			<table border="1" class="tableWrap">
 				<tr>
 					<th>매장이름</th>
-					<td colspan="3"><%=st.getStoreName() %></td>
+					<td colspan="3"><%=ap.getStoreName() %></td>
 				</tr>
 				<tr>
 					<th>대표이름</th>
-					<td></td>
+					<td><%=ap.getUserName() %></td>
 					<th>사업자번호</th>
-					<td><%=st.getBusinessNo() %></td>
+					<td><%=ap.getBusinessNo() %></td>
 				</tr>
 				<tr>
 					<th>매장번호</th>
-					<td colspan="3"><%=st.getStorePhone() %></td>
+					<td colspan="3"><%=ap.getStorePhone() %></td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td colspan="3"><%=st.getStoreAddress() %></td>
+					<td colspan="3"><%=ap.getStoreAddress() %></td>
 				</tr>
 				<tr>
 					<th>세차장유형</th>
-					<td><%=st.getStoreType()%></td>
+					<td><%=ap.getTypeName()%></td>
 					<th>영업시간</th>
-					<td><%=st.getStoreTime() %></td>
+					<td><%=ap.getStoreTime() %></td>
 				</tr>
 				<tr>
 					<th>매장상태</th>
-					<td><%=st.getStoreStatus() %></td>
+					<td><%=ap.getRefuse() %></td>
 					<td colspan="2" style="color: red;">대문자 N 또는 Y만 입력해주세요<br> (N:영업중 / Y:매장삭제)</td>
 				</tr>
 				<tr>
 					<th>가격</th>
-					<td colspan="3"><%=st.getStorePrice()%></td>
+					<td colspan="3"><%=ap.getStorePrice()%></td>
 				</tr>
 				<tr>
 					<th>사진</th>
@@ -111,10 +113,14 @@
 
 			</table>
 		</div>
+	</form>
+	
 		<div id="btn">
-			<a href="<%=contextPath %>/storeList?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
-			<a href="<%=contextPath %>/storeupdateform?sno=<%= st.getStoreNo() %>" class="btn btn-sm btn-warning">수정하기</a>
-			<!-- <a href="" class="btn btn-sm btn-danger" onclick="reallydelete()">삭제하기</a> -->
+			
+			<a onclick="realstorego()" class="btn btn-primary">승인하기</a>
+			<a href="<%=contextPath %>/storeEnrollList?cpage=1" class="btn btn-secondary">목록가기</a>
+			<a href="<%=contextPath %>/storeEnrollupdateform?sno=<%= ap.getAppNo() %>" class="btn btn-warning">수정하기</a>
+			<a href="" class="btn btn-danger" onclick="">거절하기</a>
 		</div>
 		<div id="bottom_div">
 
@@ -125,6 +131,14 @@
 	
 
 <script>
+
+	 function realstorego(){
+	 	if(confirm('매장을 승인하시겠습니까?')){
+			document.form.submit();
+	 	}else{
+			window.history.back();
+	 	}
+	 }
 
 </script>
 
