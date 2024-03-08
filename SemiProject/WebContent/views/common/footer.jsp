@@ -79,7 +79,7 @@
                         <li>|</li>
                         <li><a href="<%=request.getContextPath()%>/terms.pe">개인정보처리약관</a></li>
                         <li>|</li>
-                        <li><a href="#">고객센터정보</a></li>
+                        <li><a href="<%=request.getContextPath()%>/info.cu">고객센터정보</a></li>
                     </ul>
                 </div>
                 <div id="footer2">

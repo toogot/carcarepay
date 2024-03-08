@@ -11,19 +11,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.admin.model.service.AdminService;
 import com.kh.semi.common.model.vo.PageInfo;
+import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.vo.Store;
 
 /**
- * Servlet implementation class adminStoreListSelectController
+ * Servlet implementation class adminStoreEnrollListController
  */
-@WebServlet("/storeList")
-public class adminStoreListSelectController extends HttpServlet {
+@WebServlet("/storeEnrollList")
+public class adminStoreEnrollListController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminStoreListSelectController() {
+    public adminStoreEnrollListController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,7 +33,7 @@ public class adminStoreListSelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+
 		// -------페이징처리--------
 		// 게시글의 총 갯수 중요 몇개씩 보여줄건지 게시글몇개고 총 몇개 보여줄건지?
 		int listCount;		// 현재 총 게시글의 개수
@@ -46,7 +47,7 @@ public class adminStoreListSelectController extends HttpServlet {
 		int endPage;		// 페이징바의 끝 수
 		
 		// * listCount	: 총 게시글 개수
-		listCount = new AdminService().selectStoreListCount();
+		listCount = new AdminService().selectEnrollListCount();
 		
 		// * currentPage: 현재 페이지 (즉, 사용자가 요청한 페이지)
 		if(request.getParameter("cpage") == null) {
@@ -55,7 +56,7 @@ public class adminStoreListSelectController extends HttpServlet {
 			currentPage = Integer.parseInt(request.getParameter("cpage"));
 		}
 
-		
+		System.out.println("currentPage : " + currentPage);
 		
 		// * pageLimit : 페이징바 페이지 최대개수 ( 단위 => 페이징바를 몇개배치할건지)
 		pageLimit = 5;
@@ -113,13 +114,14 @@ public class adminStoreListSelectController extends HttpServlet {
 		PageInfo pi = new PageInfo(listCount, currentPage, pageLimit, boardLimit, maxPage, startPage, endPage);
 		
 		// * 현재 요청한 페이지(currentPage)에 보여질 게시글 리스트 boardLimit 수 만큼 조회해가기 //boardLimit:한 페이지내에 보여질 게시글의 최대 개수(몇개 단위씩)
-		ArrayList<Store> list = new AdminService().selectStoreList(pi);
+		ArrayList<Application> list = new AdminService().selectEnrollList(pi);
 		
 		request.setAttribute("pi", pi);
 		request.setAttribute("list", list);
 		
 		
-		request.getRequestDispatcher("views/admin/admin_storeListView.jsp").forward(request, response);
+		request.getRequestDispatcher("views/admin/admin_storeEnrollList.jsp").forward(request, response);
+
 	
 	}
 
