@@ -108,7 +108,7 @@
         <%}else{%>
             #userimgbtn{
             border: 0;
-            background-image: url("https://cdn.pixabay.com/photo/2016/03/03/16/21/man-head-1234492_640.png");
+            background-image: url("resources/admin_img/bird_profile3.png");
             width: 55px;
             height: 100%;
             background-size: 55px;
@@ -235,7 +235,7 @@
                 
                 
                 
-               
+                <button id="event"><a href="#">이벤트</a></button>
                 
             </div>
             <div id="navigator">
