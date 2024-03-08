@@ -274,7 +274,7 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		}
-		
+
 		return ap;
 	
 	}

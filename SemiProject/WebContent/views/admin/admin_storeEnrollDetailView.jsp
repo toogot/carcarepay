@@ -6,6 +6,8 @@
 <%
 	Store st = (Store)request.getAttribute("st");
 	Application ap = (Application)request.getAttribute("ap");
+	
+	
 %>
 <!DOCTYPE html>
 <html>
@@ -68,56 +70,58 @@
 			<h2 id="store_name_h2" ></h2>
 		</div>
 
-	<form>
-		<div id="table_wrap_div">
-			<table border="1" class="tableWrap">
-				<tr>
-					<th>매장이름</th>
-					<td colspan="3"><%=ap.getStoreName() %></td>
-				</tr>
-				<tr>
-					<th>대표이름</th>
-					<td><%=ap.getUserName() %></td>
-					<th>사업자번호</th>
-					<td><%=ap.getBusinessNo() %></td>
-				</tr>
-				<tr>
-					<th>매장번호</th>
-					<td colspan="3"><%=ap.getStorePhone() %></td>
-				</tr>
-				<tr>
-					<th>주소</th>
-					<td colspan="3"><%=ap.getStoreAddress() %></td>
-				</tr>
-				<tr>
-					<th>세차장유형</th>
-					<td><%=ap.getTypeName()%></td>
-					<th>영업시간</th>
-					<td><%=ap.getStoreTime() %></td>
-				</tr>
-				<tr>
-					<th>매장상태</th>
-					<td><%=ap.getRefuse() %></td>
-					<td colspan="2" style="color: red;">대문자 N 또는 Y만 입력해주세요<br> (N:영업중 / Y:매장삭제)</td>
-				</tr>
-				<tr>
-					<th>가격</th>
-					<td colspan="3"><%=ap.getStorePrice()%></td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td colspan="3">
-						
-					</td>
-				</tr>
+	<form action="storeenrollComplete">
+		<input type="hidden" value="<%=ap.getAppNo()%>">
 
-			</table>
-		</div>
+			<div id="table_wrap_div">
+				<table border="1" class="tableWrap">
+					<tr>
+						<th>매장이름</th>
+						<td colspan="3"><%=ap.getStoreName() %></td>
+					</tr>
+					<tr>
+						<th>대표이름</th>
+						<td><%=ap.getUserName() %></td>
+						<th>사업자번호</th>
+						<td><%=ap.getBusinessNo() %></td>
+					</tr>
+					<tr>
+						<th>매장번호</th>
+						<td colspan="3"><%=ap.getStorePhone() %></td>
+					</tr>
+					<tr>
+						<th>주소</th>
+						<td colspan="3"><%=ap.getStoreAddress() %></td>
+					</tr>
+					<tr>
+						<th>세차장유형</th>
+						<td><%=ap.getTypeName()%></td>
+						<th>영업시간</th>
+						<td><%=ap.getStoreTime() %></td>
+					</tr>
+					<tr>
+						<th>매장상태</th>
+						<td><%=ap.getAppYN() %></td>
+						<td colspan="2" style="color: red;">(P:승인대기 /Y:승인완료 / N:미승인)</td>
+					</tr>
+					<tr>
+						<th>가격</th>
+						<td colspan="3"><%=ap.getStorePrice()%></td>
+					</tr>
+					<tr>
+						<th>사진</th>
+						<td colspan="3">
+							
+						</td>
+					</tr>
+	
+				</table>
+			</div>
 	</form>
 	
 		<div id="btn">
 			
-			<a onclick="realstorego()" class="btn btn-primary">승인하기</a>
+			<button type="submit" class="btn btn-primary">승인하기</button>
 			<a href="<%=contextPath %>/storeEnrollList?cpage=1" class="btn btn-secondary">목록가기</a>
 			<a href="<%=contextPath %>/storeEnrollupdateform?sno=<%= ap.getAppNo() %>" class="btn btn-warning">수정하기</a>
 			<a href="" class="btn btn-danger" onclick="">거절하기</a>
@@ -131,15 +135,17 @@
 	
 
 <script>
-
+	
+	/*
 	 function realstorego(){
 	 	if(confirm('매장을 승인하시겠습니까?')){
 			document.form.submit();
 	 	}else{
-			window.history.back();
+			//history.back();
 	 	}
 	 }
-
+	*/
+	
 </script>
 
 	

@@ -37,8 +37,7 @@ public class adminStoreEnrollDetail extends HttpServlet {
 
 			request.setAttribute("ap", ap);
 			request.getRequestDispatcher("views/admin/admin_storeEnrollDetailView.jsp").forward(request, response);
-
-
+			
 
 	
 	}
