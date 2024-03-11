@@ -21,7 +21,7 @@
 <title>Insert title here</title>
 <style>
     th{
-        width: 10%;
+        /* width: 10%; */
         text-align: center !important;
     }
     #store_detail_td{
@@ -66,6 +66,7 @@
                                             <th>매장타입</th>
                                             <th>신청일자</th>
                                             <th>신청자이름</th>
+                                            <th>상태</th>
                                             <th>상세조회</th>
                                         </tr>
                                     </thead>
@@ -76,6 +77,7 @@
                                             <th>매장타입</th>
                                             <th>신청일자</th>
                                             <th>신청자이름</th>
+                                            <th>상태</th>
                                             <th>상세조회</th>
                                         </tr>
                                     </tfoot>
@@ -88,6 +90,7 @@
                                             <td><%= a.getTypeName()%></td>
                                             <td><%= a.getAppDate() %></td>
                                             <td><%= a.getUserName() %> </td>
+                                            <td><%= a.getAppTypeName() %></td>
                                             <td id="store_detail_td" onclick="location.href='<%= contextPath %>/storeEnrollDetail.bo?eno=<%=a.getAppNo()  %>'"> 
                                             <a class="btn btn-light">상세조회</a></td>
                                         </tr>

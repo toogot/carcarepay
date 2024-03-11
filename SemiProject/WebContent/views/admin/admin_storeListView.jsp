@@ -20,7 +20,7 @@
 <title>Insert title here</title>
 <style>
     th{
-        width: 10%;
+        /* width: 10%; */
         text-align: center !important;
     }
     #store_detail_td{

@@ -165,7 +165,8 @@ public class AdminDao {
 								           rset.getString("app_yn"),
 								           rset.getString("refuse"),
 								           rset.getString("user_name"),
-								           rset.getString("type_name")
+								           rset.getString("type_name"),
+								           rset.getString("app_typename")
 								           ));
 			}
 				
@@ -264,7 +265,8 @@ public class AdminDao {
 									             rset.getString("app_yn"),
 									             rset.getString("refuse"),
 									             rset.getString("user_name"),
-									             rset.getString("type_name"));
+									             rset.getString("type_name"),
+									             rset.getString("app_typename"));
 			}
 			
 			

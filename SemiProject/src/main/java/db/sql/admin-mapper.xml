@@ -56,9 +56,11 @@
 		                    , REFUSE
 		                    , USER_NAME
 		                    , TYPE_NAME
+		                    , APP_TYPENAME
 		                 FROM APPLICATION
 		                 JOIN MEMBER USING(USER_NO)
 		                 JOIN TYPE USING(STORE_TYPE)
+		                 JOIN APP_TYPE USING(APP_YN)
 		                ORDER 
 		                   BY APP_NO DESC)A
 		        )
@@ -81,9 +83,11 @@
          , REFUSE
          , USER_NAME
          , TYPE_NAME
+         , APP_TYPENAME
       FROM APPLICATION
       JOIN MEMBER USING(USER_NO)
       JOIN TYPE USING(STORE_TYPE)
+      JOIN APP_TYPE USING(APP_YN)
 
 	</entry>
 	
