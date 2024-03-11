@@ -64,10 +64,10 @@
         <div id="content_wrap">
             <div id="content1">
                 <div id="content_charge">
-                    <button>충전하기</button>
+                    <button onclick="location.href='<%= contextPath %>/product.bo'">충전하기</button>
                 </div>
                 <div id="content_mypage">
-                    <button>마이페이지</button>
+                    <button onclick="location.href='<%=con%>/myPage.me'">마이페이지</button>
                 </div>
             </div>
             <div id="content2">
@@ -79,7 +79,7 @@
                         <button>이용방법</button>
                     </div>
                     <div id="help2">
-                        <button>충전방법</button>
+                        <button onclick="location.href='<%=con%>/chargeInfo'">충전방법</button>
                     </div>
                 </div>
             </div>

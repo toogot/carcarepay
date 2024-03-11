@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+ <entry key="insert">
+  INSERT INTO EVENT_IMAGE (
+          IMG_NO
+         ,IMG_ROOT
+         ,ORIGIN_NAME
+         ,CHANGE_NAME
+         ,IMG_LEVEL
+         ,STATUS
+         ,EV_NO)
+  VALUES (EVI_SEQ.NEXTVAL, ?, ?, ?, ?, 'N', ?)
+ </entry>
+
+ <entry key="delete">
+  UPDATE EVENT_IMAGE
+     SET STATUS = 'Y'
+   WHERE EV_NO = ?
+ </entry>
+
+ <entry key="selectListCount">
+ 	SELECT COUNT(*) AS "COUNT"
+ 	  FROM EVENT_IMAGE a
+ 	 WHERE IMG_NO = ?
+     AND a.CG_NO = ?
+ </entry>
+
+ <entry key="selectList">
+ 	SELECT *
+	  FROM (SELECT
+	               ROWNUM as "RNUM", S.*
+	          FROM (SELECT
+							       IMG_NO
+						         ,IMG_ROOT
+						         ,ORIGIN_NAME
+						         ,CHANGE_NAME
+						         ,IMG_LEVEL
+						         ,STATUS
+						         ,EV_NO
+			          FROM EVENT_IMAGE a
+			         WHERE a.STATUS = 'N'
+			         ORDER BY a.IMG_NO DESC) S)
+	  WHERE RNUM BETWEEN ? AND ?
+ </entry>
+
+ <entry key="selectOne">
+  SELECT
+         IMG_NO
+         ,IMG_ROOT
+         ,ORIGIN_NAME
+         ,CHANGE_NAME
+         ,IMG_LEVEL
+         ,STATUS
+         ,EV_NO
+	       FROM EVENT_IMAGE a
+   WHERE a.EV_NO = ?
+ </entry>
+</properties>

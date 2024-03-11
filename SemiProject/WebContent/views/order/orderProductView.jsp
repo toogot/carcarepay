@@ -62,6 +62,7 @@
     .productDetailImg{
         width: 1330px;
         height: 1500px;
+        text-align: center;
     }
     
     .productfooter{
@@ -77,6 +78,7 @@
     .thumbnail{
         width: 50%;
         height: 100%;
+        text-align: center;
     }
     
     .priceCheckTb{
@@ -313,7 +315,7 @@
     }
     
     #thumbnail_img{
-        width: 100%;
+        width: 80%;
         height: 100%;
     }
 
@@ -334,7 +336,7 @@
 				
                 <div class="productOrder">
                     <div class="thumbnail">
-                        <img id="thumbnail_img" src="https://img.freepik.com/premium-vector/realistic-smartphone-mockup_573652-780.jpg?w=740">
+                        <img id="thumbnail_img" src="resources/order/thum_payimg.png">
                     </div>
                     <div class="priceCheckTb">
                         <h3>금액선택</h3>
@@ -418,13 +420,13 @@
         <div class="productMenuBar">
             <ul>
                 <li class="liClass" id="productMenubar1" onclick="location.href = '#productMenubar1'">상세보기</li>
-                <li class="liClass" id="productMenubar2" onclick="location.href = '#productfooter'">유의사항</li>
+                <li class="liClass" id="productMenubar2" onclick="location.href = '#productMenubar4'">유의사항</li>
             </ul>
         </div>
 
 
         <div id="detailImg"class="productDetailImg">
-
+            <img src="resources/order/img_howtouse.png" alt="">
         </div>
 
 
@@ -432,7 +434,7 @@
         <div class="productMenuBar">
             <ul>
                 <li class="liClass" id="productMenubar3" onclick="location.href = '#productMenubar1'">상세보기</li>
-                <li class="liClass" id="productMenubar4" onclick="location.href = '#productfooter'" >유의사항</li>
+                <li class="liClass" id="productMenubar4" onclick="location.href = '#productMenubar4'" >유의사항</li>
             </ul>
         </div>
         <div id="productfooter" class="productfooter">
@@ -451,7 +453,7 @@
                 <tr>
                     <th>
                         사용 가능 매장<br>
-                        <a href="#">사용가능 매장조회>></a>
+                        <a href="<%=contextPath%>/search.st?page=1">사용가능 매장조회>></a>
                     </th>
                     <td>
                         <li>제휴 맺은 매장 전국에서 사용가능</li>
@@ -511,23 +513,31 @@
         });
         //-----------------------------------------------------------------------------
 
+        // function checkAmountQtynum1(){
+        //     $("#radio05").prop("checked", true);
+        //     $(".checkAmountQty-num").val(1);
+        // }
+
+
 
         //------------------------수량증감버튼--------------------------------//
         $(function(){
 
             //직접입력칸 클릭시 직접입력 라디오버튼 체크되는 함수
             $("#radio05-1").click(function() {
-            $("#radio05").prop("checked", true);
-            $(".checkAmountQty-num").val(1);
+                $("#radio05").prop("checked", true);
+                // $(".checkAmountQty-num").val(1);
+                $('#totalPriceSpan').text(0);
                 
             });
         
-
             //5000,10000,30000,50000원 클릭시 직접입력칸에 들어가있던 숫자 비워주는 함수
             $(".productRadioBtn label").click(function(){
                 $("#radio05-1").val("");
+                $("#radio05").val("");
                 $(".checkAmountQty-num").val(1); //상품수량 1로 바꿔줌
             })
+
 
             // 선택된 라디오 버튼의 값을 가져와서 콘솔에 출력
             $('input[type="radio"]').change(function(){
@@ -535,6 +545,7 @@
             $('#hiddenRadioCheckPrice').val(selectedValue);
             $('#hiddenTotalPrice').val(selectedValue);
             console.log("hidden토탈프라이스콘솔ㄱ"+($('#hiddenRadioCheckPrice').val()));
+            
             });
 
             //직접입력칸에 숫자입력시 얼마인지 나오게하는 함수
@@ -543,7 +554,6 @@
                 $('#hiddenTotalPrice').val(Number($('#radio05-1').val()));
                 $('#radio05').val($('#radio05-1').val());
                 $("#hiddenRadioCheckPrice").val($('#radio05').val());
-                console.log("잘되고잇냐고ㅜㅜ"+($("#radio05").val()));
                 console.log("hidden토탈프라이스콘솔ㅅ"+($('#hiddenTotalPrice').val()));
                 
             })
@@ -663,7 +673,27 @@
     function giftBtn(){ //로그인 되어있고 선물버튼 클릭시
         if($('input[name="radioPrice"]:checked').val() !=null){ //금액설정시
              
-             location.href = "<%=contextPath%>/ordergiftdetail.bo"
+
+            console.log($(".checkAmountQty-num").val());
+            $.ajax({
+            	url:"ordergiftdetail.bo",
+            	data:{
+            		price:$("#hiddenRadioCheckPrice").val(),
+            		totalprice:$('#hiddenTotalPrice').val(),
+            		qty:$(".checkAmountQty-num").val()
+            		
+            	},
+            	type:"post",
+            	success:function(result){
+            		if(result>0){
+            			moveGiftOrderDetail();
+            		}
+            	},error:function(){
+            		console.log("ajax 실패 ㅜㅜ")
+            	}
+            	
+            })
+             
 
         }else{ //금액미설정시
             alert("금액을 선택해주세요.");
@@ -675,6 +705,10 @@
     	location.href = "<%=contextPath%>/orderdetail2.bo"
 
    }
+   
+    function moveGiftOrderDetail(){
+        location.href = "<%=contextPath%>/ordergiftdetail2.bo"
+    }
 
 
    

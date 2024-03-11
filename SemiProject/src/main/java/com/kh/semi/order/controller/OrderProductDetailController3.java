@@ -43,7 +43,7 @@ public class OrderProductDetailController3 extends HttpServlet {
 		
 		response.setContentType("application/json; charset=utf-8");//내가 지금 보내려고하는건 ..?!0
 		new Gson().toJson(o, response.getWriter()); //(내가보내려고하는객체,통로를 만들어주는 출력스트림 출력용스트림) response.getWriter가 출력용스트림인거임?그냥 그자체?0
-
+		
 		
 	}
 

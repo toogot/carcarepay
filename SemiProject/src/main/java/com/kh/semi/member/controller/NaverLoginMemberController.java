@@ -6,6 +6,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.kh.semi.member.model.service.MemberService;
+import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class NaverLoginMemberController
@@ -26,7 +30,24 @@ public class NaverLoginMemberController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("nickname"));
+		String userId = request.getParameter("id");
+		String userPwd = request.getParameter("id");
+		
+		
+			Member loginUser = new MemberService().loginMember(userId, userPwd);
+			System.out.println(request.getParameter("nickname"));
+			if(loginUser == null) {
+				
+		      }else {
+		        
+		    	 HttpSession session = request.getSession();
+		    	  session.setAttribute("loginUser",loginUser);
+		    	  
+		    	  response.sendRedirect(request.getContextPath());
+		    	 
+		      }
+		
+		
 	}
 	
 

@@ -53,10 +53,53 @@ VALUES
 </entry>
 <entry key="idCheck">
 SELECT
-        COUNT(*)  "COUNT"
+    COUNT(*) "COUNT"
  FROM MEMBER
  WHERE USER_ID = ?
 </entry>
 
+
+<entry key="memberCashSelect">
+SELECT 
+	   BALANCE
+  FROM MEMBER
+ WHERE USER_NO = ?
+</entry>
+
+
+
+
+<entry key="deleteMember">
+UPDATE MEMBER
+   SET STATUS = 'N'    
+ WHERE USER_ID = ?
+   AND USER_PWD = ?
+
+</entry>
+<entry key="selectMember">
+SELECT
+        USER_NO
+      , USER_ID
+      , USER_PWD
+      , USER_NAME
+      , EMAIL
+      , PHONE	
+      , ADDRESS
+      , USER_LEVEL
+      , ENROLL_DATE
+      , BALANCE
+      , BLACKLIST
+      , STATUS
+FROM MEMBER
+WHERE USER_ID = ?
+  AND STATUS = 'Y'
+</entry>
+<entry key="updatePwdMember">
+UPDATE MEMBER
+   SET USER_PWD = ?    
+ WHERE USER_ID = ?
+   AND USER_PWD = ?
+</entry>
 </properties>
+
 

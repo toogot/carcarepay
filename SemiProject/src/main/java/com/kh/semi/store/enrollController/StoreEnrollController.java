@@ -79,6 +79,7 @@ public class StoreEnrollController extends HttpServlet {
 			
 			if(result>0) {
 				HttpSession session = request.getSession();
+				session.setAttribute("alertMsg", "신청이 완료 되었습니다. 관리자가 승인시 매장이 등록됩니다. 마이페이지 메뉴에서 결과 확인해주세요");
 				response.sendRedirect(request.getContextPath());
 			}else {
 				System.out.println("실패");

@@ -80,7 +80,8 @@ public class OrderDao {
 							rset.getInt("order_qty"),
 							rset.getInt("order_price"),
 							rset.getString("email"),
-							rset.getString("phone")
+							rset.getString("phone"),
+							rset.getString("user_name")
 							);
 			}
 			
@@ -94,5 +95,129 @@ public class OrderDao {
 		return o;
 		
 	}
+	
+	
+	public Order orderGiftDetailSelect(Connection conn, int userNo){
+		// select문 => ResultSet(한행) => Order 객체에 담겠다!!!
+		
+		
+		Order o = null;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("orderGiftDetailSelect");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				o = new Order(rset.getInt("user_no"),
+							rset.getInt("order_no"),
+							rset.getInt("total_price"),
+							rset.getString("order_enroll"),
+							rset.getString("gift_yn"),
+							rset.getInt("order_qty"),
+							rset.getInt("order_price"),
+							rset.getString("email"),
+							rset.getString("phone"),
+							rset.getString("user_name")
+							);
+			}
+			
+			System.out.println("g dao : " + o);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return o;
+		
+	}
+	
+	
+	public int kakaopayOrderInsert(Connection conn, Order k) {
+		//우리가 돌리려고 하는 쿼리는 insert문 => 처리된 행수 => 트랜젝션 처리
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("kakaopayOrderInsert");
+		System.out.println("dao까지오나? : " + k);
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, k.getOrderNo());
+			pstmt.setString(2, k.getPgProvider());
+			pstmt.setInt(3, k.getTotalPrice());
+			pstmt.setString(4, k.getImpUid());
+			pstmt.setString(5, k.getMerchantUid());
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int orderMemberCashUpdate(Connection conn, int userNo) {
+		int result = 0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("memberCashUpdate");
+		System.out.println("멤버업데이트 dao까지 오고잇나?");
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			pstmt.setInt(2, userNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
+	public int orderGiftInsert(Connection conn, Order o) {
+		
+		//우리가 돌리려고 하는 쿼리는 insert문 => 처리된 행수 => 트랜젝션 처리
+		int result =0;
+		
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertGiftOrder");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, o.getQty());
+			pstmt.setInt(2, o.getPrice());
+			pstmt.setInt(3, o.getUserNo());
+			pstmt.setInt(4, o.getTotalPrice());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+		
+	
 
 }

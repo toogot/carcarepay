@@ -11,6 +11,7 @@ public class Store {
 	private String businessNo;
 	private String storePrice;
 	private String storeStatus;
+	private String typeName;
 	
 	public Store() {
 		// TODO Auto-generated constructor stub
@@ -31,6 +32,23 @@ public class Store {
 	}
 	
 	
+	
+	
+
+	public Store(int storeNo, String storeName, String storeType, String storeAddress, String storePhone,
+			String storeTime, String businessNo, String storePrice, String storeStatus, String typeName) {
+		super();
+		this.storeNo = storeNo;
+		this.storeName = storeName;
+		this.storeType = storeType;
+		this.storeAddress = storeAddress;
+		this.storePhone = storePhone;
+		this.storeTime = storeTime;
+		this.businessNo = businessNo;
+		this.storePrice = storePrice;
+		this.storeStatus = storeStatus;
+		this.typeName = typeName;
+	}
 
 	public Store(int storeNo, String storeName, String storeAddress, String storePhone) {
 		super();
@@ -39,7 +57,16 @@ public class Store {
 		this.storeAddress = storeAddress;
 		this.storePhone = storePhone;
 	}
-	
+
+	public Store(String storeName,int storeNo,  String storePhone, String typeName, String storeStatus) {
+		super();
+		this.storeName = storeName;
+		this.storeNo = storeNo;
+		this.storePhone = storePhone;
+		this.typeName = typeName;
+		this.storeStatus = storeStatus;
+	}
+
 	// 마장상세화면 만들때 
 	public Store(int storeNo, String storeName, String storeType, String storeAddress, String storePhone,
 			String storeTime, String businessNo, String storePrice) {
@@ -53,6 +80,8 @@ public class Store {
 		this.businessNo = businessNo;
 		this.storePrice = storePrice;
 	}
+	
+	
 
 	public int getStoreNo() {
 		return storeNo;
@@ -126,12 +155,26 @@ public class Store {
 		this.storeStatus = storeStatus;
 	}
 
+	
+	
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
+
 	@Override
 	public String toString() {
 		return "Store [storeNo=" + storeNo + ", storeName=" + storeName + ", storeType=" + storeType + ", storeAddress="
 				+ storeAddress + ", storePhone=" + storePhone + ", storeTime=" + storeTime + ", businessNo="
-				+ businessNo + ", storePrice=" + storePrice + ", storeStatus=" + storeStatus + "]";
+				+ businessNo + ", storePrice=" + storePrice + ", storeStatus=" + storeStatus + ", typeName="
+				+ typeName + "]";
 	}
+
+
+	
 	
 	
 }
