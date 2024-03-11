@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+ <entry key="insert">
+  INSERT INTO FAQ (
+          FAQ_NO
+				 ,FAQ_TITLE
+				 ,FAQ_DETAIL
+				 ,FAQ_CATE
+				 ,FAQ_COUNT)
+  VALUES (NOT_SEQ.NEXTVAL, ?, ?, ?, 0)
+ </entry>
+
+ <entry key="update">
+  UPDATE FAQ
+     SET FAQ_TITLE = ?
+         ,FAQ_DETAIL = ?
+         ,FAQ_CATE = ?
+   WHERE FAQ_NO = ?
+ </entry>
+
+
+ <entry key="delete">
+  DELETE FROM FAQ
+   WHERE FAQ_NO = ?
+ </entry>
+
+ <entry key="selectListCount">
+ 	SELECT COUNT(*) AS "COUNT"
+ 	  FROM FAQ
+ 	 WHERE FAQ_CATE = ?
+ </entry>
+
+ <entry key="selectList">
+ 	SELECT *
+	  FROM (SELECT
+	               ROWNUM as "RNUM", S.*
+	          FROM (SELECT
+					       FAQ_NO
+			           ,FAQ_TITLE
+			           ,FAQ_DETAIL
+			           ,FAQ_CATE
+			           ,FAQ_COUNT
+			          FROM FAQ
+			         WHERE FAQ_CATE = ?
+			         ORDER BY FAQ_NO DESC) S)
+	  WHERE RNUM BETWEEN ? AND ?
+ </entry>
+
+ <entry key="selectOne">
+  SELECT
+         FAQ_NO
+        ,FAQ_TITLE
+        ,FAQ_DETAIL
+        ,FAQ_CATE
+        ,FAQ_COUNT
+    FROM FAQ
+   WHERE FAQ_NO = ?
+ </entry>
+
+ <entry key="updateFaqCount">
+  UPDATE FAQ
+     SET FAQ_COUNT = FAQ_COUNT + 1
+   WHERE FAQ_NO = ?
+ </entry>
+</properties>

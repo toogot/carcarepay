@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+ <entry key="insert">
+  INSERT INTO CUSTOMERSERVICE (
+          CS_NO
+         ,USER_NO
+				 ,CS_TITLE
+				 ,CS_DETAIL
+				 ,CG_NO
+				 ,CS_DATE
+				 ,ATT_NO)
+  VALUES (CUS_SEQ.NEXTVAL, ?, ?, ?, ?, SYSDATE, ?)
+ </entry>
+
+ <entry key="update">
+  UPDATE CUSTOMERSERVICE
+     SET CS_TITLE = ?
+         ,CS_DETAIL = ?
+         ,CG_NO = ?
+         ,ATT_NO = ?
+   WHERE CS_NO = ?
+ </entry>
+
+
+ <entry key="delete">
+  DELETE FROM CUSTOMERSERVICE
+   WHERE CS_NO = ?
+ </entry>
+
+ <entry key="selectListCount">
+ 	SELECT COUNT(*) AS "COUNT"
+ 	  FROM CUSTOMERSERVICE a
+ 	 WHERE USER_NO = ?
+     AND a.CG_NO = ?
+ </entry>
+ <entry key="selectListCountForAdmin">
+  SELECT COUNT(*) AS "COUNT"
+    FROM CUSTOMERSERVICE a
+   WHERE a.CG_NO = ?
+ </entry>
+
+ <entry key="selectList">
+ 	SELECT *
+	  FROM (SELECT
+	               ROWNUM as "RNUM", S.*
+	          FROM (SELECT
+					       a.CS_NO
+			           ,CS_TITLE
+			           ,CS_DETAIL
+			           ,CS_DATE
+			           ,a.CG_NO
+			           ,a.ATT_NO
+			           ,b.COM_COMMENT
+			           ,c.CG_TYPE
+			           ,b.COM_DATE
+			          FROM CUSTOMERSERVICE a
+ 			          LEFT JOIN CS_COMMENT b ON a.CS_NO = b.CS_NO
+ 			          LEFT JOIN CATEGORY c ON a.CG_NO = c.CG_NO
+			         WHERE a.USER_NO = ?
+			           AND a.CG_NO = ?
+			         ORDER BY a.CS_NO DESC) S)
+	  WHERE RNUM BETWEEN ? AND ?
+ </entry>
+
+ <entry key="selectListForAdmin">
+  SELECT *
+    FROM (SELECT
+                 ROWNUM as "RNUM", S.*
+            FROM (SELECT
+                 a.CS_NO
+                 ,CS_TITLE
+                 ,CS_DETAIL
+                 ,CS_DATE
+                 ,a.CG_NO
+                 ,a.ATT_NO
+                 ,b.COM_COMMENT
+                 ,c.CG_TYPE
+                 ,b.COM_DATE
+                FROM CUSTOMERSERVICE a
+                LEFT JOIN CS_COMMENT b ON a.CS_NO = b.CS_NO
+                LEFT JOIN CATEGORY c ON a.CG_NO = c.CG_NO
+               WHERE a.CG_NO = ?
+               ORDER BY a.CS_NO DESC) S)
+    WHERE RNUM BETWEEN ? AND ?
+ </entry>
+
+ <entry key="selectOne">
+  SELECT
+         a.CS_NO
+	        ,CS_TITLE
+	        ,CS_DETAIL
+	        ,CS_DATE
+	        ,a.CG_NO
+          ,a.ATT_NO
+	        ,b.COM_COMMENT
+	        ,c.CG_TYPE
+	        ,b.COM_DATE
+	       FROM CUSTOMERSERVICE a
+	       LEFT JOIN CS_COMMENT b ON a.CS_NO = b.CS_NO
+	       LEFT JOIN CATEGORY c ON a.CG_NO = c.CG_NO
+   WHERE a.CS_NO = ?
+ </entry>
+</properties>

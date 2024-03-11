@@ -1,10 +1,7 @@
-package com.kh.semi.customerService.notice.controller;
+package com.kh.semi.customerService.FAQ.controller;
 
 import java.io.IOException;
-<<<<<<< HEAD
-=======
 import java.util.ArrayList;
->>>>>>> sh
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,35 +11,31 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-<<<<<<< HEAD
-import com.kh.semi.customerService.notice.model.service.NoticeService;
-import com.kh.semi.customerService.notice.model.vo.Notice;
-=======
 import com.kh.semi.common.model.vo.PageInfo;
-import com.kh.semi.customerService.notice.model.service.NoticeService;
-import com.kh.semi.customerService.notice.model.vo.Notice;
+import com.kh.semi.customerService.FAQ.model.service.FaqService;
+import com.kh.semi.customerService.FAQ.model.vo.Faq;
 import com.kh.semi.event.model.service.EventService;
 import com.kh.semi.event.model.vo.Event;
->>>>>>> sh
 import com.kh.semi.member.model.vo.Member;
 
 /**
  * Servlet implementation class StoreEnrollFormController
  */
 @WebServlet(value = { //
-    "/notice.if", //
-    "/noticeaddform.if", //
-    "/noticeadd.if", //
-    "/noticeview.if", //
-    "/noticedel.if", //
+    "/faq.if", //
+    "/faqaddform.if", //
+    "/faqadd.if", //
+    "/faqview.if", //
+    "/faqdel.if", //
+    "/faqcount.if", //
 })
-public class noticeformcontroller extends HttpServlet {
+public class FaqController extends HttpServlet {
   private static final long serialVersionUID = 1L;
 
   /**
    * @see HttpServlet#HttpServlet()
    */
-  public noticeformcontroller() {
+  public FaqController() {
     super();
     // TODO Auto-generated constructor stub
   }
@@ -54,20 +47,23 @@ public class noticeformcontroller extends HttpServlet {
   protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String servletPath = request.getServletPath();
     switch (servletPath) {
-    case "/notice.if":
+    case "/faq.if":
       list(request, response);
       break;
-    case "/noticeaddform.if":
+    case "/faqaddform.if":
       addform(request, response);
       break;
-    case "/noticeadd.if":
+    case "/faqadd.if":
       add(request, response);
       break;
-    case "/noticeview.if":
+    case "/faqview.if":
       view(request, response);
       break;
-    case "/noticedel.if":
+    case "/faqdel.if":
       del(request, response);
+      break;
+    case "/faqcount.if":
+      count(request, response);
       break;
     }
   }
@@ -79,22 +75,21 @@ public class noticeformcontroller extends HttpServlet {
       response.sendRedirect(request.getContextPath());
       return;
     }
-    int userNo = sessionMember.getUserNo();
 
     String strId = request.getParameter("id");
-    Notice notice = new Notice();
-    notice.setNotiTitle(request.getParameter("notiTitle"));
-    notice.setNotiContent(request.getParameter("notiContent"));
-    notice.setUserNo(userNo);
+    Faq faq = new Faq();
+    faq.setFaqTitle(request.getParameter("faqTitle"));
+    faq.setFaqDetail(request.getParameter("faqDetail"));
+    faq.setFaqCate(request.getParameter("faqCate"));
 
     if (strId == null || strId.isEmpty()) {
-      if (new NoticeService().insert(notice) == 1) {
+      if (new FaqService().insert(faq) == 1) {
         response.getWriter().print("ok");
       }
     } else {
-      int notiCode = Integer.valueOf(strId);
-      notice.setNotiCode(notiCode);
-      if (new NoticeService().update(notice) == 1) {
+      int faqNo = Integer.valueOf(strId);
+      faq.setFaqNo(faqNo);
+      if (new FaqService().update(faq) == 1) {
         response.getWriter().print("ok");
       }
     }
@@ -107,8 +102,8 @@ public class noticeformcontroller extends HttpServlet {
       response.sendRedirect(request.getContextPath());
       return;
     }
-    int notiCode = Integer.valueOf(request.getParameter("id"));
-    if (new NoticeService().delete(notiCode) == 1) {
+    int faqNo = Integer.valueOf(request.getParameter("id"));
+    if (new FaqService().delete(faqNo) == 1) {
       response.getWriter().print("ok");
     }
   }
@@ -122,45 +117,55 @@ public class noticeformcontroller extends HttpServlet {
     }
     String strId = request.getParameter("id");
     if (strId != null) {
-      int notiCode = Integer.valueOf(strId);
-      NoticeService noticeService = new NoticeService();
-      Notice notice = noticeService.selectOne(notiCode);
-      request.setAttribute("notice", notice);
+      int faqNo = Integer.valueOf(strId);
+      FaqService faqService = new FaqService();
+      Faq faq = faqService.selectOne(faqNo);
+      request.setAttribute("faq", faq);
     }
-    request.getRequestDispatcher("views/customerService/notice/noticeAdd.jsp").forward(request, response);
+    request.getRequestDispatcher("views/customerService/FAQ/faqAdd.jsp").forward(request, response);
   }
 
   private void list(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
     String strPage = request.getParameter("page");
+    String cate = request.getParameter("cate");
     int page = 1;
     if (strPage != null) {
       page = Integer.valueOf(strPage);
     }
-    NoticeService noticeService = new NoticeService();
-    List<Notice> noticeList = noticeService.selectList(page);
-    int totalCount = noticeService.selectListCount();
-<<<<<<< HEAD
-=======
+    if(cate == null) {
+      cate = "기타";
+    }
+    FaqService faqService = new FaqService();
+    List<Faq> faqList = faqService.selectList(page, cate);
+    int totalCount = faqService.selectListCount(cate);
 
     PageInfo pageInfo = new PageInfo();
     pageInfo.setCurrentPage(1);
     pageInfo.setBoardLimit(9);
     ArrayList<Event> eventList = new EventService().selectEventList(pageInfo, "1");
     request.setAttribute("eventList", eventList);
->>>>>>> sh
-    request.setAttribute("noticeList", noticeList);
+
+    request.setAttribute("faqList", faqList);
     request.setAttribute("totalCount", totalCount);
     request.setAttribute("pageNo", page);
-    request.getRequestDispatcher("views/customerService/notice/noticeform.jsp").forward(request, response);
+    request.setAttribute("cate", cate);
+    request.getRequestDispatcher("views/customerService/FAQ/faqform.jsp").forward(request, response);
   }
 
   private void view(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    int notiCode = Integer.valueOf(request.getParameter("id"));
-    NoticeService noticeService = new NoticeService();
-    noticeService.updateNotiCount(notiCode);
-    Notice notice = noticeService.selectOne(notiCode);
-    request.setAttribute("notice", notice);
-    request.getRequestDispatcher("views/customerService/notice/noticeView.jsp").forward(request, response);
+    int faqNo = Integer.valueOf(request.getParameter("id"));
+    FaqService faqService = new FaqService();
+    faqService.updateFaqCount(faqNo);
+    Faq faq = faqService.selectOne(faqNo);
+    request.setAttribute("faq", faq);
+    request.getRequestDispatcher("views/customerService/FAQ/faqView.jsp").forward(request, response);
+  }
+
+
+  private void count(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    int faqNo = Integer.valueOf(request.getParameter("id"));
+    FaqService faqService = new FaqService();
+    faqService.updateFaqCount(faqNo);
   }
 
   /**

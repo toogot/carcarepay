@@ -1,56 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-	 <entry key="selectListCount">
- 	SELECT 
+ <entry key="insert">
+  INSERT INTO EVENT (
+          EV_NO
+				 ,EV_TITLE
+				 ,EV_DETAIL
+				 ,EV_DATE
+				 ,EV_FIN)
+  VALUES (?, ?, ?, SYSDATE, ?)
+ </entry>
+ <entry key="update">
+  UPDATE EVENT
+     SET EV_TITLE = ?
+         ,EV_DETAIL = ?
+         ,EV_FIN = ?
+   WHERE EV_NO = ?
+ </entry>
+ <entry key="selectListCount">
+ 	SELECT
  		   COUNT(*) AS "COUNT"
  	  FROM EVENT
- 	  where TO_CHAR(EV_FIN, 'YYYYMMDD') >= TO_CHAR(SYSDATE, 'YYYYMMDD')	  
+ 	  where TO_CHAR(EV_FIN, 'YYYYMMDD') >= TO_CHAR(SYSDATE, 'YYYYMMDD')
  </entry>
- 
+
  <entry key="selectEventList">
  	SELECT *
-	  FROM (SELECT 
+	  FROM (SELECT
 	               ROWNUM as "RNUM", S.*
 	          FROM (SELECT
 					       *
 			          FROM EVENT
 			         where TO_CHAR(EV_FIN, 'YYYYMMDD') >= TO_CHAR(SYSDATE, 'YYYYMMDD')
-			         ORDER 
-			            BY EV_DATE desc) S)
+			         ORDER
+			            BY [ORDER TYPE]) S)
 	  WHERE RNUM BETWEEN ? AND ?
  </entry>
- 
- 
+
+
 <entry key="selectFinListCount">
 <![CDATA[
- 	SELECT 
+ 	SELECT
  		   COUNT(*) AS "COUNT"
  	  FROM EVENT
  	  where TO_CHAR(EV_FIN, 'YYYYMMDD') < TO_CHAR(SYSDATE, 'YYYYMMDD')
- 	  ]]>	  
+ 	  ]]>
  </entry>
- 
+
  <entry key="selectFinEventList">
  <![CDATA[
  	SELECT *
-	  FROM (SELECT 
+	  FROM (SELECT
 	               ROWNUM as "RNUM", S.*
 	          FROM (SELECT
 					       *
 			          FROM EVENT
 			         where TO_CHAR(EV_FIN, 'YYYYMMDD') < TO_CHAR(SYSDATE, 'YYYYMMDD')
-			         ORDER 
-			            BY EV_DATE desc) S)
+			         ORDER
+			            BY [ORDER TYPE]) S)
 	  WHERE RNUM BETWEEN ? AND ?
 	  ]]>
  </entry>
- 
+
  <entry key="selectEventDeail">
- 	  SELECT 
+ 	  SELECT
  		   *
  	  FROM EVENT
  	  where EV_NO = ?
  </entry>
- 
+ <entry key="delete">
+    DELETE FROM EVENT
+     WHERE EV_NO = ?
+ </entry>
+ <entry key="updateCount">
+    UPDATE EVENT
+       SET EV_COUNT = EV_COUNT + 1
+     WHERE EV_NO = ?
+ </entry>
 </properties>

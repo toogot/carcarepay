@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+ <entry key="insert">
+  INSERT INTO CS_COMMENT (
+         COM_NO
+				,CS_NO
+				,COM_DATE
+				,COM_COMMENT
+				,USER_NO)
+  VALUES (SEQ_COM_NO.NEXTVAL, ?, SYSDATE, ?, ?)
+ </entry>
+
+ <entry key="update">
+  UPDATE CS_COMMENT
+     SET COM_COMMENT = ?
+   WHERE COM_NO = ?
+ </entry>
+
+
+ <entry key="delete">
+  DELETE FROM CS_COMMENT
+   WHERE COM_NO = ?
+ </entry>
+
+ <entry key="selectComNo">
+  SELECT COM_NO
+    FROM CS_COMMENT a
+   WHERE CS_NO = ?
+ </entry>
+</properties>

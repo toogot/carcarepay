@@ -1,20 +1,18 @@
-<%@page import="com.kh.semi.customerService.notice.model.vo.Notice"%>
+<%@page import="com.kh.semi.customerService.commnet.model.vo.Cs"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-  Notice notice = (Notice)request.getAttribute("notice");
-<<<<<<< HEAD
-=======
+  Cs cs = (Cs)request.getAttribute("cs");
   Member sessionMember = (Member) session.getAttribute("loginUser");
->>>>>>> sh
+  String attTitle = (String) request.getAttribute("attTitle");
 %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
         <meta charset="UTF-8">
-        <title>공지사항</title>
+        <title>1:1 문의</title>
         <style>
 
             body {
@@ -34,10 +32,6 @@
 
             .sidebar {
             width: 200px;
-<<<<<<< HEAD
-            height: 100vh; /* Full height */
-=======
->>>>>>> sh
             padding-top: 20px;
             }
 
@@ -92,56 +86,53 @@
         </style>
     </head>
     <body>
-        <%@ include file="/views/common/head.jsp" %>
+    <%@ include file="/views/common/head.jsp" %>
     <div class="wrap">
-<<<<<<< HEAD
-        <%@ include file="/views/customerService/notice/sidebar.jsp" %>
-=======
         <%@ include file="/views/customerService/sidebar.jsp" %>
->>>>>>> sh
 
         <div class="main-content">
             <!-- Image tag added here -->
-            <!-- <img src= alt="공지사항 이미지" style="width: 800px; height: 400px; display: block;margin: auto; margin-bottom: 20px;"> -->
+            <!-- <img src= alt="1:1 문의 이미지" style="width: 800px; height: 400px; display: block;margin: auto; margin-bottom: 20px;"> -->
 
 
         <div class="main-content">
-            <h1>공지사항</h1>
+            <h1>1:1 문의</h1>
             <div style="display:flex;justify-content: space-between;">
             </div>
             <table>
                 <tr>
+                    <th>카테고리</th>
+                    <td><%= cs.getCgType() %></td>
+                </tr>
+                <tr>
                     <th style="width:200px;">제목</th>
-                    <td><%= notice.getNotiTitle() %></td>
-                </tr>
-                <tr>
-                    <th>작성일자</th>
-                    <td><%= notice.getNotiDateFormat() %></td>
-                </tr>
-                <tr>
-                    <th>조회수</th>
-                    <td><%= notice.getNotiCount() %></td>
+                    <td><%= cs.getCsTitle() %></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-<<<<<<< HEAD
-                    <td><%= notice.getNotiContent().replaceAll("\r", "<br>").replaceAll("\n", "<br>").replaceAll("\r\n", "<br>") %></td>
-=======
-                    <td><%= notice.getNotiContent().replaceAll("\r\n", "<br>").replaceAll("\r", "<br>").replaceAll("\n", "<br>") %></td>
->>>>>>> sh
+                    <td><%= cs.getCsDetail().replaceAll("\r\n", "<br>").replaceAll("\r", "<br>").replaceAll("\n", "<br>") %></td>
+                </tr>
+                <tr>
+                    <th>첨부파일</th>
+                    <td><%= cs.getAttNo() != null ? ("<a href='csdn.if?id="+ cs.getAttNo() +"'>"+ attTitle +"</a>"):"" %></td>
+                </tr>
+                <tr>
+                    <th>답변</th>
+                    <% if(sessionMember != null && "운영자".equals(sessionMember.getUserLevel())) { %>
+                    <td><textarea id="comComment" style="width:100%;"><%= cs.getComComment()==null?"":cs.getComComment() %></textarea><br><a href="javascript:goReply(<%= cs.getCsNo() %>);" class="btn btn-warning">답변</a></td>
+                    <% } else { %>
+                    <td><%= cs.getComComment()==null?"":cs.getComComment() %></td>
+                    <% } %>
                 </tr>
                 <!-- More rows as needed -->
             </table>
 
-<<<<<<< HEAD
-            <% if(session.getAttribute("loginUser") != null) { %>
-=======
-            <% if(sessionMember != null && "운영자".equals(sessionMember.getUserLevel())) { %>
->>>>>>> sh
-            <a href="javascript:goDel(<%= notice.getNotiCode() %>);" class="btn btn-danger">삭제</a>
-            <a href="noticeaddform.if?id=<%= notice.getNotiCode() %>" class="btn btn-info">수정</a>
+            <% if(sessionMember != null) { %>
+            <a href="javascript:goDel(<%= cs.getCsNo() %>);" class="btn btn-danger">삭제</a>
+            <a href="csaddform.if?id=<%= cs.getCsNo() %>" class="btn btn-info">수정</a>
             <% } %>
-            <a href="notice.if" class="btn btn-primary">목록</a>
+
+            <a href="cs.if" class="btn btn-primary">목록</a>
         </div>
        </div>
       </div>
@@ -156,7 +147,7 @@
     		  return;
     	  }
     	  $.ajax({
-    		  url : 'noticedel.if',
+    		  url : 'csdel.if',
     		  type : 'post',
     		  data : {
     			  id : id
@@ -164,13 +155,31 @@
     		  success : function(result){
     			  if(result == 'ok') {
     				  alert("삭제 되었습니다.");
-    				  location.href = 'notice.if';
+    				  location.href = 'cs.if';
     			  } else {
     				  alert("삭제에 실패 하였습니다.");
     			  }
     		  }
     	  });
       }
+      function goReply(csNo) {
+          $.ajax({
+            url : 'csreply.if',
+            type : 'post',
+            data : {
+            	csNo : csNo,
+            	comComment : $("#comComment").val()
+            },
+            success : function(result){
+              if(result == 'ok') {
+                alert("답변이 등록 되었습니다.");
+                location.href = 'cs.if';
+              } else {
+                alert("답변 등록에 실패 하였습니다.");
+              }
+            }
+          });
+        }
     </script>
 </body>
 </html>
