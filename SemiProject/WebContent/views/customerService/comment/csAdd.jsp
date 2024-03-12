@@ -1,15 +1,18 @@
-<%@page import="com.kh.semi.customerService.notice.model.vo.Notice"%>
+<%@page import="com.kh.semi.customerService.commnet.model.vo.Cs"%>
+<%@page import="com.kh.semi.customerService.commnet.model.vo.Category"%>
+<%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%
-  Notice notice = (Notice)request.getAttribute("notice");
+  Cs cs = (Cs)request.getAttribute("cs");
+  List<Category> categoryList = (List<Category>)request.getAttribute("categoryList");
 %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
         <meta charset="UTF-8">
-        <title>공지사항</title>
+        <title>1:1 문의</title>
         <style>
 
             body {
@@ -29,10 +32,6 @@
 
             .sidebar {
             width: 200px;
-<<<<<<< HEAD
-            height: 100vh; /* Full height */
-=======
->>>>>>> sh
             padding-top: 20px;
             }
 
@@ -90,63 +89,83 @@
     <body>
         <%@ include file="/views/common/head.jsp" %>
         <div class="wrap">
-<<<<<<< HEAD
-	        <%@ include file="/views/customerService/notice/sidebar.jsp" %>
-=======
 	        <%@ include file="/views/customerService/sidebar.jsp" %>
->>>>>>> sh
 
 	        <div class="main-content">
 
-            <h1>공지사항 등록</h1>
+            <h1>1:1 문의 등록</h1>
             <br/>
+            <div class="form-group">
+              <label for="cgNo">카테고리</label>
+		          <select id="cgNo" class="form-control" >
+
+		            <% for(Category category : categoryList) { %>
+		            <option value="<%= category.getCgNo() %>" <%= category.getCgNo().equals(cs==null?"":cs.getCgNo())?"selected":"" %>><%= category.getCgType() %></option>
+		            <% } %>
+		          </select>
+            </div>
 					  <div class="form-group">
-					    <label for="notiTitle">제목</label>
-					    <input type="text" class="form-control" id="notiTitle" value="<%= (notice==null?"":notice.getNotiTitle()) %>">
+					    <label for="csTitle">제목</label>
+					    <input type="text" class="form-control" id="csTitle" value="<%= (cs==null?"":cs.getCsTitle()) %>">
 					  </div>
 					  <div class="form-group">
-					    <label for="notiContent">내용</label>
-					    <textarea class="form-control" id="notiContent" rows="3"><%= notice==null?"":notice.getNotiContent() %></textarea>
+					    <label for="csDetail">내용</label>
+					    <textarea class="form-control" id="csDetail" rows="3"><%= cs==null?"":cs.getCsDetail() %></textarea>
 					  </div>
-					  <button class="btn btn-primary" onclick="save(<%= notice==null?"":notice.getNotiCode() %>);">저장</button>
+            <div class="form-group">
+              <label for="csDetail">첨부파일</label>
+              <input type="file" class="form-control-file" id="file"">
+            </div>
+					  <button class="btn btn-primary" onclick="save(<%= cs==null?"":cs.getCsNo() %>);">저장</button>
 					  <button class="btn btn-secondary" onclick="history.go(-1);">취소</button>
 	        </div>
 	      </div>
 
-<<<<<<< HEAD
-=======
        <%@ include file="/views/common/footer.jsp" %>
->>>>>>> sh
     </body>
     </html>
     <script>
       function save(id) {
-    	  const notiTitle = $("#notiTitle").val();
-    	  const notiContent = $("#notiContent").val();
-    	  if(notiTitle == '') {
+    	  const csTitle = $("#csTitle").val();
+    	  const csDetail = $("#csDetail").val();
+    	  if(csTitle == '') {
     		  alert("제목을 입력해 주세요.");
-    		  $("#notiTitle").focus();
+    		  $("#csTitle").focus();
     		  return;
     	  }
-        if(notiContent == '') {
+        if(csDetail == '') {
           alert("내용을 입력해 주세요.");
-          $("#notiContent").focus();
+          $("#csDetail").focus();
           return;
         }
+
+
+        var formData = new FormData();
+        formData.append('file', $('#file')[0].files[0]);
+        if(id) {
+	        formData.append('id', id);
+        }
+        var attNo = <%= cs==null?null:cs.getAttNo() %>;
+        formData.append('csTitle', csTitle);
+        formData.append('csDetail', csDetail);
+        formData.append('cgNo', $("#cgNo").val());
+        if(attNo){
+	        formData.append('attNo', attNo);
+        }
+
+
         $.ajax({
-        	url : 'noticeadd.if',
+        	url : 'csadd.if',
         	type : 'post',
-        	data : {
-        		id : id,
-        		notiTitle : notiTitle,
-        		notiContent : notiContent
-        	},
+          processData: false, // 필수 옵션: FormData를 사용할 때 false로 설정
+          contentType: false, // 필수 옵션: FormData를 사용할 때 false로 설정
+        	data : formData,
         	success : function() {
-        	  alert("공지사항이 저장 되었습니다.");
-        	  location.href = "notice.if";
+        	  alert("1:1 문의가 저장 되었습니다.");
+        	  location.href = "cs.if";
         	},
         	error : function() {
-        		alert("공지사항 저장에 실패하였습니다.");
+        		alert("1:1 문의 저장에 실패하였습니다.");
         	}
         })
       }

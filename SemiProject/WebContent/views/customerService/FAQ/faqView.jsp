@@ -1,20 +1,17 @@
-<%@page import="com.kh.semi.customerService.notice.model.vo.Notice"%>
+<%@page import="com.kh.semi.customerService.FAQ.model.vo.Faq"%>
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
-  Notice notice = (Notice)request.getAttribute("notice");
-<<<<<<< HEAD
-=======
+  Faq faq = (Faq)request.getAttribute("faq");
   Member sessionMember = (Member) session.getAttribute("loginUser");
->>>>>>> sh
 %>
 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
         <meta charset="UTF-8">
-        <title>공지사항</title>
+        <title>자주묻는질문</title>
         <style>
 
             body {
@@ -34,10 +31,6 @@
 
             .sidebar {
             width: 200px;
-<<<<<<< HEAD
-            height: 100vh; /* Full height */
-=======
->>>>>>> sh
             padding-top: 20px;
             }
 
@@ -92,56 +85,44 @@
         </style>
     </head>
     <body>
-        <%@ include file="/views/common/head.jsp" %>
+    <%@ include file="/views/common/head.jsp" %>
     <div class="wrap">
-<<<<<<< HEAD
-        <%@ include file="/views/customerService/notice/sidebar.jsp" %>
-=======
         <%@ include file="/views/customerService/sidebar.jsp" %>
->>>>>>> sh
 
         <div class="main-content">
             <!-- Image tag added here -->
-            <!-- <img src= alt="공지사항 이미지" style="width: 800px; height: 400px; display: block;margin: auto; margin-bottom: 20px;"> -->
+            <!-- <img src= alt="자주묻는질문 이미지" style="width: 800px; height: 400px; display: block;margin: auto; margin-bottom: 20px;"> -->
 
 
         <div class="main-content">
-            <h1>공지사항</h1>
+            <h1>자주묻는질문</h1>
             <div style="display:flex;justify-content: space-between;">
             </div>
             <table>
                 <tr>
-                    <th style="width:200px;">제목</th>
-                    <td><%= notice.getNotiTitle() %></td>
+                    <th>카테고리</th>
+                    <td><%= faq.getFaqCate() %></td>
                 </tr>
                 <tr>
-                    <th>작성일자</th>
-                    <td><%= notice.getNotiDateFormat() %></td>
+                    <th style="width:200px;">제목</th>
+                    <td><%= faq.getFaqTitle() %></td>
                 </tr>
                 <tr>
                     <th>조회수</th>
-                    <td><%= notice.getNotiCount() %></td>
+                    <td><%= faq.getFaqCount() %></td>
                 </tr>
                 <tr>
                     <th>내용</th>
-<<<<<<< HEAD
-                    <td><%= notice.getNotiContent().replaceAll("\r", "<br>").replaceAll("\n", "<br>").replaceAll("\r\n", "<br>") %></td>
-=======
-                    <td><%= notice.getNotiContent().replaceAll("\r\n", "<br>").replaceAll("\r", "<br>").replaceAll("\n", "<br>") %></td>
->>>>>>> sh
+                    <td><%= faq.getFaqDetail().replaceAll("\r\n", "<br>").replaceAll("\r", "<br>").replaceAll("\n", "<br>") %></td>
                 </tr>
                 <!-- More rows as needed -->
             </table>
 
-<<<<<<< HEAD
-            <% if(session.getAttribute("loginUser") != null) { %>
-=======
             <% if(sessionMember != null && "운영자".equals(sessionMember.getUserLevel())) { %>
->>>>>>> sh
-            <a href="javascript:goDel(<%= notice.getNotiCode() %>);" class="btn btn-danger">삭제</a>
-            <a href="noticeaddform.if?id=<%= notice.getNotiCode() %>" class="btn btn-info">수정</a>
+            <a href="javascript:goDel(<%= faq.getFaqNo() %>);" class="btn btn-danger">삭제</a>
+            <a href="faqaddform.if?id=<%= faq.getFaqNo() %>" class="btn btn-info">수정</a>
             <% } %>
-            <a href="notice.if" class="btn btn-primary">목록</a>
+            <a href="faq.if" class="btn btn-primary">목록</a>
         </div>
        </div>
       </div>
@@ -156,7 +137,7 @@
     		  return;
     	  }
     	  $.ajax({
-    		  url : 'noticedel.if',
+    		  url : 'faqdel.if',
     		  type : 'post',
     		  data : {
     			  id : id
@@ -164,7 +145,7 @@
     		  success : function(result){
     			  if(result == 'ok') {
     				  alert("삭제 되었습니다.");
-    				  location.href = 'notice.if';
+    				  location.href = 'faq.if';
     			  } else {
     				  alert("삭제에 실패 하였습니다.");
     			  }

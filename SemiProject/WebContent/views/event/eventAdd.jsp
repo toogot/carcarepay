@@ -1,15 +1,17 @@
-<%@page import="com.kh.semi.customerService.notice.model.vo.Notice"%>
+<%@page import="com.kh.semi.event.model.vo.Event"%>
+<%@page import="com.kh.semi.event.model.vo.EventImage"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%
-  Notice notice = (Notice)request.getAttribute("notice");
+  Event event = (Event)request.getAttribute("event");
+  EventImage eventImage = (EventImage)request.getAttribute("eventImage");
 %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
         <meta charset="UTF-8">
-        <title>공지사항</title>
+        <title>카케어 이벤트</title>
         <style>
 
             body {
@@ -29,10 +31,7 @@
 
             .sidebar {
             width: 200px;
-<<<<<<< HEAD
             height: 100vh; /* Full height */
-=======
->>>>>>> sh
             padding-top: 20px;
             }
 
@@ -90,63 +89,76 @@
     <body>
         <%@ include file="/views/common/head.jsp" %>
         <div class="wrap">
-<<<<<<< HEAD
-	        <%@ include file="/views/customerService/notice/sidebar.jsp" %>
-=======
-	        <%@ include file="/views/customerService/sidebar.jsp" %>
->>>>>>> sh
 
 	        <div class="main-content">
 
-            <h1>공지사항 등록</h1>
+            <h1>카케어 이벤트 등록</h1>
             <br/>
 					  <div class="form-group">
-					    <label for="notiTitle">제목</label>
-					    <input type="text" class="form-control" id="notiTitle" value="<%= (notice==null?"":notice.getNotiTitle()) %>">
+					    <label for="evTitle">제목</label>
+					    <input type="text" class="form-control" id="evTitle" value="<%= (event==null?"":event.getEvTitle()) %>">
 					  </div>
 					  <div class="form-group">
-					    <label for="notiContent">내용</label>
-					    <textarea class="form-control" id="notiContent" rows="3"><%= notice==null?"":notice.getNotiContent() %></textarea>
+					    <label for="evDetail">내용</label>
+					    <textarea class="form-control" id="evDetail" rows="3"><%= event==null?"":event.getEvDetail() %></textarea>
 					  </div>
-					  <button class="btn btn-primary" onclick="save(<%= notice==null?"":notice.getNotiCode() %>);">저장</button>
+            <div class="form-group">
+              <label for="evDetail">이벤트 종료일</label>
+              <input type="date" class="form-control" id="evFin" value="<%= event==null?"":event.getEvFinFormat() %>">
+            </div>
+            <div class="form-group">
+              <label for="csDetail">첨부파일</label>
+              <input type="file" class="form-control-file" id="file"">
+            </div>
+					  <button class="btn btn-primary" onclick="save(<%= event==null?"":event.getEvNo() %>);">저장</button>
 					  <button class="btn btn-secondary" onclick="history.go(-1);">취소</button>
 	        </div>
 	      </div>
 
-<<<<<<< HEAD
-=======
-       <%@ include file="/views/common/footer.jsp" %>
->>>>>>> sh
     </body>
     </html>
     <script>
       function save(id) {
-    	  const notiTitle = $("#notiTitle").val();
-    	  const notiContent = $("#notiContent").val();
-    	  if(notiTitle == '') {
+    	  const evTitle = $("#evTitle").val();
+    	  const evDetail = $("#evDetail").val();
+    	  const evFin = $("#evFin").val();
+    	  if(evTitle == '') {
     		  alert("제목을 입력해 주세요.");
-    		  $("#notiTitle").focus();
+    		  $("#evTitle").focus();
     		  return;
     	  }
-        if(notiContent == '') {
+        if(evDetail == '') {
           alert("내용을 입력해 주세요.");
-          $("#notiContent").focus();
+          $("#evDetail").focus();
           return;
         }
+        if(evFin == '') {
+           alert("이벤트 종료일을 입력해 주세요.");
+           $("#evFin").focus();
+           return;
+         }
+
+        var formData = new FormData();
+        formData.append('file', $('#file')[0].files[0]);
+        if(id) {
+          formData.append('id', id);
+        }
+        formData.append('evTitle', evTitle);
+        formData.append('evDetail', evDetail);
+        formData.append('evFin', evFin);
+
         $.ajax({
-        	url : 'noticeadd.if',
+        	url : 'eventadd.if',
         	type : 'post',
-        	data : {
-        		id : id,
-        		notiTitle : notiTitle,
-        		notiContent : notiContent
-        	},
+          processData: false, // 필수 옵션: FormData를 사용할 때 false로 설정
+          contentType: false, // 필수 옵션: FormData를 사용할 때 false로 설정
+        	data : formData,
         	success : function() {
-        	  alert("공지사항이 저장 되었습니다.");
-        	  location.href = "notice.if";
+        	  alert("카케어 이벤트가 저장 되었습니다.");
+        	  location.href = "event";
         	},
         	error : function() {
-        		alert("공지사항 저장에 실패하였습니다.");
+        		alert("카케어 이벤트 저장에 실패하였습니다.");
         	}
         })
       }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+ <entry key="insert">
+  INSERT INTO ATTACHMENT (
+          ATT_NO
+				 ,ATT_ROUTE
+				 ,ATT_TITLE)
+  VALUES (?, ?, ?)
+ </entry>
+
+ <entry key="update">
+  UPDATE ATTACHMENT
+     SET ATT_ROUTE = ?
+         ,ATT_TITLE = ?
+   WHERE ATT_NO = ?
+ </entry>
+
+
+ <entry key="delete">
+  DELETE FROM ATTACHMENT
+   WHERE ATT_NO = ?
+ </entry>
+
+ <entry key="selectListCount">
+ 	SELECT COUNT(*) AS "COUNT"
+ 	  FROM ATTACHMENT
+ </entry>
+
+ <entry key="selectList">
+ 	SELECT *
+	  FROM (SELECT
+	               ROWNUM as "RNUM", S.*
+	          FROM (SELECT
+					       ATT_NO
+			           ,ATT_ROUTE
+			           ,ATT_TITLE
+			          FROM ATTACHMENT
+			         ORDER BY ATT_NO DESC) S)
+	  WHERE RNUM BETWEEN ? AND ?
+ </entry>
+
+ <entry key="selectOne">
+  SELECT
+         ATT_NO
+        ,ATT_ROUTE
+        ,ATT_TITLE
+    FROM ATTACHMENT
+   WHERE ATT_NO = ?
+ </entry>
+
+</properties>

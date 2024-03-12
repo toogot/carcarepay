@@ -1,15 +1,15 @@
-<%@page import="com.kh.semi.customerService.notice.model.vo.Notice"%>
+<%@page import="com.kh.semi.customerService.FAQ.model.vo.Faq"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
 <%
-  Notice notice = (Notice)request.getAttribute("notice");
+  Faq faq = (Faq)request.getAttribute("faq");
 %>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
         <meta charset="UTF-8">
-        <title>공지사항</title>
+        <title>자주묻는질문</title>
         <style>
 
             body {
@@ -29,10 +29,6 @@
 
             .sidebar {
             width: 200px;
-<<<<<<< HEAD
-            height: 100vh; /* Full height */
-=======
->>>>>>> sh
             padding-top: 20px;
             }
 
@@ -90,63 +86,65 @@
     <body>
         <%@ include file="/views/common/head.jsp" %>
         <div class="wrap">
-<<<<<<< HEAD
-	        <%@ include file="/views/customerService/notice/sidebar.jsp" %>
-=======
 	        <%@ include file="/views/customerService/sidebar.jsp" %>
->>>>>>> sh
 
 	        <div class="main-content">
 
-            <h1>공지사항 등록</h1>
+            <h1>자주묻는질문 등록</h1>
             <br/>
+            <div class="form-group">
+              <label for="faqCate">카테고리</label>
+		          <select id="faqCate" class="form-control" >
+		            <option value="기타" <%= "기타".equals(faq==null?"":faq.getFaqCate())?"selected":"" %>>[기타]</option>
+		            <option value="교환/환불" <%= "교환/환불".equals(faq==null?"":faq.getFaqCate())?"selected":"" %>>[교환/환불]</option>
+		            <option value="상품/매장" <%= "상품/매장".equals(faq==null?"":faq.getFaqCate())?"selected":"" %>>[상품/매장]</option>
+		          </select>
+            </div>
 					  <div class="form-group">
-					    <label for="notiTitle">제목</label>
-					    <input type="text" class="form-control" id="notiTitle" value="<%= (notice==null?"":notice.getNotiTitle()) %>">
+					    <label for="faqTitle">제목</label>
+					    <input type="text" class="form-control" id="faqTitle" value="<%= (faq==null?"":faq.getFaqTitle()) %>">
 					  </div>
 					  <div class="form-group">
-					    <label for="notiContent">내용</label>
-					    <textarea class="form-control" id="notiContent" rows="3"><%= notice==null?"":notice.getNotiContent() %></textarea>
+					    <label for="faqDetail">내용</label>
+					    <textarea class="form-control" id="faqDetail" rows="3"><%= faq==null?"":faq.getFaqDetail() %></textarea>
 					  </div>
-					  <button class="btn btn-primary" onclick="save(<%= notice==null?"":notice.getNotiCode() %>);">저장</button>
+					  <button class="btn btn-primary" onclick="save(<%= faq==null?"":faq.getFaqNo() %>);">저장</button>
 					  <button class="btn btn-secondary" onclick="history.go(-1);">취소</button>
 	        </div>
 	      </div>
 
-<<<<<<< HEAD
-=======
        <%@ include file="/views/common/footer.jsp" %>
->>>>>>> sh
     </body>
     </html>
     <script>
       function save(id) {
-    	  const notiTitle = $("#notiTitle").val();
-    	  const notiContent = $("#notiContent").val();
-    	  if(notiTitle == '') {
+    	  const faqTitle = $("#faqTitle").val();
+    	  const faqDetail = $("#faqDetail").val();
+    	  if(faqTitle == '') {
     		  alert("제목을 입력해 주세요.");
-    		  $("#notiTitle").focus();
+    		  $("#faqTitle").focus();
     		  return;
     	  }
-        if(notiContent == '') {
+        if(faqDetail == '') {
           alert("내용을 입력해 주세요.");
-          $("#notiContent").focus();
+          $("#faqDetail").focus();
           return;
         }
         $.ajax({
-        	url : 'noticeadd.if',
+        	url : 'faqadd.if',
         	type : 'post',
         	data : {
         		id : id,
-        		notiTitle : notiTitle,
-        		notiContent : notiContent
+        		faqTitle : faqTitle,
+        		faqDetail : faqDetail,
+        		faqCate : $("#faqCate").val()
         	},
         	success : function() {
-        	  alert("공지사항이 저장 되었습니다.");
-        	  location.href = "notice.if";
+        	  alert("자주묻는질문이 저장 되었습니다.");
+        	  location.href = "faq.if";
         	},
         	error : function() {
-        		alert("공지사항 저장에 실패하였습니다.");
+        		alert("자주묻는질문 저장에 실패하였습니다.");
         	}
         })
       }
