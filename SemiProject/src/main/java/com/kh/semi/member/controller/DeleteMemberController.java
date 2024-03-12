@@ -44,10 +44,6 @@ public class DeleteMemberController extends HttpServlet {
 			response.sendRedirect(request.getContextPath());
 			
 			
-		 }else {
-			 request.setAttribute("errorMsg", "회원탈퇴실패");
-			 request.getRequestDispatcher("views/common/errorPage.jsp").forward(request, response);
-			 
 		 }
 	}
 
