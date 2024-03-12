@@ -8,11 +8,15 @@
 	</entry>
 	
 	<entry key="selectEnrollListCount">
-	
-			SELECT 
+		SELECT 
 			   COUNT(*) count
 		  FROM APPLICATION
+	</entry>
 	
+	<entry key="memberListCount">
+		SELECT
+			  COUNT(*) count
+		 FROM MEMBER
 	</entry>
 	
 	<entry key="selectStoreList">
@@ -67,6 +71,32 @@
 		    WHERE RNUM BETWEEN ? AND ?
 	</entry>
 	
+	<entry key="selectMemberList">
+		SELECT *
+		  FROM
+		  	   (
+				SELECT ROWNUM RNUM, A.*
+				  FROM
+					   (SELECT 
+					  		   USER_NO
+					 		 , USER_ID
+							 , USER_PWD
+							 , USER_NAME
+							 , EMAIL
+							 , PHONE
+							 , ADDRESS
+							 , USER_LEVEL
+							 , ENROLL_DATE
+							 , BALANCE
+							 , BLACKLIST
+							 , STATUS
+						  FROM MEMBER
+						 ORDER 
+						    BY USER_NO DESC)A
+				)
+		WHERE RNUM BETWEEN ? AND ?			    
+	</entry>
+	
 	<entry key="selectEnrollStoreDetail">
 	SELECT 
            APP_NO
@@ -88,7 +118,24 @@
       JOIN MEMBER USING(USER_NO)
       JOIN TYPE USING(STORE_TYPE)
       JOIN APP_TYPE USING(APP_YN)
-
+	</entry>
+	
+	<entry key="selectMemberDetail">
+	   SELECT
+			  USER_NO
+			, USER_ID
+			, USER_PWD
+			, USER_NAME
+			, EMAIL
+			, PHONE
+			, ADDRESS
+			, USER_LEVEL
+			, ENROLL_DATE
+			, BALANCE
+			, BLACKLIST
+			, STATUS
+		 FROM MEMBER
+	
 	</entry>
 	
 	<entry key="selectCategoryList">

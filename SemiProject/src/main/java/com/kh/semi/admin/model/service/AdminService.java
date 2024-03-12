@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.semi.admin.model.dao.AdminDao;
 import com.kh.semi.admin.model.vo.Category;
 import com.kh.semi.common.model.vo.PageInfo;
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.vo.Store;
 
@@ -30,6 +31,15 @@ public class AdminService {
 		close(conn);
 		return listCount;
 		
+	}
+	
+	public int memberListCount() {
+		Connection conn = getConnection();
+		int listCount = new AdminDao().memberListCount(conn);
+		//조회이기 때문에 트랜젝션 노필요
+		
+		close(conn);
+		return listCount;
 	}
 	
 	
@@ -62,6 +72,15 @@ public class AdminService {
 		return ct;
 	}
 	
+	public ArrayList<Member> selectMemberList(PageInfo pi){
+		
+		Connection conn = getConnection();
+		ArrayList<Member> m = new AdminDao().selectMemberList(conn,pi);
+		close(conn);
+		return m;
+		
+	}
+	
 	public int updateStore(Store st) {
 		Connection conn = getConnection();
 		
@@ -86,6 +105,16 @@ public class AdminService {
 		
 
 		return ap;
+	}
+	
+	public Member selectMemberDetail(int memberNo) {
+		Connection conn = getConnection();
+		
+		Member m = new AdminDao().selectMemberDetail(conn, memberNo);
+		
+		close(conn);
+		
+		return m;
 	}
 
 }

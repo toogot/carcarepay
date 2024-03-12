@@ -1,8 +1,10 @@
 <%@page import="com.kh.semi.store.enrollController.model.vo.Application"%>
-<%@page import="com.kh.semi.store.model.vo.Store"%> <%@ page language="java"
-contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
-(Store)request.getAttribute("st"); Application ap =
-(Application)request.getAttribute("ap"); %>
+<%@page import="com.kh.semi.store.model.vo.Store"%> 
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
+<% 
+	Store st = (Store)request.getAttribute("st"); 
+    Application ap = (Application)request.getAttribute("ap");
+%>
 <!DOCTYPE html>
 <html>
   <head>

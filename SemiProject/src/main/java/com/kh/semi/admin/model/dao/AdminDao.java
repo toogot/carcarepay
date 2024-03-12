@@ -12,6 +12,7 @@ import java.util.Properties;
 
 import com.kh.semi.admin.model.vo.Category;
 import com.kh.semi.common.model.vo.PageInfo;
+import com.kh.semi.member.model.vo.Member;
 import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.vo.Store;
 
@@ -85,6 +86,34 @@ public class AdminDao {
 			close(rset);
 			close(pstmt);
 		} return listCount;	
+		
+	}
+	
+	public int memberListCount(Connection conn) {
+		
+		// select문 => ResultSet(한개) => int // 총 게시글 개수
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("memberListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} return listCount;
 		
 	}
 	
@@ -179,6 +208,51 @@ public class AdminDao {
 	    return list;
 	}
 	
+	
+	public ArrayList<Member> selectMemberList(Connection conn,PageInfo pi){
+		// select문 => ResultSet(여러행) => ArrayList<Member>
+		
+		ArrayList<Member> m = new ArrayList<Member>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;	
+		String sql = prop.getProperty("selectMemberList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				m.add(new Member(rset.getInt("user_no"),
+								 rset.getString("user_id"),
+								 rset.getString("user_pwd"),
+								 rset.getString("user_name"),
+								 rset.getString("email"),
+								 rset.getString("phone"),
+								 rset.getString("address"),
+								 rset.getString("user_level"),
+								 rset.getDate("enroll_date"),
+								 rset.getInt("balance"),
+								 rset.getString("blacklist"),
+								 rset.getString("status")
+								 ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} return m;
+		
+	}
+	
+	
+	
 	public ArrayList<Category> selectCategoryList(Connection conn){
 		// select문 => ResultSet(여러행) => ArrayList<Category>
 		
@@ -208,6 +282,9 @@ public class AdminDao {
 		return ct;
 		
 	}
+	
+	
+
 	
 	
 	public int updateStore(Connection conn, Store st) {
@@ -279,6 +356,40 @@ public class AdminDao {
 
 		return ap;
 	
+	}
+	
+	public Member selectMemberDetail(Connection conn, int memberNo) {
+		// select문 => ResultSet => 1행
+		Member m = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectMemberDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				m = new Member(  rset.getInt("user_no"),
+								 rset.getString("user_id"),
+								 rset.getString("user_pwd"),
+								 rset.getString("user_name"),
+								 rset.getString("email"),
+								 rset.getString("phone"),
+								 rset.getString("address"),
+								 rset.getString("user_level"),
+								 rset.getDate("enroll_date"),
+								 rset.getInt("balance"),
+								 rset.getString("blacklist"),
+								 rset.getString("status"));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+			close(rset);
+		} return m;
 	}
 	
 

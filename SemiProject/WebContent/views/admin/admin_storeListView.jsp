@@ -116,7 +116,7 @@
                 			<%if(p == currentPage) { %>
                 				<button disabled><%= p %></button>
                 			<% } else { %>
-                				<button onclick="location.href'<%=contextPath%>/storeList?cpage=<%=p%>'"><%= p %></button>
+                				<button onclick="location.href='<%=contextPath%>/storeList?cpage=<%=p%>'"><%= p %></button>
                 			<% } %>
                 		<% } %>	
                 
