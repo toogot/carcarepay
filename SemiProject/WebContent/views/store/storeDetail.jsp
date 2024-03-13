@@ -488,6 +488,12 @@
 	
 	
 	<script>
+		$(function(){
+				selectReview();
+				selectCountGrade();
+				updateBookmarkButton();
+				checkIfBookmarked();
+		});	
 		/////////////////////////////////////////
 		////////// 모든리뷰 보기 스크롤 //////////
 		////////////////////////////////////////
@@ -507,7 +513,7 @@
 		var bookmarkButton = document.getElementById('bookmarkButton');
 		var isBookmarked = checkIfBookmarked(); // 초기 상태: 즐겨찾기 여부 확인
 
-		updateBookmarkButton(); // 버튼 초기 상태 설정 (true / false)
+		
 
 		bookmarkButton.addEventListener('click', function() {
 			if (isBookmarked) {
@@ -529,7 +535,6 @@
 				})
 
 			} else {
-				
 				// 즐겨찾기 추가 로직
 				$.ajax({
 					url:"bookmarkInsert.bm",
@@ -548,7 +553,7 @@
 			}
 			isBookmarked = !isBookmarked; // 상태 변경 (토글)
 		});
-
+		
 		function checkIfBookmarked() {
 			// 즐겨찾기 여부를 서버에서 확인하는 로직
 			// true or false 반환하기!
@@ -589,6 +594,7 @@
 			})
 		}
 		
+		updateBookmarkButton(); // 버튼 초기 상태 설정 (true / false)
 
 		/////////////////////////////
 		////////// MAP API //////////
@@ -618,12 +624,6 @@
 		//////////////////////////////////////////
 		//////////// ajax 리뷰 insert ////////////	
 		/////////////////////////////////////////
-		$(function(){
-				selectReview();
-				selectCountGrade();
-				checkIfBookmarked();
-				updateBookmarkButton();
-		});	
 		
 		
 		function insertReview(){
