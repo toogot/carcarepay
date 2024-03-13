@@ -297,7 +297,7 @@ public class AdminDao {
 			
 			pstmt.setString(1,st.getStoreName());
 			pstmt.setString(2, st.getBusinessNo());
-			pstmt.setString(3,st.getStorePhone());
+			pstmt.setString(3, st.getStorePhone());
 			pstmt.setString(4, st.getStoreAddress());
 			pstmt.setString(5, st.getStoreType());
 			pstmt.setString(6, st.getStoreTime());
@@ -315,6 +315,34 @@ public class AdminDao {
 		
 	}
 	
+	public int updateMember(Connection conn, Member m) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, m.getUserPwd());
+			pstmt.setString(2, m.getUserName());
+			pstmt.setString(3, m.getEmail());
+			pstmt.setString(4, m.getPhone());
+			pstmt.setString(5, m.getAddress());
+			pstmt.setInt(6, m.getBalance());
+			pstmt.setString(7, m.getStatus());
+			pstmt.setInt(8, m.getUserNo());
+			
+			result = pstmt.executeUpdate();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		} 
+		return result;
+	}
+	
 	public Application selectEnrollStoreDetail(Connection conn, int appNo) {
 		// select문 => ResultSet =>1행
 		
@@ -325,6 +353,7 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, appNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -367,6 +396,7 @@ public class AdminDao {
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo);
 			
 			rset = pstmt.executeQuery();
 			
@@ -389,7 +419,9 @@ public class AdminDao {
 		} finally {
 			close(pstmt);
 			close(rset);
-		} return m;
+		} 
+
+		return m;
 	}
 	
 

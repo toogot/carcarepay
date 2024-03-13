@@ -118,6 +118,8 @@
       JOIN MEMBER USING(USER_NO)
       JOIN TYPE USING(STORE_TYPE)
       JOIN APP_TYPE USING(APP_YN)
+      WHERE APP_NO = ?
+      
 	</entry>
 	
 	<entry key="selectMemberDetail">
@@ -135,6 +137,7 @@
 			, BLACKLIST
 			, STATUS
 		 FROM MEMBER
+		WHERE USER_NO = ?
 	
 	</entry>
 	
@@ -158,6 +161,19 @@
 	     , STORE_STATUS = ?
 	 WHERE STORE_NO = ?
 	
+	</entry>
+	
+	<entry key="updateMember">
+	 UPDATE MEMBER
+	    SET
+		  	USER_PWD = ?
+		  ,	USER_NAME = ?
+		  ,	EMAIL = ?
+		  ,	PHONE = ?
+		  ,	ADDRESS = ?
+		  ,	BALANCE = ?
+		  ,	STATUS = ?
+	 WHERE USER_NO = ?
 	</entry>
 
 </properties>

@@ -20,7 +20,14 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    th{
+    table>*{
+        width: 500px ;
+    }
+    #memberPrice{
+        text-align: right !important;
+        padding-right: 5%;
+    }
+    th,td{
         /* width: 10%; */
         text-align: center !important;
     }
@@ -89,7 +96,7 @@
                                             <td><%= mem.getUserName()%></td>
                                             <td><%= mem.getEnrollDate()%></td>
                                             <td><%= mem.getStatus() %> </td>
-                                            <td><%= mem.getBalance() %></td>
+                                            <td id="memberPrice"><%= mem.getBalance() %>원</td>
                                             <td id="store_detail_td" onclick="location.href='<%= contextPath %>/memberDetail.bo?mno=<%=mem.getUserNo()  %>'"> 
                                             <a class="btn btn-light">상세조회</a></td>
                                         </tr>

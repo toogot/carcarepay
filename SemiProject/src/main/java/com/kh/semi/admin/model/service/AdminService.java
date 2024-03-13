@@ -96,6 +96,21 @@ public class AdminService {
 		return result;
 	}
 	
+	public int updateMember(Member m) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().updateMember(conn,m);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
 	public Application selectEnrollStoreDetail(int appNo) {
 		Connection conn = getConnection();
 		
@@ -113,7 +128,7 @@ public class AdminService {
 		Member m = new AdminDao().selectMemberDetail(conn, memberNo);
 		
 		close(conn);
-		
+
 		return m;
 	}
 

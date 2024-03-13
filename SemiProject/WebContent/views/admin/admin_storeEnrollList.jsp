@@ -20,7 +20,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    th{
+    th,td{
         /* width: 10%; */
         text-align: center !important;
     }

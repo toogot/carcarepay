@@ -74,38 +74,38 @@
 				<tr>
 					<th>이름</th>
 					<td><%=m.getUserName() %></td>
-					<th>사업자번호</th>
-					<td><%=m.getAddress() %></td>
+					<th>비밀번호</th>
+					<td><%=m.getUserPwd() %></td>
 				</tr>
 				<tr>
-					<th>매장번호</th>
-					<td colspan="3"></td>
+					<th>이메일</th>
+					<td colspan="3"><%=m.getEmail() %></td>
+				</tr>
+				<tr>
+					<th>연락처</th>
+					<td colspan="3"><%=m.getPhone() %></td>
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td colspan="3"></td>
+					<td colspan="3"><%=m.getAddress() %></td>
 				</tr>
 				<tr>
-					<th>세차장유형</th>
-					<td></td>
-					<th>영업시간</th>
-					<td></td>
+					<th>잔액</th>
+					<td><%=m.getBalance() %>원</td>
+					<th>가입일</th>
+					<td><%=m.getEnrollDate() %></td>
 				</tr>
 				<tr>
-					<th>매장상태</th>
-					<td></td>
+					<th>탈퇴여부</th>
+					<td><%=m.getStatus() %></td>
 					<td colspan="2" style="color: red;">대문자 N 또는 Y만 입력해주세요<br> (N:영업중 / Y:매장삭제)</td>
-				</tr>
-				<tr>
-					<th>가격</th>
-					<td colspan="3"></td>
 				</tr>
 
 			</table>
 		</div>
 		<div id="btn">
 			<a href="<%=contextPath %>/memberlist.bo?mpage=1" class="btn btn-sm btn-secondary">목록가기</a>
-			<a href="<%=contextPath %>/memberupdateform?sno=<%= m.getUserNo() %>" class="btn btn-sm btn-warning">수정하기</a>
+			<a href="<%=contextPath %>/memberupdateform?mno=<%= m.getUserNo() %>" class="btn btn-sm btn-warning">수정하기</a>
 			<!-- <a href="" class="btn btn-sm btn-danger" onclick="reallydelete()">삭제하기</a> -->
 		</div>
 		<div id="bottom_div">
