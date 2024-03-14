@@ -326,11 +326,11 @@
 						<tr style="height: 80px;">
 							<th style="font-size: 25px; font-weight: bold;"> <%= st.getStoreName() %></th>
 							<td colspan="3">
-								<button type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px; background-color: rgb(135, 206, 250); color: white; border-radius: 20px;">즐겨찾기</button> 
+								<button type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px;">즐겨찾기</button> 
 							</td>
 						</tr>
 						<tr style="height: 40px;">
-							<th id="countGrade" style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
+							<th style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
 							<td></td>
 							<td colspan="2" style="text-align: right; margin-right: 10px;"><button id="scrollRev" style="text-decoration: none;">모든 리뷰보기</button></td>
 						</tr>
@@ -341,17 +341,10 @@
 							<th colspan="3">
 								<div class="review_recent">
 									<div class="review_recent_1">가장 최신리뷰</div>
-<<<<<<< HEAD
-									<div class="review_recent_2" style="width: 90%; margin-left: 40px;"></div>
-									<div class="review_recent_3">
-										<div class="review_recent_3_1" style="padding-right: 20px;"></div>
-										<div class="review_recent_3_2"></div>
-=======
 									<div class="review_recent_2" style="width: 90%; margin-left: 40px;">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
 									<div class="review_recent_3">
 										<div class="review_recent_3_1" style="padding-right: 20px;">세차왕 이한기</div>
 										<div class="review_recent_3_2">2024-02-19</div>
->>>>>>> sh
 									</div>
 								</div>
 							</th>
@@ -511,91 +504,21 @@
 		//////////////////////////////////
 		////////// 즐겨찾기 버튼 //////////
 		//////////////////////////////////
-		var bookmarkButton = document.getElementById('bookmarkButton');
-		var isBookmarked = checkIfBookmarked(); // 초기 상태: 즐겨찾기 여부 확인
-
-		updateBookmarkButton(); // 버튼 초기 상태 설정 (true / false)
+	  	var bookmarkButton = document.getElementById('bookmarkButton');
+		var isBookmarked = false; // 초기 상태: 즐겨찾기 되어있지 않음
 
 		bookmarkButton.addEventListener('click', function() {
 			if (isBookmarked) {
-				
+				bookmarkButton.textContent = '즐겨찾기'; // 버튼 내용 변경: 즐겨찾기
 				// 즐겨찾기 해제 로직
-				$.ajax({
-					url:"bookmarkDelete.bm",
-					type:"post",
-					data:{storeNo: <%= st.getStoreNo() %>},
-					success:function(result){
-						if(result > 0){
-							bookmarkButton.textContent = '즐겨찾기'; 
-							alert("즐겨찾기 목록에서 삭제되었습니다.");
-						}
-					},
-					error:function(){
-						console.log("즐겨찾기 해제 ajax 통신 실패");
-					}
-				})
-
 			} else {
-				
+				bookmarkButton.textContent = '즐겨찾기 해제'; // 버튼 내용 변경: 즐겨찾기 해제
 				// 즐겨찾기 추가 로직
-				$.ajax({
-					url:"bookmarkInsert.bm",
-					type:"post",
-					data:{storeNo: <%= st.getStoreNo() %>},
-					success:function(result){
-						if(result > 0) {
-							bookmarkButton.textContent = '즐겨찾기 해제';
-							alert("즐겨찾기 목록에 추가되었습니다!");
-						}
-					},
-					error:function(){
-						console.log("즐겨찾기 추가 ajax 통신 실패");
-					}
-				})
 			}
-			isBookmarked = !isBookmarked; // 상태 변경 (토글)
-		});
+		
+		isBookmarked = !isBookmarked; // 상태 변경 (토글)
+	  	});
 
-		function checkIfBookmarked() {
-			// 즐겨찾기 여부를 서버에서 확인하는 로직
-			// true or false 반환하기!
-			/////////////////////////////////////////////////
-		  return new Promise(function(resolve, reject) {
-			$.ajax({
-				url:"bookmarkSelect.bm",
-				type:"post",
-				data:{storeNo: <%= st.getStoreNo() %>},
-				success:function(result){
-					if (result === 1) {
-						console.log("즐겨찾기한 상태입니다.");
-						resolve(true);
-					} else {
-						console.log("즐겨찾기하지 않은 상태입니다.");
-						resolve(false);
-					}
-				},
-				error:function(){
-					console.log("즐겨찾기 여부 ajax 통신 실패");
-					reject(Error("즐겨찾기 여부 ajax 통신 실패"));
-				}
-			})
-		  })
-		}
-		
-		function updateBookmarkButton() {
-			checkIfBookmarked()
-			.then(function(isBookmarked){
-				if (isBookmarked) {
-					bookmarkButton.textContent = '즐겨찾기 해제';
-				} else {
-					bookmarkButton.textContent = '즐겨찾기';
-				}
-			})
-			.catch(function(error){
-				console.log(error);
-			})
-		}
-		
 
 		/////////////////////////////
 		////////// MAP API //////////
@@ -627,44 +550,10 @@
 		/////////////////////////////////////////
 		$(function(){
 				selectReview();
-				selectCountGrade();
-				checkIfBookmarked();
-				updateBookmarkButton();
+				
 		});	
 		
-		
 		function insertReview(){
-<<<<<<< HEAD
-			var formData = new FormData();
-			formData.append('content', $(".rev-write textarea").val());
-			formData.append('storeNo', <%= st.getStoreNo() %>);
-			formData.append('grade', $(".grade").val());
-			formData.append('file1', $("#file1")[0].files[0]);
-			formData.append('file2', $("#file2")[0].files[0]);
-			formData.append('file3', $("#file3")[0].files[0]);	
-			
-			$.ajax({
-				url:"insert.rv",
-				type:"post",
-				data: formData,
-				processData: false,
-				contentType: false,
-				success:function(result){
-					if(result > 0){
-						$(".rev-write textarea").val("");
-						$("#titleImg").attr("src", null);
-						$("#file1").val("");
-						$("#file2").val("");
-						$("#file3").val("");
-						selectReview();
-					}
-				},
-				error:function(){
-					alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
-				}
-			
-				})
-=======
 			<% System.out.println(st.getStoreNo()); %>
 		var formData = new FormData();
 		  formData.append('content', $(".rev-write textarea").val());
@@ -692,111 +581,11 @@
 			},
 			error:function(){
 				alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
->>>>>>> sh
 			}
 		
-		/////////// 매장 평점 총 갯수 및 평균 /////////
-		function selectCountGrade(){
-			$.ajax({
-				url:"countgrade.rv",
-				type:"post",
-				data:{storeNo: <%= st.getStoreNo() %>},
-				success:function(rv){
-					
-					let value = ""
-					if(rv != null){
-					value += "★" + rv.grade + "  " + rv.reviewCount + "명 평가";
-					}
-					
-					$("#countGrade").text(value);
-				},
-				error:function(){
-					console.log("AJAX 통신 실패 ㅜㅜ");
-				}
-				
 			})
 		}
 		
-<<<<<<< HEAD
-		
-		
-		/////////////////////////////////////
-		/////////// ajax 리뷰 select /////////
-		/////// 최근 리뷰 데이터 가져오기 /////
-		/////////////////////////////////////
-		
-		function selectReview(){
-			$.ajax({
-				url:"select.rv",
-				method:"post",
-				data:{storeNo: <%= st.getStoreNo() %>},
-				success:function(rlist){
-						
-						let value = "";
-						let recentUserId = "";
-						let recentContent = "";
-						let recentIssueDate = "";
-					if(rlist.length < 1){
-						value += "<div>조회된 리뷰가 없습니다.</div>"
-						recentContent += "조회된 리뷰가 없습니다."
-					} else{
-							recentUserId = rlist[0].userId;
-							recentContent = rlist[0].content;
-							recentIssueDate = rlist[0].issueDate;
-							for(let i=0; i<rlist.length; i++){
-							
-							value += "<div class='rev-list'>"
-	
-								   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
-
-							       + "<div class='rev-list-content'>"
-							       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
-							       + "</div>"
-	
-							       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
-	
-							       + "<a type='button' id='rev-look'>↓리뷰사진↓</a>"
-	
-							       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
-								   + "</div>";
-								   
-							let images = "";
-							let recentImage = "";
-							
-							if(rlist[i].imgRoot != null){
-								images = rlist[i].imgRoot;
-								imageArray = images.split(",");
-								
-								recentImage = rlist[0].imgRoot;
-								recentImageArray = recentImage.split(",");
-	
-								let value2 = "";
-								
-								for(let j=0; j<imageArray.length; j++){
-						    	value2 += "<img class='rev-look-img' src='" + imageArray[j] + "'>";												
-								
-								}
-								
-								value += "<div class='rev-look-div'>" + value2 + "</div>";
-								
-						              
-						    	
-						    	
-							}
-							
-							
-							}  
-						}
-							       $("#rev-list").html(value);
-								   $(".review_recent_2").text(recentContent);
-								   $(".review_recent_3_1").text(recentUserId);
-								   $(".review_recent_3_2").text(recentIssueDate);
-								   $("#review_recent_image").html("<img src='" + recentImageArray[0] +"' width='100%' height='220px'>");
-					},
-				
-				error:function(){
-				}
-=======
 		/////////// 매장 평점 총 갯수 및 평균 /////////
 		function selectCountGrade(){
 			$.ajax({
@@ -810,13 +599,10 @@
 					
 				}
 				
->>>>>>> sh
 			})
 		}
 		
 		
-<<<<<<< HEAD
-=======
 		
 		/////////////////////////////////////
 		/////////// ajax 리뷰 select /////////
@@ -898,7 +684,6 @@
 		}
 		
 		
->>>>>>> sh
 
 
 

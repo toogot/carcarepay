@@ -6,10 +6,7 @@
   List<Notice> noticeList = (List<Notice>)request.getAttribute("noticeList");
   int totalCount = (int)request.getAttribute("totalCount");
   int pageNo = (int)request.getAttribute("pageNo");
-<<<<<<< HEAD
-=======
   Member sessionMember = (Member) session.getAttribute("loginUser");
->>>>>>> sh
 %>
 
 <!DOCTYPE html>
@@ -93,31 +90,19 @@
     <body>
         <%@ include file="/views/common/head.jsp" %>
     <div class="wrap">
-<<<<<<< HEAD
-        <%@ include file="/views/customerService/notice/sidebar.jsp" %>
-
-        <div class="main-content">
-            <!-- Image tag added here -->
-            <!-- <img src= alt="공지사항 이미지" style="width: 800px; height: 400px; display: block;margin: auto; margin-bottom: 20px;"> -->
-=======
         <%@ include file="/views/customerService/sidebar.jsp" %>
 
         <div class="main-content">
 
         <%@ include file="/views/customerService/slide.jsp" %>
 
->>>>>>> sh
 
 
         <div class="main-content">
             <h1>공지사항</h1>
             <div style="display:flex;justify-content: space-between;">
             <p> ※카케어페이에 새로운소식을 확인하세요 NOTICE ※ </p>
-<<<<<<< HEAD
-            <% if(session.getAttribute("loginUser") != null) { %>
-=======
             <% if(sessionMember != null && "운영자".equals(sessionMember.getUserLevel())) { %>
->>>>>>> sh
             <a href="noticeaddform.if" class="btn btn-primary">등록</a>
             <% } %>
             </div>
@@ -159,26 +144,15 @@
 						<nav aria-label="Page navigation example" class="mt-3">
 						  <ul class="pagination justify-content-center">
 						    <li class="page-item <%= pageNo <= 1 ? "disabled" : "" %>">
-<<<<<<< HEAD
-						      <a class="page-link" href="?pageNo=<%=pageNo - 1%>" aria-label="Previous">
-=======
 						      <a class="page-link" href="?page=<%=pageNo - 1%>" aria-label="Previous">
->>>>>>> sh
 						        <span aria-hidden="true">&laquo;</span>
 						      </a>
 						    </li>
 						    <% for (int i = startPage; i <= endPage; i++) { %>
-<<<<<<< HEAD
-						        <li class="page-item <%= pageNo == i ? "active" : "" %>"><a class="page-link" href="?pageNo=<%=i%>"><%=i%></a></li>
-						    <% } %>
-						    <li class="page-item <%= pageNo >= totalPage ? "disabled" : "" %>">
-						      <a class="page-link" href="?pageNo=<%=pageNo + 1%>" aria-label="Next">
-=======
 						        <li class="page-item <%= pageNo == i ? "active" : "" %>"><a class="page-link" href="?page=<%=i%>"><%=i%></a></li>
 						    <% } %>
 						    <li class="page-item <%= pageNo >= totalPage ? "disabled" : "" %>">
 						      <a class="page-link" href="?page=<%=pageNo + 1%>" aria-label="Next">
->>>>>>> sh
 						        <span aria-hidden="true">&raquo;</span>
 						      </a>
 						    </li>

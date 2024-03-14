@@ -7,10 +7,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-<<<<<<< HEAD
-import com.google.gson.Gson;
-=======
->>>>>>> sh
 import com.kh.semi.review.model.service.ReviewService;
 import com.kh.semi.review.model.vo.Review;
 
@@ -37,14 +33,7 @@ public class ReviewCountGradeController extends HttpServlet {
 		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
 		Review rv = new ReviewService().selectCountGrade(storeNo);
 		
-<<<<<<< HEAD
-		if(rv != null) {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(rv, response.getWriter());
-		}
-=======
 		
->>>>>>> sh
 		
 		
 		

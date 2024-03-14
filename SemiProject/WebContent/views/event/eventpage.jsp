@@ -34,17 +34,6 @@ body * {
 	font-family: 'KCC-Ganpan';
 }
 
-<<<<<<< HEAD
-.outer {
-	background-color: color: white;
-	width: 100%;
-	height: 90%;
-	margin: auto;
-	margin-top: 500px;
-}
-
-=======
->>>>>>> sh
 .list-area {
 	margin: auto;
 }
@@ -125,11 +114,8 @@ input:checked+label {
 
 </head>
 <body>
-<<<<<<< HEAD
-=======
     <%@ include file="/views/common/head.jsp" %>
     <div class="wrap">
->>>>>>> sh
 
 	<div class="outer">
 		<br>
@@ -249,9 +235,6 @@ input:checked+label {
 
 			</div>
 		</div>
-<<<<<<< HEAD
-		<%@ include file="/views/common/footer.jsp" %>
-=======
 		</div>
 		<%@ include file="/views/common/footer.jsp" %>
 
@@ -275,6 +258,5 @@ input:checked+label {
 	  location.href=url;
   }
 </script>
->>>>>>> sh
 </body>
 </html>

@@ -29,10 +29,6 @@
 
             .sidebar {
             width: 200px;
-<<<<<<< HEAD
-            height: 100vh; /* Full height */
-=======
->>>>>>> sh
             padding-top: 20px;
             }
 
@@ -90,11 +86,7 @@
     <body>
         <%@ include file="/views/common/head.jsp" %>
         <div class="wrap">
-<<<<<<< HEAD
-	        <%@ include file="/views/customerService/notice/sidebar.jsp" %>
-=======
 	        <%@ include file="/views/customerService/sidebar.jsp" %>
->>>>>>> sh
 
 	        <div class="main-content">
 
@@ -113,10 +105,7 @@
 	        </div>
 	      </div>
 
-<<<<<<< HEAD
-=======
        <%@ include file="/views/common/footer.jsp" %>
->>>>>>> sh
     </body>
     </html>
     <script>

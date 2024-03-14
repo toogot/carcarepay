@@ -1,13 +1,4 @@
 <%@page import="com.kh.semi.customerService.FAQ.model.vo.Faq"%>
-<<<<<<< HEAD
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-  <%
-	Faq faq = (Faq)request.getAttribute("faq");
-	
-%>  
-    
-=======
 <%@page import="java.util.*"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -19,7 +10,6 @@
   String cate = (String)request.getAttribute("cate");
 %>
 
->>>>>>> sh
 <!DOCTYPE html>
   <html lang="ko">
   <head>
@@ -48,14 +38,11 @@
   body *{
   font-family: 'KCC-Ganpan';
   }
-<<<<<<< HEAD
-=======
   .wrap{
       margin: auto;
       width: 1330px;
       display: flex;
   }
->>>>>>> sh
 
 
 
@@ -63,18 +50,10 @@
   font-family: Arial, sans-serif;
   margin: auto;
   padding: 30px;
-<<<<<<< HEAD
-  display: flex;
-=======
->>>>>>> sh
   }
 
   .sidebar {
   width: 200px;
-<<<<<<< HEAD
-  height: 100vh; /* Full height */
-=======
->>>>>>> sh
   padding-top: 20px;
   }
 
@@ -91,32 +70,6 @@
   }
 
   .main-content {
-<<<<<<< HEAD
-  flex-grow: 1;
-  background-color: #ffffff;
-  padding: 50px;
-  margin: ce;
-  }
-
-
-  
-</style>
-</head>
-<body>
- <div class="sidebar">
-        
-        <a href="<%=request.getContextPath()%>/notice.if">공지사항</a>
-            <a href="<%=request.getContextPath()%>/faq.if">자주묻는질문</a>
-            <a href="<%=request.getContextPath()%>/comment.if">1:1문의</a>
-        <!-- More links as needed -->
-        
-    </div>
-    <br>
-    <div class="main-content">
-        <!-- Image tag added here -->
-        <img src= alt="자주묻는질문" style="width: 600px; height: 200px; display: block;margin: auto; margin-bottom: 20px;">
-
-=======
 	  flex-grow: 1;
 	  background-color: #ffffff;
 	  padding: 30px;
@@ -135,23 +88,10 @@
     <div class="main-content">
 
         <%@ include file="/views/customerService/slide.jsp" %>
->>>>>>> sh
 
 
     <div class="main-content">
         <h2>자주묻는질문</h2>
-<<<<<<< HEAD
-        <p>고객에게서 많이 묻는 질문입니다 </p>
-        <select name="category" id="category">
-            <option value="category1">[기타]</option>
-            <option value="category2">[교환/환불]</option>
-            <option value="category3">[상품/매장]</option>
-          </select>
-        
-      
-  <section class="notice">
-  
-=======
         <form id="searchForm">
         <input type="hidden" name="page" id="page" value="<%= pageNo %>>">
         <div style="display: flex; justify-content: space-between;">
@@ -172,97 +112,11 @@
 
   <section class="faq">
 
->>>>>>> sh
     <div id="board-list">
           <div class="container">
               <table  class="table table-hover">
                   <thead>
                   <tr>
-<<<<<<< HEAD
-                      <th scope="col" class="th-num">번호</th>
-                      <th scope="col" class="th-ctg">카테고리</th>
-                      <th scope="col" class="th-title">제목</th>
-                      <th scope="col" class="th-date">조회수</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  <tr>
-                      <td>∨</td>
-                      <th>[기타]</th>
-                      <th>
-                        <a style="color: black;">할인되는 카드는 없나요?</a>
-                      </th>
-                    <td>100</td>
-                  </tr>
-  
-                  <tr>
-                      <td>∨</td>
-                      <th>[교환/환불]</th>
-                      <th><a style="color: black;">카드 취소가능한가요?</a></th>
-                      <td>101</td>
-                  </tr>
-  
-                  <tr>
-                      <td>∨</td>
-                      <th>[상품/매장]</th>
-                      <th><a style="color: black;">매장이 어디에있나요?</a></th>
-                      <td>102</td>
-                  </tr>
-                  <tr>
-                    <td>∨</td>
-                    <th>[기타]</th>
-                    <th>
-                      <a style="color: black;">할인되는 카드는 없나요?</a>
-                    </th>
-                  <td>100</td>
-                </tr>
-
-                <tr>
-                    <td>∨</td>
-                    <th>[교환/환불]</th>
-                    <th><a style="color: black;">카드 취소가능한가요?</a></th>
-                    <td>101</td>
-                </tr>
-
-                <tr>
-                    <td>∨</td>
-                    <th>[상품/매장]</th>
-                    <th><a style="color: black;">매장이 어디에있나요?</a></th>
-                    <td>102</td>
-                </tr>
-                <tr>
-                    <td>∨</td>
-                    <th>[기타]</th>
-                    <th>
-                      <a style="color: black;">할인되는 카드는 없나요?</a>
-                    </th>
-                  <td>100</td>
-                </tr>
-
-                <tr>
-                    <td>∨</td>
-                    <th>[교환/환불]</th>
-                    <th><a style="color: black;">카드 취소가능한가요?</a></th>
-                    <td>101</td>
-                </tr>
-
-                <tr>
-                    <td>∨</td>
-                    <th>[상품/매장]</th>
-                    <th><a style="color: black;">매장이 어디에있나요?</a></th>
-                    <td>102</td>
-                </tr>
-                  </tbody>
-              </table>
-          </div>
-      </div>
-  
-  </section>
-          
-    </div>
-   
-
-=======
                       <th scope="col" class="th-num" style="width:150px;">번호</th>
                       <th scope="col" class="th-ctg" style="width:150px;">카테고리</th>
                       <th scope="col" class="th-title">제목</th>
@@ -355,6 +209,5 @@
 	  });
   }
 </script>
->>>>>>> sh
 </body>
 </html>

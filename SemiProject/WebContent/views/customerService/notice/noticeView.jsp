@@ -4,10 +4,7 @@
     pageEncoding="UTF-8"%>
 <%
   Notice notice = (Notice)request.getAttribute("notice");
-<<<<<<< HEAD
-=======
   Member sessionMember = (Member) session.getAttribute("loginUser");
->>>>>>> sh
 %>
 
 <!DOCTYPE html>
@@ -34,10 +31,6 @@
 
             .sidebar {
             width: 200px;
-<<<<<<< HEAD
-            height: 100vh; /* Full height */
-=======
->>>>>>> sh
             padding-top: 20px;
             }
 
@@ -94,11 +87,7 @@
     <body>
         <%@ include file="/views/common/head.jsp" %>
     <div class="wrap">
-<<<<<<< HEAD
-        <%@ include file="/views/customerService/notice/sidebar.jsp" %>
-=======
         <%@ include file="/views/customerService/sidebar.jsp" %>
->>>>>>> sh
 
         <div class="main-content">
             <!-- Image tag added here -->
@@ -124,20 +113,12 @@
                 </tr>
                 <tr>
                     <th>내용</th>
-<<<<<<< HEAD
-                    <td><%= notice.getNotiContent().replaceAll("\r", "<br>").replaceAll("\n", "<br>").replaceAll("\r\n", "<br>") %></td>
-=======
                     <td><%= notice.getNotiContent().replaceAll("\r\n", "<br>").replaceAll("\r", "<br>").replaceAll("\n", "<br>") %></td>
->>>>>>> sh
                 </tr>
                 <!-- More rows as needed -->
             </table>
 
-<<<<<<< HEAD
-            <% if(session.getAttribute("loginUser") != null) { %>
-=======
             <% if(sessionMember != null && "운영자".equals(sessionMember.getUserLevel())) { %>
->>>>>>> sh
             <a href="javascript:goDel(<%= notice.getNotiCode() %>);" class="btn btn-danger">삭제</a>
             <a href="noticeaddform.if?id=<%= notice.getNotiCode() %>" class="btn btn-info">수정</a>
             <% } %>
