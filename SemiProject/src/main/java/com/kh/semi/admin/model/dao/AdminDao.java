@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.kh.semi.admin.model.vo.Category;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.vo.Store;
 
@@ -385,6 +386,43 @@ public class AdminDao {
 
 		return ap;
 	
+	}
+	
+	public ArrayList<AppStoreImage> selectAppStoreImgAdmin(Connection conn, int appNo){
+		// select문 => ResultSet =>1행
+		
+		ArrayList<AppStoreImage> list = new ArrayList<AppStoreImage>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectAppStoreImgAdmin");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, appNo);
+			
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				AppStoreImage apImg = new AppStoreImage();
+				apImg.setImgNo(rset.getInt("img_no"));
+				apImg.setAppNo(rset.getInt("app_no"));
+				apImg.setImgRoot(rset.getString("img_root"));
+				apImg.setOriginName(rset.getString("origin_name"));
+				apImg.setChangeName(rset.getString("change_name"));
+				apImg.setStatus(rset.getString("status"));
+				
+				list.add(apImg);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+		
+		
 	}
 	
 	public Member selectMemberDetail(Connection conn, int memberNo) {

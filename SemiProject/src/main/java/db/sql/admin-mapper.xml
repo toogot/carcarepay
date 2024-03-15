@@ -175,5 +175,17 @@
 		  ,	STATUS = ?
 	 WHERE USER_NO = ?
 	</entry>
+	
+	<entry key="selectAppStoreImgAdmin">
+		SELECT 
+		       IMG_NO
+		     , APP_NO  
+		     , IMG_ROOT
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , STATUS
+		  FROM APP_STORE_IMAGE
+		 WHERE APP_NO = ?
+	</entry>
 
 </properties>

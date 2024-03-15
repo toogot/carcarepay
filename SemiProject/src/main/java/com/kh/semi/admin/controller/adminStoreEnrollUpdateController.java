@@ -16,16 +16,16 @@ import com.kh.semi.store.model.service.StoreSearchService;
 import com.kh.semi.store.model.vo.Store;
 
 /**
- * Servlet implementation class adminStoreEnrollDetail
+ * Servlet implementation class adminStoreEnrollUpdateController
  */
-@WebServlet("/storeEnrollDetail.bo")
-public class adminStoreEnrollDetail extends HttpServlet {
+@WebServlet("/storeEnrollComplete")
+public class adminStoreEnrollUpdateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminStoreEnrollDetail() {
+    public adminStoreEnrollUpdateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -35,15 +35,11 @@ public class adminStoreEnrollDetail extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int appNo = Integer.parseInt(request.getParameter("eno"));
-		
+
 		Application ap = new AdminService().selectEnrollStoreDetail(appNo);
 		ArrayList<AppStoreImage> list = new AdminService().selectAppStoreImgAdmin(appNo);
-			
-		
-			request.setAttribute("list", list);
-			request.setAttribute("ap", ap);
-			request.getRequestDispatcher("views/admin/admin_storeEnrollDetailView.jsp").forward(request, response);
-			
+		System.out.println("승인"+ap);
+		System.out.println("승인" + list);
 
 	
 	}

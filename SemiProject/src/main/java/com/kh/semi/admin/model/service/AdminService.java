@@ -7,6 +7,7 @@ import com.kh.semi.admin.model.dao.AdminDao;
 import com.kh.semi.admin.model.vo.Category;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.vo.Store;
 
@@ -117,10 +118,21 @@ public class AdminService {
 		Application ap = new AdminDao().selectEnrollStoreDetail(conn,appNo);
 		
 		close(conn);
-		
-
 		return ap;
 	}
+	
+	public ArrayList<AppStoreImage> selectAppStoreImgAdmin(int appNo){
+		Connection conn = getConnection();
+		
+		ArrayList<AppStoreImage> list = new AdminDao().selectAppStoreImgAdmin(conn, appNo);
+		// select문이라 클로즈 컨 먼저
+		
+		close(conn);
+		return list;
+		
+	}
+	
+	
 	
 	public Member selectMemberDetail(int memberNo) {
 		Connection conn = getConnection();
@@ -131,5 +143,7 @@ public class AdminService {
 
 		return m;
 	}
+	
+
 
 }

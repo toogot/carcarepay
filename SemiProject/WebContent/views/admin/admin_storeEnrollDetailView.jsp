@@ -1,9 +1,11 @@
+<%@page import="com.kh.semi.store.enrollController.model.vo.AppStoreImage"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.semi.store.enrollController.model.vo.Application"%>
 <%@page import="com.kh.semi.store.model.vo.Store"%> 
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> 
 <% 
-	Store st = (Store)request.getAttribute("st"); 
     Application ap = (Application)request.getAttribute("ap");
+	ArrayList<AppStoreImage> list = (ArrayList)request.getAttribute("list");
 %>
 <!DOCTYPE html>
 <html>
@@ -53,6 +55,9 @@
       #bottom_div {
         height: 100px;
       }
+      img{
+        padding: none;
+      }
     </style>
   </head>
   <body>
@@ -67,8 +72,8 @@
         <h2 id="store_name_h2"></h2>
       </div>
 
-      <form action="storeenrollComplete">
-        <input type="hidden" value="<%=ap.getAppNo()%>" />
+      <form action="storeEnrollComplete" method="post" >
+        <input type="hidden" name="eno" value="<%=ap.getAppNo()%>" />
 
         <div id="table_wrap_div">
           <table border="1" class="tableWrap">
@@ -107,23 +112,31 @@
             </tr>
             <tr>
               <th>사진</th>
-              <td colspan="3"></td>
+              <td colspan="3">
+
+              		<%for(int i=0; i<list.size(); i++) { %>
+              		<br>
+              		<img src="<%= contextPath %>/<%=list.get(i).getImgRoot()+list.get(i).getChangeName() %>" width="300" height="250"> 
+              		<button class="btn btn-outline-primary btn-lg" type="button">원본보기</button>
+              		</br>
+              		<% } %>
+					
+              </td>
             </tr>
           </table>
         </div>
-      </form>
 
       <div id="btn">
         <button type="submit" class="btn btn-primary">승인하기</button>
         <a
           href="<%=contextPath %>/storeEnrollList?cpage=1"
           class="btn btn-secondary"
-          >목록가기</a
-        >
+          >목록가기</a>
         <a href="" class="btn btn-danger" onclick="">거절하기</a>
       </div>
       <div id="bottom_div"></div>
     </div>
+      </form>
 
     <script>
       /*
