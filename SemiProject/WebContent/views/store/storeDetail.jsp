@@ -339,7 +339,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
       }
 
       /* 사진보기 a태그 */
-      #rev-look {
+      .rev-look {
         margin-left: 400px;
         color: rgb(135, 206, 250);
       }
@@ -352,6 +352,15 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
       .rev-look-div img {
         width: 130px;
         height: 130px;
+      }
+
+      .deleteButton {
+        float: right;
+        border: none;
+        border-radius: 10px;
+        margin-right: 10px;
+        height: 25px;
+        width: 85px;
       }
     </style>
   </head>
@@ -537,12 +546,14 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
               <br />
               <br />
               <div id="rev-list">
-                <!--  <div class="rev-list-id">작성자 아이디</div>
+                <!--  <div>
+                				<div class="rev-list-id">작성자 아이디</div>
 								<div class="rev-list-content">
 									<textarea cols="90" rows="5" style="border: 1px; resize: none; font-size: 15px;">작성내용</textarea>
 								</div>
 								<div class="rev-list-date">2024-02-26</div>
-								<div class="rev-list-grade">★ 5.0</div> -->
+								<div class="rev-list-grade">★ 5.0</div>
+						</div>		 -->
               </div>
               <!--  <div class="rev-look-div"></div> -->
               <!-- style="display:none" -->
@@ -569,15 +580,21 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
     <%@ include file="/views/common/footer.jsp"%>
 
+    <!-- /////////////////////////////////////////////////////////////////////////////////////////////////
+    ////////////////////////////////////////////SCRIPT///////////////////////////////////////////////////
+    ////////////////////////////////////////////////////////////////////////////////////////////////// -->
+
     <script>
 
 
       $(function(){
            				selectReview();
            				selectCountGrade();
+              <% if(loginUser != null) { %>
            				updateBookmarkButton();
            				checkIfBookmarked();
-           		});
+              <% } %>
+      });
            		/////////////////////////////////////////
            		////////// 모든리뷰 보기 스크롤 //////////
            		////////////////////////////////////////
@@ -594,6 +611,9 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            		//////////////////////////////////
            		////////// 즐겨찾기 버튼 //////////
            		//////////////////////////////////
+
+
+              <% if(loginUser != null) { %>
            		var bookmarkButton = document.getElementById('bookmarkButton');
            		var isBookmarked = checkIfBookmarked(); // 초기 상태: 즐겨찾기 여부 확인
 
@@ -680,7 +700,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
            		updateBookmarkButton(); // 버튼 초기 상태 설정 (true / false)
 
-
+              <% } %>
 
            		/////////////////////////////
            		////////// MAP API //////////
@@ -778,13 +798,14 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            		}
 
 
-
            		/////////////////////////////////////
            		/////////// ajax 리뷰 select /////////
            		/////// 최근 리뷰 데이터 가져오기 /////
            		/////////////////////////////////////
 
            		function selectReview(){
+
+
            			$.ajax({
            				url:"select.rv",
            				method:"post",
@@ -802,11 +823,15 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            							recentUserId = rlist[0].userId;
            							recentContent = rlist[0].content;
            							recentIssueDate = rlist[0].issueDate;
-           							for(let i=0; i<rlist.length; i++){
 
+           							for(let i=0; i<rlist.length; i++){
            							value += "<div class='rev-list'>"
 
-           								   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
+           								     + "<div class='rev-list-id'>" + rlist[i].userId
+
+                               + "<button onclick='deleteReview(" + rlist[i].reviewNo + ");' class='btn-warning text-danger deleteButton'>리뷰삭제</button>"
+
+                               + "</div>"
 
            							       + "<div class='rev-list-content'>"
            							       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
@@ -814,7 +839,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
            							       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
 
-           							       + "<a type='button' id='rev-look'>↓리뷰사진↓</a>"
+           							       + "<a class='rev-look'>↓리뷰사진↓</a>"
 
            							       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
            								   + "</div>";
@@ -837,10 +862,6 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            								}
 
            								value += "<div class='rev-look-div'>" + value2 + "</div>";
-
-
-
-
            							}
 
 
@@ -854,9 +875,28 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            					},
 
            				error:function(){
+
            				}
            			})
            		}
+
+              // 리뷰삭제 //
+              function deleteReview(reviewNo){
+                alert("리뷰를 삭제하시겠습니까?");
+                $.ajax({
+           				url:"delete.rv",
+           				method:"post",
+           				data:{reviewNo: reviewNo},
+           				success:function(result){
+                    if(result > 0){
+                      selectReview();
+                    }
+                  },
+                  error:function(){
+                    console.log("리뷰삭제 실패")
+                  }
+                });
+            }
 
 
            		////////// 리뷰등록시 대표사진 첨부시 이미지 띄우기 ///////////

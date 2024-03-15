@@ -37,6 +37,7 @@
 			FROM REVIEW
 			JOIN MEMBER USING (USER_NO)
 			WHERE STORE_NO = ?
+			  AND REVIEW_STATUS = 'Y'
 			ORDER BY REVIEW_NO DESC
 	</entry>
 	
@@ -64,9 +65,15 @@
 	</entry>
 	
 	<entry key="selectCountGrade">
-	SELECT COUNT(*) "COUNT", AVG(GRADE) "AVG"
-	  FROM REVIEW
-	 WHERE STORE_NO = ?
+		SELECT COUNT(*) "COUNT", ROUND(AVG(GRADE),1) "AVG"
+		  FROM REVIEW
+		 WHERE STORE_NO = ?
+	</entry>
+	
+	<entry key="deleteReview">
+		UPDATE REVIEW
+		   SET REVIEW_STATUS = 'N'
+		 WHERE REVIEW_NO = ?
 	</entry>
 	
 
