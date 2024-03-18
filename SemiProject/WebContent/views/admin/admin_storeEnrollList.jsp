@@ -20,8 +20,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    th{
-        width: 10%;
+    th,td{
+        /* width: 10%; */
         text-align: center !important;
     }
     #store_detail_td{
@@ -66,6 +66,7 @@
                                             <th>매장타입</th>
                                             <th>신청일자</th>
                                             <th>신청자이름</th>
+                                            <th>상태</th>
                                             <th>상세조회</th>
                                         </tr>
                                     </thead>
@@ -76,6 +77,7 @@
                                             <th>매장타입</th>
                                             <th>신청일자</th>
                                             <th>신청자이름</th>
+                                            <th>상태</th>
                                             <th>상세조회</th>
                                         </tr>
                                     </tfoot>
@@ -88,6 +90,7 @@
                                             <td><%= a.getTypeName()%></td>
                                             <td><%= a.getAppDate() %></td>
                                             <td><%= a.getUserName() %> </td>
+                                            <td><%= a.getAppTypeName() %></td>
                                             <td id="store_detail_td" onclick="location.href='<%= contextPath %>/storeEnrollDetail.bo?eno=<%=a.getAppNo()  %>'"> 
                                             <a class="btn btn-light">상세조회</a></td>
                                         </tr>
@@ -112,7 +115,7 @@
                 			<%if(p == currentPage) { %>
                 				<button disabled><%= p %></button>
                 			<% } else { %>
-                				<button onclick="location.href'<%=contextPath%>/storeEnrollList?cpage=<%=p%>'"><%= p %></button>
+                				<button onclick="location.href='<%=contextPath%>/storeEnrollList?cpage=<%=p%>'"><%= p %></button>
                 			<% } %>
                 		<% } %>	
                 
@@ -168,23 +171,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-    
 
 </body>
 </html>

@@ -1,3 +1,4 @@
+<%@page import="com.kh.semi.store.enrollController.model.vo.Application"%>
 <%@page import="com.kh.semi.store.model.vo.Store"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.semi.common.model.vo.PageInfo"%>
@@ -5,7 +6,7 @@
     pageEncoding="UTF-8"%>
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	ArrayList<Store> list = (ArrayList<Store>)request.getAttribute("list");
+	ArrayList<Member> m = (ArrayList<Member>)request.getAttribute("m");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -19,6 +20,13 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+    table>*{
+        width: 500px ;
+    }
+    #memberPrice{
+        text-align: right !important;
+        padding-right: 5%;
+    }
     th,td{
         /* width: 10%; */
         text-align: center !important;
@@ -46,14 +54,13 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 id="h1Title" class="h3 mb-2 text-gray-800">매장목록</h1>
-                    <p class="mb-4">제휴맺은 매장정보를 조회할수있습니다. <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <h1 id="h1Title" class="h3 mb-2 text-gray-800">회원목록</h1>
+                    <p class="mb-4">회원의 정보를 조회할수있습니다. </p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Member List</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -61,39 +68,37 @@
                                     <thead>
                                         <tr>
                                             <th>No.</th>
-                                            <th>매장이름</th>
-                                            <th>결제수</th>
-                                            <th>매출액</th>
-                                            <th>매장유형</th>
-                                            <th>매장번호</th>
-                                            <th>매장상태</th>
-                                            <th>매장관리</th>
+                                            <th>ID</th>
+                                            <th>이름</th>
+                                            <th>가입일자</th>
+                                            <th>상태</th>
+                                            <th>잔액</th>
+                                            <th>상세조회</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
                                             <th>No.</th>
-                                            <th>매장이름</th>
-                                            <th>결제수</th>
-                                            <th>매출액</th>
-                                            <th>매장유형</th>
-                                            <th>매장번호</th>
-                                            <th>매장상태</th>
-                                            <th>매장관리</th>
+                                            <th>ID</th>
+                                            <th>이름</th>
+                                            <th>가입일자</th>
+                                            <th>상태</th>
+                                            <th>잔액</th>
+                                            <th>상세조회</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
-                                    	<!-- ----- 매장 리스트 ----- -->
-                                    	<% for(Store s : list) { %>
+                                    	<!-- ----- 신청 리스트 ----- -->
+                                    	<% for(Member mem : m) { %>
                                         <tr>
-                                            <td><%= s.getStoreNo() %></td>
-                                            <td><%= s.getStoreName() %></td>
-                                            <td> </td>
-                                            <td> </td>
-                                            <td><%= s.getTypeName() %></td>
-                                            <td><%= s.getStorePhone() %></td>
-                                            <td><%= s.getStoreStatus()%></td>
-                                            <td id="store_detail_td" onclick="location.href='<%= contextPath %>/storeListDetail.bo?sno=<%=s.getStoreNo()%>'"><a class="btn btn-light">매장상세보기</a></td>
+                                            <td><%= mem.getUserNo() %></td>
+                                            <td><%= mem.getUserId()%></td>
+                                            <td><%= mem.getUserName()%></td>
+                                            <td><%= mem.getEnrollDate()%></td>
+                                            <td><%= mem.getStatus() %> </td>
+                                            <td id="memberPrice"><%= mem.getBalance() %>원</td>
+                                            <td id="store_detail_td" onclick="location.href='<%= contextPath %>/memberDetail.bo?mno=<%=mem.getUserNo()  %>'"> 
+                                            <a class="btn btn-light">상세조회</a></td>
                                         </tr>
                                         <% } %>
                                         <!-- --------------------- -->
@@ -109,21 +114,21 @@
                <div class="paging-area" align="center"> <!-- 안의 디브들이 가운데 정렬될수있도록 -->
                 	<!-- 이전 < 버튼 -->
                 	<% if(currentPage != 1) { %> <!-- 1페이지면 이전 버튼이 안보임 -->
-               	<button onclick="location.href='<%=contextPath%>/storeList?cpage=<%=currentPage -1%>'"> &lt;</button>
+               	<button onclick="location.href='<%=contextPath%>/memberlist.bo?mpage=<%=currentPage -1%>'"> &lt;</button>
                 	<% } %>
                 	
                 		<% for(int p = startPage; p<=endPage; p++) {%>
                 			<%if(p == currentPage) { %>
                 				<button disabled><%= p %></button>
                 			<% } else { %>
-                				<button onclick="location.href='<%=contextPath%>/storeList?cpage=<%=p%>'"><%= p %></button>
+                				<button onclick="location.href='<%=contextPath%>/memberlist.bo?mpage=<%=p%>'"><%= p %></button>
                 			<% } %>
                 		<% } %>	
                 
                 		
                 	<!-- 다음 > 버튼 -->
                 	<% if(currentPage != maxPage) {%>
-                	<button onclick="location.href='<%=contextPath%>/storeList?cpage=<%= currentPage +1%>'"> &gt; </button>
+                	<button onclick="location.href='<%=contextPath%>/memberlist.bo?mpage=<%= currentPage +1%>'"> &gt; </button>
                 	<% } %>
                 </div>
                 
@@ -172,23 +177,7 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
-    
 
 </body>
 </html>

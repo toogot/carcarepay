@@ -1,8 +1,6 @@
 package com.kh.semi.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,22 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.admin.model.service.AdminService;
-import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
-import com.kh.semi.store.enrollController.model.vo.Application;
-import com.kh.semi.store.model.service.StoreSearchService;
-import com.kh.semi.store.model.vo.Store;
+import com.kh.semi.member.model.vo.Member;
 
 /**
- * Servlet implementation class adminStoreEnrollDetail
+ * Servlet implementation class adminMemberDetail
  */
-@WebServlet("/storeEnrollDetail.bo")
-public class adminStoreEnrollDetail extends HttpServlet {
+@WebServlet("/memberDetail.bo")
+public class adminMemberDetail extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminStoreEnrollDetail() {
+    public adminMemberDetail() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,18 +29,16 @@ public class adminStoreEnrollDetail extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int appNo = Integer.parseInt(request.getParameter("eno"));
-		
-		Application ap = new AdminService().selectEnrollStoreDetail(appNo);
-		ArrayList<AppStoreImage> list = new AdminService().selectAppStoreImgAdmin(appNo);
-			
-		
-			request.setAttribute("list", list);
-			request.setAttribute("ap", ap);
-			request.getRequestDispatcher("views/admin/admin_storeEnrollDetailView.jsp").forward(request, response);
-			
 
-	
+		int memberNo = Integer.parseInt(request.getParameter("mno"));
+		
+		Member m = new AdminService().selectMemberDetail(memberNo);
+		
+		request.setAttribute("m", m);
+		request.getRequestDispatcher("views/admin/admin_memberDetailView.jsp").forward(request, response);
+				
+		
+		
 	}
 
 	/**
