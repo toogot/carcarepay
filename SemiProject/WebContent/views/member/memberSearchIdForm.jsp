@@ -24,7 +24,7 @@ pageEncoding="UTF-8"%>
     </style>
   </head>
   <body>
-    s <%@ include file="../common/head.jsp" %>
+    <%@ include file="../common/head.jsp" %>
     <form action="<%=contextPath %>/searchIdFinish.me" method="post">
       <div>
         아이디 찾기<br />

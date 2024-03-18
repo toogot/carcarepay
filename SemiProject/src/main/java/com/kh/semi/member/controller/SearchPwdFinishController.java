@@ -6,6 +6,8 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.kh.semi.member.model.service.MemberService;
 
@@ -13,6 +15,7 @@ import com.kh.semi.member.model.service.MemberService;
  * Servlet implementation class SearchPwdFinishController
  */
 @WebServlet("/searchPwdFinish.me")
+				
 public class SearchPwdFinishController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -33,7 +36,16 @@ public class SearchPwdFinishController extends HttpServlet {
 		String userId = request.getParameter("userId");
 		String email = request.getParameter("email");
 		
-		String userPwd = new MemberService().searchMemberPwd(userName,userId, email);
+		int userNo = new MemberService().searchMemberPwd(userName,userId, email);
+		
+		
+		if(userNo > 0) {
+			request.setAttribute("userNo",userNo );
+			request.getRequestDispatcher("views/member/newMemberUpdatePwd.jsp").forward(request, response);
+			
+		}else {
+			
+		}
 	}
 
 	/**

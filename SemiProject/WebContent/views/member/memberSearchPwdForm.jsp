@@ -27,9 +27,9 @@
 <%@ include file="../common/head.jsp" %>
 <form action="<%=contextPath%>/searchPwdFinish.me" method="post" >
 <div>비밀번호 찾기<br>
-     이름 : <input type="text" name="userName">
-     아이디 : <input type="text" name="userId">
-    이메일 : <input type="text" name="email"><button>확인</button>
+     이름 : <input type="text" name="userName" required>
+     아이디 : <input type="text" name="userId" required>
+    이메일 : <input type="text" name="email" required><button>확인</button>
 </div>
 </form>
 

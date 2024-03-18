@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <script type="text/javascript" src="https://developers.kakao.com/sdk/js/kakao.js"></script>
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <style>
     /* div{
         border: 1px solid red;
@@ -112,10 +113,10 @@
             <div id="title">
                 <h1 align="center">마이페이지</h1>
                 <div id="myBtn" class="btn-group">
-                    <button type="button" class="btn btn-primary" onclick="page('myPage.me');">회원정보</button>
-                    <button type="button" class="btn btn-primary" onclick="page('myHistory.me');">사용내역</button>
-                    <button type="button" class="btn btn-primary" onclick="page('myBookmark.me');">즐겨찾기</button>
-                    <button type="button" class="btn btn-primary" onclick="page('myAppStore.me');">입점신청내역</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/myPage.me'">회원정보</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/statement.me'">사용내역</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/bookmark.me'">즐겨찾기</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/storeHistory.me'">입점신청내역</button>
                 </div>
             </div>
 
@@ -140,11 +141,11 @@
                         </tr>
                         <tr>
                             <th>이메일</th>
-                            <td colspan="2"><%=loginUser.getEmail() %><button type="button" id="ebtn" class="btn btn-primary" onclick="location.href='<%= contextPath%>/updateEmail.me'" >변경</button></td>
+                            <td colspan="2"><%=loginUser.getEmail() %><button type="button" id="ebtn" class="btn btn-primary" data-toggle="modal" data-target="#updateEmailModal">변경</button></td>
                         </tr>
                         <tr>
                             <th>주소</th>
-                            <td colspan="2"><%=loginUser.getAddress() %><button type="button" id="abtn" class="btn btn-primary" >변경</button></td>
+                            <td colspan="2"><%=loginUser.getAddress() %><button type="button" id="abtn" class="btn btn-primary" data-toggle="modal" data-target="#updateAddressModal" >변경</button></td>
                         </tr>
                     </table>
                     
@@ -225,7 +226,7 @@
                   </tr>
                   <tr>
                       <td>변경할 비밀번호</td>
-                      <td><input type="password" name="updatePwd" required></td>
+                      <td><input type="password" name="updatePwd" placeholder="8~15글자 영숫특 포함" required></td>
                   </tr>
                   <tr>
                       <td>변경할 비밀번호 확인</td>
@@ -240,6 +241,14 @@
              
              <script>
                  function validatePwd(){
+
+                    let regExp =  /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,15}$/;
+                if(!regExp.test($("input[name=updatePwd]").val())){
+                    alert("영어,숫자,특수기호 포함 8~15자로 입력해주세요")
+                    return false;
+                }
+
+
                      if($("input[name=updatePwd]").val() != $("input[name=checkPwd]").val()){
                          alert("비밀번호가 일치하지 않습니다.");
                          return false;
@@ -251,7 +260,118 @@
         </div>
       </div>
 
+      <div class="modal" id="updateEmailModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">이메일 수정</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body" align="center">
+             <form action="<%= contextPath %>/updateEmail.me" method="post">
+              <input type="hidden" name="userId" value="<%=loginUser.getUserId()  %>">
+              <table>
+                  <tr>
+                      <td>비밀번호 확인</td>
+                      <td><input type="password" name="userPwd" required></td>
+                  </tr>
+                  <tr>
+                      <td>변경할 이메일</td>
+                      <td><input type="text" name="updateEmail"  required></td>
+                  </tr>
+                  <tr>
+                      
+              </table>
+              <br>
+  
+              <button type="submit" class="btn btn-sm btn-danger" onclick="return validateEmail();">이메일 수정</button>
+  
+             </form>
+             
+             <script>
+                function validate(){
+                    let regExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+                    if(!regExp.test($("#updateEmail").val())){
+                        alert("올바른 이메일 형식을 입력해주세요");
+                        return false;
+                    }
 
+                }
+
+             </script>
+            </div>
+        </div>
+      </div>
+    </div>
+    <div class="modal" id="updateAddressModal">
+        <div class="modal-dialog">
+          <div class="modal-content">
+      
+            <!-- Modal Header -->
+            <div class="modal-header">
+              <h4 class="modal-title">주소 수정</h4>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+      
+            <!-- Modal body -->
+            <div class="modal-body" align="center">
+             <form action="<%= contextPath %>/updateAddress.me" method="post">
+              <input type="hidden" name="userId" value="<%=loginUser.getUserId() %>">
+              <table>
+                  <tr>
+                      <td>비밀번호 확인</td>
+                      <td><input type="password" name="userPwd" required></td>
+                  </tr>
+                  <tr>
+                      <td>변경할 주소</td>
+                      <td><input type="text" name="updateAddress"  required onclick="searchAddress();"><button type="button" onclick="searchAddress();">주소검색</button></td>
+                      
+              </table>
+              <br>
+              
+              <button type="submit" class="btn btn-sm btn-danger"  >주소 수정</button>
+              
+             </form>
+             <script>
+                function searchAddress(){
+                    new daum.Postcode({
+                    oncomplete: function(data) {
+                        
+                        $("input[name=updateAddress]").val(data.address);
+                    }
+                }).open();
+                }
+            </script>
+            
+            </div>
+        </div>
+      </div>
+    </div>
+     <script>
+        
+        
+                function page(no){
+                    $.ajax({
+                        url:'<%=contextPath%>/'+no,
+                        success:function(){
+                            switch(no){
+                                case 1 : 
+                                
+                               
+                            }
+                            
+                        }
+                    });
+                    
+                }
+        
+        
+                
+            </script>
 <%}else{%>
 	<script>
 		alert("로그인이 필요한 서비스 입니다.");
@@ -260,23 +380,7 @@
 <%} %>
 
 
-    <script>
-        
-        
-        function page(no){
-            $.ajax({
-                url:'<%=contextPath%>/'+no,
-                success:function(){
-                    
-                    
-                }
-            });
-            
-        }
-
-
-        
-    </script>
+  
 <%@include file="../common/footer.jsp" %>
 
            
