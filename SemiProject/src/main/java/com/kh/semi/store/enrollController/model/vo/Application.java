@@ -18,10 +18,33 @@ public class Application {
 	private String userName;
 	private String typeName;
 	private String appTypeName;
+	private String email;
 	
 	public Application() {
 		// TODO Auto-generated constructor stub
 	}
+	public Application(int appNo, int userNo, String storeType, String storeName, String storeAddress,
+			String storePhone, String storeTime, String businessNo, String storePrice, String appDate, String appYN,
+			String refuse, String userName, String typeName, String appTypeName, String email) {
+		super();
+		this.appNo = appNo;
+		this.userNo = userNo;
+		this.storeType = storeType;
+		this.storeName = storeName;
+		this.storeAddress = storeAddress;
+		this.storePhone = storePhone;
+		this.storeTime = storeTime;
+		this.businessNo = businessNo;
+		this.storePrice = storePrice;
+		this.appDate = appDate;
+		this.appYN = appYN;
+		this.refuse = refuse;
+		this.userName = userName;
+		this.typeName = typeName;
+		this.appTypeName = appTypeName;
+		this.email = email;
+	}
+	
 	public Application(int appNo, int userNo, String storeType, String storeName, String storeAddress,
 			String storePhone, String storeTime, String businessNo, String storePrice, String appDate, String appYN,
 			String refuse, String userName, String typeName, String appTypeName) {
@@ -147,6 +170,14 @@ public class Application {
 	}
 	public void setAppTypeName(String appTypeName) {
 		this.appTypeName = appTypeName;
+		
+		
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	@Override
 	public String toString() {

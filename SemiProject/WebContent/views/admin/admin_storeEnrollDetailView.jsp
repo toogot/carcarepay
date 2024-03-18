@@ -51,12 +51,24 @@
       }
       table {
         width: 800px;
+        
       }
       #bottom_div {
+        padding-top: 50px;
         height: 100px;
       }
       img{
         padding: none;
+      }
+      #bottom_div{
+        display: flex;
+        justify-content: center;
+      }
+      #mailForm{
+        /* display: none; */
+      }
+      #mailTableForm th,td{
+        border: 1px solid #e3e6f0
       }
     </style>
   </head>
@@ -72,7 +84,7 @@
         <h2 id="store_name_h2"></h2>
       </div>
 
-      <form action="storeEnrollComplete" method="post" >
+      <form action="storeEnrollComplete" method="post" onsubmit="return confirm('매장을 승인하시겠습니까?')" >
         <input type="hidden" name="eno" value="<%=ap.getAppNo()%>" />
 
         <div id="table_wrap_div">
@@ -125,29 +137,70 @@
             </tr>
           </table>
         </div>
+      </form>
 
       <div id="btn">
-        <button type="submit" class="btn btn-primary">승인하기</button>
+        <button type="submit" class="btn btn-primary" >승인하기</button>
         <a
           href="<%=contextPath %>/storeEnrollList?cpage=1"
           class="btn btn-secondary"
           >목록가기</a>
-        <a href="" class="btn btn-danger" onclick="">거절하기</a>
+        <a class="btn btn-danger" onclick="storeno()">거절하기</a>
+        
       </div>
-      <div id="bottom_div"></div>
-    </div>
+
+      <form action="">
+        <div id="bottom_div">
+          <div id="mailForm">
+            <input type="hidden" vlaue="<%=ap.getEmail()%>">
+            <table id="mailTableForm">
+              <tr>
+                <th>제목</th>
+                <td>
+                  <input type="text">
+                </td>
+              </tr>
+              <tr>
+                <th>내용</th>
+                <td>
+                  <textarea name="" id="storeNoForm" cols="30" rows="10"></textarea>
+                </td>
+              </tr>
+              <tr>
+                <th colspan="2">
+                  <a href="#" class="btn btn-primary"> 전송하기 </a>
+                  <a class="btn btn-light"> 취소하기 </a>
+                </th>
+              </tr>
+            </table>
+
+          </div>
+          
+        </div>
       </form>
 
     <script>
-      /*
-	 function realstorego(){
-	 	if(confirm('매장을 승인하시겠습니까?')){
-			document.form.submit();
-	 	}else{
-			//history.back();
-	 	}
-	 }
-	*/
+      
+	//  function realstorego(){
+	//  	if(confirm('매장을 승인하시겠습니까?')){
+	// 		location.href="<%=contextPath %>/storeEnrollComplete"
+	//  	}else{
+	// 		//history.back();
+	//  	}
+	//  }
+    function storeno(){
+
+      if( $('#mailForm').css("display") == "none"){
+                    //$(this).siblings("p").slideUp(); //내가 누른 div// 나의 형제들 p를선택해라
+                    $('#mailForm').slideDown(); //부드러운 느낌!
+                    //다 닫고 하나만 열면됨
+                }else{
+                    // 안보여지게끔
+                    // $p.css("display","none");
+                    $('#mailForm').slideUp();
+                }
+    }
+	
     </script>
   </body>
 </html>

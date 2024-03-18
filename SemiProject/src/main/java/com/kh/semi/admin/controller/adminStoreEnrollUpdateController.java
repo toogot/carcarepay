@@ -36,12 +36,18 @@ public class adminStoreEnrollUpdateController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int appNo = Integer.parseInt(request.getParameter("eno"));
 
-		Application ap = new AdminService().selectEnrollStoreDetail(appNo);
-		ArrayList<AppStoreImage> list = new AdminService().selectAppStoreImgAdmin(appNo);
-		System.out.println("승인"+ap);
-		System.out.println("승인" + list);
-
+		//Application ap = new AdminService().selectEnrollStoreDetail(appNo);
+		//ArrayList<AppStoreImage> list = new AdminService().selectAppStoreImgAdmin(appNo);
+		
+		int result = new AdminService().insertStoreAndImage(appNo);
 	
+		if(result>0) { //성공
+			request.setAttribute("appNo", appNo);
+			response.sendRedirect(request.getContextPath()+"/storeEnrollDetail.bo?eno="+appNo);
+		}else { //실패
+			System.out.println("실패함");
+			
+		}
 	}
 
 	/**

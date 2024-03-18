@@ -144,6 +144,22 @@ public class AdminService {
 		return m;
 	}
 	
+	public int insertStoreAndImage(int appNo) {
+		Connection conn = getConnection();
+		
+		int result1 = new AdminDao().insertStore(conn,appNo);
+		int result2 = new AdminDao().insertStoreImg(conn,appNo);
+		int result3 = new AdminDao().updateAppTypeY(conn,appNo);
+		
+		if(result1>0 && result2>0 && result3>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result1 * result2 * result3;
+	}
 
 
 }

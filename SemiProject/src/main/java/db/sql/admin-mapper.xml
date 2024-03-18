@@ -114,6 +114,7 @@
          , USER_NAME
          , TYPE_NAME
          , APP_TYPENAME
+         , EMAIL
       FROM APPLICATION
       JOIN MEMBER USING(USER_NO)
       JOIN TYPE USING(STORE_TYPE)
@@ -186,6 +187,66 @@
 		     , STATUS
 		  FROM APP_STORE_IMAGE
 		 WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="insertAppToStore">
+	INSERT 
+	  INTO STORE
+		   (
+		    STORE_NO
+		   ,STORE_NAME
+		   ,STORE_TYPE
+		   ,STORE_ADDRESS
+		   ,STORE_PHONE
+		   ,STORE_TIME
+		   ,BUSINESS_NO
+		   ,STORE_PRICE
+		   ,STORE_STATUS
+		   )
+	 SELECT 
+	        SEQ_STORE.NEXTVAL
+	        ,A.STORE_NAME
+	        ,A.STORE_TYPE
+	        ,A.STORE_ADDRESS
+	        ,A.STORE_PHONE
+	        ,A.STORE_TIME
+	        ,A.BUSINESS_NO
+	        ,A.STORE_PRICE
+	        ,'N'
+	   FROM APPLICATION A
+	  WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="insertAppImgToStoreImg">
+	INSERT 
+	  INTO STORE_IMAGE
+	  (
+	     IMG_NO
+		,APP_NO
+		,IMG_ROOT
+		,ORIGIN_NAME
+		,CHANGE_NAME
+		,IMG_LEVEL
+		,STATUS)
+	SELECT STI_SEQ.NEXTVAL
+	       ,A.APP_NO
+		   ,A.IMG_ROOT
+		   ,A.ORIGIN_NAME
+		   ,A.CHANGE_NAME
+		   ,A.IMG_LEVEL
+		   ,A.STATUS
+      FROM APP_STORE_IMAGE A
+	 WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="updateAppTypeY">
+	 UPDATE 
+			(SELECT *
+			FROM APP_TYPE
+			JOIN APPLICATION USING (APP_YN))
+	    SET APP_YN = 'Y'
+      WHERE APP_NO = ?
+	
 	</entry>
 
 </properties>

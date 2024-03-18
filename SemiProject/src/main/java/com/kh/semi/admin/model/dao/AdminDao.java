@@ -373,7 +373,8 @@ public class AdminDao {
 									             rset.getString("refuse"),
 									             rset.getString("user_name"),
 									             rset.getString("type_name"),
-									             rset.getString("app_typename"));
+									             rset.getString("app_typename"),
+									             rset.getString("Email"));
 			}
 			
 			
@@ -460,6 +461,71 @@ public class AdminDao {
 		} 
 
 		return m;
+	}
+	
+	public int insertStore(Connection conn, int appNo) {
+		
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAppToStore");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, appNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+	}
+	
+	public int insertStoreImg(Connection conn, int appNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("insertAppImgToStoreImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, appNo);
+		
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
+		
+
+	}
+	
+	public int updateAppTypeY(Connection conn, int appNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAppTypeY");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, appNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+		
+		return result;
 	}
 	
 
