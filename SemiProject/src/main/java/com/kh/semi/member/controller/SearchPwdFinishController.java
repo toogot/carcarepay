@@ -7,20 +7,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import com.kh.semi.member.model.service.MemberService;
 
 /**
- * Servlet implementation class SearchIdFinsihController
+ * Servlet implementation class SearchPwdFinishController
  */
-@WebServlet("/searchIdFinish.me")
-public class SearchIdFinishController extends HttpServlet {
+@WebServlet("/searchPwdFinish.me")
+				
+public class SearchPwdFinishController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchIdFinishController() {
+    public SearchPwdFinishController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,16 +33,21 @@ public class SearchIdFinishController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String userName = request.getParameter("userName");
+		String userId = request.getParameter("userId");
 		String email = request.getParameter("email");
 		
+		int userNo = new MemberService().searchMemberPwd(userName,userId, email);
 		
-		String userId = new MemberService().searchMemberId(userName, email);
-		if(userId != null) {
-			request.setAttribute("userId", userId);
-				    	  
+		
+		if(userNo > 0) {
+			request.setAttribute("userNo",userNo );
+			request.getRequestDispatcher("views/member/newMemberUpdatePwd.jsp").forward(request, response);
+			
+		}else {
+			
+		}
 	}
-		request.getRequestDispatcher("views/member/memberSearchIdFinishForm.jsp").forward(request, response);
-	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

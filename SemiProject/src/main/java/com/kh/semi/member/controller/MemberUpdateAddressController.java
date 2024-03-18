@@ -11,16 +11,16 @@ import javax.servlet.http.HttpSession;
 import com.kh.semi.member.model.service.MemberService;
 
 /**
- * Servlet implementation class SearchIdFinsihController
+ * Servlet implementation class MemberUpdateAddressController
  */
-@WebServlet("/searchIdFinish.me")
-public class SearchIdFinishController extends HttpServlet {
+@WebServlet("/updateAddress.me")
+public class MemberUpdateAddressController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public SearchIdFinishController() {
+    public MemberUpdateAddressController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,17 +30,22 @@ public class SearchIdFinishController extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String userName = request.getParameter("userName");
-		String email = request.getParameter("email");
 		
 		
-		String userId = new MemberService().searchMemberId(userName, email);
-		if(userId != null) {
-			request.setAttribute("userId", userId);
-				    	  
+		String userPwd = request.getParameter("userPwd");
+		String updateAddress = request.getParameter("updateAddress");
+		int result = new MemberService().updateAddress(userPwd, updateAddress);
+		
+		HttpSession session = request.getSession();
+		if(result > 0) {
+			session.setAttribute("alertMsg", "주소 변경완료");
+			session.setAttribute("address", updateAddress);
+		}else {
+			session.setAttribute("alertMsg","주소 변경실패" );
+		}
+		request.getRequestDispatcher("views/member/memberMyPageForm.jsp").forward(request, response);
 	}
-		request.getRequestDispatcher("views/member/memberSearchIdFinishForm.jsp").forward(request, response);
-	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

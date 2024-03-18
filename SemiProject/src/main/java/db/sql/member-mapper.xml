@@ -100,6 +100,29 @@ UPDATE MEMBER
  WHERE USER_ID = ?
    AND USER_PWD = ?
 </entry>
+<entry key="searchMemberPwd">
+SELECT
+	USER_NO
+FROM MEMBER
+	WHERE USER_NAME = ?
+	  AND USER_ID = ?
+	  AND EMAIL = ?
+</entry>
+<entry key="updateNewPwdMember">
+UPDATE MEMBER
+	SET USER_PWD = ?
+	WHERE USER_NO = ?
+</entry>
+<entry key="updateEmail">
+UPDATE MEMBER
+	SET EMAIL = ?
+	WHERE USER_PWD = ?
+</entry>
+<entry key="updateAddress">
+UPDATE MEMBER
+	SET ADDRESS = ?
+	WHERE USER_PWD = ?
+</entry>
 </properties>
 
 
