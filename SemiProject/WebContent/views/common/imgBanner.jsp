@@ -64,7 +64,7 @@ pageEncoding="UTF-8"%>
         </ul>
         <div class="carousel-inner">
           <div class="carousel-item active">
-            <img src="resources/images/처음.png" />
+            <img src="resources/images/첫번째.png" />
           </div>
           <div class="carousel-item">
             <img src="resources/images/두번째.png" />
