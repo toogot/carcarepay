@@ -19,6 +19,7 @@ public class Member {
 	
 	public Member() {}
 	
+	
 	 public Member(int userNo, String userId, String userPwd, String userName, String email, String phone,
 			String address, String userLevel, Date enrollDate, int balance, String blacklist, String status) {
 		super();

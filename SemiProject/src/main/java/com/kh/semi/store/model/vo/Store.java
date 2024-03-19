@@ -11,7 +11,7 @@ public class Store {
 	private String businessNo;
 	private String storePrice;
 	private String storeStatus;
-	private String typeName;
+	
 	
 	public Store() {
 		// TODO Auto-generated constructor stub
@@ -35,21 +35,6 @@ public class Store {
 	
 	
 
-	public Store(int storeNo, String storeName, String storeType, String storeAddress, String storePhone,
-			String storeTime, String businessNo, String storePrice, String storeStatus, String typeName) {
-		super();
-		this.storeNo = storeNo;
-		this.storeName = storeName;
-		this.storeType = storeType;
-		this.storeAddress = storeAddress;
-		this.storePhone = storePhone;
-		this.storeTime = storeTime;
-		this.businessNo = businessNo;
-		this.storePrice = storePrice;
-		this.storeStatus = storeStatus;
-		this.typeName = typeName;
-	}
-
 	public Store(int storeNo, String storeName, String storeAddress, String storePhone) {
 		super();
 		this.storeNo = storeNo;
@@ -58,12 +43,12 @@ public class Store {
 		this.storePhone = storePhone;
 	}
 
-	public Store(String storeName,int storeNo,  String storePhone, String typeName, String storeStatus) {
+	public Store(String storeName,int storeNo,  String storePhone, String storeStatus) {
 		super();
 		this.storeName = storeName;
 		this.storeNo = storeNo;
 		this.storePhone = storePhone;
-		this.typeName = typeName;
+		
 		this.storeStatus = storeStatus;
 	}
 
@@ -157,20 +142,15 @@ public class Store {
 
 	
 	
-	public String getTypeName() {
-		return typeName;
-	}
+	
 
-	public void setTypeName(String typeName) {
-		this.typeName = typeName;
-	}
+	
 
 	@Override
 	public String toString() {
 		return "Store [storeNo=" + storeNo + ", storeName=" + storeName + ", storeType=" + storeType + ", storeAddress="
 				+ storeAddress + ", storePhone=" + storePhone + ", storeTime=" + storeTime + ", businessNo="
-				+ businessNo + ", storePrice=" + storePrice + ", storeStatus=" + storeStatus + ", typeName="
-				+ typeName + "]";
+				+ businessNo + ", storePrice=" + storePrice + ", storeStatus=" +" storeStatus ]";
 	}
 
 

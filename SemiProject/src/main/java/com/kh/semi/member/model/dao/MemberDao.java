@@ -6,10 +6,13 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.store.enrollController.model.vo.Application;
+import com.kh.semi.store.model.vo.Store;
 
 public class MemberDao {
 	
@@ -426,6 +429,134 @@ public MemberDao() {
 		System.out.println(userPwd);
 		System.out.println(result);
 		return result;
+	}
+
+
+	public ArrayList<Integer> memberStoreHistory(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		 ArrayList<Integer> arr = new ArrayList<>();
+		String sql = prop.getProperty("memberStoreHistory");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				arr.add(rset.getInt("user_no"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		System.out.println(arr);
+		return arr;
+		
+	}
+
+
+	public Application selectStoreHistory(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		Application app = null;
+		String sql =prop.getProperty("selectStoreHistory");
+		
+		
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, userNo);
+			
+			rset= pstmt.executeQuery();
+			
+			if(rset.next()) {
+				app = new Application(rset.getInt("app_no"),
+							   rset.getInt("user_no"),
+							   rset.getString("store_type"),
+							   rset.getString("store_name"),
+							   rset.getString("store_address"),
+							   rset.getString("store_phone"),
+							   rset.getString("store_time"),
+							   rset.getString("business_no"),
+							   rset.getString("store_price"),
+							   rset.getString("app_date"),
+							   rset.getString("app_yn"),
+							   rset.getString("refuse"));
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return app;
+	}
+
+
+	public int selectBookMark(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("bookMark");
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+			result = rset.getInt("user_no");
+					
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return result;
+	}
+
+
+	public ArrayList getStoreInfo(Connection conn, int userNo) {
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("getStoreInfo");
+		ArrayList<Store> arr = new ArrayList<Store>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, userNo);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				arr.add(new Store(rset.getInt("store_no"),
+						   rset.getString("store_name"),
+						   rset.getString("store_type"),
+						   rset.getString("store_address"),
+						   rset.getString("store_phone"),
+						   rset.getString("store_time"),
+						   rset.getString("business_no"),
+						   rset.getString("store_price"),
+						   rset.getString("store_status")));
+			}
+		
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			close(rset);
+			close(pstmt);
+		}
+		return arr;
 	}
 	
 
