@@ -2,9 +2,12 @@ package com.kh.semi.member.model.service;
 
 import java.net.ConnectException;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 import com.kh.semi.member.model.dao.MemberDao;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.store.enrollController.model.vo.Application;
+import com.kh.semi.store.model.vo.Store;
 
 import static com.kh.semi.common.JDBCTemplate.*;
 
@@ -156,5 +159,31 @@ public class MemberService {
 		}
 		close(conn);
 		return result;
+	}
+	public ArrayList<Integer> memberStoreHistory() {
+		Connection conn = getConnection();
+		ArrayList<Integer> arr = new MemberDao().memberStoreHistory(conn);
+		
+		close(conn);
+		return arr;
+	}
+	public Application selectStoreHistory(int userNo) {
+		Connection conn = getConnection();
+		Application app = new MemberDao().selectStoreHistory(conn,userNo);
+		close(conn);
+		return app;
+	}
+	public int selectBookMark(int userNo) {
+		Connection conn = getConnection();
+			int result = new MemberDao().selectBookMark(conn, userNo);
+				close(conn);
+		return result;
+		
+	}
+	public ArrayList getStoreInfo(int userNo) {
+		Connection conn = getConnection();
+		ArrayList<Store> arr = new MemberDao().getStoreInfo(conn, userNo);
+		close(conn);
+		return arr;
 	}
 }
