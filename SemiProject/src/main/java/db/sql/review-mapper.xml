@@ -68,6 +68,7 @@
 		SELECT COUNT(*) "COUNT", ROUND(AVG(GRADE),1) "AVG"
 		  FROM REVIEW
 		 WHERE STORE_NO = ?
+		   AND REVIEW_STATUS = 'Y'
 	</entry>
 	
 	<entry key="deleteReview">

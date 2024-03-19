@@ -1,6 +1,8 @@
-<%@page import="com.kh.semi.store.model.vo.Store"%> <%@ page language="java"
+<%@page import="com.google.gson.Gson"%> <%@page
+import="com.kh.semi.store.model.vo.Store"%> <%@ page language="java"
 contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
-(Store)request.getAttribute("st"); %>
+(Store)request.getAttribute("st"); Gson gson = new Gson(); %>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -362,14 +364,22 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
         height: 25px;
         width: 85px;
       }
+      .storeImg_outer {
+        width: 1000px;
+        height: 750px;
+        border: 1px solid blue;
+      }
     </style>
   </head>
   <body>
-    <%@ include file="/views/common/head.jsp"%>
+    <%@ include file="/views/common/head.jsp"%> <% String loginUserJson =
+    gson.toJson(loginUser); %>
 
     <div class="outer">
       <div class="store_img">
-        <h1>매장사진이 들어갈 자리</h1>
+        <div class="storeImg_outer">
+          <img src="../../resources/appstore/202402281034008256.PNG" />
+        </div>
       </div>
 
       <div class="store_info">
@@ -381,6 +391,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
                   <%= st.getStoreName() %>
                 </th>
                 <td colspan="3">
+                  <% if(loginUser != null) { %>
                   <button
                     type="button"
                     id="bookmarkButton"
@@ -394,6 +405,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
                   >
                     즐겨찾기
                   </button>
+                  <% } %>
                 </td>
               </tr>
               <tr style="height: 40px">
@@ -470,7 +482,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
             <div class="store_allRev_content">
               <% if(loginUser != null){%>
               <div style="border: 0px; padding-left: 15px">
-                <span>작성하기</span> <span>100</span>
+                <span>작성하기</span> <span id="countReview">100</span>
               </div>
               <br />
               <div class="rev-write">
@@ -586,6 +598,8 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
     <script>
 
+      var loginUser = JSON.parse('<%= loginUserJson %>');
+
 
       $(function(){
            				selectReview();
@@ -595,6 +609,8 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            				checkIfBookmarked();
               <% } %>
       });
+
+
            		/////////////////////////////////////////
            		////////// 모든리뷰 보기 스크롤 //////////
            		////////////////////////////////////////
@@ -766,6 +782,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            						$("#file2").val("");
            						$("#file3").val("");
            						selectReview();
+                      selectCountGrade();
            					}
            				},
            				error:function(){
@@ -784,11 +801,14 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            				success:function(rv){
 
            					let value = ""
+                    let value2 = ""
            					if(rv != null){
            					value += "★" + rv.grade + "  " + rv.reviewCount + "명 평가";
+                    value2 += "(" + rv.reviewCount + ")";
            					}
 
            					$("#countGrade").text(value);
+                    $("#countReview").text(value2);
            				},
            				error:function(){
            					console.log("AJAX 통신 실패 ㅜㅜ");
@@ -805,7 +825,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
            		function selectReview(){
 
-
+                console.log(loginUser);
            			$.ajax({
            				url:"select.rv",
            				method:"post",
@@ -882,20 +902,22 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
               // 리뷰삭제 //
               function deleteReview(reviewNo){
-                alert("리뷰를 삭제하시겠습니까?");
-                $.ajax({
-           				url:"delete.rv",
-           				method:"post",
-           				data:{reviewNo: reviewNo},
-           				success:function(result){
-                    if(result > 0){
-                      selectReview();
+                if(window.confirm("리뷰를 정말로 삭제하시겠습니까?")){
+                  $.ajax({
+                     url:"delete.rv",
+                     method:"post",
+                     data:{reviewNo: reviewNo},
+                     success:function(result){
+                      if(result > 0){
+                        selectReview();
+                        selectCountGrade();
+                      }
+                    },
+                    error:function(){
+                      console.log("리뷰삭제 실패")
                     }
-                  },
-                  error:function(){
-                    console.log("리뷰삭제 실패")
-                  }
-                });
+                  });
+                }
             }
 
 
