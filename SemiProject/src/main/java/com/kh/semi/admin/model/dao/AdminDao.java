@@ -528,5 +528,76 @@ public class AdminDao {
 		return result;
 	}
 	
+	public int updateEnrollRefuseAppType(Connection conn, int appNo, String refuse) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateEnrollRefuseAppType");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, refuse);
+			pstmt.setInt(2, appNo);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			
+		} finally {
+			close(pstmt);
+		}
+		return result;
+	}
+	
+	public int updateEnrollReRefuse(Connection conn, String refuse,int appNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateEnrollReRefuse");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, refuse);
+			pstmt.setInt(2, appNo);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally{
+			close(pstmt);
+		}
+		return result;
+		
+
+		
+	}
+	
+	public String selectEnrollReRefuse(Connection conn, int appNo) {
+		String refuse2 = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectEnrollReRefuse");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1,appNo);
+			
+       	    rset = pstmt.executeQuery(); 
+			
+			if(rset.next()) { // 한행이라 if문 while까지 돌릴필요 x
+				refuse2 = rset.getString("refuse"); 
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return refuse2;
+		
+	}
+	
 
 }

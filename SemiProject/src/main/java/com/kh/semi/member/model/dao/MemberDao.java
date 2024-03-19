@@ -33,7 +33,6 @@ public MemberDao() {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member m = null;
-		System.out.println("ㅇㅅㅇ");
 		String sql = prop.getProperty("loginMember");
 		
 		try {
@@ -67,7 +66,6 @@ public MemberDao() {
 			close(rset);
 			close(pstmt);
 		}
-		System.out.println("ㅇㅅ2222ㅇ");
 		return m;
 		
 	}
