@@ -50,7 +50,7 @@ public class OrderProductDetailController extends HttpServlet {
 		System.out.println("총가격 : " + totalPrice);
 		System.out.println("라디오버튼 : " + price);
 		System.out.println("상품수량 : " + qty);
-		System.out.println("회원번호 : " + userNo);
+		System.out.println("회원번호 : " + userNo);                                 
 		int result = new OrderService().orderInsert(o);
 		
 		System.out.println(o);

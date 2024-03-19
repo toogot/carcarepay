@@ -248,5 +248,28 @@
       WHERE APP_NO = ?
 	
 	</entry>
+	
+	<entry key="updateEnrollRefuseAppType">
+	UPDATE (SELECT *
+      		  FROM APP_TYPE
+              JOIN APPLICATION USING (APP_YN)
+             )
+       SET APP_YN = 'N'
+          ,REFUSE = ?
+     WHERE APP_NO = ?     
+	</entry>
+	
+	<entry key="updateEnrollReRefuse"> 
+   UPDATE APPLICATION
+      SET REFUSE = ?
+    WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="selectEnrollReRefuse">
+	SELECT REFUSE
+      FROM APP_TYPE
+      JOIN APPLICATION USING (APP_YN)
+     WHERE APP_NO = ?
+	</entry>
 
 </properties>
