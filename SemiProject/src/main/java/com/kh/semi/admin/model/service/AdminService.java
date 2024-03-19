@@ -7,6 +7,7 @@ import com.kh.semi.admin.model.dao.AdminDao;
 import com.kh.semi.admin.model.vo.Category;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.order.model.vo.Order;
 import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.vo.Store;
@@ -38,6 +39,14 @@ public class AdminService {
 		Connection conn = getConnection();
 		int listCount = new AdminDao().memberListCount(conn);
 		//조회이기 때문에 트랜젝션 노필요
+		
+		close(conn);
+		return listCount;
+	}
+	
+	public int orderListCount() {
+		Connection conn = getConnection();
+		int listCount = new AdminDao().orderListCount(conn);
 		
 		close(conn);
 		return listCount;
@@ -82,6 +91,13 @@ public class AdminService {
 		
 	}
 	
+	public ArrayList<Order> selectOrderList(PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Order> o = new AdminDao().selectOrderList(conn,pi);
+		close(conn);
+		return o;
+	}
+	
 	public int updateStore(Store st) {
 		Connection conn = getConnection();
 		
@@ -112,6 +128,15 @@ public class AdminService {
 		return result;
 	}
 	
+	public Order selectOrderListDetail(int realOrderNo) {
+		Connection conn = getConnection();
+		
+		Order o = new AdminDao().selectOrderListDetail(conn,realOrderNo);
+		
+		close(conn);
+		return o;
+	}
+	
 	public Application selectEnrollStoreDetail(int appNo) {
 		Connection conn = getConnection();
 		
@@ -120,6 +145,7 @@ public class AdminService {
 		close(conn);
 		return ap;
 	}
+	
 	
 	public ArrayList<AppStoreImage> selectAppStoreImgAdmin(int appNo){
 		Connection conn = getConnection();

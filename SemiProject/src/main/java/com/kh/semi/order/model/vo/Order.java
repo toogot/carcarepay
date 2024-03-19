@@ -21,6 +21,12 @@ public class Order {
 	private String pgProvider; //"kakaopay" 출력됨
 	private int payNo; //결제번호
 	
+	private int payNoK; //카카오페이 결제번호
+	private String payDateK; //카카오페이 결제일
+	private String payCompanyK; 
+	private String userId;
+	
+	
 	public Order() {}
 
 	public Order(int userNo, int orderNo, int price, int qty, int totalPrice, String giftNy, String orderDate) {
@@ -32,6 +38,21 @@ public class Order {
 		this.totalPrice = totalPrice;
 		this.giftNy = giftNy;
 		this.orderDate = orderDate;
+	}
+	
+	public Order(int qty, int price, int totalPrice, String giftNy, int payNoK, String payDateK, String payCompanyK, String userId, String userName, String email, String phone) {
+		super();
+		this.qty = qty;
+		this.price=price;
+		this.totalPrice=totalPrice;
+		this.giftNy=giftNy;
+		this.payNoK=payNoK;
+		this.payDateK=payDateK;
+		this.payCompanyK=payCompanyK;
+		this.userId=userId;
+		this.userName=userName;
+		this.email=email;
+		this.phone=phone;
 	}
 
 
@@ -50,6 +71,8 @@ public class Order {
 		this.phone = phone;
 		this.userName = userName;
 	}
+	
+	
 
 
 
@@ -163,6 +186,39 @@ public class Order {
 
 	public void setPayNo(int payNo) {
 		this.payNo = payNo;
+	}
+
+	
+	public int getPayNoK() {
+		return payNoK;
+	}
+
+	public void setPayNoK(int payNoK) {
+		this.payNoK = payNoK;
+	}
+
+	public String getPayDateK() {
+		return payDateK;
+	}
+
+	public void setPayDateK(String payDateK) {
+		this.payDateK = payDateK;
+	}
+
+	public String getPayCompanyK() {
+		return payCompanyK;
+	}
+
+	public void setPayCompanyK(String payCompanyK) {
+		this.payCompanyK = payCompanyK;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 	@Override

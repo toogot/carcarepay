@@ -1,12 +1,11 @@
-<%@page import="com.kh.semi.store.enrollController.model.vo.Application"%>
-<%@page import="com.kh.semi.store.model.vo.Store"%>
+<%@page import="com.kh.semi.order.model.vo.Order"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.semi.common.model.vo.PageInfo"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%
 	PageInfo pi = (PageInfo)request.getAttribute("pi");
-	ArrayList<Application> list = (ArrayList<Application>)request.getAttribute("list");
+	ArrayList<Order> o = (ArrayList<Order>)request.getAttribute("o");
 	
 	int currentPage = pi.getCurrentPage();
 	int startPage = pi.getStartPage();
@@ -14,12 +13,21 @@
 	int maxPage = pi.getMaxPage();
 
 %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
+    table>*{
+        width: 500px ;
+    }
+    #memberPrice{
+        text-align: right !important;
+        padding-right: 5%;
+    }
     th,td{
         /* width: 10%; */
         text-align: center !important;
@@ -47,50 +55,50 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 id="h1Title" class="h3 mb-2 text-gray-800">입점신청 매장목록</h1>
-                    <p class="mb-4">입점신청한 매장의 정보를 조회할수있습니다. 
+                    <h1 id="h1Title" class="h3 mb-2 text-gray-800">상품권결제목록</h1>
+                    <p class="mb-4">상품권 결제 내역을 조회할수있습니다. </p>
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Enroll Store List</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">order List</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
                                 <table class="table table-bordered list-area" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>No.</th>
-                                            <th>매장이름</th>
-                                            <th>매장타입</th>
-                                            <th>신청일자</th>
-                                            <th>신청자이름</th>
-                                            <th>상태</th>
+                                            <th>No.결제번호</th>
+                                            <th>ID</th>
+                                            <th>이름</th>
+                                            <th>결제금액</th>
+                                            <th>결제날짜</th>
+                                            <th>선물여부</th>
                                             <th>상세조회</th>
                                         </tr>
                                     </thead>
                                     <tfoot>
                                         <tr>
-                                            <th>No.</th>
-                                            <th>매장이름</th>
-                                            <th>매장타입</th>
-                                            <th>신청일자</th>
-                                            <th>신청자이름</th>
-                                            <th>상태</th>
+                                            <th>No.결제번호</th>
+                                            <th>ID</th>
+                                            <th>이름</th>
+                                            <th>결제금액</th>
+                                            <th>결제날짜</th>
+                                            <th>선물여부</th>
                                             <th>상세조회</th>
                                         </tr>
                                     </tfoot>
                                     <tbody>
                                     	<!-- ----- 신청 리스트 ----- -->
-                                    	<% for(Application a : list) { %>
+                                    	<% for(Order od : o) { %>
                                         <tr>
-                                            <td><%= a.getAppNo() %></td>
-                                            <td><%= a.getStoreName()%></td>
-                                            <td><%= a.getTypeName()%></td>
-                                            <td><%= a.getAppDate() %></td>
-                                            <td><%= a.getUserName() %> </td>
-                                            <td><%= a.getAppTypeName() %></td>
-                                            <td id="store_detail_td" onclick="location.href='<%= contextPath %>/storeEnrollDetail.bo?eno=<%=a.getAppNo()  %>'"> 
+                                            <td><%= od.getPayNoK() %></td>
+                                            <td><%= od.getUserId()%></td>
+                                            <td><%= od.getUserName()%></td>
+                                            <td><%= od.getTotalPrice()%></td>
+                                            <td><%= od.getPayDateK() %></td>
+                                            <td><%= od.getGiftNy() %> </td>
+                                            <td id="order_detail_td" onclick="location.href='<%= contextPath %>/adminOrderDetail.bo?ono=<%=od.getPayNoK()  %>'"> 
                                             <a class="btn btn-light">상세조회</a></td>
                                         </tr>
                                         <% } %>
@@ -107,21 +115,21 @@
                <div class="paging-area" align="center"> <!-- 안의 디브들이 가운데 정렬될수있도록 -->
                 	<!-- 이전 < 버튼 -->
                 	<% if(currentPage != 1) { %> <!-- 1페이지면 이전 버튼이 안보임 -->
-               	<button onclick="location.href='<%=contextPath%>/storeEnrollList?cpage=<%=currentPage -1%>'"> &lt;</button>
+               	<button onclick="location.href='<%=contextPath%>/buyhistory?opage=<%=currentPage -1%>'"> &lt;</button>
                 	<% } %>
                 	
                 		<% for(int p = startPage; p<=endPage; p++) {%>
                 			<%if(p == currentPage) { %>
                 				<button disabled><%= p %></button>
                 			<% } else { %>
-                				<button onclick="location.href='<%=contextPath%>/storeEnrollList?cpage=<%=p%>'"><%= p %></button>
+                				<button onclick="location.href='<%=contextPath%>/buyhistory?opage=<%=p%>'"><%= p %></button>
                 			<% } %>
                 		<% } %>	
                 
                 		
                 	<!-- 다음 > 버튼 -->
                 	<% if(currentPage != maxPage) {%>
-                	<button onclick="location.href='<%=contextPath%>/storeEnrollList?cpage=<%= currentPage +1%>'"> &gt; </button>
+                	<button onclick="location.href='<%=contextPath%>/buyhistory?opage=<%= currentPage +1%>'"> &gt; </button>
                 	<% } %>
                 </div>
                 

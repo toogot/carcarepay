@@ -19,6 +19,14 @@
 		 FROM MEMBER
 	</entry>
 	
+	<entry key="orderListCount">
+		SELECT 
+			   COUNT(*) count
+		  FROM PRODUCT_ODR
+		  JOIN KAKAO_PAYMENT ON ORDER_NO_K = ORDER_NO
+		  JOIN MEMBER USING(USER_NO)
+	</entry>
+	
 	<entry key="selectStoreList">
   SELECT *
     FROM
@@ -95,6 +103,34 @@
 						    BY USER_NO DESC)A
 				)
 		WHERE RNUM BETWEEN ? AND ?			    
+	</entry>
+	
+	<entry key="selectOrderList">
+			  SELECT *
+			    FROM
+			        (
+			        SELECT ROWNUM RNUM, A.*
+			          FROM
+			              (SELECT 
+	 		                      ORDER_QTY
+	                            , ORDER_PRICE
+	                            , TOTAL_PRICE
+	                            , GIFT_YN
+	                            , PAY_NO_K
+	                            , PAY_DATE_K
+	                            , PAY_COMPANY_K
+	                            , USER_ID
+	                            , USER_NAME
+	                            , EMAIL
+	                            , PHONE
+			                 FROM PRODUCT_ODR
+			                 JOIN KAKAO_PAYMENT ON ORDER_NO_K = ORDER_NO
+			                 JOIN MEMBER USING(USER_NO)
+			                ORDER 
+			                   BY PAY_NO_K DESC)A
+			        )
+			    WHERE RNUM BETWEEN ? AND ?
+	
 	</entry>
 	
 	<entry key="selectEnrollStoreDetail">

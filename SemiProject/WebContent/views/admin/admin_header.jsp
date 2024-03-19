@@ -110,7 +110,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="<%=contextPath%>/memberlist.bo">회원목록</a>
-                        <a class="collapse-item" href="utilities-border.html">블랙리스트</a>
                     </div>
                 </div>
             </li>
@@ -125,7 +124,7 @@
                 <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">상품권매출</a>
+                        <a class="collapse-item" href="<%=contextPath%>/buyhistory">상품권매출</a>
                         <a class="collapse-item" href="cards.html">매장매출</a>
                     </div>
                 </div>
