@@ -17,13 +17,15 @@ public class Application {
 	private String refuse;
 	private String userName;
 	private String typeName;
+	private String appTypeName;
+	private String email;
 	
 	public Application() {
 		// TODO Auto-generated constructor stub
 	}
 	public Application(int appNo, int userNo, String storeType, String storeName, String storeAddress,
 			String storePhone, String storeTime, String businessNo, String storePrice, String appDate, String appYN,
-			String refuse, String userName, String typeName) {
+			String refuse, String userName, String typeName, String appTypeName, String email) {
 		super();
 		this.appNo = appNo;
 		this.userNo = userNo;
@@ -39,6 +41,29 @@ public class Application {
 		this.refuse = refuse;
 		this.userName = userName;
 		this.typeName = typeName;
+		this.appTypeName = appTypeName;
+		this.email = email;
+	}
+	
+	public Application(int appNo, int userNo, String storeType, String storeName, String storeAddress,
+			String storePhone, String storeTime, String businessNo, String storePrice, String appDate, String appYN,
+			String refuse, String userName, String typeName, String appTypeName) {
+		super();
+		this.appNo = appNo;
+		this.userNo = userNo;
+		this.storeType = storeType;
+		this.storeName = storeName;
+		this.storeAddress = storeAddress;
+		this.storePhone = storePhone;
+		this.storeTime = storeTime;
+		this.businessNo = businessNo;
+		this.storePrice = storePrice;
+		this.appDate = appDate;
+		this.appYN = appYN;
+		this.refuse = refuse;
+		this.userName = userName;
+		this.typeName = typeName;
+		this.appTypeName = appTypeName;
 	}
 	
 	
@@ -139,14 +164,32 @@ public class Application {
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
+	
+	public String getAppTypeName() {
+		return appTypeName;
+	}
+	public void setAppTypeName(String appTypeName) {
+		this.appTypeName = appTypeName;
+		
+		
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
 	@Override
 	public String toString() {
 		return "Application [appNo=" + appNo + ", userNo=" + userNo + ", storeType=" + storeType + ", storeName="
 				+ storeName + ", storeAddress=" + storeAddress + ", storePhone=" + storePhone + ", storeTime="
 				+ storeTime + ", businessNo=" + businessNo + ", storePrice=" + storePrice + ", appDate=" + appDate
-				+ ", appYN=" + appYN + ", refuse=" + refuse + ", userName=" + userName + ", typeName=" + typeName + "]";
+				+ ", appYN=" + appYN + ", refuse=" + refuse + ", userName=" + userName + ", typeName=" + typeName
+				+ ", appTypeName=" + appTypeName + "]";
 	}
-
+	
+	
+	
 	
 	
 }

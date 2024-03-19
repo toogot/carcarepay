@@ -52,6 +52,7 @@ public class LoginMemberController extends HttpServlet {
 		    	  response.sendRedirect(request.getContextPath());
 		      }
 			
+			
 	}
 
 	/**

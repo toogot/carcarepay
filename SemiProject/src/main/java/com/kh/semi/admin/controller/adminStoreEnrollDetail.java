@@ -1,6 +1,8 @@
 package com.kh.semi.admin.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.admin.model.service.AdminService;
+import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.service.StoreSearchService;
 import com.kh.semi.store.model.vo.Store;
@@ -34,11 +37,13 @@ public class adminStoreEnrollDetail extends HttpServlet {
 		int appNo = Integer.parseInt(request.getParameter("eno"));
 		
 		Application ap = new AdminService().selectEnrollStoreDetail(appNo);
-
+		ArrayList<AppStoreImage> list = new AdminService().selectAppStoreImgAdmin(appNo);
+			
+		
+			request.setAttribute("list", list);
 			request.setAttribute("ap", ap);
 			request.getRequestDispatcher("views/admin/admin_storeEnrollDetailView.jsp").forward(request, response);
-
-
+			
 
 	
 	}

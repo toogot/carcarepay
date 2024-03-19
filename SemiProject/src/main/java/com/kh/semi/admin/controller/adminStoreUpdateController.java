@@ -55,7 +55,6 @@ public class adminStoreUpdateController extends HttpServlet {
 		st.setStoreStatus(storeStatus);
 		
 		
-		System.out.println("update : " + st);
 		
 		int result = new AdminService().updateStore(st);
 		
