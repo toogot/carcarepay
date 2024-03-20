@@ -364,23 +364,102 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
         height: 25px;
         width: 85px;
       }
-      .storeImg_outer {
+      /* .storeImg_outer {
         width: 1000px;
         height: 750px;
         border: 1px solid blue;
+      } */
+
+      .slider {
+        width: 1150px;
+        height: 700px;
+        overflow: hidden;
+        position: relative;
+        border-radius: 10px;
+        border: 1px solid rgb(220, 220, 220);
+        margin-top: 50px;
+      }
+      .slide {
+        float: left;
+        width: 100%;
+        position: relative;
+      }
+      .stImg {
+        width: 1150px;
+        height: 700px;
+      }
+
+      .fade {
+        animation-name: fadeEffect;
+        animation-duration: 4s; /* fade 효과 지속 시간 */
+      }
+
+      @keyframes fadeEffect {
+        from {
+          opacity: 1;
+        }
+        to {
+          opacity: 0;
+        }
       }
     </style>
+    <!-- <link rel="stylesheet" href="styles.css" /> -->
   </head>
   <body>
-    <%@ include file="/views/common/head.jsp"%> <% String loginUserJson =
-    gson.toJson(loginUser); %>
-
+    <%@ include file="/views/common/head.jsp"%>
     <div class="outer">
       <div class="store_img">
-        <div class="storeImg_outer">
-          <img src="../../resources/appstore/202402281034008256.PNG" />
+        <div class="slider">
+          <div class="slide">
+            <img
+              class="stImg"
+              src="resources/appstore/202403200250365011.jpg"
+            />
+          </div>
+          <div class="slide">
+            <img
+              class="stImg"
+              src="resources/appstore/202403200250369125.jpg"
+            />
+          </div>
+          <div class="slide">
+            <img
+              class="stImg"
+              src="resources/appstore/2024032002503610605.jpg"
+            />
+          </div>
         </div>
       </div>
+
+      <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll(".slide");
+        const slideCount = slides.length;
+
+        function showSlide(n) {
+          slides.forEach((slide) => {
+            slide.style.display = "none";
+            slide.classList.remove("fade"); // fade 클래스 제거
+          });
+          slides[n].style.display = "block";
+          slides[n].classList.add("fade"); // fade 클래스 추가
+        }
+
+        function nextSlide() {
+          currentSlide = (currentSlide + 1) % slideCount;
+          showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+          currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+          showSlide(currentSlide);
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+          showSlide(currentSlide);
+          setInterval(nextSlide, 2000); // 3초마다 자동 슬라이드
+        });
+      </script>
 
       <div class="store_info">
         <div class="store_info_1">
@@ -598,7 +677,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
     <script>
 
-      var loginUser = JSON.parse('<%= loginUserJson %>');
+
 
 
       $(function(){
@@ -825,7 +904,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
            		function selectReview(){
 
-                console.log(loginUser);
+
            			$.ajax({
            				url:"select.rv",
            				method:"post",
