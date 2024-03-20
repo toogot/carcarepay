@@ -33,7 +33,6 @@ public MemberDao() {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		Member m = null;
-		
 		String sql = prop.getProperty("loginMember");
 		
 		try {
@@ -332,6 +331,101 @@ public MemberDao() {
 		}
 		return result;
 	}
+	public int searchMemberPwd(Connection conn, String userName, String userId, String email) {
+		ResultSet rset = null;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("searchMemberPwd");
+		int userNo = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, userName);
+			pstmt.setString(2, userId);
+			pstmt.setString(3, email);
+			rset = pstmt.executeQuery();
+			
+			
+			
+			if(rset.next()) {
+				 userNo = rset.getInt("user_no");
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		
+		return userNo;
+	}
+	public int updateNewPwdMember(Connection conn, int userNo, String updatePwd) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateNewPwdMember");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, updatePwd);
+			pstmt.setInt(2, userNo);
+			
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
 
+		return result;
+		
+	}
+	public int updateEmail(Connection conn, String userPwd, String updateEmail) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateEmail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, updateEmail);
+			pstmt.setString(2, userPwd);
+			
+			result = pstmt.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	public int updateAddress(Connection conn, String userPwd, String updateAddress) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("updateAddress");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, updateAddress);
+			pstmt.setString(2, userPwd);
+			
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		System.out.println(updateAddress);
+		System.out.println(userPwd);
+		System.out.println(result);
+		return result;
+	}
+	
 
 }

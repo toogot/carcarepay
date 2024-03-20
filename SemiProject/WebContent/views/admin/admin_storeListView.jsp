@@ -19,8 +19,8 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-    th{
-        width: 10%;
+    th,td{
+        /* width: 10%; */
         text-align: center !important;
     }
     #store_detail_td{
@@ -116,7 +116,7 @@
                 			<%if(p == currentPage) { %>
                 				<button disabled><%= p %></button>
                 			<% } else { %>
-                				<button onclick="location.href'<%=contextPath%>/storeList?cpage=<%=p%>'"><%= p %></button>
+                				<button onclick="location.href='<%=contextPath%>/storeList?cpage=<%=p%>'"><%= p %></button>
                 			<% } %>
                 		<% } %>	
                 

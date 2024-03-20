@@ -37,6 +37,9 @@
         body *{
         font-family: 'NewFont',NanumSquareNeo-Variable;
         }
+        body *{
+            height: auto;
+        }
 
     </style>
 
@@ -55,7 +58,7 @@
         <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
             <!-- Sidebar - Brand -->
-            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=contextPath%>/admin">
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="<%=contextPath%>">
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
@@ -129,20 +132,7 @@
             </li>
 
             
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo3"
-                    aria-expanded="true" aria-controls="collapseTwo3">
-                    <i class="fas fa-fw fa-cog"></i>
-                    <span>리뷰관리</span>
-                </a>
-                <div id="collapseTwo3" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Components:</h6>
-                        <a class="collapse-item" href="buttons.html">신고받은 리뷰</a>
-                    </div>
-                </div>
-            </li>
+
 
             <hr class="sidebar-divider">
             <div class="sidebar-heading">

@@ -1,6 +1,7 @@
 package com.kh.semi.customerService.notice.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,8 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.customerService.notice.model.service.NoticeService;
 import com.kh.semi.customerService.notice.model.vo.Notice;
+import com.kh.semi.event.model.service.EventService;
+import com.kh.semi.event.model.vo.Event;
 import com.kh.semi.member.model.vo.Member;
 
 /**
@@ -127,6 +131,12 @@ public class noticeformcontroller extends HttpServlet {
     NoticeService noticeService = new NoticeService();
     List<Notice> noticeList = noticeService.selectList(page);
     int totalCount = noticeService.selectListCount();
+
+    PageInfo pageInfo = new PageInfo();
+    pageInfo.setCurrentPage(1);
+    pageInfo.setBoardLimit(9);
+    ArrayList<Event> eventList = new EventService().selectEventList(pageInfo, "1");
+    request.setAttribute("eventList", eventList);
     request.setAttribute("noticeList", noticeList);
     request.setAttribute("totalCount", totalCount);
     request.setAttribute("pageNo", page);

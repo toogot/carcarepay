@@ -37,8 +37,7 @@ public class SearchIdFinishController extends HttpServlet {
 		String userId = new MemberService().searchMemberId(userName, email);
 		if(userId != null) {
 			request.setAttribute("userId", userId);
-			
-	    	  
+				    	  
 	}
 		request.getRequestDispatcher("views/member/memberSearchIdFinishForm.jsp").forward(request, response);
 	}

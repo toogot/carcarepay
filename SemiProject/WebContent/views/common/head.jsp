@@ -86,6 +86,10 @@
             width: 100%;
             height: 100%;
         }
+        #logo_btn:hover{
+            width: 102%;
+            
+        }
         #login-event{
             width: 70%;
             height: 50%;
@@ -124,6 +128,13 @@
             height: 50%;
             float: left;
         }
+        #navigator>div{
+            float: left;
+            width: 220px;
+            border-radius: 50px;
+            will-change: filter;
+  transition: filter 300ms;
+        }
         #logoimg{
             width: 100%;
             height: 100%;
@@ -131,18 +142,26 @@
             margin: auto;
             padding: 30px;
         }
-        #navigator>button{
+        #navigator button{
             border: 0;
-            background-color: white;
+            background-color: transparent;
             margin: 25px 60px;
             line-height: 50px;
-
+            border-radius: 50px;
+            will-change: filter;
+            transition: filter 300ms;
         }
-        #navigator>button>a{
+        #navigator button:hover{
+            filter: drop-shadow(0 0 1em #0066FF);
+        }
+        #navigator button>a{
             font-size: 20px;
             font-weight: 800;
             text-decoration: none;
             color: black;
+        }
+        #navigator button>a:hover{
+            filter: drop-shadow(1 1 1em #0066FF);
         }
         #login-event>button{
             border: 0px;
@@ -237,11 +256,21 @@
                 
             </div>
             <div id="navigator">
-                <button id="charge" type="button"><a href="<%= contextPath %>/product.bo">충전하기</a></button>
-                <button id="search" type="button"><a href="<%=contextPath%>/search.st?page=1">매장찾기</a></button>
-                <button id="request" type="button"><a href="<%=contextPath%>/enrollForm.st">입접신청</a></button>
-                <button id="service" type="button"><a href="<%=contextPath%>/notice.if">고객센터</a></button>
-                <button id="event" type="button"><a href="<%=contextPath%>/event">이벤트</a></button>
+                <div>
+                    <button id="charge" type="button" onclick="location.href='<%= contextPath %>/product.bo'"><a href="<%= contextPath %>/product.bo">충전하기</a></button>
+                </div>
+                <div>
+                    <button id="search" type="button" onclick="location.href='<%=contextPath%>/search.st?page=1'"><a href="<%=contextPath%>/search.st?page=1">매장찾기</a></button>
+                </div>
+                <div>
+                    <button id="request" type="button" onclick="location.href='<%=contextPath%>/enrollForm.st'"><a href="<%=contextPath%>/enrollForm.st">입접신청</a></button>
+                </div>
+                <div>
+                    <button id="service" type="button" onclick="location.href='<%=contextPath%>/notice.if'"><a href="<%=contextPath%>/notice.if">고객센터</a></button>
+                </div>
+                <div>
+                    <button id="event" type="button" onclick="location.href='<%=contextPath%>/event'"><a href="<%=contextPath%>/event">이벤트</a></button>
+                </div>
             </div>
         </div>
         <!-- 헤더부분 끝 -->
@@ -259,11 +288,15 @@
     <script>
         $(function(){
             // 헤더부분
-            $("#navigator").children().children().hover(function(){
-                $(this).css("color","#87CEFA");
+            $("#navigator").children().children().children().hover(function(){
+                $(this).css({color:"#87CEFA"});
+                // $(this).parent().css({backgroundColor:"rgb(0,153,255,0.1)"});
+                // $(this).parent().parent().css({backgroundColor:"rgb(0,204,255,0.1)"});
 
             },function(){
-                $(this).css("color","");
+                $(this).css({color:""});
+                // $(this).parent().css({background:"",opacity:""});
+                // $(this).parent().parent().css({background:"",opacity:""});
             })
             $("#login").children().hover(function(){
                 $(this).css("fontWeight","1000")

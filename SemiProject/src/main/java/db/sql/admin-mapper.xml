@@ -8,11 +8,15 @@
 	</entry>
 	
 	<entry key="selectEnrollListCount">
-	
-			SELECT 
+		SELECT 
 			   COUNT(*) count
 		  FROM APPLICATION
+	</entry>
 	
+	<entry key="memberListCount">
+		SELECT
+			  COUNT(*) count
+		 FROM MEMBER
 	</entry>
 	
 	<entry key="selectStoreList">
@@ -56,13 +60,41 @@
 		                    , REFUSE
 		                    , USER_NAME
 		                    , TYPE_NAME
+		                    , APP_TYPENAME
 		                 FROM APPLICATION
 		                 JOIN MEMBER USING(USER_NO)
 		                 JOIN TYPE USING(STORE_TYPE)
+		                 JOIN APP_TYPE USING(APP_YN)
 		                ORDER 
 		                   BY APP_NO DESC)A
 		        )
 		    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selectMemberList">
+		SELECT *
+		  FROM
+		  	   (
+				SELECT ROWNUM RNUM, A.*
+				  FROM
+					   (SELECT 
+					  		   USER_NO
+					 		 , USER_ID
+							 , USER_PWD
+							 , USER_NAME
+							 , EMAIL
+							 , PHONE
+							 , ADDRESS
+							 , USER_LEVEL
+							 , ENROLL_DATE
+							 , BALANCE
+							 , BLACKLIST
+							 , STATUS
+						  FROM MEMBER
+						 ORDER 
+						    BY USER_NO DESC)A
+				)
+		WHERE RNUM BETWEEN ? AND ?			    
 	</entry>
 	
 	<entry key="selectEnrollStoreDetail">
@@ -81,10 +113,33 @@
          , REFUSE
          , USER_NAME
          , TYPE_NAME
+         , APP_TYPENAME
+         , EMAIL
       FROM APPLICATION
       JOIN MEMBER USING(USER_NO)
       JOIN TYPE USING(STORE_TYPE)
-
+      JOIN APP_TYPE USING(APP_YN)
+      WHERE APP_NO = ?
+      
+	</entry>
+	
+	<entry key="selectMemberDetail">
+	   SELECT
+			  USER_NO
+			, USER_ID
+			, USER_PWD
+			, USER_NAME
+			, EMAIL
+			, PHONE
+			, ADDRESS
+			, USER_LEVEL
+			, ENROLL_DATE
+			, BALANCE
+			, BLACKLIST
+			, STATUS
+		 FROM MEMBER
+		WHERE USER_NO = ?
+	
 	</entry>
 	
 	<entry key="selectCategoryList">
@@ -107,6 +162,114 @@
 	     , STORE_STATUS = ?
 	 WHERE STORE_NO = ?
 	
+	</entry>
+	
+	<entry key="updateMember">
+	 UPDATE MEMBER
+	    SET
+		  	USER_PWD = ?
+		  ,	USER_NAME = ?
+		  ,	EMAIL = ?
+		  ,	PHONE = ?
+		  ,	ADDRESS = ?
+		  ,	BALANCE = ?
+		  ,	STATUS = ?
+	 WHERE USER_NO = ?
+	</entry>
+	
+	<entry key="selectAppStoreImgAdmin">
+		SELECT 
+		       IMG_NO
+		     , APP_NO  
+		     , IMG_ROOT
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		     , STATUS
+		  FROM APP_STORE_IMAGE
+		 WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="insertAppToStore">
+	INSERT 
+	  INTO STORE
+		   (
+		    STORE_NO
+		   ,STORE_NAME
+		   ,STORE_TYPE
+		   ,STORE_ADDRESS
+		   ,STORE_PHONE
+		   ,STORE_TIME
+		   ,BUSINESS_NO
+		   ,STORE_PRICE
+		   ,STORE_STATUS
+		   )
+	 SELECT 
+	        SEQ_STORE.NEXTVAL
+	        ,A.STORE_NAME
+	        ,A.STORE_TYPE
+	        ,A.STORE_ADDRESS
+	        ,A.STORE_PHONE
+	        ,A.STORE_TIME
+	        ,A.BUSINESS_NO
+	        ,A.STORE_PRICE
+	        ,'N'
+	   FROM APPLICATION A
+	  WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="insertAppImgToStoreImg">
+	INSERT 
+	  INTO STORE_IMAGE
+	  (
+	     IMG_NO
+		,APP_NO
+		,IMG_ROOT
+		,ORIGIN_NAME
+		,CHANGE_NAME
+		,IMG_LEVEL
+		,STATUS)
+	SELECT STI_SEQ.NEXTVAL
+	       ,A.APP_NO
+		   ,A.IMG_ROOT
+		   ,A.ORIGIN_NAME
+		   ,A.CHANGE_NAME
+		   ,A.IMG_LEVEL
+		   ,A.STATUS
+      FROM APP_STORE_IMAGE A
+	 WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="updateAppTypeY">
+	 UPDATE 
+			(SELECT *
+			FROM APP_TYPE
+			JOIN APPLICATION USING (APP_YN))
+	    SET APP_YN = 'Y'
+      WHERE APP_NO = ?
+	
+	</entry>
+	
+	<entry key="updateEnrollRefuseAppType">
+	UPDATE (SELECT *
+      		  FROM APP_TYPE
+              JOIN APPLICATION USING (APP_YN)
+             )
+       SET APP_YN = 'N'
+          ,REFUSE = ?
+     WHERE APP_NO = ?     
+	</entry>
+	
+	<entry key="updateEnrollReRefuse"> 
+   UPDATE APPLICATION
+      SET REFUSE = ?
+    WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="selectEnrollReRefuse">
+	SELECT REFUSE
+      FROM APP_TYPE
+      JOIN APPLICATION USING (APP_YN)
+     WHERE APP_NO = ?
 	</entry>
 
 </properties>

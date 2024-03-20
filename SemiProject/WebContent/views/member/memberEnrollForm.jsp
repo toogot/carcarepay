@@ -88,7 +88,7 @@
 				
 				<tr>
 					<th>이름</th>
-					<td><input type="text" name="userName" id="userName" onkeyup="nkd();" required>
+					<td><input type="text" name="userName" id="userName" required onkeyup="nkd();" >
 						<div id="nkd"></div>
 					</td>
 					
@@ -96,7 +96,7 @@
 				<tr>
 					<th>아이디</th>
 					<td>
-						<input type="text" name="userId" id="userId"  placeholder="6~11글자 영어,숫자" onkeyup="ikd();" required>
+						<input type="text" name="userId" id="userId"  placeholder="6~11글자 영어,숫자" required onkeyup="ikd();" >
 						<div id="ikd"></div>
 					</td>
 
@@ -104,14 +104,14 @@
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						<input type="password" name="userPwd" id="userPwd" placeholder="8~15글자 영어,숫자,특수문자 포함" onkeyup="pkd();" required>
+						<input type="password" name="userPwd" id="userPwd" placeholder="8~15글자 영어,숫자,특수문자 포함" required onkeyup="pkd();" >
 						<div id="pkd"></div>
 					</td>
 				</tr>
 				<tr>
 					<th>비밀번호 확인</th>
 					<td>
-						<input type="password" name="userPwd2" id="userPwd2" onkeyup="rpkd();" required>
+						<input type="password" name="userPwd2" id="userPwd2" required onkeyup="rpkd();" >
 						<div id="rpkd"></div>
 					</td>
 				</tr>
@@ -124,7 +124,7 @@
 				</tr>
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="address" onclick="searchAddress();" required><button type="button" onclick="searchAddress();">주소검색</button></td>
+					<td><input type="text" name="address" required onclick="searchAddress();" ><button type="button" onclick="searchAddress();">주소검색</button></td>
 				</tr>
 				<tr>
 					<th>전화번호</th>
@@ -142,7 +142,42 @@
 					<img src="resources/images/kakao_login_medium_narrow.png" alt="카카오 로그인 버튼" />
 				  </a>
 		
+			
+			<div id="naver_id_login"></div>
+			<!-- //네이버 로그인 버튼 노출 영역 -->
+			
+			<br>
+				<button type="submit" id="sbtn">회원가입</button>
+				<button type="reset">초기화</button>
+			</div>			
+		</form>
+	</div>
+	
+	<script type="text/javascript">
+				var naver_id_login = new naver_id_login("tP6NMedSre8QzRI5CFDK", "/member/naverCallBack.jsp");
+				var state = naver_id_login.getUniqState();
+				naver_id_login.setButton("white", 2,40);
+				naver_id_login.setDomain("http://localhost:8003");
+				naver_id_login.setState(state);
+				naver_id_login.setPopup();
+				naver_id_login.init_naver_id_login();
+			</script>
 			<script type="text/javascript">
+				var naver_id_login = new naver_id_login("tP6NMedSre8QzRI5CFDK", "http://localhost:8003/SemiProject/naverInsert.me");
+				// 접근 토큰 값 출력
+				alert(naver_id_login.oauthParams.access_token);
+				// 네이버 사용자 프로필 조회
+				naver_id_login.get_naver_userprofile("naverSignInCallback()");
+				// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
+				function naverSignInCallback() {
+				  alert(naver_id_login.getProfileData('email'));
+				  alert(naver_id_login.getProfileData('nickname'));
+					console.log(naver_id_login.getProfiledata);
+				 
+				}
+			  </script>
+	
+	<script type="text/javascript">
 				Kakao.init('6c41921b6cc2773cc2170949e98a9b91');
 				function kakaoLogin() {
 					Kakao.Auth.login({
@@ -181,38 +216,9 @@
 				}
 				
 			</script>
-			<div id="naver_id_login"></div>
-			<!-- //네이버 로그인 버튼 노출 영역 -->
-			<script type="text/javascript">
-				var naver_id_login = new naver_id_login("tP6NMedSre8QzRI5CFDK", "/member/naverCallBack.jsp");
-				var state = naver_id_login.getUniqState();
-				naver_id_login.setButton("white", 2,40);
-				naver_id_login.setDomain("http://localhost:8003");
-				naver_id_login.setState(state);
-				naver_id_login.setPopup();
-				naver_id_login.init_naver_id_login();
-			</script>
-			<script type="text/javascript">
-				var naver_id_login = new naver_id_login("tP6NMedSre8QzRI5CFDK", "http://localhost:8003/SemiProject/naverInsert.me");
-				// 접근 토큰 값 출력
-				alert(naver_id_login.oauthParams.access_token);
-				// 네이버 사용자 프로필 조회
-				naver_id_login.get_naver_userprofile("naverSignInCallback()");
-				// 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
-				function naverSignInCallback() {
-				  alert(naver_id_login.getProfileData('email'));
-				  alert(naver_id_login.getProfileData('nickname'));
-					console.log(naver_id_login.getProfiledata);
-				 
-				}
-			  </script>
-			<br>
-				<button type="submit"  onclick="location.href='<%=contextPath%>/insert.me'" >회원가입</button>
-				<button type="reset">초기화</button>
-			</div>			
-		</form>
-	</div>
+			
 	<script> 
+
 		function nkd(){
 			let regExp = /^[가-힣]{2,}$/i;
         if(!regExp.test($("#userName").val())){
@@ -253,7 +259,7 @@
 	
 
 		function pkd(){
-			regExp = /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$/;
+			regExp = /^(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,15}$/;
 			rpkd();
         if(!regExp.test($("#userPwd").val())){
             $("#pkd").text("영문,숫자,특수기호를 포함시켜 8~15글자 입력해주세요").css("color","red");    
@@ -265,11 +271,11 @@
 		}
 		}
 		function ekd(){
-			regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
-			if(!regExp.test($("email").val())){
-				$("#ekd").text("x").css("color","red");
+			regExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/i;
+			if(!regExp.test($("#email").val())){
+				$("#ekd").text("올바른 이메일 형식을 작성해주세요.").css("color","red");
 			}else{
-				$("#ekd").text("o").css("color","green");
+				$("#ekd").text("굿").css("color","green");
 			}
 		}
 		
@@ -290,7 +296,7 @@
 			regExp = /^(01[0-9]{1}-?[0-9]{4}-?[0-9]{4}|01[0-9]{8})$/;
 
 
-			if(!regExp.test($("phone").val())){
+			if(!regExp.test($("#phone").val())){
 				$("#ppkd").text("xxx-xxxx-xxxx 로 입력해주세요").css("color","red")
 			}else{
 				$("#ppkd").text("굿").css("color","green");
@@ -306,12 +312,16 @@
 		}).open();
 		}
 		
+		
+		
+
+
 	</script>
 	
 		
 		
 
-	</script>
+	
         
 
 		
