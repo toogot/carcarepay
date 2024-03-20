@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+
+	<entry key="bookmarkSelect">
+		SELECT COUNT(*) AS BOOKMARK_COUNT
+		  FROM BOOKMARK
+		 WHERE USER_NO = ?
+		   AND STORE_NO = ?
+	</entry>
+	
+	<entry key="bookmarkInsert">
+		INSERT
+		  INTO BOOKMARK VALUES
+		  (
+		    ?
+		  , ?
+		  )
+	</entry>
+	
+	<entry key="bookmarkDelete">
+		DELETE 
+		  FROM BOOKMARK
+		 WHERE USER_NO = ?
+		   AND STORE_NO = ?
+	</entry>
+
+
+
+
+
+
+
+
+
+</properties>

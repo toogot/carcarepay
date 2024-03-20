@@ -18,7 +18,9 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <style>
-      /* .outer div{border: 1px solid red;} */
+      .outer div {
+        /* border: 1px solid red; */
+      }
       .outer {
         /* border: 1px solid red; */
         width: 1900px;
@@ -292,6 +294,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
         height: 250px;
         border: 1px solid rgb(135, 206, 250);
         border-radius: 20px;
+        margin-bottom: 20px;
       }
 
       .rev-list-id {
@@ -344,16 +347,25 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
       .rev-look {
         margin-left: 400px;
         color: rgb(135, 206, 250);
+        cursor: pointer;
+      }
+
+      .rev-look:hover {
+        text-decoration: none;
       }
 
       .rev-look-div {
         width: 100%;
         height: 150px;
+        display: none;
+        margin-bottom: 20px;
       }
 
       .rev-look-div img {
         width: 130px;
         height: 130px;
+        margin-right: 10px;
+        border-radius: 10px;
       }
 
       .deleteButton {
@@ -363,6 +375,10 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
         margin-right: 10px;
         height: 25px;
         width: 85px;
+      }
+
+      #review_recent_image > img {
+        border-radius: 10px;
       }
       /* .storeImg_outer {
         width: 1000px;
@@ -391,7 +407,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
       .fade {
         animation-name: fadeEffect;
-        animation-duration: 4s; /* fade 효과 지속 시간 */
+        animation-duration: 5s; /* fade 효과 지속 시간 */
       }
 
       @keyframes fadeEffect {
@@ -677,7 +693,15 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
     <script>
 
-
+       // 리뷰사진 슬라이드 //
+       function lookDiv(clickedElement) {
+        const $look = $(clickedElement).closest('.rev-list').next('.rev-look-div');
+        if ($look.css("display") == "none") {
+          $look.slideDown();
+        } else {
+         $look.slideUp();
+        }
+      }
 
 
       $(function(){
@@ -927,10 +951,11 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            							value += "<div class='rev-list'>"
 
            								     + "<div class='rev-list-id'>" + rlist[i].userId
-
-                               + "<button onclick='deleteReview(" + rlist[i].reviewNo + ");' class='btn-warning text-danger deleteButton'>리뷰삭제</button>"
-
-                               + "</div>"
+                                if('<%= loginUser != null ? loginUser.getUserId() : "" %>' !== ''){
+                                if('<%= loginUser != null ? loginUser.getUserId() : "" %>' === rlist[i].userId){
+                        value += "<button onclick='deleteReview(" + rlist[i].reviewNo + ");' class='btn-warning text-danger deleteButton'>리뷰삭제</button>"
+                                }}
+                        value += "</div>"
 
            							       + "<div class='rev-list-content'>"
            							       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
@@ -938,7 +963,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
            							       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
 
-           							       + "<a class='rev-look'>↓리뷰사진↓</a>"
+           							       + "<a onclick='lookDiv(this);' class='rev-look'>↓리뷰사진↓</a>"
 
            							       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
            								   + "</div>";
