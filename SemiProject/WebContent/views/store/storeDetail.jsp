@@ -233,86 +233,10 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
         font-weight: bold;
       }
 
-      <<<<<<< HEAD .store_allRev_content {
+      .store_allRev_content {
         height: 1100px;
         overflow: auto;
       }
-      =======
-</head>
-<body>
-	<%@ include file="/views/common/head.jsp" %>
-	
-	<div class="outer">
-		<div class="store_img">
-			 <h1>매장사진이 들어갈 자리</h1>
-		</div>
-		
-		<div class="store_info">
-			<div class="store_info_1">
-				<div class="store_info_1_1">
-					<table border="1" class="tb_store_name">
-						<tr style="height: 80px;">
-							<th style="font-size: 25px; font-weight: bold;"> <%= st.getStoreName() %></th>
-							<td colspan="3">
-								<button type="button" id="bookmarkButton" class="toggle-button" style="margin-left: 50px;">즐겨찾기</button> 
-							</td>
-						</tr>
-						<tr style="height: 40px;">
-							<th style="font-size: 20px; font-weight: bold;">★ 10.0 156명 평가</th>
-							<td></td>
-							<td colspan="2" style="text-align: right; margin-right: 10px;"><button id="scrollRev" style="text-decoration: none;">모든 리뷰보기</button></td>
-						</tr>
-						<tr style="height: 350px;">
-							<th id="review_recent_image">
-								
-							</th>
-							<th colspan="3">
-								<div class="review_recent">
-									<div class="review_recent_1">가장 최신리뷰</div>
-									<div class="review_recent_2" style="width: 90%; margin-left: 40px;">동해물과 백두산이 마르고 닳도록 하느님이 보우하사 우리나라 만세 무궁화 삼천리 화려강산 대한사람 대한으로 길이 보전하세</div>
-									<div class="review_recent_3">
-										<div class="review_recent_3_1" style="padding-right: 20px;">세차왕 이한기</div>
-										<div class="review_recent_3_2">2024-02-19</div>
-									</div>
-								</div>
-							</th>
-						</tr>
-						<tr>
-							<th style="width: 260px;"></th>
-							<th style="width: 260px;"></th>
-							<th style="width: 260px;"></th>
-							<th style="width: 260px;"></th>
-						</tr>
-					</table>
-				</div>
-				<div class="store_info_1_2">
-					<div class="store_info_1_2_1"> 
-						매장소개
-					</div>
-					<div class="store_info_1_2_2">
-						우리 세차장은 최상의 서비스와 전문 기술로 고객 여러분의 자동차를 깨끗하게 만들어드리는 곳입니다.
-						깔끔하고 넓은 공간과 최신식 설비, 전문가로 구성된 팀을 갖추고 있어 정확하고 신속한 서비스를 제공합니다.
-						다양한 세차 프로그램과 친환경적인 세차용품을 제공하여 고객의 다양한 요구에 부응합니다.
-						예약 시스템을 운영하여 편리한 예약이 가능하며 경제적인 가격 정책을 적용하고 있습니다.
-						고객님의 소중한 자동차를 맡기실 때, 우리 세차장을 선택하시면 최상의 결과물과 만족을 얻으실 수 있습니다.
-					</div>
-				</div>
-				<div class="store_info_1_3"> 
-						<div class="store_info_1_3_1">매장 이용정보</div> 
-						<div class="store_info_1_3_2">매장 상세주소</div> 
-						<div class="store_info_1_3_3"> 
-							<ul>
-								<li><%= st.getStoreAddress() %></li>
-							</ul>
-						</div>
-						<div class="store_info_1_3_4">매장 상세가격</div> 
-						<div class="store_info_1_3_5"> 
-							<ul>
-								<li><%= st.getStorePrice() %></li>
-							</ul>
-						</div>
-					
->>>>>>> 5e4cadc4e8fe3727262593efb8ff654092f0cf2c
 
       /* 리뷰 작성 */
       .rev-write {
@@ -745,567 +669,383 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
       </div>
     </div>
 
-    <%@ include file="/views/common/footer.jsp"%> <<<<<<< HEAD
+    <%@ include file="/views/common/footer.jsp"%>
+
     <!-- /////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////SCRIPT///////////////////////////////////////////////////
     ////////////////////////////////////////////////////////////////////////////////////////////////// -->
 
     <script>
-      =======
-      		//////////////////////////////////
-      		////////// 즐겨찾기 버튼 //////////
-      		//////////////////////////////////
-      	  	var bookmarkButton = document.getElementById('bookmarkButton');
-      		var isBookmarked = false; // 초기 상태: 즐겨찾기 되어있지 않음
-
-      		bookmarkButton.addEventListener('click', function() {
-      			if (isBookmarked) {
-      				bookmarkButton.textContent = '즐겨찾기'; // 버튼 내용 변경: 즐겨찾기
-      				// 즐겨찾기 해제 로직
-      			} else {
-      				bookmarkButton.textContent = '즐겨찾기 해제'; // 버튼 내용 변경: 즐겨찾기 해제
-      				// 즐겨찾기 추가 로직
-      			}
-
-      		isBookmarked = !isBookmarked; // 상태 변경 (토글)
-      	  	});
-
-
-      		/////////////////////////////
-      		////////// MAP API //////////
-      		/////////////////////////////
-      		naver.maps.Service.geocode({
-             	query: "<%= st.getStoreAddress() %>"
-         		}, function(status, response) {
-      	       	if (status !== naver.maps.Service.Status.OK) {
-      	        	   return alert('Something wrong!');
-      	      		}
-
-      			var result = response.v2, // 검색 결과의 컨테이너
-      				items = result.addresses; // 검색 결과의 배열
-      		// 성공 시의 response 처리
-      		// do Something
-      			var map = new naver.maps.Map('map', {
-      			center: new naver.maps.LatLng(items[0].y, items[0].x),
-      			zoom: 16
-      			});
-      			var marker = new naver.maps.Marker({
-      	   		position: new naver.maps.LatLng(items[0].y, items[0].x),
-      	   		map: map
-      			});
-
-      		});
-
-      		//////////////////////////////////////////
-      		//////////// ajax 리뷰 insert ////////////
-      		/////////////////////////////////////////
-      		$(function(){
-      				selectReview();
-
-      		});
-
-      		function insertReview(){
-      			<% System.out.println(st.getStoreNo()); %>
-      		var formData = new FormData();
-      		  formData.append('content', $(".rev-write textarea").val());
-      		  formData.append('storeNo', <%= st.getStoreNo() %>);
-      		  formData.append('grade', $(".grade").val());
-      		  formData.append('file1', $("#file1")[0].files[0]);
-      		  formData.append('file2', $("#file2")[0].files[0]);
-      		  formData.append('file3', $("#file3")[0].files[0]);
-
-      		$.ajax({
-      			url:"insert.rv",
-      			method:"post",
-      			data: formData,
-      		    processData: false,
-          		contentType: false,
-      			success:function(result){
-      				if(result > 0){
-      					$(".rev-write textarea").val("");
-      					$("#titleImg").attr("src", null);
-      					$("#file1").val("");
-      					$("#file2").val("");
-      					$("#file3").val("");
-      					selectReview();
-      				}
-      			},
-      			error:function(){
-      				alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
-      			}
-
-      			})
-      		}
-
-      		/////////// 매장 평점 총 갯수 및 평균 /////////
-      		function selectCountGrade(){
-      			$.ajax({
-      				url:"countgrade.rv",
-      				method:"post",
-      				data:{storeNo: <%= st.getStoreNo() %>},
-      				success:function(){
-
-      				},
-      				error:function(){
-
-      				}
-
-      			})
-      		}
 
 
 
-      		/////////////////////////////////////
-      		/////////// ajax 리뷰 select /////////
-      		/////// 최근 리뷰 데이터 가져오기 /////
-      		/////////////////////////////////////
 
-      		function selectReview(){
-      			$.ajax({
-      				url:"select.rv",
-      				method:"post",
-      				data:{storeNo: <%= st.getStoreNo() %>},
-      				success:function(rlist){
-
-      						let value = "";
-      						let recentUserId = "";
-      						let recentContent = "";
-      						let recentIssueDate = "";
-      					if(rlist.length < 1){
-      						value += "<div>조회된 리뷰가 없습니다.</div>"
-      						recentContent += "조회된 리뷰가 없습니다."
-      					} else{
-      							recentUserId = rlist[0].userId;
-      							recentContent = rlist[0].content;
-      							recentIssueDate = rlist[0].issueDate;
-      							for(let i=0; i<rlist.length; i++){
-
-      							value += "<div class='rev-list'>"
-
-      								   + "<div class='rev-list-id'>" + rlist[i].userId + "</div>"
-
-      							       + "<div class='rev-list-content'>"
-      							       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
-      							       + "</div>"
-
-      							       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
-
-      							       + "<a type='button' id='rev-look'>↓리뷰사진↓</a>"
-
-      							       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
-      								   + "</div>";
-
-      							let images = "";
-      							let recentImage = "";
-
-      							if(rlist[i].imgRoot != null){
-      								images = rlist[i].imgRoot;
-      								imageArray = images.split(",");
-
-      								recentImage = rlist[0].imgRoot;
-      								recentImageArray = recentImage.split(",");
-
-      								let value2 = "";
-
-      								for(let j=0; j<imageArray.length; j++){
-      						    	value2 += "<img class='rev-look-img' src='" + imageArray[j] + "'>";
-
-      								}
-
-      								value += "<div class='rev-look-div'>" + value2 + "</div>";
-
-
-      						    	console.log($(".rev-look-div").html());
-
-      							}
-
-
-      							}
-      						}
-      							       $("#rev-list").html(value);
-      								   $(".review_recent_2").text(recentContent);
-      								   $(".review_recent_3_1").text(recentUserId);
-      								   $(".review_recent_3_2").text(recentIssueDate);
-      								   $("#review_recent_image").html("<img src='" + recentImageArray[0] +"' width='100%' height='220px'>");
-      					},
-
-      				error:function(){
-      				}
-      			})
-      		}
-
-
-      >>>>>>> 5e4cadc4e8fe3727262593efb8ff654092f0cf2c
-
-
-
-
-            $(function(){
-                 				selectReview();
-                 				selectCountGrade();
-                    <% if(loginUser != null) { %>
-                 				updateBookmarkButton();
-                 				checkIfBookmarked();
-                    <% } %>
-            });
-
-
-                 		/////////////////////////////////////////
-                 		////////// 모든리뷰 보기 스크롤 //////////
-                 		////////////////////////////////////////
-                 		document.getElementById("scrollRev").addEventListener('click', function(event) {
-                 			event.preventDefault(); // 기본 동작 방지
-
-                 			// 이동할 대상 div 요소 선택자
-                 			var targetDiv = document.querySelector('.store_allRev');
-
-                 			// 대상 div 요소로 스크롤 이동
-                 			targetDiv.scrollIntoView({ behavior: 'smooth' });
-                 	  	});
-
-                 		//////////////////////////////////
-                 		////////// 즐겨찾기 버튼 //////////
-                 		//////////////////////////////////
-
-
-                    <% if(loginUser != null) { %>
-                 		var bookmarkButton = document.getElementById('bookmarkButton');
-                 		var isBookmarked = checkIfBookmarked(); // 초기 상태: 즐겨찾기 여부 확인
-
-
-
-                 		bookmarkButton.addEventListener('click', function() {
-                 			if (isBookmarked) {
-
-                 				// 즐겨찾기 해제 로직
-                 				$.ajax({
-                 					url:"bookmarkDelete.bm",
-                 					type:"post",
-                 					data:{storeNo: <%= st.getStoreNo() %>},
-                 					success:function(result){
-                 						if(result > 0){
-                 							bookmarkButton.textContent = '즐겨찾기';
-                 							alert("즐겨찾기 목록에서 삭제되었습니다.");
-                 						}
-                 					},
-                 					error:function(){
-                 						console.log("즐겨찾기 해제 ajax 통신 실패");
-                 					}
-                 				})
-
-                 			} else {
-                 				// 즐겨찾기 추가 로직
-                 				$.ajax({
-                 					url:"bookmarkInsert.bm",
-                 					type:"post",
-                 					data:{storeNo: <%= st.getStoreNo() %>},
-                 					success:function(result){
-                 						if(result > 0) {
-                 							bookmarkButton.textContent = '즐겨찾기 해제';
-                 							alert("즐겨찾기 목록에 추가되었습니다!");
-                 						}
-                 					},
-                 					error:function(){
-                 						console.log("즐겨찾기 추가 ajax 통신 실패");
-                 					}
-                 				})
-                 			}
-                 			isBookmarked = !isBookmarked; // 상태 변경 (토글)
-                 		});
-
-                 		function checkIfBookmarked() {
-                 			// 즐겨찾기 여부를 서버에서 확인하는 로직
-                 			// true or false 반환하기!
-                 			/////////////////////////////////////////////////
-                 		  return new Promise(function(resolve, reject) {
-                 			$.ajax({
-                 				url:"bookmarkSelect.bm",
-                 				type:"post",
-                 				data:{storeNo: <%= st.getStoreNo() %>},
-                 				success:function(result){
-                 					if (result === 1) {
-                 						console.log("즐겨찾기한 상태입니다.");
-                 						resolve(true);
-                 					} else {
-                 						console.log("즐겨찾기하지 않은 상태입니다.");
-                 						resolve(false);
-                 					}
-                 				},
-                 				error:function(){
-                 					console.log("즐겨찾기 여부 ajax 통신 실패");
-                 					reject(Error("즐겨찾기 여부 ajax 통신 실패"));
-                 				}
-                 			})
-                 		  })
-                 		}
-
-                 		function updateBookmarkButton() {
-                 			checkIfBookmarked()
-                 			.then(function(isBookmarked){
-                 				if (isBookmarked) {
-                 					bookmarkButton.textContent = '즐겨찾기 해제';
-                 				} else {
-                 					bookmarkButton.textContent = '즐겨찾기';
-                 				}
-                 			})
-                 			.catch(function(error){
-                 				console.log(error);
-                 			})
-                 		}
-
-                 		updateBookmarkButton(); // 버튼 초기 상태 설정 (true / false)
-
-                    <% } %>
-
-                 		/////////////////////////////
-                 		////////// MAP API //////////
-                 		/////////////////////////////
-                 		naver.maps.Service.geocode({
-                        	query: "<%= st.getStoreAddress() %>"
-                    		}, function(status, response) {
-                 	       	if (status !== naver.maps.Service.Status.OK) {
-                 	        	   return alert('Something wrong!');
-                 	      		}
-
-                 			var result = response.v2, // 검색 결과의 컨테이너
-                 				items = result.addresses; // 검색 결과의 배열
-                 		// 성공 시의 response 처리
-                 		// do Something
-                 			var map = new naver.maps.Map('map', {
-                 			center: new naver.maps.LatLng(items[0].y, items[0].x),
-                 			zoom: 16
-                 			});
-                 			var marker = new naver.maps.Marker({
-                 	   		position: new naver.maps.LatLng(items[0].y, items[0].x),
-                 	   		map: map
-                 			});
-
-                 		});
-
-              //////////////////////////////////////
-              ////////// 유가 정보 API /////////////
-              /////////////////////////////////////
-
-
-
-
-
-
-
-
-              //////////////////////////////////////////
-              //////////// ajax 리뷰 insert ////////////
-              /////////////////////////////////////////
-
-
-                 		function insertReview(){
-                 			var formData = new FormData();
-                 			formData.append('content', $(".rev-write textarea").val());
-                 			formData.append('storeNo', <%= st.getStoreNo() %>);
-                 			formData.append('grade', $(".grade").val());
-                 			formData.append('file1', $("#file1")[0].files[0]);
-                 			formData.append('file2', $("#file2")[0].files[0]);
-                 			formData.append('file3', $("#file3")[0].files[0]);
-
-                 			$.ajax({
-                 				url:"insert.rv",
-                 				type:"post",
-                 				data: formData,
-                 				processData: false,
-                 				contentType: false,
-                 				success:function(result){
-                 					if(result > 0){
-                 						$(".rev-write textarea").val("");
-                 						$("#titleImg").attr("src", null);
-                 						$("#file1").val("");
-                 						$("#file2").val("");
-                 						$("#file3").val("");
-                 						selectReview();
-                            selectCountGrade();
-                 					}
-                 				},
-                 				error:function(){
-                 					alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
-                 				}
-
-                 				})
-                 			}
-
-                 		/////////// 매장 평점 총 갯수 및 평균 /////////
-                 		function selectCountGrade(){
-                 			$.ajax({
-                 				url:"countgrade.rv",
-                 				type:"post",
-                 				data:{storeNo: <%= st.getStoreNo() %>},
-                 				success:function(rv){
-
-                 					let value = ""
-                          let value2 = ""
-                 					if(rv != null){
-                 					value += "★" + rv.grade + "  " + rv.reviewCount + "명 평가";
-                          value2 += "(" + rv.reviewCount + ")";
-                 					}
-
-                 					$("#countGrade").text(value);
-                          $("#countReview").text(value2);
-                 				},
-                 				error:function(){
-                 					console.log("AJAX 통신 실패 ㅜㅜ");
-                 				}
-
-                 			})
-                 		}
-
-
-                 		/////////////////////////////////////
-                 		/////////// ajax 리뷰 select /////////
-                 		/////// 최근 리뷰 데이터 가져오기 /////
-                 		/////////////////////////////////////
-
-                 		function selectReview(){
-
-
-                 			$.ajax({
-                 				url:"select.rv",
-                 				method:"post",
-                 				data:{storeNo: <%= st.getStoreNo() %>},
-                 				success:function(rlist){
-
-                 						let value = "";
-                 						let recentUserId = "";
-                 						let recentContent = "";
-                 						let recentIssueDate = "";
-                 					if(rlist.length < 1){
-                 						value += "<div>조회된 리뷰가 없습니다.</div>"
-                 						recentContent += "조회된 리뷰가 없습니다."
-                 					} else{
-                 							recentUserId = rlist[0].userId;
-                 							recentContent = rlist[0].content;
-                 							recentIssueDate = rlist[0].issueDate;
-
-                 							for(let i=0; i<rlist.length; i++){
-                 							value += "<div class='rev-list'>"
-
-                 								     + "<div class='rev-list-id'>" + rlist[i].userId
-
-                                     + "<button onclick='deleteReview(" + rlist[i].reviewNo + ");' class='btn-warning text-danger deleteButton'>리뷰삭제</button>"
-
-                                     + "</div>"
-
-                 							       + "<div class='rev-list-content'>"
-                 							       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
-                 							       + "</div>"
-
-                 							       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
-
-                 							       + "<a class='rev-look'>↓리뷰사진↓</a>"
-
-                 							       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
-                 								   + "</div>";
-
-                 							let images = "";
-                 							let recentImage = "";
-
-                 							if(rlist[i].imgRoot != null){
-                 								images = rlist[i].imgRoot;
-                 								imageArray = images.split(",");
-
-                 								recentImage = rlist[0].imgRoot;
-                 								recentImageArray = recentImage.split(",");
-
-                 								let value2 = "";
-
-                 								for(let j=0; j<imageArray.length; j++){
-                 						    	value2 += "<img class='rev-look-img' src='" + imageArray[j] + "'>";
-
-                 								}
-
-                 								value += "<div class='rev-look-div'>" + value2 + "</div>";
-                 							}
-
-
-                 							}
-                 						}
-                 							       $("#rev-list").html(value);
-                 								   $(".review_recent_2").text(recentContent);
-                 								   $(".review_recent_3_1").text(recentUserId);
-                 								   $(".review_recent_3_2").text(recentIssueDate);
-                 								   $("#review_recent_image").html("<img src='" + recentImageArray[0] +"' width='100%' height='220px'>");
-                 					},
-
-                 				error:function(){
-
-                 				}
-                 			})
-                 		}
-
-                    // 리뷰삭제 //
-                    function deleteReview(reviewNo){
-                      if(window.confirm("리뷰를 정말로 삭제하시겠습니까?")){
-                        $.ajax({
-                           url:"delete.rv",
-                           method:"post",
-                           data:{reviewNo: reviewNo},
-                           success:function(result){
-                            if(result > 0){
-                              selectReview();
-                              selectCountGrade();
-                            }
-                          },
-                          error:function(){
-                            console.log("리뷰삭제 실패")
-                          }
-                        });
+      $(function(){
+           				selectReview();
+           				selectCountGrade();
+              <% if(loginUser != null) { %>
+           				updateBookmarkButton();
+           				checkIfBookmarked();
+              <% } %>
+      });
+
+
+           		/////////////////////////////////////////
+           		////////// 모든리뷰 보기 스크롤 //////////
+           		////////////////////////////////////////
+           		document.getElementById("scrollRev").addEventListener('click', function(event) {
+           			event.preventDefault(); // 기본 동작 방지
+
+           			// 이동할 대상 div 요소 선택자
+           			var targetDiv = document.querySelector('.store_allRev');
+
+           			// 대상 div 요소로 스크롤 이동
+           			targetDiv.scrollIntoView({ behavior: 'smooth' });
+           	  	});
+
+           		//////////////////////////////////
+           		////////// 즐겨찾기 버튼 //////////
+           		//////////////////////////////////
+
+
+              <% if(loginUser != null) { %>
+           		var bookmarkButton = document.getElementById('bookmarkButton');
+           		var isBookmarked = checkIfBookmarked(); // 초기 상태: 즐겨찾기 여부 확인
+
+
+
+           		bookmarkButton.addEventListener('click', function() {
+           			if (isBookmarked) {
+
+           				// 즐겨찾기 해제 로직
+           				$.ajax({
+           					url:"bookmarkDelete.bm",
+           					type:"post",
+           					data:{storeNo: <%= st.getStoreNo() %>},
+           					success:function(result){
+           						if(result > 0){
+           							bookmarkButton.textContent = '즐겨찾기';
+           							alert("즐겨찾기 목록에서 삭제되었습니다.");
+           						}
+           					},
+           					error:function(){
+           						console.log("즐겨찾기 해제 ajax 통신 실패");
+           					}
+           				})
+
+           			} else {
+           				// 즐겨찾기 추가 로직
+           				$.ajax({
+           					url:"bookmarkInsert.bm",
+           					type:"post",
+           					data:{storeNo: <%= st.getStoreNo() %>},
+           					success:function(result){
+           						if(result > 0) {
+           							bookmarkButton.textContent = '즐겨찾기 해제';
+           							alert("즐겨찾기 목록에 추가되었습니다!");
+           						}
+           					},
+           					error:function(){
+           						console.log("즐겨찾기 추가 ajax 통신 실패");
+           					}
+           				})
+           			}
+           			isBookmarked = !isBookmarked; // 상태 변경 (토글)
+           		});
+
+           		function checkIfBookmarked() {
+           			// 즐겨찾기 여부를 서버에서 확인하는 로직
+           			// true or false 반환하기!
+           			/////////////////////////////////////////////////
+           		  return new Promise(function(resolve, reject) {
+           			$.ajax({
+           				url:"bookmarkSelect.bm",
+           				type:"post",
+           				data:{storeNo: <%= st.getStoreNo() %>},
+           				success:function(result){
+           					if (result === 1) {
+           						console.log("즐겨찾기한 상태입니다.");
+           						resolve(true);
+           					} else {
+           						console.log("즐겨찾기하지 않은 상태입니다.");
+           						resolve(false);
+           					}
+           				},
+           				error:function(){
+           					console.log("즐겨찾기 여부 ajax 통신 실패");
+           					reject(Error("즐겨찾기 여부 ajax 통신 실패"));
+           				}
+           			})
+           		  })
+           		}
+
+           		function updateBookmarkButton() {
+           			checkIfBookmarked()
+           			.then(function(isBookmarked){
+           				if (isBookmarked) {
+           					bookmarkButton.textContent = '즐겨찾기 해제';
+           				} else {
+           					bookmarkButton.textContent = '즐겨찾기';
+           				}
+           			})
+           			.catch(function(error){
+           				console.log(error);
+           			})
+           		}
+
+           		updateBookmarkButton(); // 버튼 초기 상태 설정 (true / false)
+
+              <% } %>
+
+           		/////////////////////////////
+           		////////// MAP API //////////
+           		/////////////////////////////
+           		naver.maps.Service.geocode({
+                  	query: "<%= st.getStoreAddress() %>"
+              		}, function(status, response) {
+           	       	if (status !== naver.maps.Service.Status.OK) {
+           	        	   return alert('Something wrong!');
+           	      		}
+
+           			var result = response.v2, // 검색 결과의 컨테이너
+           				items = result.addresses; // 검색 결과의 배열
+           		// 성공 시의 response 처리
+           		// do Something
+           			var map = new naver.maps.Map('map', {
+           			center: new naver.maps.LatLng(items[0].y, items[0].x),
+           			zoom: 16
+           			});
+           			var marker = new naver.maps.Marker({
+           	   		position: new naver.maps.LatLng(items[0].y, items[0].x),
+           	   		map: map
+           			});
+
+           		});
+
+        //////////////////////////////////////
+        ////////// 유가 정보 API /////////////
+        /////////////////////////////////////
+
+
+
+
+
+
+
+
+        //////////////////////////////////////////
+        //////////// ajax 리뷰 insert ////////////
+        /////////////////////////////////////////
+
+
+           		function insertReview(){
+           			var formData = new FormData();
+           			formData.append('content', $(".rev-write textarea").val());
+           			formData.append('storeNo', <%= st.getStoreNo() %>);
+           			formData.append('grade', $(".grade").val());
+           			formData.append('file1', $("#file1")[0].files[0]);
+           			formData.append('file2', $("#file2")[0].files[0]);
+           			formData.append('file3', $("#file3")[0].files[0]);
+
+           			$.ajax({
+           				url:"insert.rv",
+           				type:"post",
+           				data: formData,
+           				processData: false,
+           				contentType: false,
+           				success:function(result){
+           					if(result > 0){
+           						$(".rev-write textarea").val("");
+           						$("#titleImg").attr("src", null);
+           						$("#file1").val("");
+           						$("#file2").val("");
+           						$("#file3").val("");
+           						selectReview();
+                      selectCountGrade();
+           					}
+           				},
+           				error:function(){
+           					alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
+           				}
+
+           				})
+           			}
+
+           		/////////// 매장 평점 총 갯수 및 평균 /////////
+           		function selectCountGrade(){
+           			$.ajax({
+           				url:"countgrade.rv",
+           				type:"post",
+           				data:{storeNo: <%= st.getStoreNo() %>},
+           				success:function(rv){
+
+           					let value = ""
+                    let value2 = ""
+           					if(rv != null){
+           					value += "★" + rv.grade + "  " + rv.reviewCount + "명 평가";
+                    value2 += "(" + rv.reviewCount + ")";
+           					}
+
+           					$("#countGrade").text(value);
+                    $("#countReview").text(value2);
+           				},
+           				error:function(){
+           					console.log("AJAX 통신 실패 ㅜㅜ");
+           				}
+
+           			})
+           		}
+
+
+           		/////////////////////////////////////
+           		/////////// ajax 리뷰 select /////////
+           		/////// 최근 리뷰 데이터 가져오기 /////
+           		/////////////////////////////////////
+
+           		function selectReview(){
+
+
+           			$.ajax({
+           				url:"select.rv",
+           				method:"post",
+           				data:{storeNo: <%= st.getStoreNo() %>},
+           				success:function(rlist){
+
+           						let value = "";
+           						let recentUserId = "";
+           						let recentContent = "";
+           						let recentIssueDate = "";
+           					if(rlist.length < 1){
+           						value += "<div>조회된 리뷰가 없습니다.</div>"
+           						recentContent += "조회된 리뷰가 없습니다."
+           					} else{
+           							recentUserId = rlist[0].userId;
+           							recentContent = rlist[0].content;
+           							recentIssueDate = rlist[0].issueDate;
+
+           							for(let i=0; i<rlist.length; i++){
+           							value += "<div class='rev-list'>"
+
+           								     + "<div class='rev-list-id'>" + rlist[i].userId
+
+                               + "<button onclick='deleteReview(" + rlist[i].reviewNo + ");' class='btn-warning text-danger deleteButton'>리뷰삭제</button>"
+
+                               + "</div>"
+
+           							       + "<div class='rev-list-content'>"
+           							       + "<textarea cols='80' rows='5' style='border: 1px; resize: none; font-size: 15px; background-color: white;' disabled>" + rlist[i].content + "</textarea>"
+           							       + "</div>"
+
+           							       + "<div class='rev-list-date'>" + rlist[i].issueDate + "</div>"
+
+           							       + "<a class='rev-look'>↓리뷰사진↓</a>"
+
+           							       + "<div class='rev-list-grade'>★" + rlist[i].grade + "</div>"
+           								   + "</div>";
+
+           							let images = "";
+           							let recentImage = "";
+
+           							if(rlist[i].imgRoot != null){
+           								images = rlist[i].imgRoot;
+           								imageArray = images.split(",");
+
+           								recentImage = rlist[0].imgRoot;
+           								recentImageArray = recentImage.split(",");
+
+           								let value2 = "";
+
+           								for(let j=0; j<imageArray.length; j++){
+           						    	value2 += "<img class='rev-look-img' src='" + imageArray[j] + "'>";
+
+           								}
+
+           								value += "<div class='rev-look-div'>" + value2 + "</div>";
+           							}
+
+
+           							}
+           						}
+           							       $("#rev-list").html(value);
+           								   $(".review_recent_2").text(recentContent);
+           								   $(".review_recent_3_1").text(recentUserId);
+           								   $(".review_recent_3_2").text(recentIssueDate);
+           								   $("#review_recent_image").html("<img src='" + recentImageArray[0] +"' width='100%' height='220px'>");
+           					},
+
+           				error:function(){
+
+           				}
+           			})
+           		}
+
+              // 리뷰삭제 //
+              function deleteReview(reviewNo){
+                if(window.confirm("리뷰를 정말로 삭제하시겠습니까?")){
+                  $.ajax({
+                     url:"delete.rv",
+                     method:"post",
+                     data:{reviewNo: reviewNo},
+                     success:function(result){
+                      if(result > 0){
+                        selectReview();
+                        selectCountGrade();
                       }
-                  }
+                    },
+                    error:function(){
+                      console.log("리뷰삭제 실패")
+                    }
+                  });
+                }
+            }
 
 
-                 		////////// 리뷰등록시 대표사진 첨부시 이미지 띄우기 ///////////
-                 		function loadImg(inputFile){
+           		////////// 리뷰등록시 대표사진 첨부시 이미지 띄우기 ///////////
+           		function loadImg(inputFile){
 
-                 			if(inputFile.files.length == 1){ // 파일이 선택된 경우
-                 				const reader = new FileReader();
+           			if(inputFile.files.length == 1){ // 파일이 선택된 경우
+           				const reader = new FileReader();
 
-                 				reader.readAsDataURL(inputFile.files[0]);
+           				reader.readAsDataURL(inputFile.files[0]);
 
-                 				reader.onload = function(e){
+           				reader.onload = function(e){
 
-                 					$("#titleImg").attr("src",e.target.result);
+           					$("#titleImg").attr("src",e.target.result);
 
-                 				}
-                 			} else { // 파일이 취소된 경우
-                 				$("#titleImg").attr("src", null);
-                 			}
+           				}
+           			} else { // 파일이 취소된 경우
+           				$("#titleImg").attr("src", null);
+           			}
 
-                 		}
-
-
+           		}
 
 
 
 
 
-                 		// 잠실 롯데월드를 중심으로 하는 지도
-                 		//var map1 = new naver.maps.Map('map1', {
-                         //	center: new naver.maps.LatLng(37.5112, 127.0981),
-                         //    zoom: 15
-                         //});
 
-                 		//var marker1 = new naver.maps.Marker({
-                         //    position: new naver.maps.LatLng(37.5112, 127.0981),
-                         //    map: map1
-                         //});
 
-                 		// 주변 유류정보를 보여주는 지도
-                 		//var map2 = new naver.maps.Map('map2', {
-                         //	center: new naver.maps.LatLng(37.5112, 127.0981),
-                          //   zoom: 15
-                         //});
-                 //
-                 		//var marker2 = new naver.maps.Marker({
-                         //    position: new naver.maps.LatLng(37.5112, 127.0981),
-                         //    map: map2
-                        //});
+           		// 잠실 롯데월드를 중심으로 하는 지도
+           		//var map1 = new naver.maps.Map('map1', {
+                   //	center: new naver.maps.LatLng(37.5112, 127.0981),
+                   //    zoom: 15
+                   //});
+
+           		//var marker1 = new naver.maps.Marker({
+                   //    position: new naver.maps.LatLng(37.5112, 127.0981),
+                   //    map: map1
+                   //});
+
+           		// 주변 유류정보를 보여주는 지도
+           		//var map2 = new naver.maps.Map('map2', {
+                   //	center: new naver.maps.LatLng(37.5112, 127.0981),
+                    //   zoom: 15
+                   //});
+           //
+           		//var marker2 = new naver.maps.Marker({
+                   //    position: new naver.maps.LatLng(37.5112, 127.0981),
+                   //    map: map2
+                  //});
     </script>
   </body>
 </html>
