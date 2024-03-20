@@ -20,13 +20,14 @@ public class ReviewService {
 		
 		if(result1 > 0 && result2 > 0) {
 			commit(conn);
-		} else {
+		}
+		else {
 			rollback(conn);
 		}
 		
 		close(conn);
 		
-		return result1 * result2;
+			return result1 * result2;
 	}
 	
 	public ArrayList<ReviewAll> selectReview(int storeNo){
@@ -47,6 +48,25 @@ public class ReviewService {
 		
 		return rv;
 	}
+	
+	public int deleteReview(int reviewNo) {
+		
+		Connection conn = getConnection();
+		int result = new ReviewDao().deleteReview(conn, reviewNo);
+		
+		if(result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	
+	
 									
 									
 									

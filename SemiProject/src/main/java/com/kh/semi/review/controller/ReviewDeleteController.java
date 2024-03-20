@@ -1,30 +1,25 @@
 package com.kh.semi.review.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.semi.review.model.service.ReviewService;
-import com.kh.semi.review.model.vo.Review;
-import com.kh.semi.review.model.vo.ReviewAll;
 
 /**
- * Servlet implementation class ReviewSelectController
+ * Servlet implementation class ReviewDeleteController
  */
-@WebServlet("/select.rv")
-public class ReviewSelectController extends HttpServlet {
+@WebServlet("/delete.rv")
+public class ReviewDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewSelectController() {
+    public ReviewDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,16 +28,17 @@ public class ReviewSelectController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8"); // 인코딩
 		
-		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
-		ArrayList<ReviewAll> rlist = new ReviewService().selectReview(storeNo);
+		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		
-		if(!rlist.isEmpty()) {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(rlist, response.getWriter());
-		} 
+		int result = new ReviewService().deleteReview(reviewNo);
 		
-		
+		if(result > 0) {
+			response.getWriter().print(result);
+		}else {
+			System.out.println("리뷰삭제 실패 ㅜㅜ");
+		}
 		
 		
 	}
