@@ -1,8 +1,6 @@
 package com.kh.semi.admin.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -10,19 +8,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.kh.semi.admin.model.service.AdminService;
-import com.kh.semi.order.model.vo.Order;
 
 /**
- * Servlet implementation class adminbuyHistoryDetailController
+ * Servlet implementation class admin_dashboard_totalenrollStoreCount_controller
  */
-@WebServlet("/adminOrderDetail.bo")
-public class adminbuyHistoryDetailController extends HttpServlet {
+@WebServlet("/enrollStoreCount")
+public class admin_dashboard_totalenrollStoreCount_controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public adminbuyHistoryDetailController() {
+    public admin_dashboard_totalenrollStoreCount_controller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +28,10 @@ public class adminbuyHistoryDetailController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int realOrderNo = Integer.parseInt(request.getParameter("ono"));
 		
-		Order o = new AdminService().selectOrderListDetail(realOrderNo);
-
-		request.setAttribute("o", o);
-		request.getRequestDispatcher("views/admin/admin_buyHistoryDetailView.jsp").forward(request, response);
+		int enrollStoreCount = new AdminService().selectEnrollStoreCount();
+		response.getWriter().print(enrollStoreCount);
+	
 	}
 
 	/**

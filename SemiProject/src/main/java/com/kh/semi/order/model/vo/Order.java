@@ -26,6 +26,9 @@ public class Order {
 	private String payCompanyK; 
 	private String userId;
 	
+	private String giftUserName;
+	private String giftUserPhone;
+	
 	
 	public Order() {}
 
@@ -40,8 +43,9 @@ public class Order {
 		this.orderDate = orderDate;
 	}
 	
-	public Order(int qty, int price, int totalPrice, String giftNy, int payNoK, String payDateK, String payCompanyK, String userId, String userName, String email, String phone) {
+	public Order(int userNo,int qty, int price, int totalPrice, String giftNy, int payNoK, String payDateK, String payCompanyK, String userId, String userName, String email, String phone) {
 		super();
+		this.userNo=userNo;
 		this.qty = qty;
 		this.price=price;
 		this.totalPrice=totalPrice;
@@ -220,14 +224,37 @@ public class Order {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	
+	
+
+	public String getGiftUserName() {
+		return giftUserName;
+	}
+
+	public void setGiftUserName(String giftUserName) {
+		this.giftUserName = giftUserName;
+	}
+
+	public String getGiftUserPhone() {
+		return giftUserPhone;
+	}
+
+	public void setGiftUserPhone(String giftUserPhone) {
+		this.giftUserPhone = giftUserPhone;
+	}
 
 	@Override
 	public String toString() {
 		return "Order [userNo=" + userNo + ", orderNo=" + orderNo + ", price=" + price + ", qty=" + qty
 				+ ", totalPrice=" + totalPrice + ", giftNy=" + giftNy + ", orderDate=" + orderDate + ", email=" + email
 				+ ", phone=" + phone + ", userName=" + userName + ", impUid=" + impUid + ", merchantUid=" + merchantUid
-				+ ", pgProvider=" + pgProvider + ", payNo=" + payNo + "]";
+				+ ", pgProvider=" + pgProvider + ", payNo=" + payNo + ", payNoK=" + payNoK + ", payDateK=" + payDateK
+				+ ", payCompanyK=" + payCompanyK + ", userId=" + userId + "]";
 	}
+
+
+
+
 
 
 

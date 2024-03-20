@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.admin.model.dao.AdminDao;
+import com.kh.semi.admin.model.vo.Admin;
 import com.kh.semi.admin.model.vo.Category;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
@@ -224,6 +225,42 @@ public class AdminService {
 		
 		return refuse2;
 		
+	}
+	
+	public String selectTotalPriceSum() {
+		Connection conn = getConnection();
+		
+		String totalPriceSum=new AdminDao().selectTotalPriceSum(conn);
+		
+		close(conn);
+		return totalPriceSum;
+	}
+	
+	public int selectOrderCount() {
+		Connection conn = getConnection();
+		
+		int selectOrderCount = new AdminDao().selectOrderCount(conn);
+		
+		close(conn);
+		return selectOrderCount;
+	}
+	
+	public int selectTotalStoreCount() {
+		Connection conn = getConnection();
+		
+		int totalStoreCount = new AdminDao().selectTotalStoreCount(conn);
+		
+		close(conn);
+		return totalStoreCount;
+	}
+	
+	public int selectEnrollStoreCount() {
+		Connection conn = getConnection();
+		
+		int enrollStoreCount = new AdminDao().selectEnrollStoreCount(conn);
+		
+		close(conn);
+		return enrollStoreCount;
 	}
 
 }

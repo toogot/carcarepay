@@ -4,7 +4,6 @@
     
 <%
 	Order o = (Order)request.getAttribute("o");
-	
 %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +12,9 @@
 <title>Insert title here</title>
  
 <style>
+	span{
+		border-bottom: 1px solid #ffffff;
+	}
 	div{
 		/* border: 1px solid red; */
 	}
@@ -34,11 +36,11 @@
 		text-align: center;
 		padding-top: 50px;
 	}
-	table *{
+	.tableWrap *{
 		padding: 20px	
 	}
-	.tableWrap{
-		border : 1px solid #e3e6f0;
+	.tableWrap *{
+		border-bottom :  1px solid #eaecf1;
 	}
 	#store_name_h2{
 		text-align: center;
@@ -52,6 +54,31 @@
 		width: 800px;
 	}
 	#bottom_div{height: 100px;}
+
+	#userinfo,#orderinfo{
+		font-weight: bold;
+		font-size: 18px;
+		color: rgb(54, 54, 54);
+	}
+	.tabletitle td{
+		padding-bottom: 15px;
+		padding-top: 30px;
+	}
+	th{
+		background-color: #fbfbfb;
+	}
+	.price{
+		color: rgb(54, 54, 54);
+		font-weight: bold;
+	}
+	#name{
+		cursor: pointer;
+	}
+	#name:hover{
+		color: black;
+	}
+
+	
 </style>
 </head>
 <body>
@@ -60,61 +87,71 @@
 
 	<div id="wrap">
 		<div>
-			<h1>매장 상세 조회 페이지</h1>
+			<h1>결제 상세 내역 조회 페이지</h1>
 		</div>
 
 		<div>
-			<h2 id="store_name_h2" ><%=o.getEmail()%></h2>
+			<h2 id="store_name_h2" >결제번호 : <%=o.getPayNoK()%></h2>
 		</div>
 
 		<div id="table_wrap_div">
-			<table border="1" class="tableWrap">
-				<tr>
-					<th>매장이름</th>
-					<td colspan="3"><%=o.getUserName() %></td>
-				</tr>
-				<tr>
-					<th>대표이름</th>
-					<td></td>
-					<th>사업자번호</th>
-					<td><%=o.getUserId() %></td>
-				</tr>
-				<tr>
-					<th>매장번호</th>
-					<td colspan="3"><%=o.getPayCompanyK() %></td>
-				</tr>
-				<tr>
-					<th>주소</th>
-					<td colspan="3"><%=o.getPayDateK() %></td>
-				</tr>
-				<tr>
-					<th>세차장유형</th>
-					<td><%=o.getGiftNy()%></td>
-					<th>영업시간</th>
-					<td><%=o.getQty() %></td>
-				</tr>
-				<tr>
-					<th>매장상태</th>
-					<td><%=o.getTotalPrice() %></td>
-					<td colspan="2" style="color: red;">대문자 N 또는 Y만 입력해주세요<br> (N:영업중 / Y:매장삭제)</td>
-				</tr>
-				<tr>
-					<th>가격</th>
-					<td colspan="3"><%=o.getPrice()%></td>
-				</tr>
-				<tr>
-					<th>사진</th>
-					<td colspan="3">
+			<div>
+				<table class="tabletitle">
+					<tr>
+						<td><span id="userinfo">고객정보</span></td>
+					</tr>
+				</table>
+				<table class="tableWrap">
+					<tr>
+						<th>이름</th>
+						<td colspan="1" id="name" onclick="location.href='<%=contextPath%>/memberDetail.bo?mno=<%=o.getUserNo() %>'"><%=o.getUserName() %></td>
+						<th>전화번호</th>
+						<td><%= o.getPhone()%></td>
+					</tr>
+					<tr>
+						<th>이메일</th>
+						<td colspan="3"><%=o.getEmail() %></td>
+					</tr>
+				</table>
+			</div>
+			<div>
+				
+					<table class="tabletitle">
+						<tr>
+							<td><span id="orderinfo">결제정보</span></td>
+						</tr>
+					</table>
+					<table class="tableWrap">
+					<tr>
+						<th>결제수단</th>
+						<td colspan="3"><%=o.getPayCompanyK() %></td>
+					</tr>
+					<tr>
+						<th>결제일시</th>
+						<td colspan="3"><%=o.getPayDateK() %></td>
+					</tr>
+					<tr>
+						<th>선물여부</th>
+						<td><%=o.getGiftNy()%></td>
+						<th>선물받은회원</th>
+						<td></td>
+					</tr>
+					<tr>
+						<th>선택한금액</th>
+						<td ><span class="price"><%=o.getPrice()%></span> 원</td>
+						<th>갯수</th>
+						<td ><span class="price"><%=o.getQty() %></span>개</td>
+					</tr>
+					<tr>
+						<th >실제 결제금액</th>
+						<td colspan="3" ><span class="price"><%=o.getTotalPrice() %></span> 원</td>
 						
-					</td>
-				</tr>
-
-			</table>
+					</tr>
+				</table>
+			</div>
 		</div>
 		<div id="btn">
-			<a href="<%=contextPath %>/storeList?cpage=1" class="btn btn-sm btn-secondary">목록가기</a>
-			<a href="<%=contextPath %>/storeupdateform?sno=<%= o.getPayNoK() %>" class="btn btn-sm btn-warning">수정하기</a>
-			<!-- <a href="" class="btn btn-sm btn-danger" onclick="reallydelete()">삭제하기</a> -->
+			<a href="<%=contextPath %>/buyhistory?opage=1" class="btn btn-sm btn-secondary">목록가기</a>
 		</div>
 		<div id="bottom_div">
 

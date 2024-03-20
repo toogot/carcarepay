@@ -81,6 +81,12 @@
                                         </tr>
                                     </tfoot>
                                     <tbody>
+
+
+                                        <script>
+                                            let arr = new Array();
+                                            console.log(arr);
+                                        </script>
                                     	<!-- ----- 신청 리스트 ----- -->
                                     	<% for(Application a : list) { %>
                                         <tr>
@@ -89,12 +95,39 @@
                                             <td><%= a.getTypeName()%></td>
                                             <td><%= a.getAppDate() %></td>
                                             <td><%= a.getUserName() %> </td>
-                                            <td><%= a.getAppTypeName() %></td>
+                                            <td>
+                                                <span class="typeName"><%= a.getAppTypeName() %></span>
+                                            </td>
                                             <td id="store_detail_td" onclick="location.href='<%= contextPath %>/storeEnrollDetail.bo?eno=<%=a.getAppNo()  %>'"> 
                                             <a class="btn btn-light">상세조회</a></td>
                                         </tr>
+                                        
+                                        <script>
+                                            arr.push($('.typeName:last').text());
+                                        </script>                                                  
                                         <% } %>
                                         <!-- --------------------- -->
+
+
+
+
+                                        	<script>
+
+                                                $(function(){
+                                                    for(let i = 0; i<arr.length; i++){
+                                                        if(arr[i]==="거절"){
+                                                            $('.typeName:contains(' + arr[i] + ')').css("color", "red");
+                                                        }else if(arr[i]==="승인"){
+                                                            $('.typeName:contains(' + arr[i] + ')').css("color", "blue");
+                                                        }else if(arr[i]==="대기"){
+                                                            $('.typeName:contains(' + arr[i] + ')').css("color", "black");
+                                                        }
+                                                    }
+                                                })
+                                        	</script>
+                                        
+                                        
+                                        
                                     </tbody>
                                 </table>
                             </div>

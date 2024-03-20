@@ -2,6 +2,19 @@
 Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
 Chart.defaults.global.defaultFontColor = '#858796';
 
+// Custom plugin to change month names to Korean
+Chart.plugins.register({
+  beforeInit: function(chart) {
+    if (chart.config.type === 'line') { // 플러그인이 라인 차트에만 적용되도록 함
+      chart.data.labels = chart.data.labels.map(function(label) {
+        // Convert month number to Korean
+        var monthNames = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
+        return monthNames[label - 1];
+      });
+    }
+  }
+});
+
 function number_format(number, decimals, dec_point, thousands_sep) {
   // *     example: number_format(1234.56, 2, ',', ' ');
   // *     return: '1 234,56'
@@ -28,11 +41,13 @@ function number_format(number, decimals, dec_point, thousands_sep) {
 }
 
 // Area Chart Example
+Chart.defaults.locale = 'ko';
+var koreanMonths = ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'];
 var ctx = document.getElementById("myAreaChart");
 var myLineChart = new Chart(ctx, {
   type: 'line',
   data: {
-    labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+    labels: koreanMonths,
     datasets: [{
       label: "Earnings",
       lineTension: 0.3,

@@ -300,7 +300,8 @@ public class AdminDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				o.add(new Order(rset.getInt("order_qty"),
+				o.add(new Order( rset.getInt("user_no"),
+						         rset.getInt("order_qty"),
 								 rset.getInt("order_price"),
 								 rset.getInt("total_price"),
 								 rset.getString("gift_yn"),
@@ -675,15 +676,18 @@ public class AdminDao {
 		Order o = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null; 
-		String sql = prop.getProperty("selectOrderList");
+		String sql = prop.getProperty("selectOrderDetail");
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, realOrderNo);
 
 			rset = pstmt.executeQuery();
 			
 			if(rset.next()) {
-				o = new Order(rset.getInt("order_qty"),
+				o = new Order(	 rset.getInt("user_no"),
+								 rset.getInt("order_qty"),
 								 rset.getInt("order_price"),
 								 rset.getInt("total_price"),
 								 rset.getString("gift_yn"),
@@ -701,7 +705,102 @@ public class AdminDao {
 		} finally {
 			close(rset);
 			close(pstmt);
-		} return o;
+		} 
+		return o;
+	}
+	
+	public String selectTotalPriceSum(Connection conn) {
+		String totalPriceSum = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTotalPriceSum");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				totalPriceSum=rset.getString("sum");
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalPriceSum;
+	}
+	
+	public int selectOrderCount(Connection conn) {
+		int totalOrderCount =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOrderCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				totalOrderCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalOrderCount;
+	}
+	
+	public int selectTotalStoreCount(Connection conn) {
+		int totalStoreCount =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTotalStoreCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				totalStoreCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalStoreCount;
+	}
+	
+	public int selectEnrollStoreCount(Connection conn) {
+		int enrollStoreCount =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectEnrollStoreCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				enrollStoreCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return enrollStoreCount;
+		
 	}
 	
 

@@ -100,7 +100,9 @@
         h3{
             padding: 10px 0;
             padding-left: 20px;
+            
         }
+
         .h2class{
             padding: 10px 0;
             padding-left: 20px;
@@ -150,7 +152,7 @@
             font-size: 45px;
             font-weight: 500;
             color: white;
-            border: 1px solid blue;
+            /* border: 1px solid blue; */
         }
         .fixedpr_text{
             font-size: 12px;
@@ -246,6 +248,15 @@
         	font-weight : bold;
         	color : red;
         }
+        #gifginfo{
+            padding-left: 20px;
+            font-weight : bold;
+        	color : red;
+            font-size: 15px;
+        }
+        .star{
+            color: red;
+        }
 
        
         @font-face {
@@ -280,7 +291,7 @@
                 <h1>
                 선물하기
                 </h1>
-                <h6>* 카카오톡으로 회원가입한 회원에게는 선물할 수 없습니다</h6>
+                <h6>* 카카오톡으로 가입한 회원에게는 선물할 수 없습니다</h6>
             </div>
             <div class="orderStep">
                 <ul class="orderStepUl">
@@ -293,17 +304,18 @@
         </div>
         <div class="fixedpr1">
             <div class="info_section" id="buyer">
-                <h3>선물받는 사용자 정보</h3>
+                <h3 style="margin: 0;">선물받는 사용자 정보</h3>
+                <span id="gifginfo">* 이름과 연락처를 정확하게 기입해주세요</span>
                 <table>
                     <tr>
-                        <th>이름</th>
+                        <th>이름<span class="star"> *</span></th>
                         <td class="product_info_bottom"><input type="text" id="gift_name" placeholder="받으시는 분 성함을 입력해주세요" maxlength="4" required>
                             <br>
                             <div class="gift_input_bottom_div" id="gift_name_bottom_div"></div>
                         </td>
                     </tr>
                     <tr>
-                        <th>연락처</th>
+                        <th>연락처<span class="star"> *</span></th>
                         <td class="product_info_bottom"><input type="text" id="gift_phone" placeholder="000-0000-0000"  maxlength="13" required></td>
                     </tr>
                     <tr>
@@ -372,15 +384,15 @@
                 <div class="totlaPrice_div1">
                     <h2 class="h2class" style="color: white;">총 결제금액</h2>
                 </div>
-                <div class="totlaPrice_div2" style="border: 1px solid purple;">
+                <div class="totlaPrice_div2" >
                     <span id="totalPriceSpan" ></span>
                     <span>원</span>
                 </div>
             </div>
             
             <div class="order_btn">
-                <h2 class="order_btn_red"  style="border: 1px solid white;">결제하기</h2>
-       gift_phone     </div>
+                <h2 class="order_btn_red" >결제하기</h2>
+		    </div>
             <p class="fixedpr_text">하기 필수약관을 확인하였으며 결제에 동의합니다.</p>
 
         </div>
@@ -398,6 +410,8 @@
         let o;
 
         $(function(){
+
+
             $("#gift_phone").on("input", function(){
                 var phoneNum = $(this).val().replace(/[^0-9]/g, ''); // 숫자만 남기고 다른 문자는 제거
                 var formattedNum;
@@ -447,7 +461,7 @@
                         $("#totalPrice").html(totalPrice);
                         $("#qty").html(qty);
                         $("#totalPriceSpan").html(totalPrice);
-
+                        
                         $(".order_btn_red").click(function(){//결제하기 버튼 클릭시
 
                             var radioval = document.querySelector("input[type=radio]:checked") //체크된 라디오버튼의 값을 넣어줌
@@ -478,8 +492,80 @@
                 })
 
             })
+            
 
 
+            var IMP = window.IMP; 
+        IMP.init("imp21168814"); 
+      
+        var today = new Date();   
+        var hours = today.getHours(); // 시
+        var minutes = today.getMinutes();  // 분
+        var seconds = today.getSeconds();  // 초
+        var milliseconds = today.getMilliseconds();
+        var makeMerchantUid = hours +  minutes + seconds + milliseconds;
+        
+		
+
+
+            // ======카카오페이결제======
+            function payment_kakaopay(o){
+                let totalPrice = o.totalPrice;
+                let email = o.email;
+                let phone = o.phone;
+                let userName = o.userName;
+                let orderNo = o.orderNo;
+                
+                IMP.request_pay({
+                    pg : 'kakaopay',
+                    merchant_uid: "IMP"+makeMerchantUid, 
+                    name : '세차 상품권',
+                    amount : totalPrice,
+                    buyer_email : email,
+                    buyer_name : userName,
+                    buyer_tel : phone,
+                    //buyer_addr : '서울특별시 강남구 삼성동',
+                    //buyer_postcode : '123-456'
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+                        	console.log(rsp);
+                        	
+                        	$.ajax({
+                                url: 'kakaopay_gift_successInsert',
+                                data: {
+                                    buyer_email:email,
+                                    buyer_name:userName,
+                                    buyer_tel:phone,
+                                    amount: totalPrice,
+                                    imp_uid: rsp.imp_uid, // imp_281108801427 이런식으로 출력됨 //포트원 거래고유번호
+                                    merchant_uid: rsp.merchant_uid, // IMP1023 이런식으로 출력됨 //가맹점 주문번호
+                                    pg_provider : rsp.pg_provider,   // "kakaopay" 출력됨
+                                	orderNo:orderNo,
+                                	gift_userName: $('#gift_name').val(),
+                                	gift_userPhone: $('#gift_phone').val()
+
+                                },
+                                type: "POST",
+                                success:function(){
+                                    console.log("성공!!!!카카오페이결제성공")
+                                    kakaopay_successUpdate();
+
+                                    
+                                },error:function(){
+                                    console.log("ajax 실패 ㅜㅜ카카오페이")
+
+                                }
+                        	});
+                    }else{
+                        console.log(rsp);
+                    }
+                });
+            }
+			
+            
+            //function kakaopay_successUpdate(){
+            //    location.href = "<%=contextPath%>/ordercomplete"
+           // }
 
 
        
