@@ -18,9 +18,11 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <style>
-      /* .outer div{border: 1px solid red;} */
+      .outer div {
+        border: 1px solid red;
+      }
       .outer {
-        /* border: 1px solid red; */
+        border: 1px solid red;
         width: 1900px;
         height: 4100px;
         box-sizing: border-box;
@@ -29,7 +31,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
       }
 
       .outer > div {
-        /* border: 1px solid blue; */
+        border: 1px solid blue;
         display: flex;
         justify-content: center;
       }
