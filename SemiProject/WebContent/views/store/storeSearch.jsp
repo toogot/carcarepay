@@ -110,7 +110,7 @@
 		width: 100%;
 		height: 33.3%;
 		margin: 0;
-		border-top: 1px solid #87CEFA;
+		border-bottom: 1px solid #87CEFA;
 		box-sizing: border-box;
 		cursor: pointer;
 	}
@@ -278,7 +278,15 @@
 			for(let i=0;i<allAddress.length;i++){
 				marke = new naver.maps.Marker({
 				position: new naver.maps.LatLng(items[i].y, items[i].x),
-				map: map		
+				map: map,
+				icon:{
+					url: "resources/images/마커찐막.png",
+        			size: new naver.maps.Size(100, 70),
+					scaledSize: new naver.maps.Size(30, 50),
+					origin: new naver.maps.Point(0, 0),
+          			anchor: new naver.maps.Point(25, 26),
+				},
+				
 			});
 			markers.push(marke);
 			}
@@ -308,7 +316,13 @@
 		});
 			markers[markers.length+1] = new naver.maps.Marker({
     		position: new naver.maps.LatLng(items[0].y, items[0].x),
-    		map: map
+    		map: map,
+			icon:{content: [
+					` <img src="resources/images/마커찐막.png" style="width: 70px;  height: 60px;"/>`,
+						].join(''),
+						
+					
+				}
 			
 			});
 			
