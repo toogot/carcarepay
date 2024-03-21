@@ -46,8 +46,10 @@ body * {
 	cursor: pointer !important;
 }
 
-.btn {
-	margin-left: 150px;
+.bt {
+	margin-left: 600px;
+	height:5px;
+	
 }
 
 body {
@@ -126,10 +128,10 @@ input:checked+label {
 				이미지" style="width: 700px; height: 200px; display: block; margin: auto; margin-bottom: 20px;"> -->
 
 
-			<h2 align="center">카케어이벤트</h2>
+			<h2 align="center">카케어페이 이벤트</h2>
 
-			<h5 align="center">카케어의 다양한 이벤트를 만나보세요</h5>
-			<div class="btn">
+			<h5 align="center">카케어페이 의 다양한 이벤트를 만나보세요</h5>
+			<div class="bt">
 				<a href="javascript:$('#orderType').val(1);$('#pageFin').val(1);goList(1);">최신순 | </a> <a href="javascript:$('#orderType').val(2);$('#pageFin').val(1);goList(1);">조회순</a>
 			</div>
 			<br>
