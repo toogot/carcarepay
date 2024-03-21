@@ -133,7 +133,7 @@ pageEncoding="UTF-8"%>
     <script>
       $(function () {
         weather();
-        setInterval(weather, 1000 * 60);
+        setInterval(weather, 1000);
       });
 
       function weather() {
