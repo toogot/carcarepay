@@ -59,7 +59,7 @@ public class AdminService {
 		
 		ArrayList<Store> list = new AdminDao().selectStoreList(conn,pi);
 		//셀렉문
-		
+
 		close(conn);
 		return list;
 	}

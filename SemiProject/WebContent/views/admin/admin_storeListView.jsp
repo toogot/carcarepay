@@ -88,7 +88,7 @@
                                             <td><%= s.getStoreNo() %></td>
                                             <td><%= s.getStoreName() %></td>
                                             <td> </td>
-                                            <td> </td>
+                                            <td></td>
                                             <td><%= s.getTypeName() %></td>
                                             <td><%= s.getStorePhone() %></td>
                                             <td><%= s.getStoreStatus()%></td>
@@ -187,7 +187,6 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    
 
 </body>
 </html>
