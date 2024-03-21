@@ -21,7 +21,16 @@ public class Order {
 	private String pgProvider; //"kakaopay" 출력됨
 	private int payNo; //결제번호
 	
-	public Order() {}
+	private int payNoK; //카카오페이 결제번호
+	private String payDateK; //카카오페이 결제일
+	private String payCompanyK; 
+	private String userId;
+	private String payPriceK;
+	
+	private String giftUserName;
+	private String giftUserPhone;
+	
+	
 
 	public Order(int userNo, int orderNo, int price, int qty, int totalPrice, String giftNy, String orderDate) {
 		super();
@@ -32,6 +41,22 @@ public class Order {
 		this.totalPrice = totalPrice;
 		this.giftNy = giftNy;
 		this.orderDate = orderDate;
+	}
+	
+	public Order(int userNo,int qty, int price, int totalPrice, String giftNy, int payNoK, String payDateK, String payCompanyK, String userId, String userName, String email, String phone) {
+		super();
+		this.userNo=userNo;
+		this.qty = qty;
+		this.price=price;
+		this.totalPrice=totalPrice;
+		this.giftNy=giftNy;
+		this.payNoK=payNoK;
+		this.payDateK=payDateK;
+		this.payCompanyK=payCompanyK;
+		this.userId=userId;
+		this.userName=userName;
+		this.email=email;
+		this.phone=phone;
 	}
 
 
@@ -50,8 +75,16 @@ public class Order {
 		this.phone = phone;
 		this.userName = userName;
 	}
+	
+	
 
 
+
+	public Order(String payDateK, String payPriceK) {
+		super();
+		this.payDateK = payDateK;
+		this.payPriceK = payPriceK;
+	}
 
 	public int getUserNo() {
 		return userNo;
@@ -165,13 +198,81 @@ public class Order {
 		this.payNo = payNo;
 	}
 
+	
+	public int getPayNoK() {
+		return payNoK;
+	}
+
+	public void setPayNoK(int payNoK) {
+		this.payNoK = payNoK;
+	}
+
+	public String getPayDateK() {
+		return payDateK;
+	}
+
+	public void setPayDateK(String payDateK) {
+		this.payDateK = payDateK;
+	}
+
+	public String getPayCompanyK() {
+		return payCompanyK;
+	}
+
+	public void setPayCompanyK(String payCompanyK) {
+		this.payCompanyK = payCompanyK;
+	}
+
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
+	
+	
+
+	public String getGiftUserName() {
+		return giftUserName;
+	}
+
+	public void setGiftUserName(String giftUserName) {
+		this.giftUserName = giftUserName;
+	}
+
+	public String getGiftUserPhone() {
+		return giftUserPhone;
+	}
+
+	public void setGiftUserPhone(String giftUserPhone) {
+		this.giftUserPhone = giftUserPhone;
+	}
+	
+
+	public String getPayPriceK() {
+		return payPriceK;
+	}
+
+	public void setPayPriceK(String payPriceK) {
+		this.payPriceK = payPriceK;
+	}
+
 	@Override
 	public String toString() {
 		return "Order [userNo=" + userNo + ", orderNo=" + orderNo + ", price=" + price + ", qty=" + qty
 				+ ", totalPrice=" + totalPrice + ", giftNy=" + giftNy + ", orderDate=" + orderDate + ", email=" + email
 				+ ", phone=" + phone + ", userName=" + userName + ", impUid=" + impUid + ", merchantUid=" + merchantUid
-				+ ", pgProvider=" + pgProvider + ", payNo=" + payNo + "]";
+				+ ", pgProvider=" + pgProvider + ", payNo=" + payNo + ", payNoK=" + payNoK + ", payDateK=" + payDateK
+				+ ", payCompanyK=" + payCompanyK + ", userId=" + userId + ", payPriceK=" + payPriceK + ", giftUserName="
+				+ giftUserName + ", giftUserPhone=" + giftUserPhone + "]";
 	}
+
+
+
+
+
+
 
 
 

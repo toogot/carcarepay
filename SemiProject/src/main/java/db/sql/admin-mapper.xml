@@ -19,6 +19,14 @@
 		 FROM MEMBER
 	</entry>
 	
+	<entry key="orderListCount">
+		SELECT 
+			   COUNT(*) count
+		  FROM PRODUCT_ODR
+		  JOIN KAKAO_PAYMENT ON ORDER_NO_K = ORDER_NO
+		  JOIN MEMBER USING(USER_NO)
+	</entry>
+	
 	<entry key="selectStoreList">
   SELECT *
     FROM
@@ -97,6 +105,35 @@
 		WHERE RNUM BETWEEN ? AND ?			    
 	</entry>
 	
+	<entry key="selectOrderList">
+			  SELECT *
+			    FROM
+			        (
+			        SELECT ROWNUM RNUM, A.*
+			          FROM
+			              (SELECT
+			              		  USER_NO 
+	 		                    , ORDER_QTY
+	                            , ORDER_PRICE
+	                            , TOTAL_PRICE
+	                            , GIFT_YN
+	                            , PAY_NO_K
+	                            , PAY_DATE_K
+	                            , PAY_COMPANY_K
+	                            , USER_ID
+	                            , USER_NAME
+	                            , EMAIL
+	                            , PHONE
+			                 FROM PRODUCT_ODR
+			                 JOIN KAKAO_PAYMENT ON ORDER_NO_K = ORDER_NO
+			                 JOIN MEMBER USING(USER_NO)
+			                ORDER 
+			                   BY PAY_NO_K DESC)A
+			        )
+			    WHERE RNUM BETWEEN ? AND ?
+	
+	</entry>
+	
 	<entry key="selectEnrollStoreDetail">
 	SELECT 
            APP_NO
@@ -121,6 +158,26 @@
       JOIN APP_TYPE USING(APP_YN)
       WHERE APP_NO = ?
       
+	</entry>
+	
+	<entry key="selectOrderDetail">
+	SELECT 
+		   USER_NO
+         , ORDER_QTY
+         , ORDER_PRICE
+         , TOTAL_PRICE
+         , GIFT_YN
+         , PAY_NO_K
+         , PAY_DATE_K
+         , PAY_COMPANY_K
+         , USER_ID
+         , USER_NAME
+         , EMAIL
+         , PHONE
+	  FROM PRODUCT_ODR O
+	  JOIN KAKAO_PAYMENT K ON K.ORDER_NO_K = O.ORDER_NO
+	  JOIN MEMBER USING(USER_NO)
+	 WHERE PAY_NO_K = ?
 	</entry>
 	
 	<entry key="selectMemberDetail">
@@ -270,6 +327,39 @@
       FROM APP_TYPE
       JOIN APPLICATION USING (APP_YN)
      WHERE APP_NO = ?
+	</entry>
+	
+	<entry key="selectTotalPriceSum">
+    SELECT SUM(PAY_PRICE_K) sum
+      FROM KAKAO_PAYMENT
+     WHERE TO_DATE(PAY_DATE_K) = TRUNC(SYSDATE)
+	</entry>
+	
+	<entry key="selectOrderCount">
+	SELECT COUNT(*) count
+      FROM KAKAO_PAYMENT
+     WHERE TO_DATE(PAY_DATE_K) = TRUNC(SYSDATE)  
+	</entry>
+	
+	<entry key="selectTotalStoreCount">
+	SELECT COUNT(*) count
+      FROM STORE
+     WHERE STORE_STATUS ='N'
+	</entry>
+	
+	<entry key="selectEnrollStoreCount">
+	SELECT COUNT(*) count
+      FROM APPLICATION
+     WHERE APP_YN = 'P'
+	</entry>
+	
+	<entry key="selectChartPayamount">
+		SELECT TO_CHAR(PAY_DATE_K, 'MM/DD') AS PAY_DATE,
+	           SUM(PAY_PRICE_K) AS TOTAL_AMOUNT
+		  FROM KAKAO_PAYMENT
+		 WHERE PAY_DATE_K BETWEEN SYSDATE - 7 AND SYSDATE
+	  GROUP BY TO_CHAR(PAY_DATE_K, 'MM/DD')
+	  ORDER BY PAY_DATE
 	</entry>
 
 </properties>

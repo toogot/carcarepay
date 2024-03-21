@@ -254,7 +254,7 @@
             	type:"post",
             	success:function(refuse2){
             		
-            			reRefuse(refuse2);
+            			reRefuse();
                   console.log(refuse2)
                   $('#refuseSpan').html(refuse2);
             			

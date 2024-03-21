@@ -47,13 +47,12 @@
 
                     <!-- Page Heading -->
                     <h1 id="h1Title" class="h3 mb-2 text-gray-800">매장목록</h1>
-                    <p class="mb-4">제휴맺은 매장정보를 조회할수있습니다. <a target="_blank"
-                            href="https://datatables.net">official DataTables documentation</a>.</p>
+                    <p class="mb-4">제휴맺은 매장정보를 조회할수있습니다.
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">DataTables Example</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Store List</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">

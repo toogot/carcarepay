@@ -18,7 +18,7 @@
     
     <style>
         div{
-            <!--border: 1px solid red;-->
+            /* -border: 1px solid red; */
             box-sizing: border-box;
         }
         .outer{
@@ -150,7 +150,7 @@
             font-size: 45px;
             font-weight: 500;
             color: white;
-            border: 1px solid blue;
+            /* border: 1px solid blue; */
         }
         .fixedpr_text{
             font-size: 12px;
@@ -158,7 +158,7 @@
         }
         .payment_ul{
             /* float: left; */
-            border: 1px solid purple;
+            /* border: 1px solid purple; */
             padding-top: 10px;
             padding-left: 15px;
             /* width: auto; */
@@ -354,14 +354,14 @@
                 <div class="totlaPrice_div1">
                     <h2 class="h2class" style="color: white;">총 결제금액</h2>
                 </div>
-                <div class="totlaPrice_div2" style="border: 1px solid purple;">
+                <div class="totlaPrice_div2" >
                     <span id="totalPriceSpan" ></span>
                     <span>원</span>
                 </div>
             </div>
             
             <div class="order_btn">
-                <h2 class="order_btn_red"  style="border: 1px solid white;">결제하기</h2>
+                <h2 class="order_btn_red"  >결제하기</h2>
             </div>
             <p class="fixedpr_text">하기 필수약관을 확인하였으며 결제에 동의합니다.</p>
 
@@ -410,6 +410,7 @@
 
                             }else if(radioval.id == "payment_toss"){ // 토스페이 선택
                                 payment_toss(o);
+                            	//requestPay();
 
                             }else if(radioval.id == "payment_naverpay"){ //네이버페이 선택
                                 payment_naverpay(o);
@@ -493,6 +494,57 @@
                                 }
                         	});
                     }else{
+                        console.log(rsp);
+                    }
+                });
+            }
+            
+            
+            //-----토스페이-----
+            function payment_toss(o) {
+                let totalPrice = o.totalPrice;
+                let email = o.email;
+                let phone = o.phone;
+                let userName = o.userName;
+                let orderNo = o.orderNo;
+                
+                IMP.request_pay({
+                    pg : 'tosspay',
+                    pay_method : 'card',
+                    merchant_uid: "IMP"+makeMerchantUid, //상점에서 생성한 고유 주문번호
+                    name : '세차 상품권',   //필수 파라미터 입니다.
+                    amount : totalPrice,
+                    buyer_email : email,
+                    buyer_name : userName,
+                    buyer_tel : phone,
+                    //buyer_addr : '서울특별시 강남구 삼성동',
+                    //buyer_postcode : '123-456',
+                    //m_redirect_url : '{결제 완료 후 리디렉션 될 URL}'
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+                        console.log(rsp);
+                        $.ajax({
+                            url: 'kakaopay_successInsert',
+                            data: {
+                                buyer_email:email,
+                                buyer_name:userName,
+                                buyer_tel:phone,
+                                amount: totalPrice,
+                                imp_uid: rsp.imp_uid, // imp_281108801427 이런식으로 출력됨 //포트원 거래고유번호
+                                merchant_uid: rsp.merchant_uid, // IMP1023 이런식으로 출력됨 //가맹점 주문번호
+                                pg_provider : rsp.pg_provider,   // "kakaopay" 출력됨
+                            	orderNo:orderNo
+                            },
+                            type: "POST",
+                            success:function(result){
+                                console.log("성공!!!!토스페이결제성공")
+                                kakaopay_successUpdate();
+                                
+                            },error:function(){
+                                console.log("ajax 실패 ㅜㅜ")
+                            }
+                    	});
+                    } else {
                         console.log(rsp);
                     }
                 });
