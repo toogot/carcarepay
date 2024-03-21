@@ -11,6 +11,7 @@ public class Store {
 	private String businessNo;
 	private String storePrice;
 	private String storeStatus;
+	private String typeName;
 	
 	
 	public Store() {
@@ -43,12 +44,12 @@ public class Store {
 		this.storePhone = storePhone;
 	}
 
-	public Store(String storeName,int storeNo,  String storePhone, String storeStatus) {
+	public Store(String storeName,int storeNo,  String storePhone,String typeName, String storeStatus) {
 		super();
 		this.storeName = storeName;
 		this.storeNo = storeNo;
 		this.storePhone = storePhone;
-		
+		this.typeName = typeName;
 		this.storeStatus = storeStatus;
 	}
 
@@ -139,19 +140,30 @@ public class Store {
 	public void setStoreStatus(String storeStatus) {
 		this.storeStatus = storeStatus;
 	}
-
-	
-	
 	
 
-	
+	public String getTypeName() {
+		return typeName;
+	}
+
+	public void setTypeName(String typeName) {
+		this.typeName = typeName;
+	}
 
 	@Override
 	public String toString() {
 		return "Store [storeNo=" + storeNo + ", storeName=" + storeName + ", storeType=" + storeType + ", storeAddress="
 				+ storeAddress + ", storePhone=" + storePhone + ", storeTime=" + storeTime + ", businessNo="
-				+ businessNo + ", storePrice=" + storePrice + ", storeStatus=" +" storeStatus ]";
+				+ businessNo + ", storePrice=" + storePrice + ", storeStatus=" + storeStatus + ", typeName=" + typeName
+				+ "]";
 	}
+
+	
+	
+	
+
+	
+
 
 
 	
