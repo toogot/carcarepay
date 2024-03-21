@@ -352,5 +352,14 @@
       FROM APPLICATION
      WHERE APP_YN = 'P'
 	</entry>
+	
+	<entry key="selectChartPayamount">
+		SELECT TO_CHAR(PAY_DATE_K, 'MM/DD') AS PAY_DATE,
+	           SUM(PAY_PRICE_K) AS TOTAL_AMOUNT
+		  FROM KAKAO_PAYMENT
+		 WHERE PAY_DATE_K BETWEEN SYSDATE - 7 AND SYSDATE
+	  GROUP BY TO_CHAR(PAY_DATE_K, 'MM/DD')
+	  ORDER BY PAY_DATE
+	</entry>
 
 </properties>

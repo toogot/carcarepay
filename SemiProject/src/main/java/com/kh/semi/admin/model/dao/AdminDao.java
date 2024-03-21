@@ -803,5 +803,31 @@ public class AdminDao {
 		
 	}
 	
+	public ArrayList<Order> selectChartPayamount(Connection conn){
+		ArrayList<Order> pay = new ArrayList<Order>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectChartPayamount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pay.add(new Order(rset.getString("pay_date"),
+								  rset.getString("total_amount")
+											 ));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pay;
+	}
+	
 
 }

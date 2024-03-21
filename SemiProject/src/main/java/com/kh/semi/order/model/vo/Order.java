@@ -25,12 +25,12 @@ public class Order {
 	private String payDateK; //카카오페이 결제일
 	private String payCompanyK; 
 	private String userId;
+	private String payPriceK;
 	
 	private String giftUserName;
 	private String giftUserPhone;
 	
 	
-	public Order() {}
 
 	public Order(int userNo, int orderNo, int price, int qty, int totalPrice, String giftNy, String orderDate) {
 		super();
@@ -79,6 +79,12 @@ public class Order {
 	
 
 
+
+	public Order(String payDateK, String payPriceK) {
+		super();
+		this.payDateK = payDateK;
+		this.payPriceK = payPriceK;
+	}
 
 	public int getUserNo() {
 		return userNo;
@@ -242,6 +248,15 @@ public class Order {
 	public void setGiftUserPhone(String giftUserPhone) {
 		this.giftUserPhone = giftUserPhone;
 	}
+	
+
+	public String getPayPriceK() {
+		return payPriceK;
+	}
+
+	public void setPayPriceK(String payPriceK) {
+		this.payPriceK = payPriceK;
+	}
 
 	@Override
 	public String toString() {
@@ -249,8 +264,11 @@ public class Order {
 				+ ", totalPrice=" + totalPrice + ", giftNy=" + giftNy + ", orderDate=" + orderDate + ", email=" + email
 				+ ", phone=" + phone + ", userName=" + userName + ", impUid=" + impUid + ", merchantUid=" + merchantUid
 				+ ", pgProvider=" + pgProvider + ", payNo=" + payNo + ", payNoK=" + payNoK + ", payDateK=" + payDateK
-				+ ", payCompanyK=" + payCompanyK + ", userId=" + userId + "]";
+				+ ", payCompanyK=" + payCompanyK + ", userId=" + userId + ", payPriceK=" + payPriceK + ", giftUserName="
+				+ giftUserName + ", giftUserPhone=" + giftUserPhone + "]";
 	}
+
+
 
 
 

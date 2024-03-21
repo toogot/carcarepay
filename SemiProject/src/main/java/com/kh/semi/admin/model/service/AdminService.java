@@ -262,5 +262,15 @@ public class AdminService {
 		close(conn);
 		return enrollStoreCount;
 	}
+	
+	public ArrayList<Order> selectChartPayamount(){
+		Connection conn = getConnection();
+		
+		ArrayList<Order> pay = new AdminDao().selectChartPayamount(conn);
+		
+		close(conn);
+		return pay;
+	
+	}
 
 }
