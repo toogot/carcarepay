@@ -20,7 +20,7 @@
         margin: auto;
     }
     #myInfo{
-        width: 1000px;
+        width: 1350px;
         height: 900px;
         margin: auto;
         margin-top: 100px;        
@@ -47,8 +47,9 @@
         border: none;
     }
     #myInfo>table{
-        margin: 50px 200px;
-        width: 700px;
+        margin: 50px 50px;
+        width: 1400px;
+        text-align: center;
     }
      #myInfo tr{
         margin: 50px;
@@ -65,14 +66,17 @@
         font-size: 20px;
     }
     #myInfo th{
-        width: 180px;
+        width: 100px;
         height: 70px;
         color: rgb(85, 81, 81);
         text-align: center;
+        font-size: 18px;
     }
     #myInfo td{
-        width: 300px;
-        padding-left: 30px;
+        width: 850px;
+       
+        font-size: 18px;
+        
     }
     #footerBtn{
         width: 100%;
@@ -102,14 +106,7 @@
             margin-left: 30px;   
             border-radius: 20px;
     }
-    td{
-        font-size: 24px;
-        
-    }
-    tr{
-        width: 150px;
-        
-    }
+    
     
 </style>
 </head>
@@ -124,7 +121,7 @@
                 <h1 align="center">마이페이지</h1>
                 <div id="myBtn" class="btn-group">
                     <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/myPage.me'">회원정보</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/statement.me'">사용내역</button>
+
                     <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/bookmark.me?userNo=<%=loginUser.getUserNo()%>'">즐겨찾기</button>
                     <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/storeHistory.me?userNo=<%=loginUser.getUserNo()%>'">입점신청내역</button>
                 </div>
@@ -135,23 +132,27 @@
 
             <div id="myInfo">
             <%if(arr != null){ %>
+                <style>#myInfo{
+                    height: auto;
+                }</style>
            		<table>
            			<tr>
            			<th>세차장이름</th>
            			<th>세차장 주소</th>
-           			<th  colspan="2">세차장 영업시간</th>
+           			<th>세차장 영업시간</th>
+                    <th></th>
            			</tr>
            			<%for(Store s : arr) {%>
            			<tr>
            			<td><%=s.getStoreName() %></td>
            			<td><%=s.getStoreAddress() %></td>
            			<td><%=s.getStoreTime() %></td>
-                    <td><button type="button" onclick="location.href='<%=contextPath%>/detail.st?storeNo=<%=s.getStoreNo()%>'">바로가기</button></td>
-                       
+                    <td><button type="button" class="btn btn-primary" style="width: 150px;" onclick="location.href='<%=contextPath%>/detail.st?storeNo=<%=s.getStoreNo()%>'">바로가기</button></td>   
            			</tr>
            			<%} %>
            		</table>
             <%}else{ %>
+               
             	<h2>즐겨찾기 내역이 없습니다.</h2>
             <%} %>
       </div>
