@@ -32,6 +32,16 @@ public class Order {
 	
 	
 
+	public Order() {}
+	
+	public Order(int userNo, int qty, int price, int totalPrice) {
+		super();
+		this.userNo = userNo;
+		this.qty = qty;
+		this.price = price;
+		this.totalPrice = totalPrice;
+	}
+
 	public Order(int userNo, int orderNo, int price, int qty, int totalPrice, String giftNy, String orderDate) {
 		super();
 		this.userNo = userNo;
