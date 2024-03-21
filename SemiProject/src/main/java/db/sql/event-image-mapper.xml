@@ -55,5 +55,6 @@
          ,EV_NO
 	       FROM EVENT_IMAGE a
    WHERE a.EV_NO = ?
+     AND a.STATUS = 'N'
  </entry>
 </properties>

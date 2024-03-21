@@ -7,21 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.gson.Gson;
 import com.kh.semi.review.model.service.ReviewService;
-import com.kh.semi.review.model.vo.Review;
 
 /**
- * Servlet implementation class ReviewCountGradeController
+ * Servlet implementation class ReviewDeleteController
  */
-@WebServlet("/countgrade.rv")
-public class ReviewCountGradeController extends HttpServlet {
+@WebServlet("/delete.rv")
+public class ReviewDeleteController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReviewCountGradeController() {
+    public ReviewDeleteController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,15 +28,18 @@ public class ReviewCountGradeController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8"); // 인코딩
 		
-		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
-		Review rv = new ReviewService().selectCountGrade(storeNo);
+		int reviewNo = Integer.parseInt(request.getParameter("reviewNo"));
 		
-		if(rv != null) {
-			response.setContentType("application/json; charset=utf-8");
-			new Gson().toJson(rv, response.getWriter());
-			
+		int result = new ReviewService().deleteReview(reviewNo);
+		
+		if(result > 0) {
+			response.getWriter().print(result);
+		}else {
+			System.out.println("리뷰삭제 실패 ㅜㅜ");
 		}
+		
 		
 	}
 

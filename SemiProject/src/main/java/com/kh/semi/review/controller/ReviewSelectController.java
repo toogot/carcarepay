@@ -40,7 +40,7 @@ public class ReviewSelectController extends HttpServlet {
 		if(!rlist.isEmpty()) {
 			response.setContentType("application/json; charset=utf-8");
 			new Gson().toJson(rlist, response.getWriter());
-		}
+		} 
 		
 		
 		

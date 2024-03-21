@@ -14,6 +14,10 @@
     <title>Insert title here</title>
 
     <style>
+      html {
+          scroll-behavior: smooth;
+      }
+
       div {
         /* border: 1px solid red; */
       }
@@ -65,11 +69,22 @@
         justify-content: center;
       }
       #mailForm{
-        /* display: none; */
+        display: none;
       }
       #mailTableForm th,td{
         border: 1px solid #e3e6f0
       }
+      textarea{
+        resize:none !important;
+        width: 100%;
+      }
+      #storeCancleReasonUpdate{
+        display: none;
+      }
+      #storeCancleReasonUpdate_realBtn{
+        display: none;
+      }
+
     </style>
   </head>
   <body>
@@ -85,7 +100,7 @@
       </div>
 
       <form action="storeEnrollComplete" method="post" onsubmit="return confirm('매장을 승인하시겠습니까?')" >
-        <input type="hidden" name="eno" value="<%=ap.getAppNo()%>" />
+        <input type="hidden" name="eno" id="eno"value="<%=ap.getAppNo()%>" />
 
         <div id="table_wrap_div">
           <table border="1" class="tableWrap">
@@ -128,48 +143,63 @@
 
               		<%for(int i=0; i<list.size(); i++) { %>
               		<br>
-              		<img src="<%= contextPath %>/<%=list.get(i).getImgRoot()+list.get(i).getChangeName() %>" width="300" height="250"> 
-              		<button class="btn btn-outline-primary btn-lg" type="button">원본보기</button>
+              		<img src="<%= contextPath %>/<%=list.get(i).getImgRoot()+list.get(i).getChangeName() %>" width="300" height="250"  > 
+              		<button class="btn btn-outline-primary btn-lg" type="button" onclick="window.open('<%= contextPath %>/<%= list.get(i).getImgRoot() + list.get(i).getChangeName() %>')" >원본보기</button>
               		</br>
               		<% } %>
 					
               </td>
             </tr>
+            <% if(ap.getRefuse()!=null){%>
+            <tr>
+              <th>거절사유</th>
+              <td colspan="2">
+              	<span id="refuseSpan"><%=ap.getRefuse()%></span>
+                <textarea id="storeCancleReasonUpdate" name="storeCancleReasonUpdate" cols="30" rows="10"><%=ap.getRefuse()%></textarea>
+              </td>
+              <td>
+              	<a class="btn btn-outline-primary" id="storeCancleReasonUpdate_Btn" onclick="storeCancleReasonChange()" >수정</a>
+                <a class="btn btn-outline-primary" id="storeCancleReasonUpdate_realBtn" onclick="realStoreCancleReasonChange()">수정하기</a>
+              </td>
+            </tr>
+            <%}%>
           </table>
         </div>
-      </form>
 
       <div id="btn">
+        <% if(ap.getAppTypeName().equals("대기")){%>
         <button type="submit" class="btn btn-primary" >승인하기</button>
+        <% }else{%>
+        <a class="btn btn-primary" onclick="alreadyYes()">승인하기</a>
+        <%}%>
         <a
           href="<%=contextPath %>/storeEnrollList?cpage=1"
           class="btn btn-secondary"
           >목록가기</a>
+        <% if(ap.getAppTypeName().equals("대기")){%>
         <a class="btn btn-danger" onclick="storeno()">거절하기</a>
-        
+        <%}else{ %>
+        <a class="btn btn-danger" onclick="alreadyYes()">거절하기</a>
+        <% }%>
+      </form>
       </div>
 
-      <form action="">
+      <form action="storeCancle" method="post">
         <div id="bottom_div">
           <div id="mailForm">
-            <input type="hidden" vlaue="<%=ap.getEmail()%>">
+            <!-- <input type="hidden" value="<%=ap.getEmail()%>"> -->
+            <input type="hidden" name="eno2" value="<%=ap.getAppNo()%>" />
             <table id="mailTableForm">
               <tr>
-                <th>제목</th>
+                <th>거절사유</th>
                 <td>
-                  <input type="text">
-                </td>
-              </tr>
-              <tr>
-                <th>내용</th>
-                <td>
-                  <textarea name="" id="storeNoForm" cols="30" rows="10"></textarea>
+                  <textarea id="storeNoForm" name="storeNoForm" cols="30" rows="10"  ></textarea>
                 </td>
               </tr>
               <tr>
                 <th colspan="2">
-                  <a href="#" class="btn btn-primary"> 전송하기 </a>
-                  <a class="btn btn-light"> 취소하기 </a>
+                  <button type="submit" class="btn btn-primary"> 전송하기 </button>
+                  <a class="btn btn-light" onclick="cancle()" id="cancle"> 취소하기 </a>
                 </th>
               </tr>
             </table>
@@ -180,26 +210,71 @@
       </form>
 
     <script>
-      
-	//  function realstorego(){
-	//  	if(confirm('매장을 승인하시겠습니까?')){
-	// 		location.href="<%=contextPath %>/storeEnrollComplete"
-	//  	}else{
-	// 		//history.back();
-	//  	}
-	//  }
+
     function storeno(){
 
       if( $('#mailForm').css("display") == "none"){
-                    //$(this).siblings("p").slideUp(); //내가 누른 div// 나의 형제들 p를선택해라
-                    $('#mailForm').slideDown(); //부드러운 느낌!
-                    //다 닫고 하나만 열면됨
+                  $('#mailForm').slideDown(); 
                 }else{
-                    // 안보여지게끔
-                    // $p.css("display","none");
                     $('#mailForm').slideUp();
                 }
     }
+    
+    function cancle(){
+    	$('#mailForm').slideUp();
+    }
+    
+    function alreadyYes(){
+    	alert("이미 승인되었거나 거절된 매장입니다.")
+    }
+
+    function storeCancleReasonChange(){
+      if($('#storeCancleReasonUpdate').css("display")=="none"){
+        $('#storeCancleReasonUpdate').slideDown(); 
+        $('#storeCancleReasonUpdate_Btn').css("display", "none");
+        $('#storeCancleReasonUpdate_realBtn').css("display", "block");
+        $('#refuseSpan').css("display","none");
+
+      }else{
+        $('#storeCancleReasonUpdate').slideUp();
+      }
+
+    }
+	
+    
+    function realStoreCancleReasonChange(){
+    	console.log($("#storeCancleReasonUpdate").val())
+//    	let updatedReason = $("#storeCancleReasonUpdate").val();
+      $.ajax({
+            	url:"storeRefuseReUpdate.bo",
+            	data:{
+            		refuse:$("#storeCancleReasonUpdate").val(),
+            		eno:$("#eno").val()
+            	},
+            	type:"post",
+            	success:function(refuse2){
+            		
+            			reRefuse(refuse2);
+                  console.log(refuse2)
+                  $('#refuseSpan').html(refuse2);
+            			
+            		
+            	},error:function(){
+            		console.log("ajax 실패 ㅜㅜ")
+            	}
+            	
+            })
+    }
+    
+    function reRefuse(){
+    	$('#storeCancleReasonUpdate').css("display", "none");
+
+      $('#storeCancleReasonUpdate_Btn').css("display", "block");
+      $('#storeCancleReasonUpdate_realBtn').css("display", "none");
+      $('#refuseSpan').css("display","block");
+    }
+    
+    
 	
     </script>
   </body>

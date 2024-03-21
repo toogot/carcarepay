@@ -160,6 +160,44 @@ public class AdminService {
 		
 		return result1 * result2 * result3;
 	}
+	
+	public int updateEnrollRefuseAppType(int appNo, String refuse) {
+		Connection conn = getConnection();
+		
+		int result = new AdminDao().updateEnrollRefuseAppType(conn,appNo,refuse);
+		
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
 
+	public String updateEnrollReRefuse(String refuse,int appNo) {
+		
+		
+		Connection conn = getConnection();
+		
+		
+		
+		int result = new AdminDao().updateEnrollReRefuse(conn, refuse,appNo);
+		
+		
+		String refuse2 = new AdminDao().selectEnrollReRefuse(conn,appNo);
+		
+		
+		if(result>0 && (refuse2!=null)) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return refuse2;
+		
+	}
 
 }

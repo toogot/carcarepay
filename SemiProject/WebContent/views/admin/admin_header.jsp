@@ -37,6 +37,9 @@
         body *{
         font-family: 'NewFont',NanumSquareNeo-Variable;
         }
+        body *{
+            height: auto;
+        }
 
     </style>
 
