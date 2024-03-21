@@ -113,8 +113,7 @@
             <div id="title">
                 <h1 align="center">마이페이지</h1>
                 <div id="myBtn" class="btn-group">
-                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/myPage.me'">회원정보</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/statement.me'">사용내역</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/myPage.me'">회원정보</button>      
                     <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/bookmark.me?userNo=<%=loginUser.getUserNo()%>'">즐겨찾기</button>
                     <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/storeHistory.me?userNo=<%=loginUser.getUserNo()%>'">입점신청내역</button>
                 </div>
