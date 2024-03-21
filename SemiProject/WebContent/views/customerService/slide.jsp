@@ -19,7 +19,7 @@
       <img
       src="eventdn.if?id=<%= eventList.get(i).getEvNo() %>"
       class="d-block w-100"
-      style="height:600px; object-fit:contains;"
+      style="height:300px; object-fit:contains;"
       alt="<%= eventList.get(i).getEvTitle() %>">
     </div>
     <% } %>
