@@ -1,12 +1,15 @@
 package com.kh.semi.store.searchController;
 
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.model.service.StoreSearchService;
 import com.kh.semi.store.model.vo.Store;
 
@@ -33,8 +36,12 @@ public class StoreDetailController extends HttpServlet {
 		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
 		Store st = new StoreSearchService().selectStoreDetail(storeNo);
 		
+		ArrayList<AppStoreImage> list = new StoreSearchService().selectStoreImg(storeNo);
+		System.out.println(list);
+		
 		if(st != null) {
 			request.setAttribute("st", st);
+			request.setAttribute("list", list);
 			request.getRequestDispatcher("views/store/storeDetail.jsp").forward(request, response);
 
 		} else {

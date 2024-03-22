@@ -24,6 +24,16 @@ public class AppStoreImage {
 		this.imgLevel = imgLevel;
 		this.status = status;
 	}
+	
+	
+
+	public AppStoreImage(int imgNo, String imgRoot, String originName, String changeName) {
+		super();
+		this.imgNo = imgNo;
+		this.imgRoot = imgRoot;
+		this.originName = originName;
+		this.changeName = changeName;
+	}
 
 	public int getImgNo() {
 		return imgNo;

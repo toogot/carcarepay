@@ -1,7 +1,10 @@
-<%@page import="com.google.gson.Gson"%> <%@page
-import="com.kh.semi.store.model.vo.Store"%> <%@ page language="java"
-contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
-(Store)request.getAttribute("st"); Gson gson = new Gson(); %>
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.kh.semi.store.enrollController.model.vo.AppStoreImage"%>
+<%@page import="com.google.gson.Gson"%> 
+<%@page import="com.kh.semi.store.model.vo.Store"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<% Store st = (Store)request.getAttribute("st"); Gson gson = new Gson(); %>
+<% ArrayList<AppStoreImage> list = (ArrayList<AppStoreImage>)request.getAttribute("list"); %>
 
 <!DOCTYPE html>
 <html>
@@ -16,6 +19,9 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
     ></script>
     <!-- ajax -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+    <!-- Proj4 라이브러리를 CDN을 통해 추가 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
 
     <style>
       .outer div {
@@ -416,8 +422,13 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
         }
         to {
           opacity: 0;
-        }
+        } 
       }
+
+      /* .mapDiv{
+        border: 1px solid blue;
+        border-radius: 10px;
+      } */
     </style>
     <!-- <link rel="stylesheet" href="styles.css" /> -->
   </head>
@@ -426,24 +437,17 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
     <div class="outer">
       <div class="store_img">
         <div class="slider">
-          <div class="slide">
-            <img
-              class="stImg"
-              src="resources/appstore/202403200250365011.jpg"
-            />
-          </div>
-          <div class="slide">
-            <img
-              class="stImg"
-              src="resources/appstore/202403200250369125.jpg"
-            />
-          </div>
-          <div class="slide">
-            <img
-              class="stImg"
-              src="resources/appstore/2024032002503610605.jpg"
-            />
-          </div>
+	          <% for(AppStoreImage asi : list) { %>
+	          <div class="slide">
+	            <img
+	              class="stImg"
+	              src="<%= asi.getImgRoot()%><%= asi.getChangeName() %>"
+	            />
+	          </div>
+	          <% } %>
+          
+          
+          
         </div>
       </div>
 
@@ -821,6 +825,10 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
               <% } %>
 
+
+
+
+
            		/////////////////////////////
            		////////// MAP API //////////
            		/////////////////////////////
@@ -833,6 +841,8 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
            			var result = response.v2, // 검색 결과의 컨테이너
            				items = result.addresses; // 검색 결과의 배열
+                  //  console.log(items);
+                  //  console.log(result);
            		// 성공 시의 response 처리
            		// do Something
            			var map = new naver.maps.Map('map', {
@@ -844,17 +854,146 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            	   		map: map
            			});
 
-           		});
+                 var contentString = [
+                    '<div>',
+                    '   <h4>' + '<%= st.getStoreName() %>' +'</h4>',
+                    '   <h6>' + '<%= st.getStoreAddress() %>' +'</h6>',
+                    '</div>'
+                ].join('');
+                      
+                var infowindow = new naver.maps.InfoWindow({
+                    content: contentString,
+                    maxWidth: 'auto',
+                    backgroundColor: "rgb(135,206,250)",
+                    borderColor: "black",
+                    borderRadius: "10px",
+                    anchorSize: new naver.maps.Size(20, 20),
+                    anchorSkew: true,
+                    anchorColor: "rgb(135,206,250)",
+
+                    pixelOffset: new naver.maps.Point(20, -20)
+                });
+                
+
+                naver.maps.Event.addListener(marker, "click", function(e) {
+                    if (infowindow.getMap()) {
+                        infowindow.close();
+                    } else {
+                        infowindow.open(map, marker);
+                    }
+                });
+
+
+                // 유가정보 API를 사용하여 주변 주유소의 정보를 가져와 지도에 표시
+                // (가정) fetchGasStations 함수는 유가정보 API를 호출하고 주유소 정보를 반환하는 함수라고 가정
+                
+                console.log(items[0].y, items[0].x);
+                // var gasStations = fetchGasStations(items[0].y, items[0].x); // 주유소 정보 가져오기
+                
+
+                var map2 = new naver.maps.Map('map2', {
+           			center: new naver.maps.LatLng(items[0].y, items[0].x),
+           			zoom: 16
+           			});
+           			var marker2 = new naver.maps.Marker({
+           	   		position: new naver.maps.LatLng(items[0].y, items[0].x),
+           	   		map: map2
+           			});
+
+
+                
+
+              });
+
+		
+        // WGS84 좌표를 KATEC 좌표로 변환하는 함수
+        function convertToKATEC(longitude, latitude) {
+        // KATEC 좌표계 정의
+        proj4.defs("EPSG:5181", "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43 +units=m +no_defs");
+
+        // 변환 로직을 적용하여 KATEC 좌표를 얻는다.
+        let wgs84Coord = [longitude, latitude]; // WGS84 좌표
+        let katecCoord = proj4('EPSG:4326', 'EPSG:5181', wgs84Coord); // WGS84를 KATEC로 변환
+        let katecX = katecCoord[0]; // KATEC X 좌표
+        let katecY = katecCoord[1]; // KATEC Y 좌표
+
+            return { x: katecX, y: katecY };
+        }
+
+        function fetchGasStations(longitude, latitude){
+          let longitude1 = parseFloat(longitude);
+          let latitude1 = parseFloat(latitude);
+          console.log("asdf" + longitude1,latitude1)
+          let katecCoord = convertToKATEC(longitude1, latitude1);
+          let katecX = katecCoord.x;
+          let katecY = katecCoord.y;
+
+          var apiKey = "F240227050";
+          var baseUrl = 'https://cors.bridged.cc/http://www.opinet.co.kr/api/aroundAll.do';
+          var xCoord = katecX;
+          var yCoord = katecY;
+          var radius = 50; // 반경 0.5km 내 주유소 탐색
+          var prodCode = 'B027'; // 휘발유 제품 코드
+          var sort = 1; // 가격순으로 정렬
+  
+          // API 호출
+          $.ajax({
+            url: baseUrl,
+            data: {
+              code: apiKey,
+              out: 'json',
+              x: xCoord,
+              y: yCoord,
+              radius: radius,
+              prodcd: prodCode,
+              sort: sort
+            },
+            method: 'GET',
+            success: function(response) {
+              // API 응답 처리
+              console.log(response);
+              // 여기서 응답 데이터를 활용하여 필요한 정보를 가공하고 화면에 표시하거나 다른 작업을 수행할 수 있습니다.
+            },
+            error: function(error) {
+              // 에러 처리
+              console.error('API 호출 중 에러가 발생했습니다:',error);
+            }
+          });
+        }
+
 
         //////////////////////////////////////
         ////////// 유가 정보 API /////////////
         /////////////////////////////////////
+        //jQuery를 사용하여 opinet의 유가정보 API를 호출하는 예제
+        
+        
+        
 
 
 
 
 
 
+
+
+
+        // wgs84 좌표를 katec 좌표로 변환
+        // function convertCoordinates(longitude, latitude) {
+        // let wgs84Coord = [longitude, latitude]; // WGS84 좌표
+        // let katecCoord = proj4('EPSG:4326', 'EPSG:5181', wgs84Coord); // WGS84를 KATEC로 변환
+        // let x = katecCoord[0]; // KATEC X 좌표
+        // let y = katecCoord[1]; // KATEC Y 좌표
+        // console.log("변환된 좌표: ", x, y);
+
+        // KATEC 좌표를 다시 WGS84로 역변환
+    //     let reverseWgs84Coord = proj4('EPSG:5181', 'EPSG:4326', katecCoord);
+    //     let reverseLongitude = reverseWgs84Coord[0]; // 역변환된 경도
+    //     let reverseLatitude = reverseWgs84Coord[1]; // 역변환된 위도
+    //     console.log("역변환된 좌표: ", reverseLongitude, reverseLatitude);
+    // }
+          
+        
 
 
         //////////////////////////////////////////
@@ -884,9 +1023,13 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
            						$("#file1").val("");
            						$("#file2").val("");
            						$("#file3").val("");
+                      $(".grade").val("");
+
            						selectReview();
                       selectCountGrade();
-           					}
+           					} else{
+                      alert("사진 및 내용을 입력해주세요.");
+                    }
            				},
            				error:function(){
            					alert("리뷰등록이 정상적으로 이루어지지 않았습니다.");
@@ -1006,7 +1149,7 @@ contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <% Store st =
 
               // 리뷰삭제 //
               function deleteReview(reviewNo){
-                if(window.confirm("리뷰를 정말로 삭제하시겠습니까?")){
+                if(window.confirm("정말 리뷰를 삭제하시겠습니까?")){
                   $.ajax({
                      url:"delete.rv",
                      method:"post",

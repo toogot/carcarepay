@@ -63,6 +63,17 @@
 	 WHERE STORE_NO = ?
  </entry>
  
+ <entry key="selectStoreImg">
+		SELECT 
+		       IMG_NO
+		     , IMG_ROOT
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		  FROM STORE_IMAGE
+		 WHERE APP_NO = ?
+		   AND STATUS = 'N'
+</entry>
+ 
  
  
 </properties>

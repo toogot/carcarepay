@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Properties;
 
 import com.kh.semi.common.model.vo.PageInfo;
+import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.model.vo.Store;
 
 import static com.kh.semi.common.JDBCTemplate.*;
@@ -158,6 +159,34 @@ public class StoreSearchDao {
 		
 	}
 	
+	public ArrayList<AppStoreImage> selectStoreImg(Connection conn, int storeNo) {
+		ArrayList<AppStoreImage> list = new ArrayList<AppStoreImage>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectStoreImg");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, storeNo);
+			
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				list.add(new AppStoreImage(rset.getInt("img_no"),
+										   rset.getString("img_root"),
+						                   rset.getString("origin_name"),
+						                   rset.getString("change_name")
+						                ));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return list;
+	}
 	
 	
 	
