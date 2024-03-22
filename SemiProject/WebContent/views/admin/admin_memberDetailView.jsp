@@ -98,7 +98,7 @@
 				<tr>
 					<th>탈퇴여부</th>
 					<td><%=m.getStatus() %></td>
-					<td colspan="2" style="color: red;">대문자 N 또는 Y만 입력해주세요<br> (N:영업중 / Y:매장삭제)</td>
+					<td colspan="2" style="color: red;">대문자 Y 또는 N만 입력해주세요<br> (Y:현재회원 / N:탈퇴한회원)</td>
 				</tr>
 
 			</table>
