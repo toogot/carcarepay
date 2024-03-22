@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="selectStoreImg">
+		SELECT 
+		       IMG_NO
+		     , IMG_ROOT
+		     , ORIGIN_NAME
+		     , CHANGE_NAME
+		  FROM STORE_IMAGE
+		 WHERE APP_NO = ?
+		   AND STATUS = 'N'
+</entry>
+
+
+
+
+
+
+</properties>

@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.model.service.StoreSearchService;
 import com.kh.semi.store.model.vo.Store;
 
@@ -33,8 +34,11 @@ public class StoreDetailController extends HttpServlet {
 		int storeNo = Integer.parseInt(request.getParameter("storeNo"));
 		Store st = new StoreSearchService().selectStoreDetail(storeNo);
 		
+		AppStoreImage asi = new StoreSearchService().selectStoreImg(storeNo);
+	
 		if(st != null) {
 			request.setAttribute("st", st);
+			request.setAttribute("asi", asi);
 			request.getRequestDispatcher("views/store/storeDetail.jsp").forward(request, response);
 
 		} else {
