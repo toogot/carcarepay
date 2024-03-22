@@ -67,7 +67,7 @@ pageEncoding="UTF-8"%>
             <img src="resources/images/첫번째.png" />
           </div>
           <div class="carousel-item">
-            <img src="resources/images/두번째.png" />
+            <img src="resources/images/두번째2.png" />
           </div>
           <div class="carousel-item">
             <img src="resources/images/세번째.png" />

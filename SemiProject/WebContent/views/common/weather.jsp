@@ -22,6 +22,7 @@ pageEncoding="UTF-8"%>
         background-color: #87cefa;
         border-radius: 25px;
         box-shadow: 5px 5px rgb(0, 0, 0, 0.1);
+        padding: 10px;
       }
       #weather-icon {
         width: 30%;
@@ -39,13 +40,14 @@ pageEncoding="UTF-8"%>
         float: left;
         color: white;
       }
+
       #temp {
         width: 50%;
         height: 50%;
         font-size: 50px;
         font-weight: 800;
         text-align: center;
-        line-height: 160px;
+        line-height: 110px;
         float: left;
       }
       #temp > span {
@@ -115,6 +117,7 @@ pageEncoding="UTF-8"%>
         <img />
       </div>
       <div id="weather-info">
+        <div id="today"></div>
         <div id="temp"></div>
         <div id="tempMinMax">
           <div id="tempMax"></div>
@@ -130,7 +133,7 @@ pageEncoding="UTF-8"%>
     <script>
       $(function () {
         weather();
-        setInterval(weather, 1000 * 60);
+        setInterval(weather, 1000);
       });
 
       function weather() {
@@ -140,6 +143,19 @@ pageEncoding="UTF-8"%>
           url: apiUrl,
           dataType: "json",
           success: function (result) {
+            let date = new Date();
+            let today =
+              date.getFullYear() +
+              "-" +
+              String(date.getMonth() + 1).padStart(2, "0") +
+              "-" +
+              String(date.getDay() + 17).padStart(2, "0") +
+              " / " +
+              String(date.getHours()).padStart(2, "0") +
+              "시 " +
+              String(date.getMinutes()).padStart(2, "0") +
+              "분";
+            $("#today").html("<span>" + today + "</span>");
             $("#temp").html(
               "<span>" +
                 Math.round(result.main.temp - 273.15) +

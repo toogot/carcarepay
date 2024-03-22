@@ -11,7 +11,7 @@
 <html lang="ko">
 <head>
         <meta charset="UTF-8">
-        <title>카케어 이벤트</title>
+        <title>카케어페이 이벤트</title>
         <style>
 
             body {
@@ -92,7 +92,7 @@
 
 	        <div class="main-content">
 
-            <h1>카케어 이벤트 등록</h1>
+            <h1>카케어페이 이벤트 등록</h1>
             <br/>
 					  <div class="form-group">
 					    <label for="evTitle">제목</label>
@@ -154,11 +154,11 @@
           contentType: false, // 필수 옵션: FormData를 사용할 때 false로 설정
         	data : formData,
         	success : function() {
-        	  alert("카케어 이벤트가 저장 되었습니다.");
+        	  alert("카케어페이 이벤트가 저장 되었습니다.");
         	  location.href = "event";
         	},
         	error : function() {
-        		alert("카케어 이벤트 저장에 실패하였습니다.");
+        		alert("카케어페이 이벤트 저장에 실패하였습니다.");
         	}
         })
       }

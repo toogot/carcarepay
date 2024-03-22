@@ -13,6 +13,7 @@ import java.util.Properties;
 import com.kh.semi.admin.model.vo.Category;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.order.model.vo.Order;
 import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.vo.Store;
@@ -117,6 +118,34 @@ public class AdminDao {
 		} return listCount;
 		
 	}
+	
+	public int orderListCount(Connection conn) {
+		// select문 => ResultSet(한개) => int // 총 게시글 개수
+		int listCount = 0;
+		
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("orderListCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				listCount = rset.getInt("count");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} return listCount;
+		
+	}
+	
 	
 	public ArrayList<Store> selectStoreList(Connection conn, PageInfo pi){
 		// select문 => ResultSet(여러행) => ArrayList<Store>
@@ -252,6 +281,48 @@ public class AdminDao {
 		
 	}
 	
+	public ArrayList<Order> selectOrderList(Connection conn,PageInfo pi){
+		// select문 => ResultSet(여러행) => ArrayList<Member>
+		
+		ArrayList<Order> o = new ArrayList<Order>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null; 
+		String sql = prop.getProperty("selectOrderList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			int startRow = (pi.getCurrentPage()-1) * pi.getBoardLimit() + 1;
+			int endRow = startRow + pi.getBoardLimit() - 1;
+			
+			pstmt.setInt(1, startRow);
+			pstmt.setInt(2, endRow);
+			rset = pstmt.executeQuery();
+			
+			while(rset.next()) {
+				o.add(new Order( rset.getInt("user_no"),
+						         rset.getInt("order_qty"),
+								 rset.getInt("order_price"),
+								 rset.getInt("total_price"),
+								 rset.getString("gift_yn"),
+								 rset.getInt("pay_no_k"),
+								 rset.getString("pay_date_k"),
+								 rset.getString("pay_company_k"),
+								 rset.getString("user_id"),
+								 rset.getString("user_name"),
+								 rset.getString("email"),
+								 rset.getString("phone")
+								 ));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} return o;
+		
+	}
+	
 	
 	
 	public ArrayList<Category> selectCategoryList(Connection conn){
@@ -283,6 +354,8 @@ public class AdminDao {
 		return ct;
 		
 	}
+	
+	
 	
 	
 
@@ -597,6 +670,163 @@ public class AdminDao {
 		}
 		return refuse2;
 		
+	}
+	
+	public Order selectOrderListDetail(Connection conn, int realOrderNo) {
+		Order o = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null; 
+		String sql = prop.getProperty("selectOrderDetail");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, realOrderNo);
+
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				o = new Order(	 rset.getInt("user_no"),
+								 rset.getInt("order_qty"),
+								 rset.getInt("order_price"),
+								 rset.getInt("total_price"),
+								 rset.getString("gift_yn"),
+								 rset.getInt("pay_no_k"),
+								 rset.getString("pay_date_k"),
+								 rset.getString("pay_company_k"),
+								 rset.getString("user_id"),
+								 rset.getString("user_name"),
+								 rset.getString("email"),
+								 rset.getString("phone")
+								 );
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		} 
+		return o;
+	}
+	
+	public String selectTotalPriceSum(Connection conn) {
+		String totalPriceSum = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTotalPriceSum");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				
+				totalPriceSum=rset.getString("sum");
+				
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalPriceSum;
+	}
+	
+	public int selectOrderCount(Connection conn) {
+		int totalOrderCount =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectOrderCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				totalOrderCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalOrderCount;
+	}
+	
+	public int selectTotalStoreCount(Connection conn) {
+		int totalStoreCount =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectTotalStoreCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				totalStoreCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return totalStoreCount;
+	}
+	
+	public int selectEnrollStoreCount(Connection conn) {
+		int enrollStoreCount =0;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		String sql = prop.getProperty("selectEnrollStoreCount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+			
+			if(rset.next()) {
+				enrollStoreCount = rset.getInt("count");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return enrollStoreCount;
+		
+	}
+	
+	public ArrayList<Order> selectChartPayamount(Connection conn){
+		ArrayList<Order> pay = new ArrayList<Order>();
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		
+		String sql = prop.getProperty("selectChartPayamount");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rset= pstmt.executeQuery();
+			
+			while(rset.next()) {
+				pay.add(new Order(rset.getString("pay_date"),
+								  rset.getString("total_amount")
+											 ));
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			close(rset);
+			close(pstmt);
+		}
+		return pay;
 	}
 	
 

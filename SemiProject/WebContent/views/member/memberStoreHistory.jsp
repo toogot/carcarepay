@@ -1,5 +1,11 @@
+<%@page import="com.kh.semi.store.enrollController.model.vo.Application"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+	Application app = (Application)request.getAttribute("app");
+	
+
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -66,10 +72,12 @@
         height: 70px;
         color: rgb(85, 81, 81);
         text-align: center;
+        font-size: 20px;
     }
     #myInfo td{
         width: 300px;
         padding-left: 30px;
+        font-size: 18px;
     }
     #footerBtn{
         width: 100%;
@@ -114,20 +122,57 @@
                 <h1 align="center">마이페이지</h1>
                 <div id="myBtn" class="btn-group">
                     <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/myPage.me'">회원정보</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/statement.me'">사용내역</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/bookmark.me'">즐겨찾기</button>
-                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/storeHistory.me'">입점신청내역</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/bookmark.me?userNo=<%=loginUser.getUserNo()%>'">즐겨찾기</button>
+                    <button type="button" class="btn btn-primary" onclick="location.href='<%=contextPath%>/storeHistory.me?userNo=<%=loginUser.getUserNo()%>'">입점신청내역</button>
                 </div>
             </div>
 
             <br>
             <hr style="background-color: aqua;">
-
+            
             <div id="myInfo">
-               
+              <%if(app != null){%>
+					 <table>
+                        <tr>
+                            <th>매장이름</th>
+                            <td><%=app.getStoreName() %></td>
+                        </tr>
+                        <tr>
+                            <th>주소</th>
+                            <td><%=app.getStoreAddress() %> <br></td>
+                            
+                        </tr>
+                        <tr>
+                            <th>사업자번호</th>
+                            <td><%=app.getBusinessNo() %></td>
+                        </tr>
+                        <tr>
+                            <th>신청날짜</th>
+                            <td><%=app.getAppDate() %></td>
+                        </tr>
+                        <tr>
+                            <th>신청 결과</th>
+                            <td>
+                          	<%if(app.getAppYN().equals("P")){%>
+                          	신청대기중
+                          	<%} else if(app.getAppYN().equals("Y")){ %>
+                          	승인완료
+                          	<%}else if(app.getAppYN().equals("N")){ %>
+                          	거절
+                          	<%=app.getRefuse() %>
+                          	<%} %>
+                            </td>           
+                        </tr>
+                
+
+                      
+                    </table>
+				<%}else{ %>
+				<h1>신청내역이 없습니다</h1>
+				<%} %>
       </div>
     </div>
-    
+    	
 <%}else{%>
 	<script>
 		alert("로그인이 필요한 서비스 입니다.");

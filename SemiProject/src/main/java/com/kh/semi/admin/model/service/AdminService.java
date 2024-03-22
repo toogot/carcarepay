@@ -4,9 +4,11 @@ import java.sql.Connection;
 import java.util.ArrayList;
 
 import com.kh.semi.admin.model.dao.AdminDao;
+import com.kh.semi.admin.model.vo.Admin;
 import com.kh.semi.admin.model.vo.Category;
 import com.kh.semi.common.model.vo.PageInfo;
 import com.kh.semi.member.model.vo.Member;
+import com.kh.semi.order.model.vo.Order;
 import com.kh.semi.store.enrollController.model.vo.AppStoreImage;
 import com.kh.semi.store.enrollController.model.vo.Application;
 import com.kh.semi.store.model.vo.Store;
@@ -43,13 +45,21 @@ public class AdminService {
 		return listCount;
 	}
 	
+	public int orderListCount() {
+		Connection conn = getConnection();
+		int listCount = new AdminDao().orderListCount(conn);
+		
+		close(conn);
+		return listCount;
+	}
+	
 	
 	public ArrayList<Store> selectStoreList(PageInfo pi){
 		Connection conn = getConnection();
 		
 		ArrayList<Store> list = new AdminDao().selectStoreList(conn,pi);
 		//셀렉문
-		
+
 		close(conn);
 		return list;
 	}
@@ -82,6 +92,13 @@ public class AdminService {
 		
 	}
 	
+	public ArrayList<Order> selectOrderList(PageInfo pi){
+		Connection conn = getConnection();
+		ArrayList<Order> o = new AdminDao().selectOrderList(conn,pi);
+		close(conn);
+		return o;
+	}
+	
 	public int updateStore(Store st) {
 		Connection conn = getConnection();
 		
@@ -112,6 +129,15 @@ public class AdminService {
 		return result;
 	}
 	
+	public Order selectOrderListDetail(int realOrderNo) {
+		Connection conn = getConnection();
+		
+		Order o = new AdminDao().selectOrderListDetail(conn,realOrderNo);
+		
+		close(conn);
+		return o;
+	}
+	
 	public Application selectEnrollStoreDetail(int appNo) {
 		Connection conn = getConnection();
 		
@@ -120,6 +146,7 @@ public class AdminService {
 		close(conn);
 		return ap;
 	}
+	
 	
 	public ArrayList<AppStoreImage> selectAppStoreImgAdmin(int appNo){
 		Connection conn = getConnection();
@@ -198,6 +225,52 @@ public class AdminService {
 		
 		return refuse2;
 		
+	}
+	
+	public String selectTotalPriceSum() {
+		Connection conn = getConnection();
+		
+		String totalPriceSum=new AdminDao().selectTotalPriceSum(conn);
+		
+		close(conn);
+		return totalPriceSum;
+	}
+	
+	public int selectOrderCount() {
+		Connection conn = getConnection();
+		
+		int selectOrderCount = new AdminDao().selectOrderCount(conn);
+		
+		close(conn);
+		return selectOrderCount;
+	}
+	
+	public int selectTotalStoreCount() {
+		Connection conn = getConnection();
+		
+		int totalStoreCount = new AdminDao().selectTotalStoreCount(conn);
+		
+		close(conn);
+		return totalStoreCount;
+	}
+	
+	public int selectEnrollStoreCount() {
+		Connection conn = getConnection();
+		
+		int enrollStoreCount = new AdminDao().selectEnrollStoreCount(conn);
+		
+		close(conn);
+		return enrollStoreCount;
+	}
+	
+	public ArrayList<Order> selectChartPayamount(){
+		Connection conn = getConnection();
+		
+		ArrayList<Order> pay = new AdminDao().selectChartPayamount(conn);
+		
+		close(conn);
+		return pay;
+	
 	}
 
 }

@@ -53,7 +53,7 @@ public class OrderGiftController extends HttpServlet {
 		
 		int result = new OrderService().orderGiftInsert(o);
 		
-		System.out.println("giftController : " + o);
+//		System.out.println("giftController : " + o);
 		
 		
 		response.getWriter().print(result);		

@@ -54,9 +54,9 @@
           <img src= alt="이벤트이미지" style="width: 700px; height: 200px; display: block;margin: auto; margin-bottom: 20px;">
 
 
-        <h2 align="center">카케어이벤트</h2>
+        <h2 align="center">카케어페이 이벤트</h2>
         
-        <h5 align="center">카케어의 다양한 이벤트를 만나보세요</h5>
+        <h5 align="center">카케어페이의 다양한 이벤트를 만나보세요</h5>
          <div class="btn">
           <a href="">진행중이벤트 | </a>
           <a href="">종료된이벤트</a>

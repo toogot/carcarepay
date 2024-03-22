@@ -25,7 +25,7 @@ public class Application {
 	}
 	public Application(int appNo, int userNo, String storeType, String storeName, String storeAddress,
 			String storePhone, String storeTime, String businessNo, String storePrice, String appDate, String appYN,
-			String refuse, String userName, String typeName, String appTypeName, String email) {
+			String refuse) {
 		super();
 		this.appNo = appNo;
 		this.userNo = userNo;
@@ -39,11 +39,25 @@ public class Application {
 		this.appDate = appDate;
 		this.appYN = appYN;
 		this.refuse = refuse;
-		this.userName = userName;
-		this.typeName = typeName;
-		this.appTypeName = appTypeName;
-		this.email = email;
+	
 	}
+	
+	
+	public Application(int userNo, String storeType, String storeName, String storeAddress, String storePhone, String storeTime,
+			String businessNo, String storePrice) {
+		super();
+		this.userNo = userNo;
+		this.storeType = storeType;
+		this.storeName = storeName;
+		this.storeAddress = storeAddress;
+		this.storePhone = storePhone;
+		this.storeTime = storeTime;
+		this.businessNo = businessNo;
+		this.storePrice = storePrice;
+	}
+	
+	
+	
 	
 	public Application(int appNo, int userNo, String storeType, String storeName, String storeAddress,
 			String storePhone, String storeTime, String businessNo, String storePrice, String appDate, String appYN,
@@ -65,11 +79,11 @@ public class Application {
 		this.typeName = typeName;
 		this.appTypeName = appTypeName;
 	}
-	
-	
-	public Application(int userNo, String storeType, String storeName, String storeAddress, String storePhone, String storeTime,
-			String businessNo, String storePrice) {
+	public Application(int appNo, int userNo, String storeType, String storeName, String storeAddress,
+			String storePhone, String storeTime, String businessNo, String storePrice, String appDate, String appYN,
+			String refuse, String userName, String typeName, String appTypeName, String email) {
 		super();
+		this.appNo = appNo;
 		this.userNo = userNo;
 		this.storeType = storeType;
 		this.storeName = storeName;
@@ -78,6 +92,13 @@ public class Application {
 		this.storeTime = storeTime;
 		this.businessNo = businessNo;
 		this.storePrice = storePrice;
+		this.appDate = appDate;
+		this.appYN = appYN;
+		this.refuse = refuse;
+		this.userName = userName;
+		this.typeName = typeName;
+		this.appTypeName = appTypeName;
+		this.email = email;
 	}
 	public int getAppNo() {
 		return appNo;
@@ -151,27 +172,26 @@ public class Application {
 	public void setRefuse(String refuse) {
 		this.refuse = refuse;
 	}
+	
+	
+	
 	public String getUserName() {
 		return userName;
 	}
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
-	
 	public String getTypeName() {
 		return typeName;
 	}
 	public void setTypeName(String typeName) {
 		this.typeName = typeName;
 	}
-	
 	public String getAppTypeName() {
 		return appTypeName;
 	}
 	public void setAppTypeName(String appTypeName) {
 		this.appTypeName = appTypeName;
-		
-		
 	}
 	public String getEmail() {
 		return email;
@@ -184,8 +204,7 @@ public class Application {
 		return "Application [appNo=" + appNo + ", userNo=" + userNo + ", storeType=" + storeType + ", storeName="
 				+ storeName + ", storeAddress=" + storeAddress + ", storePhone=" + storePhone + ", storeTime="
 				+ storeTime + ", businessNo=" + businessNo + ", storePrice=" + storePrice + ", appDate=" + appDate
-				+ ", appYN=" + appYN + ", refuse=" + refuse + ", userName=" + userName + ", typeName=" + typeName
-				+ ", appTypeName=" + appTypeName + "]";
+				+ ", appYN=" + appYN + ", refuse=" + refuse + "]";
 	}
 	
 	
