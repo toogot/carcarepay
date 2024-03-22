@@ -47,7 +47,7 @@ public class MemberInsertController extends HttpServlet {
 		if(result > 0) {
 			HttpSession session = request.getSession();
 			session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
-			 response.sendRedirect(request.getContextPath());
+			request.getRequestDispatcher("views/member/memberLoginForm.jsp").forward(request, response);
 		}
 	}
 	/**

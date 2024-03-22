@@ -35,7 +35,7 @@ public class NaverLoginMemberController extends HttpServlet {
 		
 		
 			Member loginUser = new MemberService().loginMember(userId, userPwd);
-			System.out.println(request.getParameter("nickname"));
+			
 			if(loginUser == null) {
 				
 		      }else {

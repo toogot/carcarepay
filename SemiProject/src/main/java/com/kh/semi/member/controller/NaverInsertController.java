@@ -40,7 +40,7 @@ public class NaverInsertController extends HttpServlet {
 		String email = request.getParameter("email");
 		String phone = "네이버";
 		String address = "로그인";
-		
+		System.out.println(request.getParameter("nickname"));
 		Member m = new Member(userId, userPwd, userName, email, phone, address);
 		
 		
