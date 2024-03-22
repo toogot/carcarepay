@@ -147,7 +147,7 @@
 			<!-- //네이버 로그인 버튼 노출 영역 -->
 			
 			<br>
-				<button type="submit" id="sbtn">회원가입</button>
+				<button type="submit" id="sbtn" >회원가입</button>
 				<button type="reset">초기화</button>
 			</div>			
 		</form>
