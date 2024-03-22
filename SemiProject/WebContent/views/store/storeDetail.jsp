@@ -2,6 +2,7 @@
 <%@page import="com.kh.semi.store.enrollController.model.vo.AppStoreImage"%>
 <%@page import="com.google.gson.Gson"%> 
 <%@page import="com.kh.semi.store.model.vo.Store"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% Store st = (Store)request.getAttribute("st"); Gson gson = new Gson(); %>
 <% ArrayList<AppStoreImage> list = (ArrayList<AppStoreImage>)request.getAttribute("list"); %>
@@ -21,7 +22,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
     <!-- Proj4 라이브러리를 CDN을 통해 추가 -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.7.5/proj4.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/proj4js/2.6.2/proj4.js"></script>
 
     <style>
       .outer div {
@@ -888,7 +889,7 @@
                 // (가정) fetchGasStations 함수는 유가정보 API를 호출하고 주유소 정보를 반환하는 함수라고 가정
                 
                 console.log(items[0].y, items[0].x);
-                // var gasStations = fetchGasStations(items[0].y, items[0].x); // 주유소 정보 가져오기
+                var gasStations = fetchGasStations(items[0].y, items[0].x); // 주유소 정보 가져오기
                 
 
                 var map2 = new naver.maps.Map('map2', {
@@ -899,7 +900,7 @@
            	   		position: new naver.maps.LatLng(items[0].y, items[0].x),
            	   		map: map2
            			});
-
+                
 
                 
 
@@ -909,11 +910,16 @@
         // WGS84 좌표를 KATEC 좌표로 변환하는 함수
         function convertToKATEC(longitude, latitude) {
         // KATEC 좌표계 정의
-        proj4.defs("EPSG:5181", "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43 +units=m +no_defs");
+        // proj4.defs("EPSG:5181", "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43 +units=m +no_defs");
+        // proj4.defs("EPSG:5181", "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs");
+         proj4.defs("EPSG:5181", "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +towgs84=-146.43,507.89,681.46 +units=m +no_defs");
+        
+
 
         // 변환 로직을 적용하여 KATEC 좌표를 얻는다.
-        let wgs84Coord = [longitude, latitude]; // WGS84 좌표
+        let wgs84Coord = [latitude, longitude]; // WGS84 좌표
         let katecCoord = proj4('EPSG:4326', 'EPSG:5181', wgs84Coord); // WGS84를 KATEC로 변환
+        console.log(katecCoord); // 여기서 무한대가 되네..
         let katecX = katecCoord[0]; // KATEC X 좌표
         let katecY = katecCoord[1]; // KATEC Y 좌표
 
@@ -929,21 +935,25 @@
           let katecY = katecCoord.y;
 
           var apiKey = "F240227050";
-          var baseUrl = 'https://cors.bridged.cc/http://www.opinet.co.kr/api/aroundAll.do';
+          // var baseUrl = 'https://cors.bridged.cc/http://www.opinet.co.kr/api/aroundAll.do';
+          // var baseUrl = 'https://worker-solitary-snowflake-2c07.8q5nxfwfd5.workers.dev/';
+          var baseUrl = 'https://cors-anywhere.herokuapp.com/http://www.opinet.co.kr/api/aroundAll.do';
           var xCoord = katecX;
           var yCoord = katecY;
-          var radius = 50; // 반경 0.5km 내 주유소 탐색
+          var radius = 10000; // 반경 0.5km 내 주유소 탐색
           var prodCode = 'B027'; // 휘발유 제품 코드
           var sort = 1; // 가격순으로 정렬
-  
+          
           // API 호출
           $.ajax({
             url: baseUrl,
             data: {
               code: apiKey,
               out: 'json',
-              x: xCoord,
-              y: yCoord,
+              x: 315535.76499,
+              y: 540150.38545,
+              // x: katecX,
+              // y: katecY,
               radius: radius,
               prodcd: prodCode,
               sort: sort
@@ -960,6 +970,8 @@
             }
           });
         }
+
+        
 
 
         //////////////////////////////////////
