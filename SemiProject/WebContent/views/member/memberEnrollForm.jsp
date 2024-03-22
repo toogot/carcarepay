@@ -104,7 +104,7 @@
 				<tr>
 					<th>비밀번호</th>
 					<td>
-						<input type="password" name="userPwd" id="userPwd" placeholder="8~15글자 영어,숫자,특수문자 포함" required onkeyup="pkd();" >
+						<input type="password" name="userPwd" id="userPwd" placeholder="8~15글자 영어,숫자,특수문자 포함" required onkeyup="pkd();" " >
 						<div id="pkd"></div>
 					</td>
 				</tr>
@@ -147,7 +147,7 @@
 			<!-- //네이버 로그인 버튼 노출 영역 -->
 			
 			<br>
-				<button type="submit" id="sbtn" >회원가입</button>
+				<button type="submit" id="sbtn" onclick="return validatePwd();">회원가입</button>
 				<button type="reset">초기화</button>
 			</div>			
 		</form>
@@ -288,7 +288,8 @@
 			}
 			}
 
-
+			
+                
 
 			
 
@@ -313,7 +314,14 @@
 		}
 		
 		
-		
+		function validatePwd(){
+
+
+ if($("input[name=userPwd]").val() != $("input[name=userPwd2]").val()){
+	 alert("비밀번호가 일치하지 않습니다.");
+	 return false;
+ }
+}
 
 
 	</script>
