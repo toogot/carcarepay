@@ -332,8 +332,8 @@
                                 </th>
                                 <th>
                                     <div>
-                                        <input type="radio" class="payment_radioGR" name="payment_type" id="payment_naverpay">
-                                        <label for="payment_naverpay"><img src="resources/order/ico_naverpay.png" alt="네이버페이"></label>
+                                        <input type="radio" class="payment_radioGR" name="payment_type" id="payment_paycopay">
+                                        <label for="payment_paycopay"><img src="resources/order/ico_payco.png" alt="네이버페이"></label>
                                     </div>
                                 </th>
                                 <th>
@@ -412,8 +412,8 @@
                                 payment_toss(o);
                             	//requestPay();
 
-                            }else if(radioval.id == "payment_naverpay"){ //네이버페이 선택
-                                payment_naverpay(o);
+                            }else if(radioval.id == "payment_paycopay"){ //네이버페이 선택
+                                payment_paycopay(o);
 
                             }else if(radioval.id == "payment_credit_card"){ //신용카드 선택
                                 payment_credit_card(o);
@@ -549,12 +549,116 @@
                     }
                 });
             }
-			
+            
+
+            //------페이코----------
+            function payment_paycopay(o) {
+                let totalPrice = o.totalPrice;
+                let email = o.email;
+                let phone = o.phone;
+                let userName = o.userName;
+                let orderNo = o.orderNo;
+            	
+                IMP.request_pay({
+                    pg : 'payco',
+                    merchant_uid: "IMP"+makeMerchantUid, 
+                    name : '세차 상품권',
+                    amount : totalPrice,
+                    buyer_email : email,
+                    buyer_name : userName,
+                    buyer_tel : phone,
+                    //buyer_addr : ,
+                    //buyer_postcode : '123-456'
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+                        console.log(rsp);
+                        $.ajax({
+                            url: 'kakaopay_successInsert',
+                            data: {
+                                buyer_email:email,
+                                buyer_name:userName,
+                                buyer_tel:phone,
+                                amount: totalPrice,
+                                imp_uid: rsp.imp_uid, // imp_281108801427 이런식으로 출력됨 //포트원 거래고유번호
+                                merchant_uid: rsp.merchant_uid, // IMP1023 이런식으로 출력됨 //가맹점 주문번호
+                                pg_provider : rsp.pg_provider,   // "kakaopay" 출력됨
+                            	orderNo:orderNo
+                            },
+                            type: "POST",
+                            success:function(result){
+                                console.log("성공!!!!페이코페이결제성공")
+                                kakaopay_successUpdate();
+                                
+                            },error:function(){
+                                console.log("ajax 실패 ㅜㅜ")
+                            }
+                    	});
+                        
+                        
+                        
+                    } else {
+                        console.log(rsp);
+                    }
+                });
+            }
+            
+
+            //---------신용카드----------
+            function payment_credit_card(o) {
+            	
+                let totalPrice = o.totalPrice;
+                let email = o.email;
+                let phone = o.phone;
+                let userName = o.userName;
+                let orderNo = o.orderNo;
+                
+                IMP.request_pay({
+                    pg : 'html5_inicis',
+                    pay_method : 'card',
+                    merchant_uid: "IMP"+makeMerchantUid, 
+                    name : '세차상품권',
+                    amount : totalPrice,
+                    //buyer_email : email,
+                    buyer_name : userName,
+                    buyer_tel : phone,
+                   // buyer_addr : '서울특별시 강남구 삼성동',
+                   // buyer_postcode : '123-456'
+                }, function (rsp) { // callback
+                    if (rsp.success) {
+                        console.log(rsp);
+                        $.ajax({
+                            url: 'kakaopay_successInsert',
+                            data: {
+                                buyer_email:email,
+                                buyer_name:userName,
+                                buyer_tel:phone,
+                                amount: totalPrice,
+                                imp_uid: rsp.imp_uid, // imp_281108801427 이런식으로 출력됨 //포트원 거래고유번호
+                                merchant_uid: rsp.merchant_uid, // IMP1023 이런식으로 출력됨 //가맹점 주문번호
+                                pg_provider : rsp.pg_provider,   // "kakaopay" 출력됨
+                            	orderNo:orderNo
+                            },
+                            type: "POST",
+                            success:function(result){
+                                console.log("성공!!!!신용카드결제성공")
+                                kakaopay_successUpdate();
+                                
+                            },error:function(){
+                                console.log("ajax 실패 ㅜㅜ")
+                            }
+                    	});
+                    } else {
+                        console.log(rsp);
+                    }
+                });
+            }
             
             function kakaopay_successUpdate(){
                 location.href = "<%=contextPath%>/ordercomplete"
             }
 
+
+            
             
        
         

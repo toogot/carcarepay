@@ -61,8 +61,6 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>매장이름</th>
-                                            <th>결제수</th>
-                                            <th>매출액</th>
                                             <th>매장유형</th>
                                             <th>매장번호</th>
                                             <th>매장상태</th>
@@ -73,8 +71,6 @@
                                         <tr>
                                             <th>No.</th>
                                             <th>매장이름</th>
-                                            <th>결제수</th>
-                                            <th>매출액</th>
                                             <th>매장유형</th>
                                             <th>매장번호</th>
                                             <th>매장상태</th>
@@ -87,8 +83,6 @@
                                         <tr>
                                             <td><%= s.getStoreNo() %></td>
                                             <td><%= s.getStoreName() %></td>
-                                            <td> </td>
-                                            <td></td>
                                             <td><%= s.getTypeName() %></td>
                                             <td><%= s.getStorePhone() %></td>
                                             <td><%= s.getStoreStatus()%></td>
