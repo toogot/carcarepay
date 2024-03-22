@@ -38,13 +38,13 @@ public class StoreSearchService {
 		return st;
 	}
 	
-	public AppStoreImage selectStoreImg(int storeNo) {
+	public ArrayList<AppStoreImage> selectStoreImg(int storeNo) {
 		Connection conn = getConnection();
-		AppStoreImage asi = new StoreSearchDao().selectStoreImg(conn, storeNo);
+		ArrayList<AppStoreImage> list = new StoreSearchDao().selectStoreImg(conn, storeNo);
 		
 		close(conn);
 		
-		return asi;
+		return list;
 	}
 	
 	

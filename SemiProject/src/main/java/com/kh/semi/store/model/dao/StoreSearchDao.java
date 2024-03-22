@@ -159,9 +159,8 @@ public class StoreSearchDao {
 		
 	}
 	
-	public AppStoreImage selectStoreImg(Connection conn, int storeNo) {
-		
-		AppStoreImage asi = null;
+	public ArrayList<AppStoreImage> selectStoreImg(Connection conn, int storeNo) {
+		ArrayList<AppStoreImage> list = new ArrayList<AppStoreImage>();
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 		String sql = prop.getProperty("selectStoreImg");
@@ -173,11 +172,11 @@ public class StoreSearchDao {
 			rset = pstmt.executeQuery();
 			
 			while(rset.next()) {
-				asi = new AppStoreImage(rset.getInt("img_no"),
-										rset.getString("img_root"),
-						                rset.getString("origin_name"),
-						                rset.getString("change_name")
-						                );
+				list.add(new AppStoreImage(rset.getInt("img_no"),
+										   rset.getString("img_root"),
+						                   rset.getString("origin_name"),
+						                   rset.getString("change_name")
+						                ));
 			}
 			
 		} catch (SQLException e) {
@@ -186,8 +185,7 @@ public class StoreSearchDao {
 			close(rset);
 			close(pstmt);
 		}
-		
-		return asi;
+		return list;
 	}
 	
 	

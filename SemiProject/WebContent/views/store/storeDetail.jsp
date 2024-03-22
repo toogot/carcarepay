@@ -1,9 +1,10 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.kh.semi.store.enrollController.model.vo.AppStoreImage"%>
 <%@page import="com.google.gson.Gson"%> 
 <%@page import="com.kh.semi.store.model.vo.Store"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <% Store st = (Store)request.getAttribute("st"); Gson gson = new Gson(); %>
-<% AppStoreImage asi = (AppStoreImage)request.getAttribute("asi"); %>
+<% ArrayList<AppStoreImage> list = (ArrayList<AppStoreImage>)request.getAttribute("list"); %>
 
 <!DOCTYPE html>
 <html>
@@ -436,14 +437,16 @@
     <div class="outer">
       <div class="store_img">
         <div class="slider">
-          <% for(int i = 0; i <= asi.length; i++) {%>
-          <div class="slide">
-            <img
-              class="stImg"
-              src="resources/appstore/202403200250365011.jpg"
-            />
-          </div>
-          <% }%>
+	          <% for(AppStoreImage asi : list) { %>
+	          <div class="slide">
+	            <img
+	              class="stImg"
+	              src="<%= asi.getImgRoot()%><%= asi.getChangeName() %>"
+	            />
+	          </div>
+	          <% } %>
+          
+          
           
         </div>
       </div>
