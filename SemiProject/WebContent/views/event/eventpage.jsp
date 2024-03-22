@@ -175,23 +175,7 @@ input:checked+label {
 					<%} %>
 					<%} %>
 					</div>
-              <nav aria-label="Page navigation example" class="mt-3">
-                <ul class="pagination justify-content-center">
-                  <li class="page-item <%= pi.getCurrentPage() <= 1 ? "disabled" : "" %>">
-                    <a class="page-link" href="javascript:goList(<%=pi.getCurrentPage() - 1%>)" aria-label="Previous">
-                      <span aria-hidden="true">&laquo;</span>
-                    </a>
-                  </li>
-                  <% for (int i = pi.getStartPage(); i <= pi.getEndPage(); i++) { %>
-                      <li class="page-item <%= pi.getCurrentPage() == i ? "active" : "" %>"><a class="page-link" href="javascript:goList(<%=i%>)"><%=i%></a></li>
-                  <% } %>
-                  <li class="page-item <%= pi.getCurrentPage() >= pi.getMaxPage() ? "disabled" : "" %>">
-                    <a class="page-link" href="javascript:goList(<%=pi.getCurrentPage() + 1%>)" aria-label="Next">
-                      <span aria-hidden="true">&raquo;</span>
-                    </a>
-                  </li>
-                </ul>
-              </nav>
+             
 
 				</section>
 
@@ -218,10 +202,14 @@ input:checked+label {
 					</div>
               <nav aria-label="Page navigation example" class="mt-3">
                 <ul class="pagination justify-content-center">
+                
+                  
                   <li class="page-item <%= piFin.getCurrentPage() <= 1 ? "disabled" : "" %>">
                     <a class="page-link" href="javascript:goList2(<%=piFin.getCurrentPage() - 1%>)" aria-label="Previous">
                       <span aria-hidden="true">&laquo;</span>
                     </a>
+                    
+                    
                   </li>
                   <% for (int i = piFin.getStartPage(); i <= piFin.getEndPage(); i++) { %>
                       <li class="page-item <%= piFin.getCurrentPage() == i ? "active" : "" %>"><a class="page-link" href="javascript:goList2(<%=i%>)"><%=i%></a></li>
