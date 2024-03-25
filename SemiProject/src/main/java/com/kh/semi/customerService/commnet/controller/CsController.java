@@ -264,6 +264,7 @@ public class CsController extends HttpServlet {
     request.setAttribute("pageNo", page);
     request.setAttribute("cgNo", cgNo);
     request.setAttribute("categoryList", categoryList);
+    
     request.getRequestDispatcher("views/customerService/comment/csform.jsp").forward(request, response);
   }
 
@@ -279,7 +280,7 @@ public class CsController extends HttpServlet {
       }
     }
     request.setAttribute("cs", cs);
-    request.getRequestDispatcher("views/customerService/comment/csView.jsp").forward(request, response);
+    request.getRequestDispatcher("views/customerService/comment/csView.jsp?page=1&cgNo=3").forward(request, response);
   }
 
   private void download(HttpServletRequest request, HttpServletResponse response)
