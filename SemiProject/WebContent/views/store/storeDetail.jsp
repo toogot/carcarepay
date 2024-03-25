@@ -944,10 +944,10 @@
           let katecY = katecCoord.y;
 
           var apiKey = "F240227050";
-           var baseUrl = 'https://cors.bridged.cc/http://www.opinet.co.kr/api/aroundAll.do';
+          // var baseUrl = 'https://cors.bridged.cc/http://www.opinet.co.kr/api/aroundAll.do';
           // var baseUrl = 'https://worker-solitary-snowflake-2c07.8q5nxfwfd5.workers.dev/';
           // var baseUrl = 'https://cors-anywhere.herokuapp.com/http://www.opinet.co.kr/api/aroundAll.do';
-          // var baseUrl = 'https://thingproxy.freeboard.io/fetch/http://www.opinet.co.kr/api/aroundAll.do';
+           var baseUrl = 'https://thingproxy.freeboard.io/fetch/http://www.opinet.co.kr/api/aroundAll.do';
           // var baseUrl = 'http://anyorigin.com/go?url=http://www.opinet.co.kr/api/aroundAll.do';
           // var baseUrl = 'https://api.allorigins.win/raw?url=http://www.opinet.co.kr/api/aroundAll.do';
           var xCoord = katecX;
