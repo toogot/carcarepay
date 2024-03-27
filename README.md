@@ -1,6 +1,6 @@
 # carcarepay
 
-Untitled (3).png
+
 
 팀이름 -카케어페이
 팀구성 -조장(양동건)
