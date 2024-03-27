@@ -1,4 +1,4 @@
-#carcarepay
+# carcarepay
 
 개요 
 지금까지 세차장마다 다른 결제기준으로 불편함이 있었지만,
