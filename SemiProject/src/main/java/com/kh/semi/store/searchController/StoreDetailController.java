@@ -37,7 +37,6 @@ public class StoreDetailController extends HttpServlet {
 		Store st = new StoreSearchService().selectStoreDetail(storeNo);
 		
 		ArrayList<AppStoreImage> list = new StoreSearchService().selectStoreImg(storeNo);
-		System.out.println(list);
 		
 		if(st != null) {
 			request.setAttribute("st", st);

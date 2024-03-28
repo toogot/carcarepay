@@ -149,7 +149,7 @@ pageEncoding="UTF-8"%>
               "-" +
               String(date.getMonth() + 1).padStart(2, "0") +
               "-" +
-              String(date.getDay() + 17).padStart(2, "0") +
+              String(date.getDay() + 24).padStart(2, "0") +
               " / " +
               String(date.getHours()).padStart(2, "0") +
               "시 " +
