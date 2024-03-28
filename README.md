@@ -16,7 +16,22 @@
 + 이한기 - 매장찾기 상세, 리뷰등록 및 확인, 즐겨찾기, 유가정보확인
 + 신동재 - 로그인, 회원가입, 마이페이지
 ----------------------------
-# 지원창구
+# 🖥 개발환경
+ + ### Front - end
+   JavaScript, jQuery, HTML5, CSS3, Ajax
+ + ### Back - end
+   Java, JSP&Servlet, MyBatis
+ + ### Framework/Library
+   Bootstrap DB Oracle
+ + ### Tool
+   Eclipse, Visual studio Code
+ + ### Environment
+   Window 10, Tomcat
+ + ### Collaboration
+   GitHub
+  
+
+
 
 ----------------------------
 
