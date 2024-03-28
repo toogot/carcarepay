@@ -426,10 +426,54 @@
         } 
       }
 
-      /* .mapDiv{
-        border: 1px solid blue;
+      .mapPin{
+        border: 1px solid rgb(135, 206, 250);
         border-radius: 10px;
-      } */
+        padding: 10px 10px;
+      }
+
+      .pinStoreName{
+        color: rgb(135, 206, 250);
+      }
+
+      /* 모달창 스타일 */
+.modal {
+  display: none; /* 기본적으로 보이지 않도록 설정 */
+  position: fixed; /* 스크롤해도 같은 위치에 있도록 설정 */
+  z-index: 1; /* 다른 요소들 위에 위치하도록 설정 */
+  left: 0;
+  top: 0;
+  width: 100%; /* 전체 너비 */
+  height: 100%; /* 전체 높이 */
+  overflow: auto; /* 내부 컨텐츠가 넘칠 경우 스크롤 생성 */
+  background-color: rgb(0,0,0); /* 배경색 */
+  background-color: rgba(0,0,0,0.4); /* 약간의 투명도 추가 */
+}
+
+/* 모달 컨텐츠 스타일 */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto; /* 페이지 중앙에 위치 */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* 너비 */
+}
+
+/* 닫기 버튼 스타일 */
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+      
     </style>
     <!-- <link rel="stylesheet" href="styles.css" /> -->
   </head>
@@ -689,6 +733,14 @@
         </div>
       </div>
     </div>
+
+    <div id="myModal" class="modal">
+      <!-- 모달 컨텐츠 -->
+      <div class="modal-content">
+        <span class="close">&times;</span>
+        <div id="modalMap" style="width: 100%; height: 400px;"></div> <!-- 모달 안의 지도를 위한 div -->
+      </div>
+    </div>
 	
     <%@ include file="/views/common/footer.jsp"%>
 
@@ -826,10 +878,6 @@
 
               <% } %>
 
-
-
-
-
            		/////////////////////////////
            		////////// MAP API //////////
            		/////////////////////////////
@@ -842,10 +890,7 @@
 
            			var result = response.v2, // 검색 결과의 컨테이너
            				items = result.addresses; // 검색 결과의 배열
-                  //  console.log(items);
-                  //  console.log(result);
-           		// 성공 시의 response 처리
-           		// do Something
+
            			var map = new naver.maps.Map('map', {
            			center: new naver.maps.LatLng(items[0].y, items[0].x),
            			zoom: 16
@@ -858,7 +903,7 @@
                  var contentString = [
                     '<div>',
                     '   <h4>' + '<%= st.getStoreName() %>' +'</h4>',
-                    '   <h6>' + '<%= st.getStoreAddress() %>' +'</h6>',
+                    '   <p>' + '<%= st.getStoreAddress() %>' +'</p>',
                     '</div>'
                 ].join('');
                       
@@ -875,7 +920,6 @@
                     pixelOffset: new naver.maps.Point(20, -20)
                 });
                 
-
                 naver.maps.Event.addListener(marker, "click", function(e) {
                     if (infowindow.getMap()) {
                         infowindow.close();
@@ -883,10 +927,6 @@
                         infowindow.open(map, marker);
                     }
                 });
-
-
-                // 유가정보 API를 사용하여 주변 주유소의 정보를 가져와 지도에 표시
-                // (가정) fetchGasStations 함수는 유가정보 API를 호출하고 주유소 정보를 반환하는 함수라고 가정
                 
                 console.log(items[0].y, items[0].x);
                 
@@ -895,12 +935,9 @@
                   zoom: 16
                 });
 
-                
-                
                 naver.maps.Event.addListener(map2, 'init', function() {
                     fetchGasStations(items[0].y, items[0].x, map2);
                 });
-
 
            			var marker2 = new naver.maps.Marker({
            	   		position: new naver.maps.LatLng(items[0].y, items[0].x),
@@ -908,13 +945,9 @@
            			});
               });
               
-
-		
         // WGS84 좌표를 KATEC 좌표로 변환하는 함수
         function convertToKATEC(longitude, latitude) {
           // KATEC 좌표계 정의
-          // proj4.defs("EPSG:5181", "+proj=tmerc +lat_0=38 +lon_0=127.5 +k=0.9996 +x_0=1000000 +y_0=2000000 +ellps=bessel +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43 +units=m +no_defs");
-          // proj4.defs("EPSG:5181", "+proj=tmerc +lat_0=38 +lon_0=127 +k=1 +x_0=200000 +y_0=500000 +ellps=GRS80 +units=m +no_defs");
           proj4.defs("EPSG:5179", "++proj=tmerc +lat_0=38 +lon_0=128 +k=0.9999 +x_0=400000 +y_0=600000 +ellps=bessel +units=m +no_defs +towgs84=-115.80,474.99,674.11,1.16,-2.31,-1.63,6.43");
           // 변환 로직을 적용하여 KATEC 좌표를 얻는다.
           let wgs84Coord = [latitude, longitude]; // WGS84 좌표
@@ -945,11 +978,9 @@
 
           var apiKey = "F240227050";
           // var baseUrl = 'https://cors.bridged.cc/http://www.opinet.co.kr/api/aroundAll.do';
-          // var baseUrl = 'https://worker-solitary-snowflake-2c07.8q5nxfwfd5.workers.dev/';
           // var baseUrl = 'https://cors-anywhere.herokuapp.com/http://www.opinet.co.kr/api/aroundAll.do';
            var baseUrl = 'https://thingproxy.freeboard.io/fetch/http://www.opinet.co.kr/api/aroundAll.do';
           // var baseUrl = 'http://anyorigin.com/go?url=http://www.opinet.co.kr/api/aroundAll.do';
-          // var baseUrl = 'https://api.allorigins.win/raw?url=http://www.opinet.co.kr/api/aroundAll.do';
           var xCoord = katecX;
           var yCoord = katecY;
           var radius = 3000; // 반경 0.5km 내 주유소 탐색
@@ -996,13 +1027,14 @@
                 console.log(station.PRICE);
                 //인포 윈도우 내용 설정
                 let contentString2 = 
-                  '<div>' + '<h5>' + station.OS_NM + '</h5>' +
+                  '<div class="mapPin">' + '<h6 class="pinStoreName">' + station.OS_NM + '</h6>' +
                   '<p>가격: ' + station.PRICE + '원</p>' + 
                   '</div>';
 
                 // 인포 윈도우 생성
                 let infowindow2 = new naver.maps.InfoWindow({
-                  content: contentString2
+                  content: contentString2,
+                  borderWidth: 0
                 });
 
                 // 마커에 호버 이벤트 추가하여 인포 윈도우 표시
@@ -1024,42 +1056,7 @@
           });
          }
 
-        
-
-
-        //////////////////////////////////////
-        ////////// 유가 정보 API /////////////
-        /////////////////////////////////////
-        //jQuery를 사용하여 opinet의 유가정보 API를 호출하는 예제
-        
-        
-        
-
-
-
-
-
-
-
-
-
-        // wgs84 좌표를 katec 좌표로 변환
-        // function convertCoordinates(longitude, latitude) {
-        // let wgs84Coord = [longitude, latitude]; // WGS84 좌표
-        // let katecCoord = proj4('EPSG:4326', 'EPSG:5181', wgs84Coord); // WGS84를 KATEC로 변환
-        // let x = katecCoord[0]; // KATEC X 좌표
-        // let y = katecCoord[1]; // KATEC Y 좌표
-        // console.log("변환된 좌표: ", x, y);
-
-        // KATEC 좌표를 다시 WGS84로 역변환
-    //     let reverseWgs84Coord = proj4('EPSG:5181', 'EPSG:4326', katecCoord);
-    //     let reverseLongitude = reverseWgs84Coord[0]; // 역변환된 경도
-    //     let reverseLatitude = reverseWgs84Coord[1]; // 역변환된 위도
-    //     console.log("역변환된 좌표: ", reverseLongitude, reverseLatitude);
-    // }
-          
-        
-
+      
 
         //////////////////////////////////////////
         //////////// ajax 리뷰 insert ////////////
