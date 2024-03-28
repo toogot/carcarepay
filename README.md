@@ -39,6 +39,7 @@
 
 # 🚩 DB Script
 <https://www.notion.so/DB-382251d97dc042d5be5a34c5d74eb82c?pvs=4#ed99722292324689bdefbc09a185c6d8>
+
 <https://www.notion.so/DB-382251d97dc042d5be5a34c5d74eb82c?pvs=4#7871b42d1ee242ceb2b07a4420186108>
 
 ----------------------------
