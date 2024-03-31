@@ -7,11 +7,13 @@
 <title>Insert title here</title>
 <style>
 	.enroll-wrap{
-		width: 1800px;
-		height: 1000px;
-		border: 1px solid red;
+		background-color: #87CEFA;
+		width: 1000px;
+		height: 700px;
 		margin: auto;
+		
 	}
+	
 
 </style>
 </head>
@@ -19,7 +21,10 @@
 	<%@include file="../common/head.jsp" %>
 	<div class="enroll-wrap">
 
+		<form action="#" id="enroll-form">
 
+
+		</form>
 
 
 
