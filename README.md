@@ -40,7 +40,8 @@
 
 # 👨‍👩‍👧‍👦 주요기능
 + ##### 👨양동건 - 조장, 메인페이지, 매장찾기, 입점신청
-![메인화면](https://github.com/toogot/carcarepay/assets/151509533/b669ad4a-38cb-4491-8baf-f6c6e91636f6)
+  
+![카케어메인화면](https://github.com/toogot/carcarepay/assets/151509533/baa16b43-0748-486f-9fe0-4a666877b775)
 + ##### 메인페이지 (페이지 이동 버튼, 날씨 API)
   
 ![카케어입점](https://github.com/toogot/carcarepay/assets/151509533/7123d878-c0b4-4fbb-8bb3-7043ecc16dd5)
