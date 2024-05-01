@@ -42,14 +42,28 @@
 + ##### 👨양동건 - 조장, 메인페이지, 매장찾기, 입점신청
 ![메인화면](https://github.com/toogot/carcarepay/assets/151509533/b669ad4a-38cb-4491-8baf-f6c6e91636f6)
 + ##### 메인페이지 (페이지 이동 버튼, 날씨 API)
+  
+![카케어입점](https://github.com/toogot/carcarepay/assets/151509533/7123d878-c0b4-4fbb-8bb3-7043ecc16dd5)
++ ##### 입점신청 (로그인한 유저가 등록 가능)
 
+
+![카케어지도](https://github.com/toogot/carcarepay/assets/151509533/6435186e-3a7e-482b-a42f-1b25824e34e9)
++ ##### 매장찾기 (지도상에 위치 표시 - 우측 리스트에 있는 매장 주소)
+
+
+![카케어지도핀표시](https://github.com/toogot/carcarepay/assets/151509533/cd85a89a-1b5b-46e8-aee6-791a7a29520b)
++ ##### 매장찾기 (우측 리스트 클릭시 해당 매장 주소의 표시만 확대)
+
+
+![카케어지도검색](https://github.com/toogot/carcarepay/assets/151509533/b7a5e580-0c30-451f-97ee-178eac481771)
++ ##### 매장찾기 (검색을 통해 리스트에 주소, 상호명으로 검색가능)
 
 ----------------------------
 
 # 느낀점
 
 + ##### 👨양동건
-
+ 
 
 
 + ##### 👩윤석화 
