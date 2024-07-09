@@ -58,10 +58,13 @@
 
 + ##### 금액권 선택
 ![Honeycam 2024-07-09 17-15-32](https://github.com/toogot/carcarepay/assets/151509975/ad096692-3ec6-4d90-8b74-74761f684e59)
-+ ##### 금액 직접 입력시 금액 실시간으로 변경
-+ ![Honeycam 2024-07-09 19-56-12](https://github.com/toogot/carcarepay/assets/151509975/62cf3f7b-5830-4607-ad8c-4c95afd287df)
+
++ ##### 금액 직접 입력시 금액 실시간으로 변경 및 구매 수량에 따른 금액 변경
++ ![Honeycam 2024-07-09 20-15-44](https://github.com/toogot/carcarepay/assets/151509975/e7321adb-32fe-4ecc-abb1-ae84ba778108)
+
 + ##### 금액 직접 입력시 1000원 이상 구매, 100원단위로 구매
-+ 
++ ![Honeycam 2024-07-09 20-13-19](https://github.com/toogot/carcarepay/assets/151509975/c3e97874-f7d7-44ba-9b18-ccb68a88d91c)
+
 ----------------------------
 
 # 느낀점
