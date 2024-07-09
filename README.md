@@ -65,6 +65,9 @@
 + ##### 금액 직접 입력시 1000원 이상 구매, 100원단위로 구매
 + ![Honeycam 2024-07-09 20-13-19](https://github.com/toogot/carcarepay/assets/151509975/c3e97874-f7d7-44ba-9b18-ccb68a88d91c)
 
++ ##### 버튼 클릭시 스크롤 이동
+![Honeycam 2024-07-09 20-33-00](https://github.com/toogot/carcarepay/assets/151509975/e878ff82-1b1c-4c51-9ee0-23df767d22db)
+
 ----------------------------
 
 # 느낀점
