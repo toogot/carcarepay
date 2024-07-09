@@ -68,6 +68,16 @@
 + ##### 버튼 클릭시 스크롤 이동
 ![Honeycam 2024-07-09 20-33-00](https://github.com/toogot/carcarepay/assets/151509975/e878ff82-1b1c-4c51-9ee0-23df767d22db)
 
++ ##### 버튼 클릭시 페이지 이동
++ ![Honeycam 2024-07-09 20-57-07](https://github.com/toogot/carcarepay/assets/151509975/94e9a8eb-e57b-4d79-b72d-693ab2be4e03)
+
++ ##### 충전하기 버튼 클릭시 구매 페이지 이동
++ ![Honeycam 2024-07-09 21-16-18](https://github.com/toogot/carcarepay/assets/151509975/84bc2ed0-59a8-46d2-bf3b-1e0611c51c75)
++ 
++ ##### 선물하기 버튼 클릭시 선물 페이지 이동
+![Honeycam 2024-07-09 21-17-22](https://github.com/toogot/carcarepay/assets/151509975/eef518e9-464a-493b-bcda-cc0927324d47)
+
+
 ----------------------------
 
 # 느낀점
