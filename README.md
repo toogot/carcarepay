@@ -123,9 +123,17 @@
 + ##### 매장 수정
 ![매장수정](https://github.com/toogot/carcarepay/assets/151509975/10849010-8df8-4e4e-b5dc-090c6215d0d1)
 
++ ##### 회원 상세조회
+![회원상세조회](https://github.com/toogot/carcarepay/assets/151509975/b0bb114d-976d-4563-9ae6-e537fb89f746)
 
++ ##### 회원정보 수정
+![회원정보수정](https://github.com/toogot/carcarepay/assets/151509975/485556e4-5a8d-404f-82a1-d3470d43d40b)
 
++ ##### 결제내역 상세조회
+![결제상세조회](https://github.com/toogot/carcarepay/assets/151509975/6c56ec94-33dd-4e45-b219-fcf63ac31144)
 
++ ##### 대시보드 페이지이동
+![페이지이동](https://github.com/toogot/carcarepay/assets/151509975/0214c1fc-456c-406c-a0c3-d50ec053fec0)
 
 
 
