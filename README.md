@@ -102,6 +102,10 @@
 + ##### 일주일 결제 그래프
 ![결제그래프](https://github.com/toogot/carcarepay/assets/151509975/e89effd2-8d09-4154-a477-cae414ea6e3d)
 
++ ##### 입점신청 승인
+![승인](https://github.com/toogot/carcarepay/assets/151509975/174b255f-cc4e-4954-9455-287915bf6b3c)
+
+
 
 
 
