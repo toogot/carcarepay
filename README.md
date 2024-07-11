@@ -114,6 +114,10 @@
 + ##### 사진 원본보기
 ![사진원본보기](https://github.com/toogot/carcarepay/assets/151509975/7d5a7a5e-9072-42c2-81ae-960d47e49a78)
 
++ ##### 이미 승인 및 거절된 매장일시 안내창
+![이미승인거절](https://github.com/toogot/carcarepay/assets/151509975/4b4ff10f-09ca-4b42-9141-4b0d95a78dd2)
+
+
 
 
 
