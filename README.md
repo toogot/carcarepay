@@ -111,6 +111,10 @@
 + ##### 입점신청 거절사유 수정
 ![입점거절사유수정](https://github.com/toogot/carcarepay/assets/151509975/4b229532-d772-4d7e-9663-c969ea4019d7)
 
++ ##### 사진 원본보기
+![사진원본보기](https://github.com/toogot/carcarepay/assets/151509975/7d5a7a5e-9072-42c2-81ae-960d47e49a78)
+
+
 
 
 
