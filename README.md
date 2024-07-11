@@ -94,7 +94,8 @@
 ![신용카드결제2](https://github.com/toogot/carcarepay/assets/151509975/ea607fd2-e83d-4229-9102-6fe4b183c626)
 
 + ##### 잔액 실시간 업데이트
-![결제금액업데이트](https://github.com/toogot/carcarepay/assets/151509975/95b72e5a-9794-439b-ad1f-4277a294b819)
+![잔액실시간업데이트](https://github.com/toogot/carcarepay/assets/151509975/c76a4800-49a6-4ff7-94ae-e52a98c367d5)
+
 
 
 
