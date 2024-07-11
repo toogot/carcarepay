@@ -60,22 +60,26 @@
 ![Honeycam 2024-07-09 17-15-32](https://github.com/toogot/carcarepay/assets/151509975/ad096692-3ec6-4d90-8b74-74761f684e59)
 
 + ##### 금액 직접 입력시 금액 실시간으로 변경 및 구매 수량에 따른 금액 변경
-+ ![Honeycam 2024-07-09 20-15-44](https://github.com/toogot/carcarepay/assets/151509975/e7321adb-32fe-4ecc-abb1-ae84ba778108)
+![Honeycam 2024-07-09 20-15-44](https://github.com/toogot/carcarepay/assets/151509975/e7321adb-32fe-4ecc-abb1-ae84ba778108)
 
 + ##### 금액 직접 입력시 1000원 이상 구매, 100원단위로 구매
-+ ![Honeycam 2024-07-09 20-13-19](https://github.com/toogot/carcarepay/assets/151509975/c3e97874-f7d7-44ba-9b18-ccb68a88d91c)
+![Honeycam 2024-07-09 20-13-19](https://github.com/toogot/carcarepay/assets/151509975/c3e97874-f7d7-44ba-9b18-ccb68a88d91c)
 
 + ##### 버튼 클릭시 스크롤 이동
 ![Honeycam 2024-07-09 20-33-00](https://github.com/toogot/carcarepay/assets/151509975/e878ff82-1b1c-4c51-9ee0-23df767d22db)
 
 + ##### 버튼 클릭시 페이지 이동
-+ ![Honeycam 2024-07-09 20-57-07](https://github.com/toogot/carcarepay/assets/151509975/94e9a8eb-e57b-4d79-b72d-693ab2be4e03)
+![Honeycam 2024-07-09 20-57-07](https://github.com/toogot/carcarepay/assets/151509975/94e9a8eb-e57b-4d79-b72d-693ab2be4e03)
 
 + ##### 충전하기 버튼 클릭시 구매 페이지 이동
-+ ![Honeycam 2024-07-09 21-16-18](https://github.com/toogot/carcarepay/assets/151509975/84bc2ed0-59a8-46d2-bf3b-1e0611c51c75)
-+ 
+![Honeycam 2024-07-09 21-16-18](https://github.com/toogot/carcarepay/assets/151509975/84bc2ed0-59a8-46d2-bf3b-1e0611c51c75)
+  
 + ##### 선물하기 버튼 클릭시 선물 페이지 이동
 ![Honeycam 2024-07-09 21-17-22](https://github.com/toogot/carcarepay/assets/151509975/eef518e9-464a-493b-bcda-cc0927324d47)
+
++ ##### 카카오페이 결제
+![카카오결제](https://github.com/toogot/carcarepay/assets/151509975/d4c7b924-f7cb-4656-825e-110f6cc2a691)
+![카카오결제2](https://github.com/toogot/carcarepay/assets/151509975/b8ec01cb-7f0f-422e-a497-252859030227)
 
 
 ----------------------------
