@@ -117,6 +117,11 @@
 + ##### 이미 승인 및 거절된 매장일시 안내창
 ![이미승인거절](https://github.com/toogot/carcarepay/assets/151509975/4b4ff10f-09ca-4b42-9141-4b0d95a78dd2)
 
++ ##### 매장 상세조회
+![매장상세보기](https://github.com/toogot/carcarepay/assets/151509975/78f40435-a7e9-48bf-bfba-d7e748504f2b)
+
++ ##### 매장 수정
+![매장수정](https://github.com/toogot/carcarepay/assets/151509975/10849010-8df8-4e4e-b5dc-090c6215d0d1)
 
 
 
