@@ -96,9 +96,12 @@
 + ##### 잔액 실시간 업데이트
 ![잔액실시간업데이트](https://github.com/toogot/carcarepay/assets/151509975/c76a4800-49a6-4ff7-94ae-e52a98c367d5)
 
-
 + ##### 관리자 외 회원이 관리자페이지에 접근할경우 홈으로 유도
 ![Honeycam 2024-07-11 20-55-05](https://github.com/toogot/carcarepay/assets/151509975/5850b174-fc89-4394-b309-d3219fc7f8f2)
+
++ ##### 일주일 결제 그래프
+![결제그래프](https://github.com/toogot/carcarepay/assets/151509975/e89effd2-8d09-4154-a477-cae414ea6e3d)
+
 
 
 
