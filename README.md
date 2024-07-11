@@ -97,6 +97,10 @@
 ![잔액실시간업데이트](https://github.com/toogot/carcarepay/assets/151509975/c76a4800-49a6-4ff7-94ae-e52a98c367d5)
 
 
++ ##### 관리자 외 회원이 관리자페이지에 접근할경우 홈으로 유도
+![Honeycam 2024-07-09 21-17-22](https://github.com/toogot/carcarepay/assets/151509975/65e1d4d0-c752-4dc8-996e-2fd2ba0ca8c3)
+
+
 
 
 
