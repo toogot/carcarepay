@@ -103,7 +103,7 @@
 ![결제그래프](https://github.com/toogot/carcarepay/assets/151509975/e89effd2-8d09-4154-a477-cae414ea6e3d)
 
 + ##### 입점신청 승인
-![승인](https://github.com/toogot/carcarepay/assets/151509975/174b255f-cc4e-4954-9455-287915bf6b3c
+![승인](https://github.com/toogot/carcarepay/assets/151509975/174b255f-cc4e-4954-9455-287915bf6b3c)
 
 + ##### 입점신청 거절
 ![입점거절](https://github.com/toogot/carcarepay/assets/151509975/6cc9fe42-5d12-46ad-889c-9c2541bb7411)
